@@ -1,0 +1,174 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ScopeType {
+  SELF
+  TEAM
+  DEPARTMENT
+  DEPARTMENT_SUBTREE
+  RELATED_DEPARTMENTS
+  ORG_WIDE
+}
+
+enum DepartmentRelationType {
+  SUPPORTS
+  COLLABORATES
+  AUDITS
+  SERVES
+}
+
+model Department {
+  id       String  @id @default(uuid())
+  name     String
+  parentId String?
+
+  parent   Department?  @relation("DepartmentHierarchy", fields: [parentId], references: [id])
+  children Department[] @relation("DepartmentHierarchy")
+
+  users             User[]
+  outgoingRelations DepartmentRelation[] @relation("FromDepartment")
+  incomingRelations DepartmentRelation[] @relation("ToDepartment")
+
+  createdAt DateTime @default(now())
+}
+
+model DepartmentRelation {
+  id               String                 @id @default(uuid())
+  fromDepartmentId String
+  toDepartmentId   String
+  type             DepartmentRelationType
+
+  fromDepartment Department @relation("FromDepartment", fields: [fromDepartmentId], references: [id])
+  toDepartment   Department @relation("ToDepartment", fields: [toDepartmentId], references: [id])
+
+  @@unique([fromDepartmentId, toDepartmentId, type])
+}
+
+model User {
+  id           String  @id @default(uuid())
+  phoneNumber  String  @unique
+  name         String
+  departmentId String
+  managerId    String?
+  refreshToken String?
+
+  department   Department      @relation(fields: [departmentId], references: [id])
+  manager      User?           @relation("UserHierarchy", fields: [managerId], references: [id])
+  subordinates User[]          @relation("UserHierarchy")
+  roles        UserRole[]
+  submissions  FormSubmission[]
+
+  createdAt DateTime @default(now())
+}
+
+model Role {
+  id   String @id @default(uuid())
+  name String @unique
+
+  permissions RolePermission[]
+  users       UserRole[]
+}
+
+model Permission {
+  id       String @id @default(uuid())
+  action   String
+  resource String
+
+  roles RolePermission[]
+
+  @@unique([action, resource])
+}
+
+model UserRole {
+  userId String
+  roleId String
+
+  user User @relation(fields: [userId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  id           String                  @id @default(uuid())
+  roleId       String
+  permissionId String
+  scope        ScopeType
+  relationType DepartmentRelationType?
+  constraints  Json?
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@unique([roleId, permissionId])
+}
+
+// ─── Forms & Analytics ────────────────────────────────────────
+
+model Form {
+  id          String  @id @default(uuid())
+  ownerId     String
+  name        String
+  description String?
+  schema      Json
+  version     Int     @default(1)
+  isActive    Boolean @default(true)
+
+  submissions FormSubmission[]
+  stats       FormStat[]
+  analysis    FormAnalysis[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FormSubmission {
+  id          String  @id @default(uuid())
+  formId      String
+  formVersion Int
+  userId      String?
+  data        Json
+
+  form Form  @relation(fields: [formId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model FormStat {
+  id      String @id @default(uuid())
+  formId  String
+  fieldId String
+  metric  String
+  value   Json
+
+  form Form @relation(fields: [formId], references: [id])
+
+  updatedAt DateTime @updatedAt
+
+  @@unique([formId, fieldId, metric])
+}
+
+model FormAnalysis {
+  id      String  @id @default(uuid())
+  formId  String
+  fieldId String?
+  metric  String
+  value   Json
+  source  String  @default("analytics-worker")
+
+  form Form @relation(fields: [formId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([formId, fieldId, metric])
+  @@index([formId])
+}
