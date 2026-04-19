@@ -54,7 +54,7 @@ FROM node:22-alpine AS dev
 
 WORKDIR /usr/src/app
 
-COPY .npmrc ./
+# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN npm ci 
 # RUN npm ci --registry=https://package-mirror.liara.ir/repository/npm/
@@ -71,7 +71,7 @@ FROM node:22-alpine AS build
 
 WORKDIR /usr/src/app
 
-COPY .npmrc ./
+# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN npm ci 
 # RUN npm ci --registry=https://package-mirror.liara.ir/repository/npm/

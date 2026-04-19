@@ -55,7 +55,7 @@ FROM node:22-alpine AS dev
 
 WORKDIR /usr/src/app
 
-COPY .npmrc ./
+# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci
 # RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --registry=https://package-mirror.liara.ir/repository/npm/
@@ -73,7 +73,7 @@ FROM node:22-alpine AS build
 
 WORKDIR /usr/src/app
 
-COPY .npmrc ./
+# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci
 # RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --registry=https://package-mirror.liara.ir/repository/npm/
@@ -91,7 +91,7 @@ WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
-COPY .npmrc ./
+# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --omit=dev
 # RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --registry=https://package-mirror.liara.ir/repository/npm/ --omit=dev
