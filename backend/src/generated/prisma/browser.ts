@@ -72,3 +72,13 @@ export type FormStat = Prisma.FormStatModel
  * 
  */
 export type FormAnalysis = Prisma.FormAnalysisModel
+/**
+ * Model UserInfo
+ * 
+ */
+export type UserInfo = Prisma.UserInfoModel
+/**
+ * Model Relative
+ * 
+ */
+export type Relative = Prisma.RelativeModel

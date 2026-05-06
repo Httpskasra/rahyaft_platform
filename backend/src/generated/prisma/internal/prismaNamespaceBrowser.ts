@@ -61,7 +61,9 @@ export const ModelName = {
   Form: 'Form',
   FormSubmission: 'FormSubmission',
   FormStat: 'FormStat',
-  FormAnalysis: 'FormAnalysis'
+  FormAnalysis: 'FormAnalysis',
+  UserInfo: 'UserInfo',
+  Relative: 'Relative'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -201,6 +203,40 @@ export const FormAnalysisScalarFieldEnum = {
 } as const
 
 export type FormAnalysisScalarFieldEnum = (typeof FormAnalysisScalarFieldEnum)[keyof typeof FormAnalysisScalarFieldEnum]
+
+
+export const UserInfoScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fatherName: 'fatherName',
+  birthDate: 'birthDate',
+  nationalCode: 'nationalCode',
+  birthPlace: 'birthPlace',
+  residence: 'residence',
+  mobile: 'mobile',
+  homePhone: 'homePhone',
+  degree: 'degree',
+  university: 'university',
+  graduateYear: 'graduateYear',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserInfoScalarFieldEnum = (typeof UserInfoScalarFieldEnum)[keyof typeof UserInfoScalarFieldEnum]
+
+
+export const RelativeScalarFieldEnum = {
+  id: 'id',
+  userInfoId: 'userInfoId',
+  name: 'name',
+  relation: 'relation',
+  address: 'address',
+  phone: 'phone'
+} as const
+
+export type RelativeScalarFieldEnum = (typeof RelativeScalarFieldEnum)[keyof typeof RelativeScalarFieldEnum]
 
 
 export const SortOrder = {
