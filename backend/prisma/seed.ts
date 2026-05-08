@@ -40,8 +40,8 @@ async function main() {
   });
 
   // 4. Create permissions for all actions + resources
-  const actions = ['create', 'read', 'update', 'delete'];
-  const resources = ['users', 'roles', 'departments','forms','form-submissions'];
+  const actions = ['create', 'read', 'update', 'delete','approve'];
+  const resources = ['users', 'roles', 'departments','forms','form-submissions','approvals'];
 
   for (const action of actions) {
     for (const resource of resources) {

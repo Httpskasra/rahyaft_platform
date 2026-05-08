@@ -66,6 +66,8 @@ model User {
   submissions  FormSubmission[]
 
   createdAt DateTime @default(now())
+
+  approvalActions ApprovalAction[]
 }
 
 model Role {
@@ -74,6 +76,8 @@ model Role {
 
   permissions RolePermission[]
   users       UserRole[]
+
+  approvalSteps ApprovalStep[]
 }
 
 model Permission {
@@ -127,6 +131,8 @@ model Form {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  approvalPolicies ApprovalPolicy[]
 }
 
 model FormSubmission {
@@ -140,6 +146,8 @@ model FormSubmission {
   user User? @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
+
+  approvalInstances ApprovalInstance[]
 }
 
 model FormStat {
@@ -171,4 +179,59 @@ model FormAnalysis {
 
   @@unique([formId, fieldId, metric])
   @@index([formId])
+}
+// ─── Approval Workflow ────────────────────────────────────────
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model ApprovalPolicy {
+  id        String   @id @default(uuid())
+  formId    String   @unique
+  form      Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  steps ApprovalStep[]
+}
+
+model ApprovalStep {
+  id        String         @id @default(uuid())
+  policyId  String
+  policy    ApprovalPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  stepOrder Int
+  roleId    String
+  role      Role           @relation(fields: [roleId], references: [id])
+  createdAt DateTime       @default(now())
+
+  @@unique([policyId, stepOrder])
+  approvalActions ApprovalAction[]
+}
+
+model ApprovalInstance {
+  id               String           @id @default(uuid())
+  submissionId     String           @unique
+  submission       FormSubmission   @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  status           ApprovalStatus   @default(PENDING)
+  currentStepOrder Int?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  actions ApprovalAction[]
+}
+
+model ApprovalAction {
+  id         String           @id @default(uuid())
+  instanceId String
+  instance   ApprovalInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  stepId     String
+  step       ApprovalStep     @relation(fields: [stepId], references: [id])
+  approverId String
+  approver   User             @relation(fields: [approverId], references: [id])
+  action     ApprovalStatus
+  comments   String?
+  createdAt  DateTime         @default(now())
 }

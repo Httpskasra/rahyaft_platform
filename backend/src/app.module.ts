@@ -16,6 +16,7 @@ import { FormSubmissionsModule } from './form-submissions/form-submissions.modul
 
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { PermissionGuard } from './common/guards/permission.guard';
+import { ApprovalsModule } from './approvals/approvals.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PermissionGuard } from './common/guards/permission.guard';
     DepartmentsModule,
     FormsModule,
     FormSubmissionsModule,
+    ApprovalsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

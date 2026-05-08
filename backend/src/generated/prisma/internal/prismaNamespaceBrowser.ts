@@ -61,7 +61,11 @@ export const ModelName = {
   Form: 'Form',
   FormSubmission: 'FormSubmission',
   FormStat: 'FormStat',
-  FormAnalysis: 'FormAnalysis'
+  FormAnalysis: 'FormAnalysis',
+  ApprovalPolicy: 'ApprovalPolicy',
+  ApprovalStep: 'ApprovalStep',
+  ApprovalInstance: 'ApprovalInstance',
+  ApprovalAction: 'ApprovalAction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -201,6 +205,52 @@ export const FormAnalysisScalarFieldEnum = {
 } as const
 
 export type FormAnalysisScalarFieldEnum = (typeof FormAnalysisScalarFieldEnum)[keyof typeof FormAnalysisScalarFieldEnum]
+
+
+export const ApprovalPolicyScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApprovalPolicyScalarFieldEnum = (typeof ApprovalPolicyScalarFieldEnum)[keyof typeof ApprovalPolicyScalarFieldEnum]
+
+
+export const ApprovalStepScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  stepOrder: 'stepOrder',
+  roleId: 'roleId',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalStepScalarFieldEnum = (typeof ApprovalStepScalarFieldEnum)[keyof typeof ApprovalStepScalarFieldEnum]
+
+
+export const ApprovalInstanceScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  status: 'status',
+  currentStepOrder: 'currentStepOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApprovalInstanceScalarFieldEnum = (typeof ApprovalInstanceScalarFieldEnum)[keyof typeof ApprovalInstanceScalarFieldEnum]
+
+
+export const ApprovalActionScalarFieldEnum = {
+  id: 'id',
+  instanceId: 'instanceId',
+  stepId: 'stepId',
+  approverId: 'approverId',
+  action: 'action',
+  comments: 'comments',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalActionScalarFieldEnum = (typeof ApprovalActionScalarFieldEnum)[keyof typeof ApprovalActionScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -72,3 +72,23 @@ export type FormStat = Prisma.FormStatModel
  * 
  */
 export type FormAnalysis = Prisma.FormAnalysisModel
+/**
+ * Model ApprovalPolicy
+ * 
+ */
+export type ApprovalPolicy = Prisma.ApprovalPolicyModel
+/**
+ * Model ApprovalStep
+ * 
+ */
+export type ApprovalStep = Prisma.ApprovalStepModel
+/**
+ * Model ApprovalInstance
+ * 
+ */
+export type ApprovalInstance = Prisma.ApprovalInstanceModel
+/**
+ * Model ApprovalAction
+ * 
+ */
+export type ApprovalAction = Prisma.ApprovalActionModel

@@ -7,12 +7,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RabbitMQService } from '../rabbitmq/rabbitmq.service';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
+import { ApprovalsService } from 'src/approvals/approvals.service';
 
 @Injectable()
 export class FormSubmissionsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly rabbit: RabbitMQService,
+    private readonly approvalsService: ApprovalsService,
   ) {}
 
   async create(dto: CreateSubmissionDto, userId: string) {
@@ -29,6 +31,7 @@ export class FormSubmissionsService {
         data: dto.data,
       },
     });
+    await this.approvalsService.createApprovalInstance(submission.id, form.id);
 
     // Publish to RabbitMQ for async analytics processing
     // This is fire-and-forget — analytics failure won't break submission

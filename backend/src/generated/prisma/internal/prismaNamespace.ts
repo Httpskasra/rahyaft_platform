@@ -81,11 +81,11 @@ export type PrismaVersion = {
 
 /**
  * Prisma Client JS version: 7.6.0
- * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
+ * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 export const prismaVersion: PrismaVersion = {
   client: "7.6.0",
-  engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
+  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
 /**
@@ -394,7 +394,11 @@ export const ModelName = {
   Form: 'Form',
   FormSubmission: 'FormSubmission',
   FormStat: 'FormStat',
-  FormAnalysis: 'FormAnalysis'
+  FormAnalysis: 'FormAnalysis',
+  ApprovalPolicy: 'ApprovalPolicy',
+  ApprovalStep: 'ApprovalStep',
+  ApprovalInstance: 'ApprovalInstance',
+  ApprovalAction: 'ApprovalAction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis"
+    modelProps: "department" | "departmentRelation" | "user" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1232,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ApprovalPolicy: {
+      payload: Prisma.$ApprovalPolicyPayload<ExtArgs>
+      fields: Prisma.ApprovalPolicyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApprovalPolicyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApprovalPolicyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>
+        }
+        findFirst: {
+          args: Prisma.ApprovalPolicyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApprovalPolicyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>
+        }
+        findMany: {
+          args: Prisma.ApprovalPolicyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>[]
+        }
+        create: {
+          args: Prisma.ApprovalPolicyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>
+        }
+        createMany: {
+          args: Prisma.ApprovalPolicyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApprovalPolicyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>[]
+        }
+        delete: {
+          args: Prisma.ApprovalPolicyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>
+        }
+        update: {
+          args: Prisma.ApprovalPolicyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApprovalPolicyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApprovalPolicyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApprovalPolicyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApprovalPolicyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalPolicyPayload>
+        }
+        aggregate: {
+          args: Prisma.ApprovalPolicyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApprovalPolicy>
+        }
+        groupBy: {
+          args: Prisma.ApprovalPolicyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalPolicyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApprovalPolicyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalPolicyCountAggregateOutputType> | number
+        }
+      }
+    }
+    ApprovalStep: {
+      payload: Prisma.$ApprovalStepPayload<ExtArgs>
+      fields: Prisma.ApprovalStepFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApprovalStepFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApprovalStepFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>
+        }
+        findFirst: {
+          args: Prisma.ApprovalStepFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApprovalStepFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>
+        }
+        findMany: {
+          args: Prisma.ApprovalStepFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>[]
+        }
+        create: {
+          args: Prisma.ApprovalStepCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>
+        }
+        createMany: {
+          args: Prisma.ApprovalStepCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApprovalStepCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>[]
+        }
+        delete: {
+          args: Prisma.ApprovalStepDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>
+        }
+        update: {
+          args: Prisma.ApprovalStepUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApprovalStepDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApprovalStepUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApprovalStepUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApprovalStepUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalStepPayload>
+        }
+        aggregate: {
+          args: Prisma.ApprovalStepAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApprovalStep>
+        }
+        groupBy: {
+          args: Prisma.ApprovalStepGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalStepGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApprovalStepCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalStepCountAggregateOutputType> | number
+        }
+      }
+    }
+    ApprovalInstance: {
+      payload: Prisma.$ApprovalInstancePayload<ExtArgs>
+      fields: Prisma.ApprovalInstanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApprovalInstanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApprovalInstanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>
+        }
+        findFirst: {
+          args: Prisma.ApprovalInstanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApprovalInstanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>
+        }
+        findMany: {
+          args: Prisma.ApprovalInstanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>[]
+        }
+        create: {
+          args: Prisma.ApprovalInstanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>
+        }
+        createMany: {
+          args: Prisma.ApprovalInstanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApprovalInstanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>[]
+        }
+        delete: {
+          args: Prisma.ApprovalInstanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>
+        }
+        update: {
+          args: Prisma.ApprovalInstanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>
+        }
+        deleteMany: {
+          args: Prisma.ApprovalInstanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApprovalInstanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApprovalInstanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>[]
+        }
+        upsert: {
+          args: Prisma.ApprovalInstanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalInstancePayload>
+        }
+        aggregate: {
+          args: Prisma.ApprovalInstanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApprovalInstance>
+        }
+        groupBy: {
+          args: Prisma.ApprovalInstanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalInstanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApprovalInstanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalInstanceCountAggregateOutputType> | number
+        }
+      }
+    }
+    ApprovalAction: {
+      payload: Prisma.$ApprovalActionPayload<ExtArgs>
+      fields: Prisma.ApprovalActionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApprovalActionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApprovalActionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>
+        }
+        findFirst: {
+          args: Prisma.ApprovalActionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApprovalActionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>
+        }
+        findMany: {
+          args: Prisma.ApprovalActionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>[]
+        }
+        create: {
+          args: Prisma.ApprovalActionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>
+        }
+        createMany: {
+          args: Prisma.ApprovalActionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApprovalActionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>[]
+        }
+        delete: {
+          args: Prisma.ApprovalActionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>
+        }
+        update: {
+          args: Prisma.ApprovalActionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApprovalActionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApprovalActionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApprovalActionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApprovalActionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApprovalActionPayload>
+        }
+        aggregate: {
+          args: Prisma.ApprovalActionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApprovalAction>
+        }
+        groupBy: {
+          args: Prisma.ApprovalActionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalActionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApprovalActionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApprovalActionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1390,6 +1690,52 @@ export const FormAnalysisScalarFieldEnum = {
 export type FormAnalysisScalarFieldEnum = (typeof FormAnalysisScalarFieldEnum)[keyof typeof FormAnalysisScalarFieldEnum]
 
 
+export const ApprovalPolicyScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApprovalPolicyScalarFieldEnum = (typeof ApprovalPolicyScalarFieldEnum)[keyof typeof ApprovalPolicyScalarFieldEnum]
+
+
+export const ApprovalStepScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  stepOrder: 'stepOrder',
+  roleId: 'roleId',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalStepScalarFieldEnum = (typeof ApprovalStepScalarFieldEnum)[keyof typeof ApprovalStepScalarFieldEnum]
+
+
+export const ApprovalInstanceScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  status: 'status',
+  currentStepOrder: 'currentStepOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApprovalInstanceScalarFieldEnum = (typeof ApprovalInstanceScalarFieldEnum)[keyof typeof ApprovalInstanceScalarFieldEnum]
+
+
+export const ApprovalActionScalarFieldEnum = {
+  id: 'id',
+  instanceId: 'instanceId',
+  stepId: 'stepId',
+  approverId: 'approverId',
+  action: 'action',
+  comments: 'comments',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalActionScalarFieldEnum = (typeof ApprovalActionScalarFieldEnum)[keyof typeof ApprovalActionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1536,6 +1882,20 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'ApprovalStatus'
+ */
+export type EnumApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApprovalStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ApprovalStatus[]'
+ */
+export type ListEnumApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApprovalStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1654,6 +2014,10 @@ export type GlobalOmitConfig = {
   formSubmission?: Prisma.FormSubmissionOmit
   formStat?: Prisma.FormStatOmit
   formAnalysis?: Prisma.FormAnalysisOmit
+  approvalPolicy?: Prisma.ApprovalPolicyOmit
+  approvalStep?: Prisma.ApprovalStepOmit
+  approvalInstance?: Prisma.ApprovalInstanceOmit
+  approvalAction?: Prisma.ApprovalActionOmit
 }
 
 /* Types for Logging */

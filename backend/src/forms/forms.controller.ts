@@ -14,7 +14,7 @@ import { FormsService } from './forms.service';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { AuthenticatedUser } from '../common/interfaces/auth.interface';
+import type { AuthenticatedUser } from '../common/interfaces/auth.interface';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 
 @Controller('forms')

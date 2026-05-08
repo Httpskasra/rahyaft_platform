@@ -29,3 +29,12 @@ export const DepartmentRelationType = {
 } as const
 
 export type DepartmentRelationType = (typeof DepartmentRelationType)[keyof typeof DepartmentRelationType]
+
+
+export const ApprovalStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]

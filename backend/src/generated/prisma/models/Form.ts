@@ -247,6 +247,7 @@ export type FormWhereInput = {
   submissions?: Prisma.FormSubmissionListRelationFilter
   stats?: Prisma.FormStatListRelationFilter
   analysis?: Prisma.FormAnalysisListRelationFilter
+  approvalPolicies?: Prisma.ApprovalPolicyListRelationFilter
 }
 
 export type FormOrderByWithRelationInput = {
@@ -262,6 +263,7 @@ export type FormOrderByWithRelationInput = {
   submissions?: Prisma.FormSubmissionOrderByRelationAggregateInput
   stats?: Prisma.FormStatOrderByRelationAggregateInput
   analysis?: Prisma.FormAnalysisOrderByRelationAggregateInput
+  approvalPolicies?: Prisma.ApprovalPolicyOrderByRelationAggregateInput
 }
 
 export type FormWhereUniqueInput = Prisma.AtLeast<{
@@ -280,6 +282,7 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
   submissions?: Prisma.FormSubmissionListRelationFilter
   stats?: Prisma.FormStatListRelationFilter
   analysis?: Prisma.FormAnalysisListRelationFilter
+  approvalPolicies?: Prisma.ApprovalPolicyListRelationFilter
 }, "id">
 
 export type FormOrderByWithAggregationInput = {
@@ -327,6 +330,7 @@ export type FormCreateInput = {
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
   stats?: Prisma.FormStatCreateNestedManyWithoutFormInput
   analysis?: Prisma.FormAnalysisCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateInput = {
@@ -342,6 +346,7 @@ export type FormUncheckedCreateInput = {
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
   stats?: Prisma.FormStatUncheckedCreateNestedManyWithoutFormInput
   analysis?: Prisma.FormAnalysisUncheckedCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormUpdateInput = {
@@ -357,6 +362,7 @@ export type FormUpdateInput = {
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
   stats?: Prisma.FormStatUpdateManyWithoutFormNestedInput
   analysis?: Prisma.FormAnalysisUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateInput = {
@@ -372,6 +378,7 @@ export type FormUncheckedUpdateInput = {
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
   stats?: Prisma.FormStatUncheckedUpdateManyWithoutFormNestedInput
   analysis?: Prisma.FormAnalysisUncheckedUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateManyInput = {
@@ -511,6 +518,20 @@ export type FormUpdateOneRequiredWithoutAnalysisNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FormUpdateToOneWithWhereWithoutAnalysisInput, Prisma.FormUpdateWithoutAnalysisInput>, Prisma.FormUncheckedUpdateWithoutAnalysisInput>
 }
 
+export type FormCreateNestedOneWithoutApprovalPoliciesInput = {
+  create?: Prisma.XOR<Prisma.FormCreateWithoutApprovalPoliciesInput, Prisma.FormUncheckedCreateWithoutApprovalPoliciesInput>
+  connectOrCreate?: Prisma.FormCreateOrConnectWithoutApprovalPoliciesInput
+  connect?: Prisma.FormWhereUniqueInput
+}
+
+export type FormUpdateOneRequiredWithoutApprovalPoliciesNestedInput = {
+  create?: Prisma.XOR<Prisma.FormCreateWithoutApprovalPoliciesInput, Prisma.FormUncheckedCreateWithoutApprovalPoliciesInput>
+  connectOrCreate?: Prisma.FormCreateOrConnectWithoutApprovalPoliciesInput
+  upsert?: Prisma.FormUpsertWithoutApprovalPoliciesInput
+  connect?: Prisma.FormWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FormUpdateToOneWithWhereWithoutApprovalPoliciesInput, Prisma.FormUpdateWithoutApprovalPoliciesInput>, Prisma.FormUncheckedUpdateWithoutApprovalPoliciesInput>
+}
+
 export type FormCreateWithoutSubmissionsInput = {
   id?: string
   ownerId: string
@@ -523,6 +544,7 @@ export type FormCreateWithoutSubmissionsInput = {
   updatedAt?: Date | string
   stats?: Prisma.FormStatCreateNestedManyWithoutFormInput
   analysis?: Prisma.FormAnalysisCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutSubmissionsInput = {
@@ -537,6 +559,7 @@ export type FormUncheckedCreateWithoutSubmissionsInput = {
   updatedAt?: Date | string
   stats?: Prisma.FormStatUncheckedCreateNestedManyWithoutFormInput
   analysis?: Prisma.FormAnalysisUncheckedCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutSubmissionsInput = {
@@ -567,6 +590,7 @@ export type FormUpdateWithoutSubmissionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stats?: Prisma.FormStatUpdateManyWithoutFormNestedInput
   analysis?: Prisma.FormAnalysisUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutSubmissionsInput = {
@@ -581,6 +605,7 @@ export type FormUncheckedUpdateWithoutSubmissionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stats?: Prisma.FormStatUncheckedUpdateManyWithoutFormNestedInput
   analysis?: Prisma.FormAnalysisUncheckedUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateWithoutStatsInput = {
@@ -595,6 +620,7 @@ export type FormCreateWithoutStatsInput = {
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
   analysis?: Prisma.FormAnalysisCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutStatsInput = {
@@ -609,6 +635,7 @@ export type FormUncheckedCreateWithoutStatsInput = {
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
   analysis?: Prisma.FormAnalysisUncheckedCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutStatsInput = {
@@ -639,6 +666,7 @@ export type FormUpdateWithoutStatsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
   analysis?: Prisma.FormAnalysisUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutStatsInput = {
@@ -653,6 +681,7 @@ export type FormUncheckedUpdateWithoutStatsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
   analysis?: Prisma.FormAnalysisUncheckedUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateWithoutAnalysisInput = {
@@ -667,6 +696,7 @@ export type FormCreateWithoutAnalysisInput = {
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
   stats?: Prisma.FormStatCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutAnalysisInput = {
@@ -681,6 +711,7 @@ export type FormUncheckedCreateWithoutAnalysisInput = {
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
   stats?: Prisma.FormStatUncheckedCreateNestedManyWithoutFormInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutAnalysisInput = {
@@ -711,6 +742,7 @@ export type FormUpdateWithoutAnalysisInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
   stats?: Prisma.FormStatUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutAnalysisInput = {
@@ -725,6 +757,83 @@ export type FormUncheckedUpdateWithoutAnalysisInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
   stats?: Prisma.FormStatUncheckedUpdateManyWithoutFormNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutFormNestedInput
+}
+
+export type FormCreateWithoutApprovalPoliciesInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
+  stats?: Prisma.FormStatCreateNestedManyWithoutFormInput
+  analysis?: Prisma.FormAnalysisCreateNestedManyWithoutFormInput
+}
+
+export type FormUncheckedCreateWithoutApprovalPoliciesInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
+  stats?: Prisma.FormStatUncheckedCreateNestedManyWithoutFormInput
+  analysis?: Prisma.FormAnalysisUncheckedCreateNestedManyWithoutFormInput
+}
+
+export type FormCreateOrConnectWithoutApprovalPoliciesInput = {
+  where: Prisma.FormWhereUniqueInput
+  create: Prisma.XOR<Prisma.FormCreateWithoutApprovalPoliciesInput, Prisma.FormUncheckedCreateWithoutApprovalPoliciesInput>
+}
+
+export type FormUpsertWithoutApprovalPoliciesInput = {
+  update: Prisma.XOR<Prisma.FormUpdateWithoutApprovalPoliciesInput, Prisma.FormUncheckedUpdateWithoutApprovalPoliciesInput>
+  create: Prisma.XOR<Prisma.FormCreateWithoutApprovalPoliciesInput, Prisma.FormUncheckedCreateWithoutApprovalPoliciesInput>
+  where?: Prisma.FormWhereInput
+}
+
+export type FormUpdateToOneWithWhereWithoutApprovalPoliciesInput = {
+  where?: Prisma.FormWhereInput
+  data: Prisma.XOR<Prisma.FormUpdateWithoutApprovalPoliciesInput, Prisma.FormUncheckedUpdateWithoutApprovalPoliciesInput>
+}
+
+export type FormUpdateWithoutApprovalPoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
+  stats?: Prisma.FormStatUpdateManyWithoutFormNestedInput
+  analysis?: Prisma.FormAnalysisUpdateManyWithoutFormNestedInput
+}
+
+export type FormUncheckedUpdateWithoutApprovalPoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
+  stats?: Prisma.FormStatUncheckedUpdateManyWithoutFormNestedInput
+  analysis?: Prisma.FormAnalysisUncheckedUpdateManyWithoutFormNestedInput
 }
 
 
@@ -736,12 +845,14 @@ export type FormCountOutputType = {
   submissions: number
   stats: number
   analysis: number
+  approvalPolicies: number
 }
 
 export type FormCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   submissions?: boolean | FormCountOutputTypeCountSubmissionsArgs
   stats?: boolean | FormCountOutputTypeCountStatsArgs
   analysis?: boolean | FormCountOutputTypeCountAnalysisArgs
+  approvalPolicies?: boolean | FormCountOutputTypeCountApprovalPoliciesArgs
 }
 
 /**
@@ -775,6 +886,13 @@ export type FormCountOutputTypeCountAnalysisArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.FormAnalysisWhereInput
 }
 
+/**
+ * FormCountOutputType without action
+ */
+export type FormCountOutputTypeCountApprovalPoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApprovalPolicyWhereInput
+}
+
 
 export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -789,6 +907,7 @@ export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
   stats?: boolean | Prisma.Form$statsArgs<ExtArgs>
   analysis?: boolean | Prisma.Form$analysisArgs<ExtArgs>
+  approvalPolicies?: boolean | Prisma.Form$approvalPoliciesArgs<ExtArgs>
   _count?: boolean | Prisma.FormCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["form"]>
 
@@ -833,6 +952,7 @@ export type FormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
   stats?: boolean | Prisma.Form$statsArgs<ExtArgs>
   analysis?: boolean | Prisma.Form$analysisArgs<ExtArgs>
+  approvalPolicies?: boolean | Prisma.Form$approvalPoliciesArgs<ExtArgs>
   _count?: boolean | Prisma.FormCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FormIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -844,6 +964,7 @@ export type $FormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     submissions: Prisma.$FormSubmissionPayload<ExtArgs>[]
     stats: Prisma.$FormStatPayload<ExtArgs>[]
     analysis: Prisma.$FormAnalysisPayload<ExtArgs>[]
+    approvalPolicies: Prisma.$ApprovalPolicyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1252,6 +1373,7 @@ export interface Prisma__FormClient<T, Null = never, ExtArgs extends runtime.Typ
   submissions<T extends Prisma.Form$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stats<T extends Prisma.Form$statsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$statsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FormStatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   analysis<T extends Prisma.Form$analysisArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$analysisArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FormAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvalPolicies<T extends Prisma.Form$approvalPoliciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$approvalPoliciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalPolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1752,6 +1874,30 @@ export type Form$analysisArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.FormAnalysisScalarFieldEnum | Prisma.FormAnalysisScalarFieldEnum[]
+}
+
+/**
+ * Form.approvalPolicies
+ */
+export type Form$approvalPoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApprovalPolicy
+   */
+  select?: Prisma.ApprovalPolicySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApprovalPolicy
+   */
+  omit?: Prisma.ApprovalPolicyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApprovalPolicyInclude<ExtArgs> | null
+  where?: Prisma.ApprovalPolicyWhereInput
+  orderBy?: Prisma.ApprovalPolicyOrderByWithRelationInput | Prisma.ApprovalPolicyOrderByWithRelationInput[]
+  cursor?: Prisma.ApprovalPolicyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApprovalPolicyScalarFieldEnum | Prisma.ApprovalPolicyScalarFieldEnum[]
 }
 
 /**
