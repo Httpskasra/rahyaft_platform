@@ -12,7 +12,7 @@ import { Type } from 'class-transformer';
 class PolicyStepDto {
   @IsInt()
   @Min(1)
-  order: number;
+  stepOrder: number;
 
   @IsUUID()
   roleId: string;

@@ -48,7 +48,7 @@ export class ApprovalsService {
         await tx.approvalStep.create({
           data: {
             policyId: policy.id,
-            stepOrder: step.order,
+            stepOrder: step.stepOrder,
             roleId: step.roleId,
           },
         });

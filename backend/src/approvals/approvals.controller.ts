@@ -2,13 +2,13 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Delete,
   Param,
   Body,
   ParseUUIDPipe,
   HttpCode,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
 import { ApprovalsService } from './approvals.service';
 import { CreateApprovalPolicyDto } from './dto/create-approval-policy.dto';

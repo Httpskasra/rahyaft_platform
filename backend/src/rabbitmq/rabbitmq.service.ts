@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
   Injectable,
   OnModuleInit,
@@ -5,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as amqplib from 'amqplib';
+import amqp, { ChannelModel, ConfirmChannel } from 'amqplib';
 
 export interface SubmissionEvent {
   id: string;
@@ -18,8 +20,8 @@ export interface SubmissionEvent {
 
 @Injectable()
 export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
-  private connection!: amqplib.Connection;
-  private channel!: amqplib.ConfirmChannel;
+  private connection!: ChannelModel;
+  private channel!: ConfirmChannel;
   private readonly exchange = 'form_submissions';
   private readonly logger = new Logger(RabbitMQService.name);
   private isReady = false;
@@ -46,7 +48,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
       'amqp://user:pass@rabbitmq:5672',
     );
     try {
-      this.connection = await amqplib.connect(url);
+      this.connection = await amqp.connect(url);
       this.logger.log(`Connected to RabbitMQ (${url})`);
 
       this.connection.on('error', (err) => {
@@ -68,7 +70,9 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
       this.isReady = true;
       this.logger.log(`Exchange '${this.exchange}' ready`);
     } catch (err) {
-      this.logger.error(`Failed to connect to RabbitMQ: ${(err as Error).message}`);
+      this.logger.error(
+        `Failed to connect to RabbitMQ: ${(err as Error).message}`,
+      );
       // Don't crash the app — forms still save to DB even without analytics
     }
   }

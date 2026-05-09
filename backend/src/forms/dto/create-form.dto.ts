@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsObject, MinLength } from 'class-validator';
-
+import { Prisma } from 'src/generated/prisma/client';
 export class CreateFormDto {
   @IsString()
   @MinLength(1)
@@ -10,5 +10,5 @@ export class CreateFormDto {
   description?: string;
 
   @IsObject()
-  schema: Record<string, unknown>; // { fields: [{id, type, label, required}] }
+  schema: Prisma.InputJsonObject; // { fields: [{id, type, label, required}] }
 }

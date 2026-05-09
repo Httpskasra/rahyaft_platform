@@ -12,7 +12,7 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.FRONTEND_URL ?? 'http://localhost:3001',
     credentials: true, // needed for cookies
-    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
   // Security headers

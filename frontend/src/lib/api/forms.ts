@@ -1,13 +1,20 @@
 import { apiClient } from "./client";
 
 // ─── Schema ───────────────────────────────────────────────────
+export interface TableColumn {
+  id: string;              // unique per column
+  label: string;           // header text
+  type: 'text' | 'number' | 'select';
+  options?: string[];      // only for type 'select'
+}
 export interface FormField {
   id: string;
-  type: "text" | "number" | "select" | "radio" | "checkbox" | "textarea";
+  type: "text" | "number" | "select" | "radio" | "checkbox" | "textarea" | "table";
   label: string;
   description?: string;
   required: boolean;
   options?: string[];
+  columns?: TableColumn[]; 
 }
 
 export interface FormSchema {

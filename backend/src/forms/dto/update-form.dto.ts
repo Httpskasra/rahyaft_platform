@@ -1,4 +1,5 @@
 import { IsString, IsOptional, IsObject, IsBoolean } from 'class-validator';
+import { Prisma } from 'src/generated/prisma/client';
 
 export class UpdateFormDto {
   @IsOptional()
@@ -11,7 +12,7 @@ export class UpdateFormDto {
 
   @IsOptional()
   @IsObject()
-  schema?: Record<string, unknown>;
+  schema?: Prisma.InputJsonObject;
 
   @IsOptional()
   @IsBoolean()
