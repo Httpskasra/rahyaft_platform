@@ -41,7 +41,7 @@ async function main() {
 
   // 4. Create permissions for all actions + resources
   const actions = ['create', 'read', 'update', 'delete'];
-  const resources = ['users', 'roles', 'departments','forms','form-submissions'];
+  const resources = ['users', 'roles', 'departments','forms','form-submissions','user-info'];
 
   for (const action of actions) {
     for (const resource of resources) {
@@ -69,6 +69,32 @@ async function main() {
     update: {},
     create: { userId: admin.id, roleId: role.id },
   });
+
+  // 6. Create a "user" role with SELF-only access to user-info
+  //mehrak
+  const userRole = await prisma.role.upsert({
+    where: { name: 'user' },
+    update: {},
+    create: { name: 'user' },
+  });
+
+  for (const action of actions) {  
+    const perm = await prisma.permission.upsert({
+      where: { action_resource: { action, resource: 'user-info' } },
+      update: {},
+      create: { action, resource: 'user-info' },
+    });
+
+    await prisma.rolePermission.upsert({
+      where: { roleId_permissionId: { roleId: userRole.id, permissionId: perm.id } },
+      update: {},
+      create: {
+        roleId: userRole.id,
+        permissionId: perm.id,
+        scope: 'SELF',
+      },
+    });
+  }
 
   console.log('✓ Seed complete — admin@company.com / admin123');
 }
