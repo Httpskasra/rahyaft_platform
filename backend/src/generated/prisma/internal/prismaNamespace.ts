@@ -398,7 +398,9 @@ export const ModelName = {
   ApprovalPolicy: 'ApprovalPolicy',
   ApprovalStep: 'ApprovalStep',
   ApprovalInstance: 'ApprovalInstance',
-  ApprovalAction: 'ApprovalAction'
+  ApprovalAction: 'ApprovalAction',
+  UserInfo: 'UserInfo',
+  Relative: 'Relative'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction"
+    modelProps: "department" | "departmentRelation" | "user" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1528,6 +1530,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserInfo: {
+      payload: Prisma.$UserInfoPayload<ExtArgs>
+      fields: Prisma.UserInfoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserInfoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserInfoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>
+        }
+        findFirst: {
+          args: Prisma.UserInfoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserInfoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>
+        }
+        findMany: {
+          args: Prisma.UserInfoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>[]
+        }
+        create: {
+          args: Prisma.UserInfoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>
+        }
+        createMany: {
+          args: Prisma.UserInfoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserInfoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>[]
+        }
+        delete: {
+          args: Prisma.UserInfoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>
+        }
+        update: {
+          args: Prisma.UserInfoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserInfoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserInfoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserInfoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserInfoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserInfoPayload>
+        }
+        aggregate: {
+          args: Prisma.UserInfoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserInfo>
+        }
+        groupBy: {
+          args: Prisma.UserInfoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserInfoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserInfoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserInfoCountAggregateOutputType> | number
+        }
+      }
+    }
+    Relative: {
+      payload: Prisma.$RelativePayload<ExtArgs>
+      fields: Prisma.RelativeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RelativeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RelativeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>
+        }
+        findFirst: {
+          args: Prisma.RelativeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RelativeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>
+        }
+        findMany: {
+          args: Prisma.RelativeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>[]
+        }
+        create: {
+          args: Prisma.RelativeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>
+        }
+        createMany: {
+          args: Prisma.RelativeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RelativeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>[]
+        }
+        delete: {
+          args: Prisma.RelativeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>
+        }
+        update: {
+          args: Prisma.RelativeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>
+        }
+        deleteMany: {
+          args: Prisma.RelativeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RelativeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RelativeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>[]
+        }
+        upsert: {
+          args: Prisma.RelativeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelativePayload>
+        }
+        aggregate: {
+          args: Prisma.RelativeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRelative>
+        }
+        groupBy: {
+          args: Prisma.RelativeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RelativeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RelativeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RelativeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1734,6 +1884,40 @@ export const ApprovalActionScalarFieldEnum = {
 } as const
 
 export type ApprovalActionScalarFieldEnum = (typeof ApprovalActionScalarFieldEnum)[keyof typeof ApprovalActionScalarFieldEnum]
+
+
+export const UserInfoScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fatherName: 'fatherName',
+  birthDate: 'birthDate',
+  nationalCode: 'nationalCode',
+  birthPlace: 'birthPlace',
+  residence: 'residence',
+  mobile: 'mobile',
+  homePhone: 'homePhone',
+  degree: 'degree',
+  university: 'university',
+  graduateYear: 'graduateYear',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserInfoScalarFieldEnum = (typeof UserInfoScalarFieldEnum)[keyof typeof UserInfoScalarFieldEnum]
+
+
+export const RelativeScalarFieldEnum = {
+  id: 'id',
+  userInfoId: 'userInfoId',
+  name: 'name',
+  relation: 'relation',
+  address: 'address',
+  phone: 'phone'
+} as const
+
+export type RelativeScalarFieldEnum = (typeof RelativeScalarFieldEnum)[keyof typeof RelativeScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2018,6 +2202,8 @@ export type GlobalOmitConfig = {
   approvalStep?: Prisma.ApprovalStepOmit
   approvalInstance?: Prisma.ApprovalInstanceOmit
   approvalAction?: Prisma.ApprovalActionOmit
+  userInfo?: Prisma.UserInfoOmit
+  relative?: Prisma.RelativeOmit
 }
 
 /* Types for Logging */

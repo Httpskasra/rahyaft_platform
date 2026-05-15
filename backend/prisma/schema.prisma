@@ -64,6 +64,7 @@ model User {
   subordinates User[]          @relation("UserHierarchy")
   roles        UserRole[]
   submissions  FormSubmission[]
+  userInfo  UserInfo?//mehrak
 
   createdAt DateTime @default(now())
 
@@ -180,6 +181,7 @@ model FormAnalysis {
   @@unique([formId, fieldId, metric])
   @@index([formId])
 }
+
 // ─── Approval Workflow ────────────────────────────────────────
 
 enum ApprovalStatus {
@@ -234,4 +236,44 @@ model ApprovalAction {
   action     ApprovalStatus
   comments   String?
   createdAt  DateTime         @default(now())
+}
+
+// ─── User Info & Relatives ────────────────────────────────────────mehrak
+model UserInfo {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // مشخصات فردی
+  firstName    String?
+  lastName     String?
+  fatherName   String?
+  birthDate    String?
+  nationalCode String?  @unique
+  birthPlace   String?
+  residence    String?
+  mobile       String?
+  homePhone    String?
+
+  // مشخصات تحصیلی
+  degree       String?
+  university   String?
+  graduateYear String?
+
+  relatives    Relative[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Relative {
+  id         String   @id @default(uuid())
+  userInfoId String
+  userInfo   UserInfo @relation(fields: [userInfoId], references: [id], onDelete: Cascade)
+
+  name     String
+  relation String   // مثلاً: پدر، مادر، برادر
+  address  String?
+  phone    String?
+
 }

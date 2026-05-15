@@ -114,3 +114,13 @@ export type ApprovalInstance = Prisma.ApprovalInstanceModel
  * 
  */
 export type ApprovalAction = Prisma.ApprovalActionModel
+/**
+ * Model UserInfo
+ * 
+ */
+export type UserInfo = Prisma.UserInfoModel
+/**
+ * Model Relative
+ * 
+ */
+export type Relative = Prisma.RelativeModel

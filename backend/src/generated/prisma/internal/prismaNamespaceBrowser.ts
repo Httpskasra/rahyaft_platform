@@ -65,7 +65,9 @@ export const ModelName = {
   ApprovalPolicy: 'ApprovalPolicy',
   ApprovalStep: 'ApprovalStep',
   ApprovalInstance: 'ApprovalInstance',
-  ApprovalAction: 'ApprovalAction'
+  ApprovalAction: 'ApprovalAction',
+  UserInfo: 'UserInfo',
+  Relative: 'Relative'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -251,6 +253,40 @@ export const ApprovalActionScalarFieldEnum = {
 } as const
 
 export type ApprovalActionScalarFieldEnum = (typeof ApprovalActionScalarFieldEnum)[keyof typeof ApprovalActionScalarFieldEnum]
+
+
+export const UserInfoScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fatherName: 'fatherName',
+  birthDate: 'birthDate',
+  nationalCode: 'nationalCode',
+  birthPlace: 'birthPlace',
+  residence: 'residence',
+  mobile: 'mobile',
+  homePhone: 'homePhone',
+  degree: 'degree',
+  university: 'university',
+  graduateYear: 'graduateYear',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserInfoScalarFieldEnum = (typeof UserInfoScalarFieldEnum)[keyof typeof UserInfoScalarFieldEnum]
+
+
+export const RelativeScalarFieldEnum = {
+  id: 'id',
+  userInfoId: 'userInfoId',
+  name: 'name',
+  relation: 'relation',
+  address: 'address',
+  phone: 'phone'
+} as const
+
+export type RelativeScalarFieldEnum = (typeof RelativeScalarFieldEnum)[keyof typeof RelativeScalarFieldEnum]
 
 
 export const SortOrder = {
