@@ -21,7 +21,6 @@ import { ApprovalsModule } from './approvals/approvals.module';
 
 import { UserInfoModule } from './user-info/user-info.module';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),

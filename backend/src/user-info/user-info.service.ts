@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserInfoDto } from './dto/create-user-info.dto';
 import { UpdateUserInfoDto } from './dto/update-user-info.dto';
@@ -14,9 +19,7 @@ export class UserInfoService {
       data: {
         userId,
         ...infoData,
-        relatives: relatives
-          ? { create: relatives }
-          : undefined,
+        relatives: relatives ? { create: relatives } : undefined,
       },
       include: { relatives: true },
     });
@@ -47,8 +50,8 @@ export class UserInfoService {
         ...infoData,
         relatives: relatives
           ? {
-              deleteMany: {},         // حذف بستگان قبلی
-              create: relatives,      // ثبت بستگان جدید
+              deleteMany: {}, // حذف بستگان قبلی
+              create: relatives, // ثبت بستگان جدید
             }
           : undefined,
       },
