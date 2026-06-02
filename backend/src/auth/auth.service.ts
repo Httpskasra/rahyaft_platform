@@ -13,6 +13,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 import { SendOtpDto, VerifyOtpDto } from './dto/auth.dto';
 import { JwtPayload } from '../common/interfaces/auth.interface';
+import { BaleService } from '../bale/bale.service';
+
 
 @Injectable()
 export class AuthService {
@@ -34,6 +36,7 @@ export class AuthService {
     private readonly redis: RedisService,
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
+    private readonly bale: BaleService,
   ) {}
 
   // ─────────────────────────────────────────────
@@ -65,6 +68,7 @@ export class AuthService {
 
     // 3. Generate a cryptographically random 6-digit code
     const otp = this.generateOtp();
+    this.logger.warn(`[DEV] OTP: ${otp}`);//قبل اینکه بله بره روی سرور
 
     // 4. Store in Redis (overwrites any existing code)
     await this.redis.set(
@@ -76,12 +80,22 @@ export class AuthService {
     // 5. Reset attempt counter on fresh OTP send
     await this.redis.del(`${this.OTP_ATTEMPT_PREFIX}${phoneNumber}`);
 
-    // 6. In production: call your SMS provider here
-    //    e.g. KaveNegar, Ghasedak, Melipayamak, etc.
-    //    this.smsProvider.send(phoneNumber, `کد ورود شما: ${otp}`)
-    //
-    // For development, we log it (remove in production!)
-    this.logger.warn(`[DEV ONLY] OTP for ${phoneNumber}: ${otp}`);
+    // 6. send OTP on Bale //mehrak
+    const userWithChat = await this.prisma.user.findUnique({
+      where: { phoneNumber },
+      select: { baleChatId: true },
+    });
+
+    if (!userWithChat?.baleChatId) {
+      throw new BadRequestException({
+        statusCode: 400,
+        error: 'BALE_NOT_REGISTERED',
+        message: 'ربات بله را فعال کنید',
+        botUsername: 'platform_rahyaft_bot',
+      });
+    }
+
+    await this.bale.sendOtp(userWithChat.baleChatId, otp);
 
     return { message: 'OTP sent successfully' };
   }

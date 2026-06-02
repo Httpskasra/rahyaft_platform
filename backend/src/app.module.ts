@@ -20,6 +20,7 @@ import { PermissionGuard } from './common/guards/permission.guard';
 import { ApprovalsModule } from './approvals/approvals.module';
 
 import { UserInfoModule } from './user-info/user-info.module';
+import { BaleModule } from './bale/bale.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { UserInfoModule } from './user-info/user-info.module';
     FormSubmissionsModule,
     ApprovalsModule,
     UserInfoModule,
+    BaleModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

@@ -31,6 +31,7 @@ export type UserMinAggregateOutputType = {
   departmentId: string | null
   managerId: string | null
   refreshToken: string | null
+  baleChatId: string | null
   createdAt: Date | null
 }
 
@@ -41,6 +42,7 @@ export type UserMaxAggregateOutputType = {
   departmentId: string | null
   managerId: string | null
   refreshToken: string | null
+  baleChatId: string | null
   createdAt: Date | null
 }
 
@@ -51,6 +53,7 @@ export type UserCountAggregateOutputType = {
   departmentId: number
   managerId: number
   refreshToken: number
+  baleChatId: number
   createdAt: number
   _all: number
 }
@@ -63,6 +66,7 @@ export type UserMinAggregateInputType = {
   departmentId?: true
   managerId?: true
   refreshToken?: true
+  baleChatId?: true
   createdAt?: true
 }
 
@@ -73,6 +77,7 @@ export type UserMaxAggregateInputType = {
   departmentId?: true
   managerId?: true
   refreshToken?: true
+  baleChatId?: true
   createdAt?: true
 }
 
@@ -83,6 +88,7 @@ export type UserCountAggregateInputType = {
   departmentId?: true
   managerId?: true
   refreshToken?: true
+  baleChatId?: true
   createdAt?: true
   _all?: true
 }
@@ -166,6 +172,7 @@ export type UserGroupByOutputType = {
   departmentId: string
   managerId: string | null
   refreshToken: string | null
+  baleChatId: string | null
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -197,6 +204,7 @@ export type UserWhereInput = {
   departmentId?: Prisma.StringFilter<"User"> | string
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -214,6 +222,7 @@ export type UserOrderByWithRelationInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  baleChatId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   department?: Prisma.DepartmentOrderByWithRelationInput
   manager?: Prisma.UserOrderByWithRelationInput
@@ -234,6 +243,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   departmentId?: Prisma.StringFilter<"User"> | string
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -251,6 +261,7 @@ export type UserOrderByWithAggregationInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  baleChatId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -267,6 +278,7 @@ export type UserScalarWhereWithAggregatesInput = {
   departmentId?: Prisma.StringWithAggregatesFilter<"User"> | string
   managerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  baleChatId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -275,6 +287,7 @@ export type UserCreateInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
@@ -292,6 +305,7 @@ export type UserUncheckedCreateInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
@@ -305,6 +319,7 @@ export type UserUpdateInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
@@ -322,6 +337,7 @@ export type UserUncheckedUpdateInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
@@ -337,6 +353,7 @@ export type UserCreateManyInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
 }
 
@@ -345,6 +362,7 @@ export type UserUpdateManyMutationInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -355,6 +373,7 @@ export type UserUncheckedUpdateManyInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -380,6 +399,7 @@ export type UserCountOrderByAggregateInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  baleChatId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -390,6 +410,7 @@ export type UserMaxOrderByAggregateInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  baleChatId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -400,6 +421,7 @@ export type UserMinOrderByAggregateInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  baleChatId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -571,6 +593,7 @@ export type UserCreateWithoutDepartmentInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -586,6 +609,7 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   name: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
@@ -630,6 +654,7 @@ export type UserScalarWhereInput = {
   departmentId?: Prisma.StringFilter<"User"> | string
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
@@ -638,6 +663,7 @@ export type UserCreateWithoutSubordinatesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
@@ -654,6 +680,7 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -671,6 +698,7 @@ export type UserCreateWithoutManagerInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -686,6 +714,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   name: string
   departmentId: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
@@ -720,6 +749,7 @@ export type UserUpdateWithoutSubordinatesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
@@ -736,6 +766,7 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -764,6 +795,7 @@ export type UserCreateWithoutRolesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
@@ -780,6 +812,7 @@ export type UserUncheckedCreateWithoutRolesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -808,6 +841,7 @@ export type UserUpdateWithoutRolesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
@@ -824,6 +858,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -836,6 +871,7 @@ export type UserCreateWithoutSubmissionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
@@ -852,6 +888,7 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
@@ -880,6 +917,7 @@ export type UserUpdateWithoutSubmissionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
@@ -896,6 +934,7 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
@@ -908,6 +947,7 @@ export type UserCreateWithoutApprovalActionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
@@ -924,6 +964,7 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
@@ -952,6 +993,7 @@ export type UserUpdateWithoutApprovalActionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
@@ -968,6 +1010,7 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
@@ -980,6 +1023,7 @@ export type UserCreateWithoutUserInfoInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
@@ -996,6 +1040,7 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
@@ -1024,6 +1069,7 @@ export type UserUpdateWithoutUserInfoInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
@@ -1040,6 +1086,7 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
@@ -1053,6 +1100,7 @@ export type UserCreateManyDepartmentInput = {
   name: string
   managerId?: string | null
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
 }
 
@@ -1061,6 +1109,7 @@ export type UserUpdateWithoutDepartmentInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -1076,6 +1125,7 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
@@ -1090,6 +1140,7 @@ export type UserUncheckedUpdateManyWithoutDepartmentInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1099,6 +1150,7 @@ export type UserCreateManyManagerInput = {
   name: string
   departmentId: string
   refreshToken?: string | null
+  baleChatId?: string | null
   createdAt?: Date | string
 }
 
@@ -1107,6 +1159,7 @@ export type UserUpdateWithoutManagerInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -1122,6 +1175,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
@@ -1136,6 +1190,7 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1204,6 +1259,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  baleChatId?: boolean
   createdAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
@@ -1222,6 +1278,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  baleChatId?: boolean
   createdAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
@@ -1234,6 +1291,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  baleChatId?: boolean
   createdAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
@@ -1246,10 +1304,11 @@ export type UserSelectScalar = {
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  baleChatId?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "name" | "departmentId" | "managerId" | "refreshToken" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "name" | "departmentId" | "managerId" | "refreshToken" | "baleChatId" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
@@ -1287,6 +1346,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     departmentId: string
     managerId: string | null
     refreshToken: string | null
+    baleChatId: string | null
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1724,6 +1784,7 @@ export interface UserFieldRefs {
   readonly departmentId: Prisma.FieldRef<"User", 'String'>
   readonly managerId: Prisma.FieldRef<"User", 'String'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
+  readonly baleChatId: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     

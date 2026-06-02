@@ -65,6 +65,7 @@ model User {
   roles        UserRole[]
   submissions  FormSubmission[]
   userInfo  UserInfo?//mehrak
+  baleChatId   String?//mehrak
 
   createdAt DateTime @default(now())
 

@@ -1744,6 +1744,7 @@ export const UserScalarFieldEnum = {
   departmentId: 'departmentId',
   managerId: 'managerId',
   refreshToken: 'refreshToken',
+  baleChatId: 'baleChatId',
   createdAt: 'createdAt'
 } as const
 
