@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Install Python dependencies first (layer cache)
 COPY requirements.txt .
-RUN export PIP_INDEX_URL=https://package-mirror.liara.ir/repository/pypi/simple && pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 # RUN pip install -i https://mirror-pypi.runflare.com/simple --no-cache-dir -r requirements.txt
 
 # Copy source
