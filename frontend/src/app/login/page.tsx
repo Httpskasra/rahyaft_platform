@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { LoginShell } from "@/components/login/LoginShell";
 import { LoginCard } from "@/components/login/LoginCard";
@@ -13,7 +13,7 @@ import { AuroraBackground } from "@/components/login/AuroraBackground";
 
 export default function LoginPage() {
   const router = useRouter();
-  const search = useSearchParams();
+  // const search = useSearchParams();
   const next = "/dashboard/profile";
 
   const otpLogin = useOtpLogin();
