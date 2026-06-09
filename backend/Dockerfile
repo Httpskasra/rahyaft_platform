@@ -1,70 +1,15 @@
-# # ─── Development image ────────────────────────────────────────
-# FROM node:22-alpine AS dev
 
-# WORKDIR /usr/src/app
-
-# COPY .yarnrc ./
-# COPY package.json yarn.lock ./
-# RUN yarn install --frozen-lockfile
-# # RUN yarn config set registry https://mirror-npm.runflare.com &&  yarn install --frozen-lockfile
-
-# COPY . .
-
-# EXPOSE 3000
-
-# CMD ["yarn", "start:dev"]
-
-
-# # ─── Build stage ──────────────────────────────────────────────
-# FROM node:22-alpine AS build
-
-# WORKDIR /usr/src/app
-
-# COPY .yarnrc ./
-# COPY package.json yarn.lock ./
-# RUN  yarn install --frozen-lockfile
-# # RUN yarn config set registry https://mirror-npm.runflare.com && yarn install --frozen-lockfile
-
-# COPY . .
-# RUN yarn build
-
-
-# # ─── Production image ─────────────────────────────────────────
-# FROM node:22-alpine AS prod
-
-# WORKDIR /usr/src/app
-
-# ENV NODE_ENV=production
-
-# COPY .yarnrc ./
-# COPY package.json yarn.lock ./
-# RUN yarn install --frozen-lockfile --production
-# # RUN yarn config set registry https://mirror-npm.runflare.com && yarn install --frozen-lockfile --production
-
-# COPY --from=build /usr/src/app/dist ./dist
-# COPY --from=build /usr/src/app/src/generated ./src/generated
-
-# EXPOSE 3000
-
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-#   CMD wget -qO- http://localhost:3000/api/v1/health || exit 1
-
-# CMD ["node", "dist/main"]
 # ─── Development image ────────────────────────────────────────
 FROM node:22-alpine AS dev
 
 WORKDIR /usr/src/app
 
-# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci
-# RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --registry=https://package-mirror.liara.ir/repository/npm/
 
-# COPY node_modules/@prisma/engines ./node_modules/@prisma/engines
 COPY . .
 
 EXPOSE 3000
-
 CMD ["npm", "run", "start:dev"]
 
 
@@ -73,14 +18,13 @@ FROM node:22-alpine AS build
 
 WORKDIR /usr/src/app
 
-# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci
-# RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --registry=https://package-mirror.liara.ir/repository/npm/
 
-# COPY node_modules/@prisma/engines ./node_modules/@prisma/engines
 COPY . .
 
+# ✅ اول prisma generate، بعد build
+RUN npx prisma generate
 RUN npm run build
 
 
@@ -91,17 +35,25 @@ WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
-# COPY .npmrc ./
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --omit=dev
-# RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --registry=https://package-mirror.liara.ir/repository/npm/ --omit=dev
+
+# ✅ schema را کپی کن تا prisma generate در prod کار کند
+COPY --from=build /usr/src/app/prisma ./prisma
+
+# ✅ prisma generate در prod هم اجرا شود
+RUN npx prisma generate
 
 COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/src/generated ./src/generated
+COPY --from=build /usr/src/app/dist/prisma.config.js ./prisma.config.js
+COPY --from=build /usr/src/app/prisma ./prisma
+
+# ✅ دیگر نیازی به کپی src/generated نیست (generate بالا آن را می‌سازد)
+# COPY --from=build /usr/src/app/src/generated ./src/generated
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-  CMD wget -qO- http://localhost:3000/api/v1/health || exit 1
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
+  CMD node -e "require('http').get('http://127.0.0.1:3000/api/v1/health', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]

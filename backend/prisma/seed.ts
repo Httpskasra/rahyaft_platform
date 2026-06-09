@@ -21,10 +21,10 @@ async function main() {
   // 2. Create superadmin user
 
   const admin = await prisma.user.upsert({
-    where: { phoneNumber: '09164532683' },
+    where: { phoneNumber: '09170260302' },
     update: {},
     create: {
-      phoneNumber: '09164532683',
+      phoneNumber: '09170260302',
       name: 'Super Admin',
       departmentId: dept.id,
     },

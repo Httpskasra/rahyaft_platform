@@ -21,6 +21,7 @@ import { ApprovalsModule } from './approvals/approvals.module';
 
 import { UserInfoModule } from './user-info/user-info.module';
 import { BaleModule } from './bale/bale.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { BaleModule } from './bale/bale.module';
     ApprovalsModule,
     UserInfoModule,
     BaleModule,
+    HealthModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },
