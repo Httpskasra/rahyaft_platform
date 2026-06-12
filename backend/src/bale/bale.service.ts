@@ -26,7 +26,6 @@ export class BaleService {
     });
 
     const data = (await res.json()) as { ok: boolean; description?: string };
-
     if (!data.ok) {
       this.logger.error(`Bale sendMessage failed: ${data.description}`);
       throw new Error(`Bale API error: ${data.description}`);
