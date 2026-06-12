@@ -64,11 +64,12 @@ export class RolesController {
     return this.rolesService.assignToUser(dto);
   }
 
-  /** DELETE /roles/assign — remove a role from a user */
-  @Delete('assign')
+  @Delete('assign/:userId/:roleId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @RequirePermission({ action: 'update', resource: 'roles' })
-  removeFromUser(@Body() dto: AssignRoleDto) {
-    return this.rolesService.removeFromUser(dto);
+  removeFromUser(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Param('roleId', ParseUUIDPipe) roleId: string,
+  ) {
+    return this.rolesService.removeFromUser({ userId, roleId });
   }
 }

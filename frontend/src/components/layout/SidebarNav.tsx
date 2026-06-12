@@ -39,7 +39,8 @@ type GroupKey =
   | "ایمیل"
   | "فاکتور"
   | "نمودارها"
-  | "تعمیرات";
+  | "تعمیرات"
+  | "کاربران";
 
 function MenuGroupTitle({
   collapsed,
@@ -151,7 +152,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
 
         <ul className="mb-6 flex flex-col gap-4">
           {/* Dashboard dropdown */}
-          <li>
+          {/* <li>
             <button
               type="button"
               onClick={() =>
@@ -239,7 +240,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                 </ul>
               </div>
             }
-          </li>
+          </li> */}
           {/* fixing dropdown */}
           <li>
             <button
@@ -365,120 +366,190 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
               </div>
             }
           </li>
-          {true &&<li>
-            <button
-              type="button"
-              onClick={() =>
-                setOpen((v) => (v === "نقش ها" ? ("" as any) : "نقش ها"))
-              }
-              className={[
-                "menu-item group w-full text-right",
-                open === "نقش ها" ? "menu-item-active" : "menu-item-inactive",
-              ].join(" ")}>
-              <IdCardLanyard size={20} />
-              <span className={collapsed ? "lg:hidden" : ""}>نقش ها</span>
-
-              <span
+          {canReadUsers && (
+            <li>
+              <button
+                type="button"
+                onClick={() =>
+                  setOpen((v) => (v === "کاربران" ? ("" as any) : "کاربران"))
+                }
                 className={[
-                  "menu-item-arrow",
-                  collapsed ? "lg:hidden" : "",
+                  "menu-item group w-full text-right",
+                  open === "کاربران" ? "menu-item-active" : (
+                    "menu-item-inactive"
+                  ),
                 ].join(" ")}>
-                <ChevronDown
-                  size={18}
-                  className={open === "نقش ها" ? "rotate-180" : ""}
-                />
-              </span>
-            </button>
+                <User size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>کاربران</span>
 
-            {
-              <div className="translate transform  overflow-hidden">
+                <span
+                  className={[
+                    "menu-item-arrow",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <ChevronDown
+                    size={18}
+                    className={open === "کاربران" ? "rotate-180" : ""}
+                  />
+                </span>
+              </button>
+
+              <div className="translate transform overflow-hidden">
                 <ul
                   className={[
                     "menu-dropdown",
-                    open === "نقش ها" ? "open" : "closed",
+                    open === "کاربران" ? "open" : "closed",
                     collapsed ? "lg:hidden" : "",
                   ].join(" ")}>
                   <li>
                     <DropdownItem
-                      href="/dashboard/roles"
-                      label="افزودن نقش و دسترسی"
-                      active={isActive("/dashboard/roles")}
+                      href="/dashboard/users"
+                      label="مدیریت کاربران"
+                      active={isActive("/dashboard/users")}
                     />
                   </li>
                 </ul>
               </div>
-            }
-          </li>}
+            </li>
+          )}
+          {canReadRoles && (
+            <li>
+              <button
+                type="button"
+                onClick={() =>
+                  setOpen((v) => (v === "نقش ها" ? ("" as any) : "نقش ها"))
+                }
+                className={[
+                  "menu-item group w-full text-right",
+                  open === "نقش ها" ? "menu-item-active" : "menu-item-inactive",
+                ].join(" ")}>
+                <IdCardLanyard size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>نقش ها</span>
 
-          {canReadDepartments && <li>
-            <button
-              type="button"
-              onClick={() =>
-                setOpen((v) => (v === "دپارتمان‌ها" ? ("" as any) : "دپارتمان‌ها"))
-              }
-              className={[
-                "menu-item group w-full text-right",
-                open === "دپارتمان‌ها" ? "menu-item-active" : "menu-item-inactive",
-              ].join(" ")}>
-              <Building2 size={20} />
-              <span className={collapsed ? "lg:hidden" : ""}>دپارتمان‌ها</span>
-              <span className={["menu-item-arrow", collapsed ? "lg:hidden" : ""].join(" ")}>
-                <ChevronDown
-                  size={18}
-                  className={open === "دپارتمان‌ها" ? "rotate-180" : ""}
-                />
-              </span>
-            </button>
-            <div className="translate transform overflow-hidden">
-              <ul className={[
-                "menu-dropdown",
-                open === "دپارتمان‌ها" ? "open" : "closed",
-                collapsed ? "lg:hidden" : "",
-              ].join(" ")}>
-                <li>
-                  <DropdownItem
-                    href="/dashboard/departments"
-                    label="مدیریت دپارتمان‌ها"
-                    active={isActive("/dashboard/departments")}
+                <span
+                  className={[
+                    "menu-item-arrow",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <ChevronDown
+                    size={18}
+                    className={open === "نقش ها" ? "rotate-180" : ""}
                   />
-                </li>
-              </ul>
-            </div>
-          </li>}
+                </span>
+              </button>
 
-
-          {<li>
-            <button
-              type="button"
-              onClick={() =>
-                setOpen((v) => (v === "فرم‌ها" ? ("" as any) : "فرم‌ها"))
+              {
+                <div className="translate transform  overflow-hidden">
+                  <ul
+                    className={[
+                      "menu-dropdown",
+                      open === "نقش ها" ? "open" : "closed",
+                      collapsed ? "lg:hidden" : "",
+                    ].join(" ")}>
+                    <li>
+                      <DropdownItem
+                        href="/dashboard/roles"
+                        label="افزودن نقش و دسترسی"
+                        active={isActive("/dashboard/roles")}
+                      />
+                    </li>
+                  </ul>
+                </div>
               }
-              className={[
-                "menu-item group w-full text-right",
-                open === "فرم‌ها" ? "menu-item-active" : "menu-item-inactive",
-              ].join(" ")}>
-              <FileTextIcon size={20} />
-              <span className={collapsed ? "lg:hidden" : ""}>فرم‌ها</span>
-              <span className={["menu-item-arrow", collapsed ? "lg:hidden" : ""].join(" ")}>
-                <ChevronDown size={18} className={open === "فرم‌ها" ? "rotate-180" : ""} />
-              </span>
-            </button>
-            <div className="translate transform overflow-hidden">
-              <ul className={[
-                "menu-dropdown",
-                open === "فرم‌ها" ? "open" : "closed",
-                collapsed ? "lg:hidden" : "",
-              ].join(" ")}>
-                <li>
-                  <DropdownItem
-                    href="/dashboard/forms"
-                    label="مدیریت فرم‌ها"
-                    active={isActive("/dashboard/forms")}
+            </li>
+          )}
+
+          {canReadDepartments && (
+            <li>
+              <button
+                type="button"
+                onClick={() =>
+                  setOpen((v) =>
+                    v === "دپارتمان‌ها" ? ("" as any) : "دپارتمان‌ها",
+                  )
+                }
+                className={[
+                  "menu-item group w-full text-right",
+                  open === "دپارتمان‌ها" ? "menu-item-active" : (
+                    "menu-item-inactive"
+                  ),
+                ].join(" ")}>
+                <Building2 size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>
+                  دپارتمان‌ها
+                </span>
+                <span
+                  className={[
+                    "menu-item-arrow",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <ChevronDown
+                    size={18}
+                    className={open === "دپارتمان‌ها" ? "rotate-180" : ""}
                   />
-                </li>
-              </ul>
-            </div>
-          </li>}
+                </span>
+              </button>
+              <div className="translate transform overflow-hidden">
+                <ul
+                  className={[
+                    "menu-dropdown",
+                    open === "دپارتمان‌ها" ? "open" : "closed",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <li>
+                    <DropdownItem
+                      href="/dashboard/departments"
+                      label="مدیریت دپارتمان‌ها"
+                      active={isActive("/dashboard/departments")}
+                    />
+                  </li>
+                </ul>
+              </div>
+            </li>
+          )}
+
+          {
+            <li>
+              <button
+                type="button"
+                onClick={() =>
+                  setOpen((v) => (v === "فرم‌ها" ? ("" as any) : "فرم‌ها"))
+                }
+                className={[
+                  "menu-item group w-full text-right",
+                  open === "فرم‌ها" ? "menu-item-active" : "menu-item-inactive",
+                ].join(" ")}>
+                <FileTextIcon size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>فرم‌ها</span>
+                <span
+                  className={[
+                    "menu-item-arrow",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <ChevronDown
+                    size={18}
+                    className={open === "فرم‌ها" ? "rotate-180" : ""}
+                  />
+                </span>
+              </button>
+              <div className="translate transform overflow-hidden">
+                <ul
+                  className={[
+                    "menu-dropdown",
+                    open === "فرم‌ها" ? "open" : "closed",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <li>
+                    <DropdownItem
+                      href="/dashboard/forms"
+                      label="مدیریت فرم‌ها"
+                      active={isActive("/dashboard/forms")}
+                    />
+                  </li>
+                </ul>
+              </div>
+            </li>
+          }
 
           {/* <li>
             <MenuItem

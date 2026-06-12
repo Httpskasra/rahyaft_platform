@@ -27,5 +27,5 @@ export const rolesApi = {
     apiClient.post("/roles/assign", body),
 
   removeFromUser: (body: { userId: string; roleId: string }) =>
-    apiClient.delete("/roles/assign", { data: body }),
+    apiClient.delete(`/roles/assign/${body.userId}/${body.roleId}`),
 };
