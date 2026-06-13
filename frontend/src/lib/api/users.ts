@@ -49,4 +49,6 @@ export const usersApi = {
 
   remove: (id: string) =>
     apiClient.delete(`/users/${id}`),
+  resetBaleChat: (userId: string) =>
+    apiClient.delete(`/users/${userId}/bale-chat`),
 };

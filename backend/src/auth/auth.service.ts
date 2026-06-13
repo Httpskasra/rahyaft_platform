@@ -15,7 +15,6 @@ import { SendOtpDto, VerifyOtpDto } from './dto/auth.dto';
 import { JwtPayload } from '../common/interfaces/auth.interface';
 import { BaleService } from '../bale/bale.service';
 
-
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -68,7 +67,7 @@ export class AuthService {
 
     // 3. Generate a cryptographically random 6-digit code
     const otp = this.generateOtp();
-    this.logger.warn(`[DEV] OTP: ${otp}`);//قبل اینکه بله بره روی سرور
+    this.logger.warn(`[DEV] OTP: ${otp}`); //قبل اینکه بله بره روی سرور
 
     // 4. Store in Redis (overwrites any existing code)
     await this.redis.set(
