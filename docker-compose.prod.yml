@@ -50,6 +50,13 @@ services:
       retries: 10
       start_period: 40s
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    command: tunnel --no-autoupdate run --url http://backend:3000
+    depends_on:
+      - backend
   # ─── Application services ──────────────────────────────────
   backend:
     build:
@@ -88,7 +95,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 60s
-
+  
   frontend:
     build:
       context: ./frontend

@@ -38,18 +38,11 @@ ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 RUN export PUPPETEER_SKIP_DOWNLOAD=true && npm ci --omit=dev
 
-# ✅ schema را کپی کن تا prisma generate در prod کار کند
-COPY --from=build /usr/src/app/prisma ./prisma
-
-# ✅ prisma generate در prod هم اجرا شود
-RUN npx prisma generate
-
 COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/dist/prisma.config.js ./prisma.config.js
 COPY --from=build /usr/src/app/prisma ./prisma
+COPY --from=build /usr/src/app/prisma.config.ts ./prisma.config.ts
 
-# ✅ دیگر نیازی به کپی src/generated نیست (generate بالا آن را می‌سازد)
-# COPY --from=build /usr/src/app/src/generated ./src/generated
+RUN npx prisma generate
 
 EXPOSE 3000
 
