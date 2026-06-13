@@ -68,4 +68,12 @@ export class UsersController {
   ) {
     return this.usersService.remove(userId, user);
   }
+
+  /** DELETE /users/:userId/bale-chat */
+  @Delete(':userId/bale-chat')
+  @HttpCode(HttpStatus.OK)
+  @RequirePermission({ action: 'update', resource: 'users' })
+  resetBaleChat(@Param('userId', ParseUUIDPipe) userId: string) {
+    return this.usersService.resetBaleChat(userId);
+  }
 }

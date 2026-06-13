@@ -114,4 +114,12 @@ export class UsersService {
     }
     await this.prisma.user.delete({ where: { id: userId } });
   }
+  //mehrak
+  async resetBaleChat(userId: string) {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { baleChatId: null },
+    });
+    return { message: 'Bale chat ID reset successfully' };
+  }
 }
