@@ -86,16 +86,16 @@ export class AuthService {
       select: { baleChatId: true },
     });
 
-    // if (!userWithChat?.baleChatId) {
-    //   throw new BadRequestException({
-    //     statusCode: 400,
-    //     error: 'BALE_NOT_REGISTERED',
-    //     message: 'ربات بله را فعال کنید',
-    //     botUsername: 'platform_rahyaft_bot',
-    //   });
-    // }
+    if (!userWithChat?.baleChatId) {
+      throw new BadRequestException({
+        statusCode: 400,
+        error: 'BALE_NOT_REGISTERED',
+        message: 'ربات بله را فعال کنید',
+        botUsername: 'platform_rahyaft_bot',
+      });
+    }
 
-    // await this.bale.sendOtp(userWithChat.baleChatId, otp);
+    await this.bale.sendOtp(userWithChat.baleChatId, otp);
 
     return { message: 'OTP sent successfully' };
   }
