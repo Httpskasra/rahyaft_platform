@@ -36,13 +36,22 @@ export class BaleWebhookController {
     if (phoneRegex.test(text)) {
       const user = await this.prisma.user.findUnique({
         where: { phoneNumber: text },
-        select: { id: true, name: true },
+        select: { id: true, name: true, baleChatId: true },
       });
 
       if (!user) {
         await this.bale.sendMessage(
           chatId,
           '❌ این شماره در سیستم ثبت نشده.\nبا مدیر سیستم تماس بگیرید.',
+        );
+        return { ok: true };
+      }
+
+      //check chat_id security
+      if (user.baleChatId) {
+        await this.bale.sendMessage(
+          chatId,
+          '⚠️ این شماره قبلاً ثبت شده و قابل تغییر نیست.\nبرای پشتیبانی با مدیر سیستم تماس بگیرید.',
         );
         return { ok: true };
       }
