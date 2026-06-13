@@ -54,6 +54,7 @@ export const ModelName = {
   Department: 'Department',
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
+  Attendance: 'Attendance',
   Role: 'Role',
   Permission: 'Permission',
   UserRole: 'UserRole',
@@ -114,10 +115,23 @@ export const UserScalarFieldEnum = {
   managerId: 'managerId',
   refreshToken: 'refreshToken',
   baleChatId: 'baleChatId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  employeeCode: 'employeeCode'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  checkTime: 'checkTime',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
 export const RoleScalarFieldEnum = {

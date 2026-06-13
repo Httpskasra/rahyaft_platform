@@ -8,6 +8,7 @@ export interface UserData {
   name: string;
   departmentId: string;
   managerId: string | null;
+  employeeCode: string | null;
   createdAt: string;
   roles: {
     role: {
@@ -22,13 +23,15 @@ export interface CreateUserDto {
   phoneNumber: string;
   departmentId: string;
   managerId?: string;
+  employeeCode?: string;
 }
 
 export interface UpdateUserDto {
   name?: string;
-  phoneNumber?: string;           // <── اکنون پشتیبانی می‌شود
+  phoneNumber?: string;
   departmentId?: string;
   managerId?: string;
+  employeeCode?: string;
 }
 
 export const usersApi = {
@@ -41,7 +44,7 @@ export const usersApi = {
   create: (body: CreateUserDto) =>
     apiClient.post<UserData>("/users", body),
 
-  update: (id: string, body: UpdateUserDto) =>   // phoneNumber اضافه شد
+  update: (id: string, body: UpdateUserDto) =>
     apiClient.patch<UserData>(`/users/${id}`, body),
 
   remove: (id: string) =>

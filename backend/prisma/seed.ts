@@ -21,12 +21,13 @@ async function main() {
   // 2. Create superadmin user
 
   const admin = await prisma.user.upsert({
-    where: { phoneNumber: '09170260302' },
+    where: { phoneNumber: '09164532683' },
     update: {},
     create: {
-      phoneNumber: '09170260302',
+      phoneNumber: '09164532683',
       name: 'Super Admin',
       departmentId: dept.id,
+      employeeCode: "1",
     },
   });
 
@@ -39,9 +40,17 @@ async function main() {
 
   // 4. Create permissions for all actions + resources
 
-  const actions = ['create', 'read', 'update', 'delete','approve'];
-  const resources = ['users', 'roles', 'departments','forms','form-submissions','approvals','user-info'];
-
+  const actions = ['create', 'read', 'update', 'delete', 'approve'];
+  const resources = [
+    'users',
+    'roles',
+    'departments',
+    'forms',
+    'form-submissions',
+    'approvals',
+    'user-info',
+    'attendance',
+  ];
 
   for (const action of actions) {
     for (const resource of resources) {
@@ -52,7 +61,9 @@ async function main() {
       });
 
       await prisma.rolePermission.upsert({
-        where: { roleId_permissionId: { roleId: role.id, permissionId: perm.id } },
+        where: {
+          roleId_permissionId: { roleId: role.id, permissionId: perm.id },
+        },
         update: {},
         create: {
           roleId: role.id,
@@ -78,7 +89,7 @@ async function main() {
     create: { name: 'user' },
   });
 
-  for (const action of actions) {  
+  for (const action of actions) {
     const perm = await prisma.permission.upsert({
       where: { action_resource: { action, resource: 'user-info' } },
       update: {},
@@ -86,7 +97,9 @@ async function main() {
     });
 
     await prisma.rolePermission.upsert({
-      where: { roleId_permissionId: { roleId: userRole.id, permissionId: perm.id } },
+      where: {
+        roleId_permissionId: { roleId: userRole.id, permissionId: perm.id },
+      },
       update: {},
       create: {
         roleId: userRole.id,

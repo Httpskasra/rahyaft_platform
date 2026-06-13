@@ -11,6 +11,7 @@
 export type * from './models/Department.js'
 export type * from './models/DepartmentRelation.js'
 export type * from './models/User.js'
+export type * from './models/Attendance.js'
 export type * from './models/Role.js'
 export type * from './models/Permission.js'
 export type * from './models/UserRole.js'

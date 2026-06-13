@@ -299,6 +299,7 @@ function UserDetail({
     phoneNumber: user.phoneNumber,
     departmentId: user.departmentId,
     managerId: user.managerId ?? "",
+    employeeCode: user.employeeCode ?? "",
   });
   const [editedRoleIds, setEditedRoleIds] = useState<Set<string>>(new Set());
   const initialRoleIds = useMemo(
@@ -331,6 +332,7 @@ function UserDetail({
       phoneNumber: user.phoneNumber,
       departmentId: user.departmentId,
       managerId: user.managerId ?? "",
+      employeeCode: user.employeeCode ?? "",
     });
         setEditedRoleIds(new Set(user.roles.map((r) => r.role.id)));
 
@@ -353,6 +355,7 @@ function UserDetail({
         phoneNumber: form.phoneNumber.trim(),
         departmentId: form.departmentId || undefined,
         managerId: form.managerId || undefined,
+        employeeCode: form.employeeCode.trim() || undefined,
       });
        const toRemove = Array.from(initialRoleIds).filter((id) => !editedRoleIds.has(id));
       const toAdd = Array.from(editedRoleIds).filter((id) => !initialRoleIds.has(id));
@@ -478,6 +481,12 @@ function UserDetail({
               value={departmentName}
             />
             <InfoRow
+        icon={<IdCard size={15} className="text-cyan-500" />}
+        label="کد پرسنلی"
+        value={user.employeeCode ?? ""}
+        ltr
+      />
+            <InfoRow
               icon={<Hash size={15} className="text-purple-500" />}
               label="شناسه کاربر"
               value={user.id}
@@ -500,6 +509,13 @@ function UserDetail({
               onChange={(v) => setForm((f) => ({ ...f, name: v }))}
               placeholder="نام و نام خانوادگی"
             />
+            <InputField
+  label="کد پرسنلی"
+  value={form.employeeCode}
+  onChange={(v) => setForm((f) => ({ ...f, employeeCode: v }))}
+  placeholder="کد پرسنلی (برای تطبیق تردد اکسل)"
+  ltr
+/>
             <InputField
               label="شماره موبایل"
               value={form.phoneNumber}
@@ -807,13 +823,15 @@ function CreateUserModal({
     phoneNumber: "",
     departmentId: "",
     managerId: "",
+      employeeCode: "",
+
   });
   const [selectedRoleIds, setSelectedRoleIds] = useState<Set<string>>(new Set());  
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     if (open) {
-      setForm({ name: "", phoneNumber: "", departmentId: "", managerId: "" });
+      setForm({ name: "", phoneNumber: "", departmentId: "", managerId: "",employeeCode: ""  });
       setSelectedRoleIds(new Set());
     }
   }, [open]);
@@ -841,6 +859,7 @@ function CreateUserModal({
         phoneNumber: form.phoneNumber.trim(),
         departmentId: form.departmentId,
         managerId: form.managerId || undefined,
+        employeeCode: form.employeeCode.trim() || undefined,
       });
 
        if (selectedRoleIds.size > 0) {
@@ -882,6 +901,13 @@ function CreateUserModal({
           placeholder="09xxxxxxxxx"
           ltr
         />
+        <InputField
+  label="کد پرسنلی"
+  value={form.employeeCode}
+  onChange={(v) => setForm((f) => ({ ...f, employeeCode: v }))}
+  placeholder="کد پرسنلی (برای تطبیق تردد اکسل)"
+  ltr
+/>
         <SelectField
           label="دپارتمان"
           value={form.departmentId}

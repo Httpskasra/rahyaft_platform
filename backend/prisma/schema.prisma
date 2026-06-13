@@ -70,8 +70,23 @@ model User {
   createdAt DateTime @default(now())
 
   approvalActions ApprovalAction[]
+  employeeCode String? @unique
+  attendances  Attendance[]
 }
+model Attendance {
+  id        String   @id @default(uuid())
+  userId    String
+  date      DateTime @db.Date
+  checkTime DateTime
+  source    String   @default("excel-import")
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, checkTime])
+  @@index([userId, date])
+}
 model Role {
   id   String @id @default(uuid())
   name String @unique

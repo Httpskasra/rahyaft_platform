@@ -2,6 +2,7 @@ import Image from "next/image";
 import { translations } from "@/lib/i18n";
 
 export default function Home() {
+  
   const t = translations;
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">

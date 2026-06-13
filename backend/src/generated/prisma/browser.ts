@@ -33,6 +33,11 @@ export type DepartmentRelation = Prisma.DepartmentRelationModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model Attendance
+ * 
+ */
+export type Attendance = Prisma.AttendanceModel
+/**
  * Model Role
  * 
  */

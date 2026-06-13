@@ -26,4 +26,9 @@ export class CreateUserDto {
   @IsUUID()
   @IsOptional()
   managerId?: string;
+
+  @IsString()
+  @MinLength(1)
+  @IsOptional()
+  employeeCode?: string;
 }

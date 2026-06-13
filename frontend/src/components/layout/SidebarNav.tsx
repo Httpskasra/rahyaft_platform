@@ -20,6 +20,7 @@ import {
   Wrench,
   FileText as FileTextIcon,
   Building2,
+  LucideCalendarClock,
   // PieChart,
 } from "lucide-react";
 import { usePermission } from "@/hooks/usePermission";
@@ -40,7 +41,8 @@ type GroupKey =
   | "فاکتور"
   | "نمودارها"
   | "تعمیرات"
-  | "کاربران";
+  | "کاربران"
+  | "ترددهای روزانه";
 
 function MenuGroupTitle({
   collapsed,
@@ -544,6 +546,53 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                       href="/dashboard/forms"
                       label="مدیریت فرم‌ها"
                       active={isActive("/dashboard/forms")}
+                    />
+                  </li>
+                </ul>
+              </div>
+            </li>
+          }
+          {
+            <li>
+              <button
+                type="button"
+                onClick={() =>
+                  setOpen((v) => (v === "ترددهای روزانه" ? ("" as any) : "ترددهای روزانه"))
+                }
+                className={[
+                  "menu-item group w-full text-right",
+                  open === "ترددهای روزانه" ? "menu-item-active" : "menu-item-inactive",
+                ].join(" ")}>
+                <LucideCalendarClock  size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>ترددهای روزانه</span>
+                <span
+                  className={[
+                    "menu-item-arrow",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <ChevronDown
+                    size={18}
+                    className={open === "ترددهای روزانه" ? "rotate-180" : ""}
+                  />
+                </span>
+              </button>
+              <div className="translate transform overflow-hidden">
+                <ul
+                  className={[
+                    "menu-dropdown",
+                    open === "ترددهای روزانه" ? "open" : "closed",
+                    collapsed ? "lg:hidden" : "",
+                  ].join(" ")}>
+                  <li>
+                    <DropdownItem
+                      href="/dashboard/attendance"
+                      label="آپلود ترددهای روزانه"
+                      active={isActive("/dashboard/attendance")}
+                    />
+                    <DropdownItem
+                      href="/dashboard/attendance/list"
+                      label="لیست ترددهای روزانه"
+                      active={isActive("/dashboard/attendance/list")}
                     />
                   </li>
                 </ul>

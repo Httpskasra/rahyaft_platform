@@ -387,6 +387,7 @@ export const ModelName = {
   Department: 'Department',
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
+  Attendance: 'Attendance',
   Role: 'Role',
   Permission: 'Permission',
   UserRole: 'UserRole',
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative"
+    modelProps: "department" | "departmentRelation" | "user" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -639,6 +640,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    Attendance: {
+      payload: Prisma.$AttendancePayload<ExtArgs>
+      fields: Prisma.AttendanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AttendanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AttendanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        findFirst: {
+          args: Prisma.AttendanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AttendanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        findMany: {
+          args: Prisma.AttendanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+        }
+        create: {
+          args: Prisma.AttendanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        createMany: {
+          args: Prisma.AttendanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AttendanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+        }
+        delete: {
+          args: Prisma.AttendanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        update: {
+          args: Prisma.AttendanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        deleteMany: {
+          args: Prisma.AttendanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AttendanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AttendanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+        }
+        upsert: {
+          args: Prisma.AttendanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        aggregate: {
+          args: Prisma.AttendanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAttendance>
+        }
+        groupBy: {
+          args: Prisma.AttendanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AttendanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceCountAggregateOutputType> | number
         }
       }
     }
@@ -1745,10 +1820,23 @@ export const UserScalarFieldEnum = {
   managerId: 'managerId',
   refreshToken: 'refreshToken',
   baleChatId: 'baleChatId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  employeeCode: 'employeeCode'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  checkTime: 'checkTime',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
 export const RoleScalarFieldEnum = {
@@ -2206,6 +2294,7 @@ export type GlobalOmitConfig = {
   department?: Prisma.DepartmentOmit
   departmentRelation?: Prisma.DepartmentRelationOmit
   user?: Prisma.UserOmit
+  attendance?: Prisma.AttendanceOmit
   role?: Prisma.RoleOmit
   permission?: Prisma.PermissionOmit
   userRole?: Prisma.UserRoleOmit
