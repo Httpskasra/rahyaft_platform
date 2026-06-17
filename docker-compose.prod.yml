@@ -53,8 +53,8 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
-    restart: always
-    command: tunnel --no-autoupdate run --url http://backend:3000
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --url http://enterprise_backend:3000
     depends_on:
       - backend
   # ─── Application services ──────────────────────────────────

@@ -13,6 +13,7 @@ import {
   Users,
   ChevronRight,
   X,
+  Pencil,
 } from "lucide-react";
 
 // ─── Field type definitions ──────────────────────────────────
@@ -31,7 +32,7 @@ interface FieldDef {
   label: string;
   description: string;
   required: boolean;
-  options: string[]; // for select / radio / checkbox
+  options: string[];
   columns?: TableColumn[];
 }
 
@@ -42,7 +43,7 @@ const FIELD_TYPE_LABELS: Record<FieldType, string> = {
   select: "لیست کشویی",
   radio: "انتخاب تکی (Radio)",
   checkbox: "چک‌باکس (چندگانه)",
-  table: "جدول داینامیک", // جدید
+  table: "جدول داینامیک",
 };
 
 const OPTION_TYPES: FieldType[] = ["select", "radio", "checkbox"];
@@ -92,6 +93,223 @@ function OptionEditor({
   );
 }
 
+// ─── FieldEditor (shared between Create & Edit) ───────────────
+function FieldEditor({
+  fields,
+  setFields,
+}: {
+  fields: FieldDef[];
+  setFields: React.Dispatch<React.SetStateAction<FieldDef[]>>;
+}) {
+  const addField = () =>
+    setFields((f) => [
+      ...f,
+      {
+        id: `field_${Date.now()}`,
+        type: "text",
+        label: "",
+        description: "",
+        required: false,
+        options: [],
+      },
+    ]);
+
+  const removeField = (idx: number) =>
+    setFields((f) => f.filter((_, i) => i !== idx));
+
+  const updateField = (idx: number, key: string, val: unknown) =>
+    setFields((f) =>
+      f.map((field, i) => {
+        if (i !== idx) return field;
+        const updated = { ...field, [key]: val };
+        if (
+          key === "type" &&
+          OPTION_TYPES.includes(val as FieldType) &&
+          updated.options.length === 0
+        ) {
+          updated.options = [""];
+        }
+        return updated;
+      }),
+    );
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-2">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          فیلدها
+        </label>
+        <button
+          onClick={addField}
+          className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:underline">
+          <Plus size={14} /> افزودن فیلد
+        </button>
+      </div>
+
+      <div className="space-y-3">
+        {fields.map((field, idx) => (
+          <div
+            key={field.id}
+            className="rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 p-4">
+            <div className="flex items-start gap-2">
+              <div className="flex-1 space-y-2">
+                <input
+                  value={field.label}
+                  onChange={(e) => updateField(idx, "label", e.target.value)}
+                  placeholder={`عنوان فیلد ${idx + 1}`}
+                  className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  value={field.description}
+                  onChange={(e) =>
+                    updateField(idx, "description", e.target.value)
+                  }
+                  placeholder="توضیح فیلد (اختیاری) — راهنمای کاربر"
+                  className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-xs text-gray-600 dark:text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <div className="flex gap-2 flex-wrap items-center">
+                  <select
+                    value={field.type}
+                    onChange={(e) =>
+                      updateField(idx, "type", e.target.value as FieldType)
+                    }
+                    className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1.5 text-xs text-gray-700 dark:text-gray-300 focus:outline-none">
+                    {(Object.keys(FIELD_TYPE_LABELS) as FieldType[]).map(
+                      (t) => (
+                        <option key={t} value={t}>
+                          {FIELD_TYPE_LABELS[t]}
+                        </option>
+                      ),
+                    )}
+                  </select>
+
+                  <label className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={field.required}
+                      onChange={(e) =>
+                        updateField(idx, "required", e.target.checked)
+                      }
+                      className="rounded"
+                    />
+                    الزامی
+                  </label>
+                </div>
+
+                {OPTION_TYPES.includes(field.type) && (
+                  <OptionEditor
+                    options={field.options.length ? field.options : [""]}
+                    onChange={(opts) => updateField(idx, "options", opts)}
+                  />
+                )}
+
+                {field.type === "table" && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                      ستون‌های جدول
+                    </p>
+                    <div className="space-y-2 mt-1">
+                      {(field.columns ?? []).map((col, colIdx) => (
+                        <div
+                          key={col.id}
+                          className="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-gray-900 border">
+                          <input
+                            type="text"
+                            value={col.label}
+                            onChange={(e) => {
+                              const newCols = [...(field.columns || [])];
+                              newCols[colIdx] = {
+                                ...col,
+                                label: e.target.value,
+                              };
+                              updateField(idx, "columns", newCols);
+                            }}
+                            placeholder="نام ستون"
+                            className="flex-1 rounded border px-2 py-1 text-sm"
+                          />
+                          <select
+                            value={col.type}
+                            onChange={(e) => {
+                              const newCols = [...(field.columns || [])];
+                              newCols[colIdx] = {
+                                ...col,
+                                type: e.target.value as
+                                  | "text"
+                                  | "number"
+                                  | "select",
+                              };
+                              updateField(idx, "columns", newCols);
+                            }}
+                            className="rounded border px-2 py-1 text-sm">
+                            <option value="text">متن</option>
+                            <option value="number">عدد</option>
+                            <option value="select">انتخابی</option>
+                          </select>
+                          {col.type === "select" && (
+                            <input
+                              type="text"
+                              value={col.options?.join(", ") || ""}
+                              onChange={(e) => {
+                                const opts = e.target.value
+                                  .split(",")
+                                  .map((s) => s.trim())
+                                  .filter(Boolean);
+                                const newCols = [...(field.columns || [])];
+                                newCols[colIdx] = { ...col, options: opts };
+                                updateField(idx, "columns", newCols);
+                              }}
+                              placeholder="گزینه‌ها (با کاما جدا کنید)"
+                              className="flex-1 rounded border px-2 py-1 text-sm"
+                            />
+                          )}
+                          <button
+                            onClick={() => {
+                              const newCols = (field.columns || []).filter(
+                                (_, i) => i !== colIdx,
+                              );
+                              updateField(idx, "columns", newCols);
+                            }}
+                            className="text-red-400">
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        onClick={() => {
+                          const newColumn: TableColumn = {
+                            id: `col_${Date.now()}_${Math.random()}`,
+                            label: "",
+                            type: "text",
+                          };
+                          const newCols = [
+                            ...(field.columns || []),
+                            newColumn,
+                          ];
+                          updateField(idx, "columns", newCols);
+                        }}
+                        className="text-xs text-blue-500 flex items-center gap-1 mt-1">
+                        <Plus size={12} /> افزودن ستون
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {fields.length > 1 && (
+                <button
+                  onClick={() => removeField(idx)}
+                  className="text-gray-300 hover:text-red-400 dark:text-gray-600 dark:hover:text-red-400 mt-1 shrink-0">
+                  <Trash2 size={15} />
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── CreateFormModal ───────────────────────────────────────────
 function CreateFormModal({
   open,
@@ -116,39 +334,6 @@ function CreateFormModal({
   ]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-
-  const addField = () =>
-    setFields((f) => [
-      ...f,
-      {
-        id: `field_${Date.now()}`,
-        type: "text",
-        label: "",
-        description: "",
-        required: false,
-        options: [],
-      },
-    ]);
-
-  const removeField = (idx: number) =>
-    setFields((f) => f.filter((_, i) => i !== idx));
-
-  const updateField = (idx: number, key: string, val: unknown) =>
-    setFields((f) =>
-      f.map((field, i) => {
-        if (i !== idx) return field;
-        const updated = { ...field, [key]: val };
-        // When switching to option-based type, seed with one empty option
-        if (
-          key === "type" &&
-          OPTION_TYPES.includes(val as FieldType) &&
-          updated.options.length === 0
-        ) {
-          updated.options = [""];
-        }
-        return updated;
-      }),
-    );
 
   const handleSubmit = async () => {
     if (!name.trim()) {
@@ -195,7 +380,6 @@ function CreateFormModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
       <div className="w-full max-w-xl rounded-2xl bg-white dark:bg-gray-900 shadow-2xl flex flex-col max-h-[90vh]">
-        {/* Header */}
         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">
             ایجاد فرم جدید
@@ -214,7 +398,6 @@ function CreateFormModal({
             </div>
           )}
 
-          {/* Form name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               نام فرم *
@@ -227,7 +410,6 @@ function CreateFormModal({
             />
           </div>
 
-          {/* Form description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               توضیحات فرم
@@ -241,197 +423,9 @@ function CreateFormModal({
             />
           </div>
 
-          {/* Fields */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                فیلدها
-              </label>
-              <button
-                onClick={addField}
-                className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:underline">
-                <Plus size={14} /> افزودن فیلد
-              </button>
-            </div>
-
-            <div className="space-y-3">
-              {fields.map((field, idx) => (
-                <div
-                  key={field.id}
-                  className="rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 p-4">
-                  <div className="flex items-start gap-2">
-                    <div className="flex-1 space-y-2">
-                      {/* Label */}
-                      <input
-                        value={field.label}
-                        onChange={(e) =>
-                          updateField(idx, "label", e.target.value)
-                        }
-                        placeholder={`عنوان فیلد ${idx + 1}`}
-                        className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                      {/* Description */}
-                      <input
-                        value={field.description}
-                        onChange={(e) =>
-                          updateField(idx, "description", e.target.value)
-                        }
-                        placeholder="توضیح فیلد (اختیاری) — راهنمای کاربر"
-                        className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-xs text-gray-600 dark:text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                      {/* Type + Required row */}
-                      <div className="flex gap-2 flex-wrap items-center">
-                        <select
-                          value={field.type}
-                          onChange={(e) =>
-                            updateField(
-                              idx,
-                              "type",
-                              e.target.value as FieldType,
-                            )
-                          }
-                          className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1.5 text-xs text-gray-700 dark:text-gray-300 focus:outline-none">
-                          {(Object.keys(FIELD_TYPE_LABELS) as FieldType[]).map(
-                            (t) => (
-                              <option key={t} value={t}>
-                                {FIELD_TYPE_LABELS[t]}
-                              </option>
-                            ),
-                          )}
-                        </select>
-
-                        <label className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={field.required}
-                            onChange={(e) =>
-                              updateField(idx, "required", e.target.checked)
-                            }
-                            className="rounded"
-                          />
-                          الزامی
-                        </label>
-                      </div>
-                      {/* Options editor for select / radio / checkbox */}
-                      {OPTION_TYPES.includes(field.type) && (
-                        <OptionEditor
-                          options={field.options.length ? field.options : [""]}
-                          onChange={(opts) => updateField(idx, "options", opts)}
-                        />
-                      )}
-                    
-                      {field.type === "table" && (
-                        <div className="mt-2">
-                          <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                            ستون‌های جدول
-                          </p>
-                          <div className="space-y-2 mt-1">
-                            {(field.columns ?? []).map((col, colIdx) => (
-                              <div
-                                key={col.id}
-                                className="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-gray-900 border">
-                                <input
-                                  type="text"
-                                  value={col.label}
-                                  onChange={(e) => {
-                                    const newCols = [...(field.columns || [])];
-                                    newCols[colIdx] = {
-                                      ...col,
-                                      label: e.target.value,
-                                    };
-                                    updateField(idx, "columns", newCols);
-                                  }}
-                                  placeholder="نام ستون"
-                                  className="flex-1 rounded border px-2 py-1 text-sm"
-                                />
-                                <select
-                                  value={col.type}
-                                  onChange={(e) => {
-                                    const newCols = [...(field.columns || [])];
-                                    newCols[colIdx] = {
-                                      ...col,
-                                      type: e.target.value as
-                                        | "text"
-                                        | "number"
-                                        | "select",
-                                    };
-                                    updateField(idx, "columns", newCols);
-                                  }}
-                                  className="rounded border px-2 py-1 text-sm">
-                                  <option value="text">متن</option>
-                                  <option value="number">عدد</option>
-                                  <option value="select">انتخابی</option>
-                                </select>
-                                {col.type === "select" && (
-                                  <input
-                                    type="text"
-                                    value={col.options?.join(", ") || ""}
-                                    onChange={(e) => {
-                                      const opts = e.target.value
-                                        .split(",")
-                                        .map((s) => s.trim())
-                                        .filter(Boolean);
-                                      const newCols = [
-                                        ...(field.columns || []),
-                                      ];
-                                      newCols[colIdx] = {
-                                        ...col,
-                                        options: opts,
-                                      };
-                                      updateField(idx, "columns", newCols);
-                                    }}
-                                    placeholder="گزینه‌ها (با کاما جدا کنید)"
-                                    className="flex-1 rounded border px-2 py-1 text-sm"
-                                  />
-                                )}
-                                <button
-                                  onClick={() => {
-                                    const newCols = (
-                                      field.columns || []
-                                    ).filter((_, i) => i !== colIdx);
-                                    updateField(idx, "columns", newCols);
-                                  }}
-                                  className="text-red-400">
-                                  <Trash2 size={14} />
-                                </button>
-                              </div>
-                            ))}
-                            <button
-                              onClick={() => {
-                                const newColumn: TableColumn = {
-                                  id: `col_${Date.now()}_${Math.random()}`,
-                                  label: "",
-                                  type: "text",
-                                };
-                                const newCols = [
-                                  ...(field.columns || []),
-                                  newColumn,
-                                ];
-                                updateField(idx, "columns", newCols);
-                              }}
-                              className="text-xs text-blue-500 flex items-center gap-1 mt-1">
-                              <Plus size={12} /> افزودن ستون
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {fields.length > 1 && (
-                      <button
-                        onClick={() => removeField(idx)}
-                        className="text-gray-300 hover:text-red-400 dark:text-gray-600 dark:hover:text-red-400 mt-1 shrink-0">
-                        <Trash2 size={15} />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <FieldEditor fields={fields} setFields={setFields} />
         </div>
 
-        {/* Footer */}
         <div className="p-6 border-t border-gray-100 dark:border-gray-800 flex gap-3">
           <button
             onClick={handleSubmit}
@@ -453,13 +447,194 @@ function CreateFormModal({
   );
 }
 
+// ─── EditFormModal ─────────────────────────────────────────────
+function EditFormModal({
+  open,
+  form,
+  onClose,
+  onUpdate,
+}: {
+  open: boolean;
+  form: Form | null;
+  onClose: () => void;
+  onUpdate: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [isActive, setIsActive] = useState(true);
+  const [fields, setFields] = useState<FieldDef[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  // Populate state when the target form changes
+  useEffect(() => {
+    if (!form) return;
+    setName(form.name ?? "");
+    setDescription(form.description ?? "");
+    setIsActive(form.isActive ?? true);
+    const existingFields: FieldDef[] =
+      (form.schema?.fields as FieldDef[]) ?? [];
+    setFields(
+      existingFields.length > 0
+        ? existingFields
+        : [
+            {
+              id: "field_1",
+              type: "text",
+              label: "",
+              description: "",
+              required: false,
+              options: [],
+            },
+          ],
+    );
+    setError("");
+  }, [form]);
+
+  const handleSubmit = async () => {
+    if (!name.trim()) {
+      setError("نام فرم الزامی است");
+      return;
+    }
+    const validFields = fields.filter((f) => f.label.trim());
+    if (!validFields.length) {
+      setError("حداقل یک فیلد با عنوان لازم است");
+      return;
+    }
+    if (!form) return;
+
+    setSaving(true);
+    setError("");
+    try {
+      await formsApi.update(form.id, {
+        name: name.trim(),
+        description: description.trim() || undefined,
+        schema: { fields: validFields },
+        isActive,
+      });
+      onUpdate();
+      onClose();
+    } catch {
+      setError("خطا در ویرایش فرم. دوباره تلاش کنید.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (!open || !form) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="w-full max-w-xl rounded-2xl bg-white dark:bg-gray-900 shadow-2xl flex flex-col max-h-[90vh]">
+        {/* Header */}
+        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Pencil size={18} className="text-blue-500" />
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+              ویرایش فرم
+            </h2>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl leading-none">
+            ×
+          </button>
+        </div>
+
+        <div className="p-6 overflow-y-auto flex-1 space-y-4" dir="rtl">
+          {error && (
+            <div className="flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-500/10 p-3 text-sm text-red-600 dark:text-red-400">
+              <AlertCircle size={16} /> {error}
+            </div>
+          )}
+
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              نام فرم *
+            </label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="مثلاً: فرم ثبت تعمیر"
+              className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              توضیحات فرم
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={2}
+              placeholder="توضیحی کوتاه درباره این فرم..."
+              className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            />
+          </div>
+
+          {/* isActive toggle */}
+          <div className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 px-4 py-3">
+            <div>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                وضعیت فرم
+              </p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                فرم غیرفعال برای کاربران قابل پر کردن نیست
+              </p>
+            </div>
+            <button
+              onClick={() => setIsActive((v) => !v)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                isActive
+                  ? "bg-blue-600"
+                  : "bg-gray-200 dark:bg-gray-700"
+              }`}>
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
+                  isActive ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Fields */}
+          <FieldEditor fields={fields} setFields={setFields} />
+        </div>
+
+        {/* Footer */}
+        <div className="p-6 border-t border-gray-100 dark:border-gray-800 flex gap-3">
+          <button
+            onClick={handleSubmit}
+            disabled={saving}
+            className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60">
+            {saving ?
+              <Loader2 size={16} className="animate-spin" />
+            : <Pencil size={16} />}
+            {saving ? "در حال ذخیره..." : "ذخیره تغییرات"}
+          </button>
+          <button
+            onClick={onClose}
+            className="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">
+            انصراف
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── FormCard ─────────────────────────────────────────────────
 function FormCard({
   form,
   onDelete,
+  onEdit,
 }: {
   form: Form;
   onDelete: (id: string) => void;
+  onEdit: (form: Form) => void;
 }) {
   const fieldCount = form.schema?.fields?.length ?? 0;
   const submissionCount = form._count?.submissions ?? 0;
@@ -494,12 +669,21 @@ function FormCard({
         <span className="flex items-center gap-1">
           <Users size={12} /> {submissionCount} پاسخ
         </span>
+        {/* Active badge */}
+        <span
+          className={`mr-auto flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
+            form.isActive
+              ? "bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400"
+              : "bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500"
+          }`}>
+          {form.isActive ? "فعال" : "غیرفعال"}
+        </span>
       </div>
 
       <div className="flex gap-2 pt-1 border-t border-gray-100 dark:border-gray-800">
         <Link
           href={`/dashboard/forms/${form.id}`}
-          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-gray-900 dark:bg-white text-gray-500 dark:text-gray-900 px-3 py-2 text-xs font-semibold hover:opacity-90">
+          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-3 py-2 text-xs font-semibold hover:opacity-90">
           مشاهده و تحلیل <ChevronRight size={13} />
         </Link>
         <Link
@@ -507,6 +691,12 @@ function FormCard({
           className="flex items-center gap-1 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">
           <BarChart2 size={13} /> آمار
         </Link>
+        {/* Edit button */}
+        <button
+          onClick={() => onEdit(form)}
+          className="rounded-xl border border-blue-100 dark:border-blue-900/30 px-2.5 py-2 text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600">
+          <Pencil size={13} />
+        </button>
         <button
           onClick={() => onDelete(form.id)}
           className="rounded-xl border border-red-100 dark:border-red-900/30 px-2.5 py-2 text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-600">
@@ -522,6 +712,7 @@ export default function FormsPage() {
   const [forms, setForms] = useState<Form[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
+  const [editingForm, setEditingForm] = useState<Form | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -555,6 +746,14 @@ export default function FormsPage() {
         open={showCreate}
         onClose={() => setShowCreate(false)}
         onCreate={load}
+      />
+
+      {/* Edit modal — null-safe: only renders when editingForm is set */}
+      <EditFormModal
+        open={editingForm !== null}
+        form={editingForm}
+        onClose={() => setEditingForm(null)}
+        onUpdate={load}
       />
 
       {/* Header */}
@@ -622,7 +821,12 @@ export default function FormsPage() {
         </div>
       : <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {forms.map((form) => (
-            <FormCard key={form.id} form={form} onDelete={handleDelete} />
+            <FormCard
+              key={form.id}
+              form={form}
+              onDelete={handleDelete}
+              onEdit={setEditingForm}
+            />
           ))}
         </div>
       }

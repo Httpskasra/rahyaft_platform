@@ -30,9 +30,10 @@ import {
   Layers,
 } from "lucide-react";
 import { rolesApi } from "@/lib/api/roles";
+import { authApi } from "@/lib/api/auth";
 
 // ─────────────────────────────────────────────────────────────
-// Types — mirror what NestJS returns from GET /roles
+// Types
 // ─────────────────────────────────────────────────────────────
 type ScopeType =
   | "SELF"
@@ -69,30 +70,40 @@ interface Role {
   permissions: RolePermission[];
 }
 
-// ─────────────────────────────────────────────────────────────
-// Permission catalog — matches your actual backend resources
-// ─────────────────────────────────────────────────────────────
-const RESOURCES = ["users", "roles", "departments"] as const;
-type Resource = (typeof RESOURCES)[number];
+type Resource = string;
+type Action = string;
 
-const ACTIONS = ["create", "read", "update", "delete"] as const;
-type Action = (typeof ACTIONS)[number];
-
-const RESOURCE_LABELS: Record<Resource, string> = {
+// ─────────────────────────────────────────────────────────────
+// Labels & Colors
+// ─────────────────────────────────────────────────────────────
+const RESOURCE_LABELS: Record<string, string> = {
   users: "کاربران",
   roles: "نقش‌ها",
   departments: "دپارتمان‌ها",
+  forms: "فرم‌ها",
+  "form-submissions": "ثبت فرم‌ها",
+  approvals: "تاییدیه‌ها",
+  "user-info": "اطلاعات کاربران",
 };
 
-const ACTION_LABELS: Record<Action, string> = {
+const ACTION_LABELS: Record<string, string> = {
   create: "ایجاد",
   read: "مشاهده",
   update: "ویرایش",
   delete: "حذف",
+  approve: "تایید",
 };
 
+function getResourceLabel(r: string) {
+  return RESOURCE_LABELS[r] ?? r;
+}
+
+function getActionLabel(a: string) {
+  return ACTION_LABELS[a] ?? a;
+}
+
 const ACTION_COLORS: Record<
-  Action,
+  string,
   { bg: string; text: string; darkBg: string; darkText: string; dot: string }
 > = {
   create: {
@@ -123,7 +134,26 @@ const ACTION_COLORS: Record<
     darkText: "dark:text-red-400",
     dot: "bg-red-500",
   },
+  approve: {
+    bg: "bg-purple-50",
+    text: "text-purple-700",
+    darkBg: "dark:bg-purple-500/10",
+    darkText: "dark:text-purple-400",
+    dot: "bg-purple-500",
+  },
 };
+
+const DEFAULT_ACTION_COLOR = {
+  bg: "bg-gray-50",
+  text: "text-gray-700",
+  darkBg: "dark:bg-gray-500/10",
+  darkText: "dark:text-gray-400",
+  dot: "bg-gray-400",
+};
+
+function getActionColor(action: string) {
+  return ACTION_COLORS[action] ?? DEFAULT_ACTION_COLOR;
+}
 
 const SCOPE_LABELS: Record<ScopeType, string> = {
   SELF: "فقط خود",
@@ -132,15 +162,6 @@ const SCOPE_LABELS: Record<ScopeType, string> = {
   DEPARTMENT_SUBTREE: "زیردرخت دپارتمان",
   RELATED_DEPARTMENTS: "دپارتمان‌های مرتبط",
   ORG_WIDE: "کل سازمان",
-};
-
-const SCOPE_ICONS: Record<ScopeType, React.ReactNode> = {
-  SELF: <UserCircle size={13} />,
-  TEAM: <Users size={13} />,
-  DEPARTMENT: <Building2 size={13} />,
-  DEPARTMENT_SUBTREE: <Network size={13} />,
-  RELATED_DEPARTMENTS: <Layers size={13} />,
-  ORG_WIDE: <Globe size={13} />,
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -257,7 +278,6 @@ function Modal({
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-start justify-between gap-4 border-b border-gray-100 px-6 py-5 dark:border-gray-800">
           <div>
             <h3 className="text-base font-semibold text-gray-900 dark:text-white">
@@ -276,7 +296,6 @@ function Modal({
             <X size={16} />
           </button>
         </div>
-        {/* Body */}
         <div className="px-6 py-5">{children}</div>
       </div>
     </div>
@@ -298,8 +317,8 @@ function Spinner({ size = 16 }: { size?: number }) {
 // ─────────────────────────────────────────────────────────────
 // Permission badge
 // ─────────────────────────────────────────────────────────────
-function PermBadge({ action }: { action: Action }) {
-  const c = ACTION_COLORS[action];
+function PermBadge({ action }: { action: string }) {
+  const c = getActionColor(action);
   return (
     <span
       className={cn(
@@ -311,7 +330,7 @@ function PermBadge({ action }: { action: Action }) {
       )}
     >
       <span className={cn("h-1.5 w-1.5 rounded-full", c.dot)} />
-      {ACTION_LABELS[action]}
+      {getActionLabel(action)}
     </span>
   );
 }
@@ -356,10 +375,14 @@ interface PermRowState {
 
 type PermMatrix = Record<string, PermRowState>;
 
-function buildMatrix(role: Role): PermMatrix {
+function buildMatrix(
+  role: Role,
+  resources: string[],
+  actions: string[]
+): PermMatrix {
   const matrix: PermMatrix = {};
-  for (const res of RESOURCES) {
-    for (const act of ACTIONS) {
+  for (const res of resources) {
+    for (const act of actions) {
       const key = getPermissionKey(act, res);
       const found = (role.permissions ?? []).find(
         (p) => p.permission.action === act && p.permission.resource === res
@@ -374,39 +397,45 @@ function buildMatrix(role: Role): PermMatrix {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Resource section — outer div (not button) to avoid nested button
+// Resource section
 // ─────────────────────────────────────────────────────────────
 function ResourceSection({
   resource,
+  actions,
   matrix,
   onChange,
   expandedResource,
   onToggleResource,
 }: {
   resource: Resource;
+  actions: string[];
   matrix: PermMatrix;
-  onChange: (key: string, field: keyof PermRowState, value: boolean | ScopeType) => void;
+  onChange: (
+    key: string,
+    field: keyof PermRowState,
+    value: boolean | ScopeType
+  ) => void;
   expandedResource: Resource | null;
   onToggleResource: (r: Resource) => void;
 }) {
   const isOpen = expandedResource === resource;
-  const enabledCount = ACTIONS.filter(
+
+  const enabledCount = actions.filter(
     (a) => matrix[getPermissionKey(a, resource)]?.enabled
   ).length;
 
-  const allOn = enabledCount === ACTIONS.length;
   const someOn = enabledCount > 0;
+  const allOn = enabledCount === actions.length;
 
   function toggleAll() {
     const next = !allOn;
-    for (const act of ACTIONS) {
+    for (const act of actions) {
       onChange(getPermissionKey(act, resource), "enabled", next);
     }
   }
 
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700/60">
-      {/* Resource header — div instead of button to avoid nested <button> */}
       <div
         role="button"
         tabIndex={0}
@@ -432,10 +461,10 @@ function ResourceSection({
           </div>
           <div className="text-right">
             <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-              {RESOURCE_LABELS[resource]}
+              {getResourceLabel(resource)}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {enabledCount} از {ACTIONS.length} دسترسی فعال
+              {enabledCount} از {actions.length} دسترسی فعال
             </p>
           </div>
         </div>
@@ -466,10 +495,9 @@ function ResourceSection({
         </div>
       </div>
 
-      {/* Action rows */}
       {isOpen && (
         <div className="divide-y divide-gray-100 dark:divide-gray-800">
-          {ACTIONS.map((action) => {
+          {actions.map((action) => {
             const key = getPermissionKey(action, resource);
             const state = matrix[key];
             return (
@@ -539,21 +567,28 @@ function PermissionEditor({
   role,
   onSave,
   saving,
+  resources,
+  actions,
 }: {
   role: Role;
   onSave: (matrix: PermMatrix) => Promise<void>;
   saving: boolean;
+  resources: string[];
+  actions: string[];
 }) {
-  const [matrix, setMatrix] = useState<PermMatrix>(() => buildMatrix(role));
-  const [expandedResource, setExpandedResource] =
-    useState<Resource | null>(RESOURCES[0]);
+  const [matrix, setMatrix] = useState<PermMatrix>(() =>
+    buildMatrix(role, resources, actions)
+  );
+  const [expandedResource, setExpandedResource] = useState<Resource | null>(
+    resources[0] ?? null
+  );
   const [dirty, setDirty] = useState(false);
 
   useEffect(() => {
-    setMatrix(buildMatrix(role));
+    setMatrix(buildMatrix(role, resources, actions));
     setDirty(false);
-    setExpandedResource(RESOURCES[0]);
-  }, [role.id]);
+    setExpandedResource(resources[0] ?? null);
+  }, [role.id, resources, actions]);
 
   function handleChange(
     key: string,
@@ -588,8 +623,9 @@ function PermissionEditor({
         <button
           type="button"
           onClick={() => {
-            const next = expandedResource === null ? RESOURCES[0] : null;
-            setExpandedResource(next);
+            setExpandedResource((prev) =>
+              prev === null ? (resources[0] ?? null) : null
+            );
           }}
           className="text-xs text-gray-500 underline-offset-2 hover:underline dark:text-gray-400"
         >
@@ -598,10 +634,11 @@ function PermissionEditor({
       </div>
 
       <div className="flex flex-col gap-2.5">
-        {RESOURCES.map((res) => (
+        {resources.map((res) => (
           <ResourceSection
             key={res}
             resource={res}
+            actions={actions}
             matrix={matrix}
             onChange={handleChange}
             expandedResource={expandedResource}
@@ -763,6 +800,11 @@ function NoSelection() {
 export default function RolesPermissionsPage() {
   const { toasts, show: showToast } = useToast();
 
+  // ── Meta (از /me) ──
+  const [availableResources, setAvailableResources] = useState<string[]>([]);
+  const [availableActions, setAvailableActions] = useState<string[]>([]);
+  const [metaLoading, setMetaLoading] = useState(true);
+
   // ── Data ──
   const [roles, setRoles] = useState<Role[]>([]);
   const [loading, setLoading] = useState(true);
@@ -795,6 +837,28 @@ export default function RolesPermissionsPage() {
   const [renaming, setRenaming] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  // ── بارگذاری resources و actions از /me ──
+  useEffect(() => {
+    async function loadMeta() {
+      setMetaLoading(true);
+      try {
+        const { data } = await authApi.me();
+        const allPerms = data.roles.flatMap((r) => r.permissions);
+        const resources = [...new Set(allPerms.map((p) => p.resource))];
+        const actions = [...new Set(allPerms.map((p) => p.action))];
+        setAvailableResources(resources);
+        setAvailableActions(actions);
+      } catch {
+        // fallback
+        setAvailableResources(["users", "roles", "departments"]);
+        setAvailableActions(["create", "read", "update", "delete"]);
+      } finally {
+        setMetaLoading(false);
+      }
+    }
+    loadMeta();
+  }, []);
 
   // ── Fetch all roles ──
   const fetchRoles = useCallback(async () => {
@@ -897,8 +961,8 @@ export default function RolesPermissionsPage() {
     setSaving(true);
     try {
       const tasks = [];
-      for (const res of RESOURCES) {
-        for (const act of ACTIONS) {
+      for (const res of availableResources) {
+        for (const act of availableActions) {
           const key = getPermissionKey(act, res);
           const state = matrix[key];
           if (state?.enabled) {
@@ -1018,6 +1082,10 @@ export default function RolesPermissionsPage() {
             <div className="flex h-full min-h-[400px] items-center justify-center">
               <NoSelection />
             </div>
+          ) : metaLoading ? (
+            <div className="flex h-full min-h-[400px] items-center justify-center">
+              <Spinner size={22} />
+            </div>
           ) : (
             <div className="flex flex-col">
               {/* Editor header */}
@@ -1068,6 +1136,8 @@ export default function RolesPermissionsPage() {
                   role={activeRole}
                   onSave={handleSavePermissions}
                   saving={saving}
+                  resources={availableResources}
+                  actions={availableActions}
                 />
               </div>
 
