@@ -83,6 +83,10 @@ export interface RepairStatusLog {
   oldStatus: RepairStatus | null;
   newStatus: RepairStatus;
   changedById: string;
+  changedBy?: {
+    id: string;
+    name: string;
+  };
   reason: string | null;
   createdAt: string;
 }

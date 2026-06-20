@@ -92,7 +92,7 @@ export class RepairsService {
     user: AuthenticatedUser,
     matchedPermission?: MatchedPermission,
   ) {
-    const repair = await this.prisma.repairCase.findUnique({
+const repair = await this.prisma.repairCase.findUnique({
       where: { id },
 
       include: {
@@ -100,7 +100,14 @@ export class RepairsService {
         technician: true,
         visits: true,
         parts: true,
-        statusLogs: true,
+        statusLogs: {
+          include: {
+            changedBy: {
+              select: { id: true, name: true },
+            },
+          },
+          orderBy: { createdAt: 'desc' },
+        },
       },
     });
 

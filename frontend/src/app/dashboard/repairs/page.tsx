@@ -28,6 +28,7 @@ import { repairsApi, type RepairCase, type RepairCaseDetail, type RepairStatus, 
 import { usersApi, type UserData } from "@/lib/api/users";
 import { CustomerPickerModal } from "@/components/repairs/CustomerPickerModal";
 import type { Customer } from "@/lib/api/customers";
+import { StatusTimeline } from "@/components/repairs/StatusTimeline";
 // ─── Constants ────────────────────────────────────────────────
 const STATUS_FA: Record<RepairStatus, string> = {
   REGISTERED: "ثبت شده",
@@ -348,34 +349,13 @@ function RepairDetail({ repair: initialRepair, technicians, showToast, onRefresh
           </>
         )}
 
-        {activeTab === "logs" && (
-          <div className="space-y-2">
-            {loadingDetail ? (
-              <div className="flex justify-center py-8"><Spinner size={20} /></div>
-            ) : !detail || detail.statusLogs.length === 0 ? (
-              <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">تاریخچه‌ای وجود ندارد</p>
-            ) : (
-              [...detail.statusLogs].reverse().map((log) => (
-                <div key={log.id} className="flex items-start gap-3 rounded-2xl border border-gray-100 bg-gray-50/50 px-4 py-3 dark:border-gray-800 dark:bg-gray-800/30">
-                  <ClipboardList size={14} className="mt-0.5 shrink-0 text-gray-400" />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {log.oldStatus && (
-                        <>
-                          <span className={cn("rounded-lg px-1.5 py-0.5 text-[11px] font-medium", STATUS_COLORS[log.oldStatus])}>{STATUS_FA[log.oldStatus]}</span>
-                          <ArrowRight size={11} className="text-gray-400" />
-                        </>
-                      )}
-                      <span className={cn("rounded-lg px-1.5 py-0.5 text-[11px] font-medium", STATUS_COLORS[log.newStatus])}>{STATUS_FA[log.newStatus]}</span>
-                    </div>
-                    {log.reason && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{log.reason}</p>}
-                    <p className="mt-1 text-[10px] text-gray-400">{formatDate(log.createdAt)}</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        )}
+{activeTab === "logs" && (
+  <StatusTimeline
+    logs={detail?.statusLogs ?? []}
+    loading={loadingDetail}
+    registeredAt={initialRepair.createdAt}
+  />
+)}
       </div>
     </div>
   );
