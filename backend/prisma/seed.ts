@@ -40,7 +40,7 @@ async function main() {
 
   // 4. Create permissions for all actions + resources
 
-  const actions = ['create', 'read', 'update', 'delete', 'approve'];
+  const actions = ['create', 'read', 'update', 'delete', 'approve','assign'];
   const resources = [
     'users',
     'roles',
@@ -50,6 +50,7 @@ async function main() {
     'approvals',
     'user-info',
     'attendance',
+    'repairs',
   ];
 
   for (const action of actions) {

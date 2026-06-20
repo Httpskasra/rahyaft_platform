@@ -38,3 +38,40 @@ export const ApprovalStatus = {
 } as const
 
 export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]
+
+
+export const RepairType = {
+  IN_HOUSE: 'IN_HOUSE',
+  ON_SITE: 'ON_SITE'
+} as const
+
+export type RepairType = (typeof RepairType)[keyof typeof RepairType]
+
+
+export const RepairStatus = {
+  REGISTERED: 'REGISTERED',
+  WAITING_REVIEW: 'WAITING_REVIEW',
+  WAITING_COST_APPROVAL: 'WAITING_COST_APPROVAL',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  IN_REPAIR: 'IN_REPAIR',
+  QC: 'QC',
+  READY_FOR_DELIVERY: 'READY_FOR_DELIVERY',
+  DELIVERED: 'DELIVERED',
+  CLOSED: 'CLOSED',
+  CANCELED: 'CANCELED',
+  NO_REPAIR_REQUIRED: 'NO_REPAIR_REQUIRED'
+} as const
+
+export type RepairStatus = (typeof RepairStatus)[keyof typeof RepairStatus]
+
+
+export const VisitResult = {
+  REPAIRED: 'REPAIRED',
+  NEED_SECOND_VISIT: 'NEED_SECOND_VISIT',
+  NEED_PART: 'NEED_PART',
+  CUSTOMER_ABSENT: 'CUSTOMER_ABSENT',
+  CANCELED: 'CANCELED'
+} as const
+
+export type VisitResult = (typeof VisitResult)[keyof typeof VisitResult]

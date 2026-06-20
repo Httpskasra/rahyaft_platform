@@ -222,6 +222,9 @@ export type UserWhereInput = {
   userInfo?: Prisma.XOR<Prisma.UserInfoNullableScalarRelationFilter, Prisma.UserInfoWhereInput> | null
   approvalActions?: Prisma.ApprovalActionListRelationFilter
   attendances?: Prisma.AttendanceListRelationFilter
+  assignedRepairs?: Prisma.RepairCaseListRelationFilter
+  repairVisits?: Prisma.RepairVisitListRelationFilter
+  statusLogs?: Prisma.RepairStatusLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -242,6 +245,9 @@ export type UserOrderByWithRelationInput = {
   userInfo?: Prisma.UserInfoOrderByWithRelationInput
   approvalActions?: Prisma.ApprovalActionOrderByRelationAggregateInput
   attendances?: Prisma.AttendanceOrderByRelationAggregateInput
+  assignedRepairs?: Prisma.RepairCaseOrderByRelationAggregateInput
+  repairVisits?: Prisma.RepairVisitOrderByRelationAggregateInput
+  statusLogs?: Prisma.RepairStatusLogOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -265,6 +271,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   userInfo?: Prisma.XOR<Prisma.UserInfoNullableScalarRelationFilter, Prisma.UserInfoWhereInput> | null
   approvalActions?: Prisma.ApprovalActionListRelationFilter
   attendances?: Prisma.AttendanceListRelationFilter
+  assignedRepairs?: Prisma.RepairCaseListRelationFilter
+  repairVisits?: Prisma.RepairVisitListRelationFilter
+  statusLogs?: Prisma.RepairStatusLogListRelationFilter
 }, "id" | "phoneNumber" | "employeeCode">
 
 export type UserOrderByWithAggregationInput = {
@@ -313,6 +322,9 @@ export type UserCreateInput = {
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -331,6 +343,9 @@ export type UserUncheckedCreateInput = {
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUpdateInput = {
@@ -349,6 +364,9 @@ export type UserUpdateInput = {
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -367,6 +385,9 @@ export type UserUncheckedUpdateInput = {
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -631,6 +652,50 @@ export type UserUpdateOneRequiredWithoutUserInfoNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserInfoInput, Prisma.UserUpdateWithoutUserInfoInput>, Prisma.UserUncheckedUpdateWithoutUserInfoInput>
 }
 
+export type UserCreateNestedOneWithoutAssignedRepairsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedRepairsInput, Prisma.UserUncheckedCreateWithoutAssignedRepairsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedRepairsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAssignedRepairsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedRepairsInput, Prisma.UserUncheckedCreateWithoutAssignedRepairsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedRepairsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedRepairsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedRepairsInput, Prisma.UserUpdateWithoutAssignedRepairsInput>, Prisma.UserUncheckedUpdateWithoutAssignedRepairsInput>
+}
+
+export type UserCreateNestedOneWithoutRepairVisitsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRepairVisitsInput, Prisma.UserUncheckedCreateWithoutRepairVisitsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRepairVisitsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRepairVisitsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRepairVisitsInput, Prisma.UserUncheckedCreateWithoutRepairVisitsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRepairVisitsInput
+  upsert?: Prisma.UserUpsertWithoutRepairVisitsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRepairVisitsInput, Prisma.UserUpdateWithoutRepairVisitsInput>, Prisma.UserUncheckedUpdateWithoutRepairVisitsInput>
+}
+
+export type UserCreateNestedOneWithoutStatusLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStatusLogsInput, Prisma.UserUncheckedCreateWithoutStatusLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStatusLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStatusLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStatusLogsInput, Prisma.UserUncheckedCreateWithoutStatusLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStatusLogsInput
+  upsert?: Prisma.UserUpsertWithoutStatusLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStatusLogsInput, Prisma.UserUpdateWithoutStatusLogsInput>, Prisma.UserUncheckedUpdateWithoutStatusLogsInput>
+}
+
 export type UserCreateWithoutDepartmentInput = {
   id?: string
   phoneNumber: string
@@ -646,6 +711,9 @@ export type UserCreateWithoutDepartmentInput = {
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -663,6 +731,9 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -721,6 +792,9 @@ export type UserCreateWithoutSubordinatesInput = {
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSubordinatesInput = {
@@ -738,6 +812,9 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSubordinatesInput = {
@@ -760,6 +837,9 @@ export type UserCreateWithoutManagerInput = {
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutManagerInput = {
@@ -777,6 +857,9 @@ export type UserUncheckedCreateWithoutManagerInput = {
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutManagerInput = {
@@ -815,6 +898,9 @@ export type UserUpdateWithoutSubordinatesInput = {
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubordinatesInput = {
@@ -832,6 +918,9 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutManagerInput = {
@@ -865,6 +954,9 @@ export type UserCreateWithoutAttendancesInput = {
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -882,6 +974,9 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -915,6 +1010,9 @@ export type UserUpdateWithoutAttendancesInput = {
   submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
@@ -932,6 +1030,9 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -949,6 +1050,9 @@ export type UserCreateWithoutRolesInput = {
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -966,6 +1070,9 @@ export type UserUncheckedCreateWithoutRolesInput = {
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -999,6 +1106,9 @@ export type UserUpdateWithoutRolesInput = {
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -1016,6 +1126,9 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutSubmissionsInput = {
@@ -1033,6 +1146,9 @@ export type UserCreateWithoutSubmissionsInput = {
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -1050,6 +1166,9 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -1083,6 +1202,9 @@ export type UserUpdateWithoutSubmissionsInput = {
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -1100,6 +1222,9 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutApprovalActionsInput = {
@@ -1117,6 +1242,9 @@ export type UserCreateWithoutApprovalActionsInput = {
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovalActionsInput = {
@@ -1134,6 +1262,9 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovalActionsInput = {
@@ -1167,6 +1298,9 @@ export type UserUpdateWithoutApprovalActionsInput = {
   submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovalActionsInput = {
@@ -1184,6 +1318,9 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutUserInfoInput = {
@@ -1201,6 +1338,9 @@ export type UserCreateWithoutUserInfoInput = {
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutUserInfoInput = {
@@ -1218,6 +1358,9 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutUserInfoInput = {
@@ -1251,6 +1394,9 @@ export type UserUpdateWithoutUserInfoInput = {
   submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserInfoInput = {
@@ -1268,6 +1414,297 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutAssignedRepairsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedRepairsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedRepairsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedRepairsInput, Prisma.UserUncheckedCreateWithoutAssignedRepairsInput>
+}
+
+export type UserUpsertWithoutAssignedRepairsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedRepairsInput, Prisma.UserUncheckedUpdateWithoutAssignedRepairsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedRepairsInput, Prisma.UserUncheckedCreateWithoutAssignedRepairsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedRepairsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedRepairsInput, Prisma.UserUncheckedUpdateWithoutAssignedRepairsInput>
+}
+
+export type UserUpdateWithoutAssignedRepairsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutRepairVisitsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutRepairVisitsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutRepairVisitsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRepairVisitsInput, Prisma.UserUncheckedCreateWithoutRepairVisitsInput>
+}
+
+export type UserUpsertWithoutRepairVisitsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRepairVisitsInput, Prisma.UserUncheckedUpdateWithoutRepairVisitsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRepairVisitsInput, Prisma.UserUncheckedCreateWithoutRepairVisitsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRepairVisitsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRepairVisitsInput, Prisma.UserUncheckedUpdateWithoutRepairVisitsInput>
+}
+
+export type UserUpdateWithoutRepairVisitsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRepairVisitsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutStatusLogsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+}
+
+export type UserUncheckedCreateWithoutStatusLogsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+}
+
+export type UserCreateOrConnectWithoutStatusLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStatusLogsInput, Prisma.UserUncheckedCreateWithoutStatusLogsInput>
+}
+
+export type UserUpsertWithoutStatusLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStatusLogsInput, Prisma.UserUncheckedUpdateWithoutStatusLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStatusLogsInput, Prisma.UserUncheckedCreateWithoutStatusLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStatusLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStatusLogsInput, Prisma.UserUncheckedUpdateWithoutStatusLogsInput>
+}
+
+export type UserUpdateWithoutStatusLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStatusLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -1296,6 +1733,9 @@ export type UserUpdateWithoutDepartmentInput = {
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -1313,6 +1753,9 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1352,6 +1795,9 @@ export type UserUpdateWithoutManagerInput = {
   userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagerInput = {
@@ -1369,6 +1815,9 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagerInput = {
@@ -1393,6 +1842,9 @@ export type UserCountOutputType = {
   submissions: number
   approvalActions: number
   attendances: number
+  assignedRepairs: number
+  repairVisits: number
+  statusLogs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1401,6 +1853,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
   approvalActions?: boolean | UserCountOutputTypeCountApprovalActionsArgs
   attendances?: boolean | UserCountOutputTypeCountAttendancesArgs
+  assignedRepairs?: boolean | UserCountOutputTypeCountAssignedRepairsArgs
+  repairVisits?: boolean | UserCountOutputTypeCountRepairVisitsArgs
+  statusLogs?: boolean | UserCountOutputTypeCountStatusLogsArgs
 }
 
 /**
@@ -1448,6 +1903,27 @@ export type UserCountOutputTypeCountAttendancesArgs<ExtArgs extends runtime.Type
   where?: Prisma.AttendanceWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedRepairsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RepairCaseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRepairVisitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RepairVisitWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStatusLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RepairStatusLogWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1467,6 +1943,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   userInfo?: boolean | Prisma.User$userInfoArgs<ExtArgs>
   approvalActions?: boolean | Prisma.User$approvalActionsArgs<ExtArgs>
   attendances?: boolean | Prisma.User$attendancesArgs<ExtArgs>
+  assignedRepairs?: boolean | Prisma.User$assignedRepairsArgs<ExtArgs>
+  repairVisits?: boolean | Prisma.User$repairVisitsArgs<ExtArgs>
+  statusLogs?: boolean | Prisma.User$statusLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1520,6 +1999,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   userInfo?: boolean | Prisma.User$userInfoArgs<ExtArgs>
   approvalActions?: boolean | Prisma.User$approvalActionsArgs<ExtArgs>
   attendances?: boolean | Prisma.User$attendancesArgs<ExtArgs>
+  assignedRepairs?: boolean | Prisma.User$assignedRepairsArgs<ExtArgs>
+  repairVisits?: boolean | Prisma.User$repairVisitsArgs<ExtArgs>
+  statusLogs?: boolean | Prisma.User$statusLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1542,6 +2024,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     userInfo: Prisma.$UserInfoPayload<ExtArgs> | null
     approvalActions: Prisma.$ApprovalActionPayload<ExtArgs>[]
     attendances: Prisma.$AttendancePayload<ExtArgs>[]
+    assignedRepairs: Prisma.$RepairCasePayload<ExtArgs>[]
+    repairVisits: Prisma.$RepairVisitPayload<ExtArgs>[]
+    statusLogs: Prisma.$RepairStatusLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1955,6 +2440,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   userInfo<T extends Prisma.User$userInfoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userInfoArgs<ExtArgs>>): Prisma.Prisma__UserInfoClient<runtime.Types.Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approvalActions<T extends Prisma.User$approvalActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvalActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendances<T extends Prisma.User$attendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedRepairs<T extends Prisma.User$assignedRepairsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedRepairsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairCasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  repairVisits<T extends Prisma.User$repairVisitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$repairVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  statusLogs<T extends Prisma.User$statusLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairStatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2549,6 +3037,78 @@ export type User$attendancesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
+}
+
+/**
+ * User.assignedRepairs
+ */
+export type User$assignedRepairsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RepairCase
+   */
+  select?: Prisma.RepairCaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RepairCase
+   */
+  omit?: Prisma.RepairCaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairCaseInclude<ExtArgs> | null
+  where?: Prisma.RepairCaseWhereInput
+  orderBy?: Prisma.RepairCaseOrderByWithRelationInput | Prisma.RepairCaseOrderByWithRelationInput[]
+  cursor?: Prisma.RepairCaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RepairCaseScalarFieldEnum | Prisma.RepairCaseScalarFieldEnum[]
+}
+
+/**
+ * User.repairVisits
+ */
+export type User$repairVisitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RepairVisit
+   */
+  select?: Prisma.RepairVisitSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RepairVisit
+   */
+  omit?: Prisma.RepairVisitOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairVisitInclude<ExtArgs> | null
+  where?: Prisma.RepairVisitWhereInput
+  orderBy?: Prisma.RepairVisitOrderByWithRelationInput | Prisma.RepairVisitOrderByWithRelationInput[]
+  cursor?: Prisma.RepairVisitWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RepairVisitScalarFieldEnum | Prisma.RepairVisitScalarFieldEnum[]
+}
+
+/**
+ * User.statusLogs
+ */
+export type User$statusLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RepairStatusLog
+   */
+  select?: Prisma.RepairStatusLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RepairStatusLog
+   */
+  omit?: Prisma.RepairStatusLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairStatusLogInclude<ExtArgs> | null
+  where?: Prisma.RepairStatusLogWhereInput
+  orderBy?: Prisma.RepairStatusLogOrderByWithRelationInput | Prisma.RepairStatusLogOrderByWithRelationInput[]
+  cursor?: Prisma.RepairStatusLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RepairStatusLogScalarFieldEnum | Prisma.RepairStatusLogScalarFieldEnum[]
 }
 
 /**

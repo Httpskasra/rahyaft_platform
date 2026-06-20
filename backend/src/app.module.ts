@@ -23,6 +23,9 @@ import { UserInfoModule } from './user-info/user-info.module';
 import { BaleModule } from './bale/bale.module';
 import { HealthModule } from './health/health.module';
 import { AttendanceModule } from './attendance/attendance.module';
+import { RepairsModule } from './repairs/repairs.module';
+import { CustomerModule } from './customer/customer.module';
+// import { PermissionsGuard } from './auth/permissions.guard';
 
 @Module({
   imports: [
@@ -42,6 +45,8 @@ import { AttendanceModule } from './attendance/attendance.module';
     BaleModule,
     HealthModule,
     AttendanceModule,
+    RepairsModule,
+    CustomerModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

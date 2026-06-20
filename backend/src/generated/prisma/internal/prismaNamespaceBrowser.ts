@@ -68,7 +68,14 @@ export const ModelName = {
   ApprovalInstance: 'ApprovalInstance',
   ApprovalAction: 'ApprovalAction',
   UserInfo: 'UserInfo',
-  Relative: 'Relative'
+  Relative: 'Relative',
+  RepairCase: 'RepairCase',
+  RepairItem: 'RepairItem',
+  RepairVisit: 'RepairVisit',
+  RepairStatusLog: 'RepairStatusLog',
+  RepairSla: 'RepairSla',
+  NotificationEvent: 'NotificationEvent',
+  Customer: 'Customer'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -302,6 +309,106 @@ export const RelativeScalarFieldEnum = {
 } as const
 
 export type RelativeScalarFieldEnum = (typeof RelativeScalarFieldEnum)[keyof typeof RelativeScalarFieldEnum]
+
+
+export const RepairCaseScalarFieldEnum = {
+  id: 'id',
+  caseNumber: 'caseNumber',
+  customerId: 'customerId',
+  type: 'type',
+  status: 'status',
+  technicianId: 'technicianId',
+  description: 'description',
+  needCostApproval: 'needCostApproval',
+  estimatedCost: 'estimatedCost',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deviceTitle: 'deviceTitle',
+  serialNumber: 'serialNumber',
+  problemDescription: 'problemDescription'
+} as const
+
+export type RepairCaseScalarFieldEnum = (typeof RepairCaseScalarFieldEnum)[keyof typeof RepairCaseScalarFieldEnum]
+
+
+export const RepairItemScalarFieldEnum = {
+  id: 'id',
+  repairCaseId: 'repairCaseId',
+  title: 'title',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type RepairItemScalarFieldEnum = (typeof RepairItemScalarFieldEnum)[keyof typeof RepairItemScalarFieldEnum]
+
+
+export const RepairVisitScalarFieldEnum = {
+  id: 'id',
+  repairCaseId: 'repairCaseId',
+  technicianId: 'technicianId',
+  scheduledAt: 'scheduledAt',
+  visitedAt: 'visitedAt',
+  notes: 'notes',
+  result: 'result',
+  createdAt: 'createdAt'
+} as const
+
+export type RepairVisitScalarFieldEnum = (typeof RepairVisitScalarFieldEnum)[keyof typeof RepairVisitScalarFieldEnum]
+
+
+export const RepairStatusLogScalarFieldEnum = {
+  id: 'id',
+  repairCaseId: 'repairCaseId',
+  oldStatus: 'oldStatus',
+  newStatus: 'newStatus',
+  changedById: 'changedById',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type RepairStatusLogScalarFieldEnum = (typeof RepairStatusLogScalarFieldEnum)[keyof typeof RepairStatusLogScalarFieldEnum]
+
+
+export const RepairSlaScalarFieldEnum = {
+  id: 'id',
+  repairCaseId: 'repairCaseId',
+  dueAt: 'dueAt',
+  completedAt: 'completedAt',
+  isBreached: 'isBreached'
+} as const
+
+export type RepairSlaScalarFieldEnum = (typeof RepairSlaScalarFieldEnum)[keyof typeof RepairSlaScalarFieldEnum]
+
+
+export const NotificationEventScalarFieldEnum = {
+  id: 'id',
+  repairCaseId: 'repairCaseId',
+  status: 'status',
+  payload: 'payload',
+  sentAt: 'sentAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationEventScalarFieldEnum = (typeof NotificationEventScalarFieldEnum)[keyof typeof NotificationEventScalarFieldEnum]
+
+
+export const CustomerScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  phoneNumber: 'phoneNumber',
+  companyName: 'companyName',
+  nationalCode: 'nationalCode',
+  address: 'address',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
 
 
 export const SortOrder = {

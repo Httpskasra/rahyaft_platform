@@ -72,6 +72,9 @@ model User {
   approvalActions ApprovalAction[]
   employeeCode String? @unique
   attendances  Attendance[]
+  assignedRepairs RepairCase[]@relation("TechnicianRepairs")
+  repairVisits RepairVisit[] @relation("TechnicianVisits")
+  statusLogs RepairStatusLog[] @relation("UserStatusChanges")
 }
 model Attendance {
   id        String   @id @default(uuid())
@@ -292,4 +295,185 @@ model Relative {
   address  String?
   phone    String?
 
+}
+
+model RepairCase {
+  id String @id @default(uuid())
+
+  caseNumber String @unique
+
+  customerId String
+
+
+  type RepairType
+
+  status RepairStatus
+
+  technicianId String?
+
+  description String?
+
+  needCostApproval Boolean @default(false)
+
+  estimatedCost Decimal? @db.Decimal(12,2)
+
+  startedAt DateTime?
+  completedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deviceTitle String
+
+  serialNumber String?
+
+  problemDescription String
+  customer Customer @relation(fields: [customerId],references: [id])
+  technician User? @relation("TechnicianRepairs",fields: [technicianId],references: [id])
+  visits RepairVisit[]
+
+  parts RepairItem[]
+  statusLogs RepairStatusLog[]
+// notificationEvents NotificationEvent[]
+// sla RepairSla?
+}
+model RepairItem {
+  id String @id @default(uuid())
+
+  repairCaseId String
+
+  title String
+
+  quantity Int
+
+  unitPrice Decimal @db.Decimal(12,2)
+
+  description String?
+
+  createdAt DateTime @default(now())
+
+  repairCase RepairCase @relation( fields: [repairCaseId], references: [id])
+}
+enum RepairType {
+  IN_HOUSE
+  ON_SITE
+}
+enum RepairStatus {
+  REGISTERED
+
+  WAITING_REVIEW
+
+  WAITING_COST_APPROVAL
+
+  APPROVED
+
+  REJECTED
+
+  IN_REPAIR
+
+  QC
+
+  READY_FOR_DELIVERY
+
+  DELIVERED
+
+  CLOSED
+
+  CANCELED
+
+  NO_REPAIR_REQUIRED
+}
+
+model RepairVisit {
+  id String @id @default(uuid())
+
+  repairCaseId String
+
+  technicianId String
+
+  technician User @relation("TechnicianVisits", fields: [technicianId], references: [id])
+
+  scheduledAt DateTime
+
+  visitedAt DateTime?
+
+  notes String?
+
+  result VisitResult
+
+  createdAt DateTime @default(now())
+
+  repairCase RepairCase @relation(fields: [repairCaseId], references: [id])
+}
+enum VisitResult {
+  REPAIRED
+  NEED_SECOND_VISIT
+  NEED_PART
+  CUSTOMER_ABSENT
+  CANCELED
+}
+model RepairStatusLog {
+  id String @id @default(uuid())
+
+  repairCaseId String
+
+  oldStatus RepairStatus?
+
+  newStatus RepairStatus
+
+  changedById String
+
+  reason String?
+
+  createdAt DateTime @default(now())
+
+  repairCase RepairCase @relation(fields: [repairCaseId],references: [id],onDelete: Cascade)
+
+  changedBy User @relation("UserStatusChanges",fields: [changedById],references: [id])
+}
+
+model RepairSla {
+  id String @id @default(uuid())
+
+  repairCaseId String @unique
+
+  dueAt DateTime
+
+  completedAt DateTime?
+
+  isBreached Boolean @default(false)
+}
+model NotificationEvent {
+  id String @id @default(uuid())
+
+  repairCaseId String
+
+
+  status RepairStatus
+
+  payload Json
+
+  sentAt DateTime?
+  
+  createdAt DateTime @default(now())
+}
+model Customer {
+  id String @id @default(uuid())
+
+  fullName String
+
+  phoneNumber String
+
+  companyName String?
+
+  nationalCode String?
+
+  address String?
+
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  repairs RepairCase[]
 }

@@ -129,3 +129,38 @@ export type UserInfo = Prisma.UserInfoModel
  * 
  */
 export type Relative = Prisma.RelativeModel
+/**
+ * Model RepairCase
+ * 
+ */
+export type RepairCase = Prisma.RepairCaseModel
+/**
+ * Model RepairItem
+ * 
+ */
+export type RepairItem = Prisma.RepairItemModel
+/**
+ * Model RepairVisit
+ * 
+ */
+export type RepairVisit = Prisma.RepairVisitModel
+/**
+ * Model RepairStatusLog
+ * 
+ */
+export type RepairStatusLog = Prisma.RepairStatusLogModel
+/**
+ * Model RepairSla
+ * 
+ */
+export type RepairSla = Prisma.RepairSlaModel
+/**
+ * Model NotificationEvent
+ * 
+ */
+export type NotificationEvent = Prisma.NotificationEventModel
+/**
+ * Model Customer
+ * 
+ */
+export type Customer = Prisma.CustomerModel

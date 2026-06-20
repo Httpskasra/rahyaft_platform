@@ -34,7 +34,7 @@ export function Sidebar({
       <div
         className={[
           "sidebar-header flex items-center gap-2 pb-7 pt-8",
-          "justify-between",
+          "justify-between ",
         ].join(" ")}>
         <Link href="/" className="flex items-center gap-2">
           <span className="logo">
