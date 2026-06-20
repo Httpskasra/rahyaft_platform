@@ -40,7 +40,7 @@ export class RepairsController {
   }
 
   @Patch(':id/assign')
-  @RequirePermission({ action: 'assign', resource: 'repairs' })
+  @RequirePermission({ action: 'update', resource: 'repairs' })
   assignTechnician(
     @Param('id')
     id: string,

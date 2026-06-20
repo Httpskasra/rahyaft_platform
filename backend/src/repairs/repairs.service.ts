@@ -92,7 +92,7 @@ export class RepairsService {
     user: AuthenticatedUser,
     matchedPermission?: MatchedPermission,
   ) {
-const repair = await this.prisma.repairCase.findUnique({
+    const repair = await this.prisma.repairCase.findUnique({
       where: { id },
 
       include: {
