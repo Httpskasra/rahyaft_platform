@@ -9,7 +9,7 @@ export interface TableColumn {
 }
 export interface FormField {
   id: string;
-  type: "text" | "number" | "select" | "radio" | "checkbox" | "textarea" | "table";
+  type: "text" | "number" | "select" | "radio" | "checkbox" | "textarea" | "table" |"jalali_date";
   label: string;
   description?: string;
   required: boolean;
@@ -24,6 +24,7 @@ export interface FormSchema {
 export interface Form {
   id: string;
   name: string;
+  customId?: string;
   description?: string;
   schema: FormSchema;
   version: number;
@@ -234,11 +235,11 @@ export const formsApi = {
   findById: (id: string) => apiClient.get<Form>(`/forms/${id}`),
   getStats: (id: string) => apiClient.get<FormStats>(`/forms/${id}/stats`),
   getDeepAnalysis: (id: string) => apiClient.get<DeepAnalysis>(`/forms/${id}/deep-analysis`),
-  create: (data: { name: string; description?: string; schema: FormSchema }) =>
+  create: (data: { name: string; description?: string; customId?: string; schema: FormSchema }) =>
     apiClient.post<Form>("/forms", data),
   update: (
     id: string,
-    data: Partial<{ name: string; description: string; schema: FormSchema; isActive: boolean }>
+    data: Partial<{ name: string; description: string;  customId: string;schema: FormSchema; isActive: boolean }>
   ) => apiClient.patch<Form>(`/forms/${id}`, data),
   remove: (id: string) => apiClient.delete(`/forms/${id}`),
 };

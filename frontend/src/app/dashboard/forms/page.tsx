@@ -24,7 +24,8 @@ type FieldType =
   | "select"
   | "radio"
   | "checkbox"
-  | "table";
+  | "table"
+  | "jalali_date";
 
 interface FieldDef {
   id: string;
@@ -44,6 +45,7 @@ const FIELD_TYPE_LABELS: Record<FieldType, string> = {
   radio: "انتخاب تکی (Radio)",
   checkbox: "چک‌باکس (چندگانه)",
   table: "جدول داینامیک",
+  jalali_date: "تاریخ شمسی 📅", // ← اضافه شد
 };
 
 const OPTION_TYPES: FieldType[] = ["select", "radio", "checkbox"];
@@ -332,6 +334,8 @@ function CreateFormModal({
       options: [],
     },
   ]);
+  const [customId, setCustomId] = useState("");
+
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -352,12 +356,15 @@ function CreateFormModal({
       await formsApi.create({
         name: name.trim(),
         description: description.trim() || undefined,
+        customId: customId.trim() || undefined,
         schema: { fields: validFields },
       });
       onCreate();
       onClose();
       setName("");
       setDescription("");
+      setCustomId(""); // ← اضافه شد
+
       setFields([
         {
           id: "field_1",
@@ -409,7 +416,21 @@ function CreateFormModal({
               className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
+          <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            شناسه دستی (اختیاری)
+          </label>
+          <input
+            value={customId}
+            onChange={(e) => setCustomId(e.target.value)}
+            placeholder="مثلاً: FORM-001 — باید یکتا باشد"
+            className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            dir="ltr"
+          />
+          <p className="text-xs text-gray-400 mt-1">
+            اگر خالی باشد، فقط با ID خودکار ذخیره می‌شود
+          </p>
+        </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               توضیحات فرم
@@ -465,6 +486,7 @@ function EditFormModal({
   const [fields, setFields] = useState<FieldDef[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+const [customId, setCustomId] = useState("");
 
   // Populate state when the target form changes
   useEffect(() => {
@@ -472,6 +494,8 @@ function EditFormModal({
     setName(form.name ?? "");
     setDescription(form.description ?? "");
     setIsActive(form.isActive ?? true);
+    setCustomId(form.customId ?? "");
+
     const existingFields: FieldDef[] =
       (form.schema?.fields as FieldDef[]) ?? [];
     setFields(
@@ -509,6 +533,8 @@ function EditFormModal({
       await formsApi.update(form.id, {
         name: name.trim(),
         description: description.trim() || undefined,
+          customId: customId.trim() || undefined, // ← اضافه شد
+
         schema: { fields: validFields },
         isActive,
       });
@@ -540,7 +566,18 @@ function EditFormModal({
             ×
           </button>
         </div>
-
+            <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          شناسه دستی
+        </label>
+        <input
+          value={customId}
+          onChange={(e) => setCustomId(e.target.value)}
+          placeholder="مثلاً: FORM-001"
+          className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          dir="ltr"
+        />
+      </div>
         <div className="p-6 overflow-y-auto flex-1 space-y-4" dir="rtl">
           {error && (
             <div className="flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-500/10 p-3 text-sm text-red-600 dark:text-red-400">
@@ -650,6 +687,11 @@ function FormCard({
             <h3 className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">
               {form.name}
             </h3>
+            {form.customId && (
+  <p className="text-xs font-mono text-blue-500 dark:text-blue-400 mt-0.5">
+    #{form.customId}
+  </p>
+)}
             {form.description && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
                 {form.description}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react-hooks/immutability */
 // "use client";
@@ -2745,7 +2746,116 @@ function ApprovalStatusModal({
 }
 
 // ─── FieldRenderer (for submit) ───────────────────────────────
+// ─── JalaliDatePicker ─────────────────────────────────────────
 
+const JALALI_MONTHS = [
+  "فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور",
+  "مهر","آبان","آذر","دی","بهمن","اسفند",
+];
+
+function JalaliDatePicker({
+  value,
+  onChange,
+  required,
+}: {
+  value: string;
+  onChange: (v: unknown) => void;
+  required?: boolean;
+}) {
+  // مقدار ورودی: "1403/05/21" یا ""
+  const [year, setYear] = useState(() => value ? value.split("/")[0] : "");
+  const [month, setMonth] = useState(() => value ? value.split("/")[1] : "");
+  const [day, setDay] = useState(() => value ? value.split("/")[2] : "");
+
+  // هر بار که یکی تغییر کرد، مقدار کامل را emit کن
+  useEffect(() => {
+    if (year && month && day) {
+      const m = month.padStart(2, "0");
+      const d = day.padStart(2, "0");
+      onChange(`${year}/${m}/${d}`);
+    } else {
+      onChange("");
+    }
+  }, [year, month, day]);
+
+  // sync اگر value از بیرون عوض شد
+  useEffect(() => {
+    if (value) {
+      const parts = value.split("/");
+      setYear(parts[0] ?? "");
+      setMonth(parts[1] ?? "");
+      setDay(parts[2] ?? "");
+    }
+  }, []);
+
+  const daysInMonth = (m: number) =>
+    m <= 6 ? 31 : m <= 11 ? 30 : 29;
+
+  const maxDay =
+    month ? daysInMonth(parseInt(month)) : 31;
+
+  const base =
+    "rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
+
+  return (
+    <div className="flex gap-2 items-center" dir="rtl">
+      {/* سال */}
+      <div className="flex-1">
+        <input
+          type="number"
+          placeholder="سال — مثلاً ۱۴۰۳"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          min={1300}
+          max={1500}
+          className={`${base} w-full`}
+        />
+      </div>
+
+      {/* ماه */}
+      <div className="flex-1">
+        <select
+          value={month}
+          onChange={(e) => {
+            setMonth(e.target.value);
+            // اگر روز بیشتر از حداکثر بود، reset کن
+            const maxD = daysInMonth(parseInt(e.target.value));
+            if (parseInt(day) > maxD) setDay(String(maxD));
+          }}
+          className={`${base} w-full`}>
+          <option value="">ماه</option>
+          {JALALI_MONTHS.map((m, i) => (
+            <option key={i} value={String(i + 1).padStart(2, "0")}>
+              {m}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* روز */}
+      <div className="w-20">
+        <select
+          value={day}
+          onChange={(e) => setDay(e.target.value)}
+          className={`${base} w-full`}>
+          <option value="">روز</option>
+          {Array.from({ length: maxDay }, (_, i) => i + 1).map((d) => (
+            <option key={d} value={String(d).padStart(2, "0")}>
+              {d}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* نمایش مقدار نهایی */}
+      {value && (
+        <span className="text-xs text-blue-500 font-mono whitespace-nowrap">
+          {value}
+        </span>
+      )}
+    </div>
+  );
+}
 function FieldRenderer({
   field,
   value,
@@ -2851,7 +2961,13 @@ function FieldRenderer({
           })}
         </div>
       )}
-
+      {field.type === "jalali_date" && (
+  <JalaliDatePicker
+    value={(value as string) ?? ""}
+    onChange={onChange}
+    required={field.required}
+  />
+)}
       {field.type === "checkbox" && opts.length === 0 && (
         <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300 mt-1">
           <input
@@ -2863,7 +2979,7 @@ function FieldRenderer({
           {field.label}
         </label>
       )}
-      {!["textarea", "select", "radio", "checkbox","table"].includes(field.type) && (
+      {!["textarea", "select", "radio", "checkbox","table","jalali_date"].includes(field.type) && (
         <input
           type={field.type === "number" ? "number" : "text"}
           value={(value as string) ?? ""}

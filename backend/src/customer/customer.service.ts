@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   ConflictException,
   Injectable,
@@ -11,7 +9,6 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { QueryCustomerDto } from './dto/query-customer.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { Prisma } from 'src/generated/prisma/client';
-
 
 @Injectable()
 export class CustomerService {

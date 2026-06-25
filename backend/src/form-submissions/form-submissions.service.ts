@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-base-to-string */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RabbitMQService } from '../rabbitmq/rabbitmq.service';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
@@ -11,12 +17,38 @@ export class FormSubmissionsService {
     private readonly rabbit: RabbitMQService,
     private readonly approvalsService: ApprovalsService,
   ) {}
+  private validateJalaliFields(
+    schema: { fields: Array<{ id: string; type: string; required?: boolean }> },
+    data: Record<string, unknown>,
+  ) {
+    // فرمت معتبر: 1403/05/21
+    const jalaliRegex = /^1[34]\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$/;
 
+    for (const field of schema.fields ?? []) {
+      if (field.type !== 'jalali_date') continue;
+
+      const value = data[field.id];
+
+      if (field.required && !value) {
+        throw new BadRequestException(`فیلد تاریخ "${field.id}" اجباری است`);
+      }
+
+      if (value && !jalaliRegex.test(String(value))) {
+        throw new BadRequestException(
+          `فرمت تاریخ شمسی برای فیلد "${field.id}" نامعتبر است (باید YYYY/MM/DD باشد)`,
+        );
+      }
+    }
+  }
   async create(dto: CreateSubmissionDto, userId: string) {
     const form = await this.prisma.form.findUnique({
       where: { id: dto.formId, isActive: true },
     });
     if (!form) throw new NotFoundException('Form not found');
+    this.validateJalaliFields(
+      form.schema as any,
+      dto.data as Record<string, unknown>,
+    );
 
     const submission = await this.prisma.formSubmission.create({
       data: {

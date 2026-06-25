@@ -13,6 +13,9 @@ export class UpdateFormDto {
   @IsOptional()
   @IsObject()
   schema?: Prisma.InputJsonObject;
+  @IsOptional()
+  @IsString()
+  customId?: string;
 
   @IsOptional()
   @IsBoolean()

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   Injectable,
   NotFoundException,
@@ -16,6 +15,7 @@ export class FormsService {
     return this.prisma.form.create({
       data: {
         ownerId,
+        customId: dto.customId,
         name: dto.name,
         description: dto.description,
         schema: dto.schema,

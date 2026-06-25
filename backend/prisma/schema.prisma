@@ -139,6 +139,8 @@ model RolePermission {
 model Form {
   id          String  @id @default(uuid())
   ownerId     String
+  customId    String? @unique  // ← شناسه دستی یکتا
+
   name        String
   description String?
   schema      Json
