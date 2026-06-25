@@ -2404,6 +2404,7 @@ export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnu
 export const FormScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
+  customId: 'customId',
   name: 'name',
   description: 'description',
   schema: 'schema',
