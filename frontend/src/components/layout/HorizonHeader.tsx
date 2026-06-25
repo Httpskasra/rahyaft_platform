@@ -37,7 +37,7 @@ export function HorizonHeader({
         </p>
       </div>
 
-      <div className="relative mt-[3px] flex h-[56px] w-3/4 md:max-w-[220px] items-center justify-between gap-2 rounded-full bg-white/80 px-2 py-2 shadow-xl shadow-indigo-200/20 dark:bg-[var(--color-gray-800)]/60 dark:shadow-indigo-900/20 md:w-[365px]">
+      <div className="relative mt-[3px] flex h-[56px] w-full md:max-w-[220px] items-center justify-between gap-2 rounded-full bg-white/80 px-2 py-2 shadow-xl shadow-indigo-200/20 dark:bg-[var(--color-gray-800)]/60 dark:shadow-indigo-900/20 md:w-[365px]">
         {/* Search */}
         {/* <div className="flex h-full flex-1 items-center rounded-full bg-gray-100 text-gray-700 dark:bg-black/30 dark:text-white">
           <span className="pl-3 pr-2">

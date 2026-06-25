@@ -132,9 +132,10 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const getInitialOpenGroup = (): GroupKey => {
     if (
       pathname.startsWith("/dashboard/repairs") ||
-      pathname.startsWith("/dashboard/customers") ||
-      pathname.startsWith("/dashboard/devices") ||
-      pathname.startsWith("/dashboard/technicians")
+      // pathname.startsWith("/dashboard/customers") ||
+      // pathname.startsWith("/dashboard/devices") ||
+      // pathname.startsWith("/dashboard/technicians")||
+      pathname.startsWith("/dashboard/repairs/my-tasks")
     ) {
       return "تعمیرات";
     }
@@ -284,39 +285,39 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                       active={isActive("/dashboard/repairs")}
                     />
                   </li>
-                  <li>
+                  {/* <li>
                     <DropdownItem
                       href="/dashboard/repairs/customers"
                       label="مشتری "
                       active={isActive("/dashboard/repairs/customers")}
                     />
-                  </li>
-                  <li>
+                  </li> */}
+                  {/* <li>
                     <DropdownItem
                       href="/dashboard/repairs/devices"
                       label="دستگاه "
                       active={isActive("/dashboard/repairs/devices")}
                     />
-                  </li>
-                  <li>
+                  </li> */}
+                  {/* <li>
                     <DropdownItem
                       href="/dashboard/repairs/orders"
                       label="سفارش "
                       active={isActive("/dashboard/repairs/orders")}
                     />
-                  </li>
-                  <li>
+                  </li> */}
+                  {/* <li>
                     <DropdownItem
                       href="/dashboard/repairs/technicians"
                       label="تکنسین "
                       active={isActive("/dashboard/repairs/technicians")}
                     />
-                  </li>
+                  </li> */}
                   <li>
                     <DropdownItem
-                      href="/dashboard/repairs/reports"
-                      label="گزارش ها "
-                      active={isActive("/dashboard/repairs/reports")}
+                      href="/dashboard/repairs/my-tasks"
+                      label="وظایف من"
+                      active={isActive("/dashboard/repairs/my-tasks")}
                     />
                   </li>
                 </ul>
