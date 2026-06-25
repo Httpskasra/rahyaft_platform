@@ -1820,7 +1820,7 @@ function FieldRenderer({
         <JalaliDatePicker
           value={(value as string) ?? ""}
           onChange={onChange}
-          required={field.required}
+          // required={field.required}
         />
       )}
       {field.type === "checkbox" && opts.length === 0 && (
