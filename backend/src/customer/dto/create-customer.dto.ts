@@ -1,5 +1,4 @@
 import {
-  IsDateString,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -15,20 +14,20 @@ export enum Gender {
 }
 
 export enum OccupationGroup {
-  HAIR_TRANSPLANT_TECHNICIAN = 'HAIR_TRANSPLANT_TECHNICIAN',   // تکنسین کاشت مو
-  NAIL_TECHNICIAN = 'NAIL_TECHNICIAN',                         // تکنسین کاشت ناخن
-  GENERAL_PRACTITIONER = 'GENERAL_PRACTITIONER',               // پزشک عمومی
-  PHYSICIAN = 'PHYSICIAN',                                     // پزشک
-  HAIR_BEAUTY_CLINIC = 'HAIR_BEAUTY_CLINIC',                   // کلینیک کاشت مو و زیبایی
-  HOME_DEVICE_CUSTOMER = 'HOME_DEVICE_CUSTOMER',               // مشتری حضوری دستگاه خانگی
-  BARBER = 'BARBER',                                           // آرایشگر
-  DENTIST = 'DENTIST',                                         // دندانپزشک
-  VETERINARIAN = 'VETERINARIAN',                               // دامپزشک
-  COLLEAGUE = 'COLLEAGUE',                                     // همکار
-  EMPLOYEE = 'EMPLOYEE',                                       // کارمند
-  DERMATOLOGIST = 'DERMATOLOGIST',                             // متخصص پوست و مو
-  GYNECOLOGIST = 'GYNECOLOGIST',                               // متخصص زنان
-  OTHER = 'OTHER',                                             // سایر
+  HAIR_TRANSPLANT_TECHNICIAN = 'HAIR_TRANSPLANT_TECHNICIAN', // تکنسین کاشت مو
+  NAIL_TECHNICIAN = 'NAIL_TECHNICIAN', // تکنسین کاشت ناخن
+  GENERAL_PRACTITIONER = 'GENERAL_PRACTITIONER', // پزشک عمومی
+  PHYSICIAN = 'PHYSICIAN', // پزشک
+  HAIR_BEAUTY_CLINIC = 'HAIR_BEAUTY_CLINIC', // کلینیک کاشت مو و زیبایی
+  HOME_DEVICE_CUSTOMER = 'HOME_DEVICE_CUSTOMER', // مشتری حضوری دستگاه خانگی
+  BARBER = 'BARBER', // آرایشگر
+  DENTIST = 'DENTIST', // دندانپزشک
+  VETERINARIAN = 'VETERINARIAN', // دامپزشک
+  COLLEAGUE = 'COLLEAGUE', // همکار
+  EMPLOYEE = 'EMPLOYEE', // کارمند
+  DERMATOLOGIST = 'DERMATOLOGIST', // متخصص پوست و مو
+  GYNECOLOGIST = 'GYNECOLOGIST', // متخصص زنان
+  OTHER = 'OTHER', // سایر
 }
 
 export class CreateCustomerDto {

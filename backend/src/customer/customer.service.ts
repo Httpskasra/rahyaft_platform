@@ -6,13 +6,10 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from 'src/generated/prisma/client';
 
-<<<<<<< Updated upstream
-=======
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { QueryCustomerDto } from './dto/query-customer.dto';
 
->>>>>>> Stashed changes
 @Injectable()
 export class CustomerService {
   constructor(private readonly prisma: PrismaService) {}
