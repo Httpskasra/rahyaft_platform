@@ -494,6 +494,40 @@ export type EnumRepairStatusNullableWithAggregatesFilter<$PrismaModel = never> =
   _max?: Prisma.NestedEnumRepairStatusNullableFilter<$PrismaModel>
 }
 
+export type EnumGenderFilter<$PrismaModel = never> = {
+  equals?: $Enums.Gender | Prisma.EnumGenderFieldRefInput<$PrismaModel>
+  in?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
+}
+
+export type EnumOccupationGroupFilter<$PrismaModel = never> = {
+  equals?: $Enums.OccupationGroup | Prisma.EnumOccupationGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOccupationGroupFilter<$PrismaModel> | $Enums.OccupationGroup
+}
+
+export type EnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Gender | Prisma.EnumGenderFieldRefInput<$PrismaModel>
+  in?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGenderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGenderFilter<$PrismaModel>
+}
+
+export type EnumOccupationGroupWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OccupationGroup | Prisma.EnumOccupationGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOccupationGroupWithAggregatesFilter<$PrismaModel> | $Enums.OccupationGroup
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOccupationGroupFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOccupationGroupFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -931,6 +965,40 @@ export type NestedEnumRepairStatusNullableWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRepairStatusNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRepairStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumGenderFilter<$PrismaModel = never> = {
+  equals?: $Enums.Gender | Prisma.EnumGenderFieldRefInput<$PrismaModel>
+  in?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
+}
+
+export type NestedEnumOccupationGroupFilter<$PrismaModel = never> = {
+  equals?: $Enums.OccupationGroup | Prisma.EnumOccupationGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOccupationGroupFilter<$PrismaModel> | $Enums.OccupationGroup
+}
+
+export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Gender | Prisma.EnumGenderFieldRefInput<$PrismaModel>
+  in?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Gender[] | Prisma.ListEnumGenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGenderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGenderFilter<$PrismaModel>
+}
+
+export type NestedEnumOccupationGroupWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OccupationGroup | Prisma.EnumOccupationGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OccupationGroup[] | Prisma.ListEnumOccupationGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOccupationGroupWithAggregatesFilter<$PrismaModel> | $Enums.OccupationGroup
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOccupationGroupFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOccupationGroupFilter<$PrismaModel>
 }
 
 

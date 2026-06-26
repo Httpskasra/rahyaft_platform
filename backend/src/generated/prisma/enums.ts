@@ -75,3 +75,31 @@ export const VisitResult = {
 } as const
 
 export type VisitResult = (typeof VisitResult)[keyof typeof VisitResult]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const OccupationGroup = {
+  HAIR_TRANSPLANT_TECHNICIAN: 'HAIR_TRANSPLANT_TECHNICIAN',
+  NAIL_TECHNICIAN: 'NAIL_TECHNICIAN',
+  GENERAL_PRACTITIONER: 'GENERAL_PRACTITIONER',
+  PHYSICIAN: 'PHYSICIAN',
+  HAIR_BEAUTY_CLINIC: 'HAIR_BEAUTY_CLINIC',
+  HOME_DEVICE_CUSTOMER: 'HOME_DEVICE_CUSTOMER',
+  BARBER: 'BARBER',
+  DENTIST: 'DENTIST',
+  VETERINARIAN: 'VETERINARIAN',
+  COLLEAGUE: 'COLLEAGUE',
+  EMPLOYEE: 'EMPLOYEE',
+  DERMATOLOGIST: 'DERMATOLOGIST',
+  GYNECOLOGIST: 'GYNECOLOGIST',
+  OTHER: 'OTHER'
+} as const
+
+export type OccupationGroup = (typeof OccupationGroup)[keyof typeof OccupationGroup]

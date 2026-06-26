@@ -2622,12 +2622,21 @@ export type NotificationEventScalarFieldEnum = (typeof NotificationEventScalarFi
 
 export const CustomerScalarFieldEnum = {
   id: 'id',
-  fullName: 'fullName',
-  phoneNumber: 'phoneNumber',
-  companyName: 'companyName',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  mobile: 'mobile',
+  phone: 'phone',
   nationalCode: 'nationalCode',
+  birthDate: 'birthDate',
+  gender: 'gender',
+  province: 'province',
+  city: 'city',
   address: 'address',
-  description: 'description',
+  occupation: 'occupation',
+  occupationGroup: 'occupationGroup',
+  registeredAt: 'registeredAt',
+  email: 'email',
+  postalCode: 'postalCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2847,6 +2856,34 @@ export type EnumVisitResultFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'VisitResult[]'
  */
 export type ListEnumVisitResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VisitResult[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Gender'
+ */
+export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+/**
+ * Reference to a field of type 'Gender[]'
+ */
+export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+/**
+ * Reference to a field of type 'OccupationGroup'
+ */
+export type EnumOccupationGroupFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OccupationGroup'>
+    
+
+
+/**
+ * Reference to a field of type 'OccupationGroup[]'
+ */
+export type ListEnumOccupationGroupFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OccupationGroup[]'>
     
 
 

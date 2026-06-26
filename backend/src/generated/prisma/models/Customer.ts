@@ -26,36 +26,63 @@ export type AggregateCustomer = {
 
 export type CustomerMinAggregateOutputType = {
   id: string | null
-  fullName: string | null
-  phoneNumber: string | null
-  companyName: string | null
+  firstName: string | null
+  lastName: string | null
+  mobile: string | null
+  phone: string | null
   nationalCode: string | null
+  birthDate: string | null
+  gender: $Enums.Gender | null
+  province: string | null
+  city: string | null
   address: string | null
-  description: string | null
+  occupation: string | null
+  occupationGroup: $Enums.OccupationGroup | null
+  registeredAt: Date | null
+  email: string | null
+  postalCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type CustomerMaxAggregateOutputType = {
   id: string | null
-  fullName: string | null
-  phoneNumber: string | null
-  companyName: string | null
+  firstName: string | null
+  lastName: string | null
+  mobile: string | null
+  phone: string | null
   nationalCode: string | null
+  birthDate: string | null
+  gender: $Enums.Gender | null
+  province: string | null
+  city: string | null
   address: string | null
-  description: string | null
+  occupation: string | null
+  occupationGroup: $Enums.OccupationGroup | null
+  registeredAt: Date | null
+  email: string | null
+  postalCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type CustomerCountAggregateOutputType = {
   id: number
-  fullName: number
-  phoneNumber: number
-  companyName: number
+  firstName: number
+  lastName: number
+  mobile: number
+  phone: number
   nationalCode: number
+  birthDate: number
+  gender: number
+  province: number
+  city: number
   address: number
-  description: number
+  occupation: number
+  occupationGroup: number
+  registeredAt: number
+  email: number
+  postalCode: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -64,36 +91,63 @@ export type CustomerCountAggregateOutputType = {
 
 export type CustomerMinAggregateInputType = {
   id?: true
-  fullName?: true
-  phoneNumber?: true
-  companyName?: true
+  firstName?: true
+  lastName?: true
+  mobile?: true
+  phone?: true
   nationalCode?: true
+  birthDate?: true
+  gender?: true
+  province?: true
+  city?: true
   address?: true
-  description?: true
+  occupation?: true
+  occupationGroup?: true
+  registeredAt?: true
+  email?: true
+  postalCode?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type CustomerMaxAggregateInputType = {
   id?: true
-  fullName?: true
-  phoneNumber?: true
-  companyName?: true
+  firstName?: true
+  lastName?: true
+  mobile?: true
+  phone?: true
   nationalCode?: true
+  birthDate?: true
+  gender?: true
+  province?: true
+  city?: true
   address?: true
-  description?: true
+  occupation?: true
+  occupationGroup?: true
+  registeredAt?: true
+  email?: true
+  postalCode?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type CustomerCountAggregateInputType = {
   id?: true
-  fullName?: true
-  phoneNumber?: true
-  companyName?: true
+  firstName?: true
+  lastName?: true
+  mobile?: true
+  phone?: true
   nationalCode?: true
+  birthDate?: true
+  gender?: true
+  province?: true
+  city?: true
   address?: true
-  description?: true
+  occupation?: true
+  occupationGroup?: true
+  registeredAt?: true
+  email?: true
+  postalCode?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -173,12 +227,21 @@ export type CustomerGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type CustomerGroupByOutputType = {
   id: string
-  fullName: string
-  phoneNumber: string
-  companyName: string | null
-  nationalCode: string | null
-  address: string | null
-  description: string | null
+  firstName: string
+  lastName: string
+  mobile: string
+  phone: string
+  nationalCode: string
+  birthDate: string
+  gender: $Enums.Gender
+  province: string
+  city: string
+  address: string
+  occupation: string
+  occupationGroup: $Enums.OccupationGroup
+  registeredAt: Date
+  email: string | null
+  postalCode: string | null
   createdAt: Date
   updatedAt: Date
   _count: CustomerCountAggregateOutputType | null
@@ -206,12 +269,21 @@ export type CustomerWhereInput = {
   OR?: Prisma.CustomerWhereInput[]
   NOT?: Prisma.CustomerWhereInput | Prisma.CustomerWhereInput[]
   id?: Prisma.StringFilter<"Customer"> | string
-  fullName?: Prisma.StringFilter<"Customer"> | string
-  phoneNumber?: Prisma.StringFilter<"Customer"> | string
-  companyName?: Prisma.StringNullableFilter<"Customer"> | string | null
-  nationalCode?: Prisma.StringNullableFilter<"Customer"> | string | null
-  address?: Prisma.StringNullableFilter<"Customer"> | string | null
-  description?: Prisma.StringNullableFilter<"Customer"> | string | null
+  firstName?: Prisma.StringFilter<"Customer"> | string
+  lastName?: Prisma.StringFilter<"Customer"> | string
+  mobile?: Prisma.StringFilter<"Customer"> | string
+  phone?: Prisma.StringFilter<"Customer"> | string
+  nationalCode?: Prisma.StringFilter<"Customer"> | string
+  birthDate?: Prisma.StringFilter<"Customer"> | string
+  gender?: Prisma.EnumGenderFilter<"Customer"> | $Enums.Gender
+  province?: Prisma.StringFilter<"Customer"> | string
+  city?: Prisma.StringFilter<"Customer"> | string
+  address?: Prisma.StringFilter<"Customer"> | string
+  occupation?: Prisma.StringFilter<"Customer"> | string
+  occupationGroup?: Prisma.EnumOccupationGroupFilter<"Customer"> | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
+  email?: Prisma.StringNullableFilter<"Customer"> | string | null
+  postalCode?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   repairs?: Prisma.RepairCaseListRelationFilter
@@ -219,12 +291,21 @@ export type CustomerWhereInput = {
 
 export type CustomerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  companyName?: Prisma.SortOrderInput | Prisma.SortOrder
-  nationalCode?: Prisma.SortOrderInput | Prisma.SortOrder
-  address?: Prisma.SortOrderInput | Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  mobile?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  nationalCode?: Prisma.SortOrder
+  birthDate?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  occupationGroup?: Prisma.SortOrder
+  registeredAt?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   repairs?: Prisma.RepairCaseOrderByRelationAggregateInput
@@ -232,28 +313,46 @@ export type CustomerOrderByWithRelationInput = {
 
 export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  nationalCode?: string
   AND?: Prisma.CustomerWhereInput | Prisma.CustomerWhereInput[]
   OR?: Prisma.CustomerWhereInput[]
   NOT?: Prisma.CustomerWhereInput | Prisma.CustomerWhereInput[]
-  fullName?: Prisma.StringFilter<"Customer"> | string
-  phoneNumber?: Prisma.StringFilter<"Customer"> | string
-  companyName?: Prisma.StringNullableFilter<"Customer"> | string | null
-  nationalCode?: Prisma.StringNullableFilter<"Customer"> | string | null
-  address?: Prisma.StringNullableFilter<"Customer"> | string | null
-  description?: Prisma.StringNullableFilter<"Customer"> | string | null
+  firstName?: Prisma.StringFilter<"Customer"> | string
+  lastName?: Prisma.StringFilter<"Customer"> | string
+  mobile?: Prisma.StringFilter<"Customer"> | string
+  phone?: Prisma.StringFilter<"Customer"> | string
+  birthDate?: Prisma.StringFilter<"Customer"> | string
+  gender?: Prisma.EnumGenderFilter<"Customer"> | $Enums.Gender
+  province?: Prisma.StringFilter<"Customer"> | string
+  city?: Prisma.StringFilter<"Customer"> | string
+  address?: Prisma.StringFilter<"Customer"> | string
+  occupation?: Prisma.StringFilter<"Customer"> | string
+  occupationGroup?: Prisma.EnumOccupationGroupFilter<"Customer"> | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
+  email?: Prisma.StringNullableFilter<"Customer"> | string | null
+  postalCode?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   repairs?: Prisma.RepairCaseListRelationFilter
-}, "id">
+}, "id" | "nationalCode">
 
 export type CustomerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  companyName?: Prisma.SortOrderInput | Prisma.SortOrder
-  nationalCode?: Prisma.SortOrderInput | Prisma.SortOrder
-  address?: Prisma.SortOrderInput | Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  mobile?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  nationalCode?: Prisma.SortOrder
+  birthDate?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  occupationGroup?: Prisma.SortOrder
+  registeredAt?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CustomerCountOrderByAggregateInput
@@ -266,24 +365,42 @@ export type CustomerScalarWhereWithAggregatesInput = {
   OR?: Prisma.CustomerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CustomerScalarWhereWithAggregatesInput | Prisma.CustomerScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Customer"> | string
-  fullName?: Prisma.StringWithAggregatesFilter<"Customer"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"Customer"> | string
-  companyName?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
-  nationalCode?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
-  address?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
-  description?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
+  firstName?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  lastName?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  mobile?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  phone?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  nationalCode?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  birthDate?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  gender?: Prisma.EnumGenderWithAggregatesFilter<"Customer"> | $Enums.Gender
+  province?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  city?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  address?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  occupation?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  occupationGroup?: Prisma.EnumOccupationGroupWithAggregatesFilter<"Customer"> | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
+  email?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
+  postalCode?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
 }
 
 export type CustomerCreateInput = {
   id?: string
-  fullName: string
-  phoneNumber: string
-  companyName?: string | null
-  nationalCode?: string | null
-  address?: string | null
-  description?: string | null
+  firstName: string
+  lastName: string
+  mobile: string
+  phone: string
+  nationalCode: string
+  birthDate: string
+  gender: $Enums.Gender
+  province: string
+  city: string
+  address: string
+  occupation: string
+  occupationGroup: $Enums.OccupationGroup
+  registeredAt?: Date | string
+  email?: string | null
+  postalCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   repairs?: Prisma.RepairCaseCreateNestedManyWithoutCustomerInput
@@ -291,12 +408,21 @@ export type CustomerCreateInput = {
 
 export type CustomerUncheckedCreateInput = {
   id?: string
-  fullName: string
-  phoneNumber: string
-  companyName?: string | null
-  nationalCode?: string | null
-  address?: string | null
-  description?: string | null
+  firstName: string
+  lastName: string
+  mobile: string
+  phone: string
+  nationalCode: string
+  birthDate: string
+  gender: $Enums.Gender
+  province: string
+  city: string
+  address: string
+  occupation: string
+  occupationGroup: $Enums.OccupationGroup
+  registeredAt?: Date | string
+  email?: string | null
+  postalCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   repairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutCustomerInput
@@ -304,12 +430,21 @@ export type CustomerUncheckedCreateInput = {
 
 export type CustomerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nationalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  mobile?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  birthDate?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  occupation?: Prisma.StringFieldUpdateOperationsInput | string
+  occupationGroup?: Prisma.EnumOccupationGroupFieldUpdateOperationsInput | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repairs?: Prisma.RepairCaseUpdateManyWithoutCustomerNestedInput
@@ -317,12 +452,21 @@ export type CustomerUpdateInput = {
 
 export type CustomerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nationalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  mobile?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  birthDate?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  occupation?: Prisma.StringFieldUpdateOperationsInput | string
+  occupationGroup?: Prisma.EnumOccupationGroupFieldUpdateOperationsInput | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutCustomerNestedInput
@@ -330,36 +474,63 @@ export type CustomerUncheckedUpdateInput = {
 
 export type CustomerCreateManyInput = {
   id?: string
-  fullName: string
-  phoneNumber: string
-  companyName?: string | null
-  nationalCode?: string | null
-  address?: string | null
-  description?: string | null
+  firstName: string
+  lastName: string
+  mobile: string
+  phone: string
+  nationalCode: string
+  birthDate: string
+  gender: $Enums.Gender
+  province: string
+  city: string
+  address: string
+  occupation: string
+  occupationGroup: $Enums.OccupationGroup
+  registeredAt?: Date | string
+  email?: string | null
+  postalCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type CustomerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nationalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  mobile?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  birthDate?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  occupation?: Prisma.StringFieldUpdateOperationsInput | string
+  occupationGroup?: Prisma.EnumOccupationGroupFieldUpdateOperationsInput | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CustomerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nationalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  mobile?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  birthDate?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  occupation?: Prisma.StringFieldUpdateOperationsInput | string
+  occupationGroup?: Prisma.EnumOccupationGroupFieldUpdateOperationsInput | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -371,36 +542,63 @@ export type CustomerScalarRelationFilter = {
 
 export type CustomerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  companyName?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  mobile?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
   nationalCode?: Prisma.SortOrder
+  birthDate?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  occupationGroup?: Prisma.SortOrder
+  registeredAt?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  postalCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type CustomerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  companyName?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  mobile?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
   nationalCode?: Prisma.SortOrder
+  birthDate?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  occupationGroup?: Prisma.SortOrder
+  registeredAt?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  postalCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type CustomerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  companyName?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  mobile?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
   nationalCode?: Prisma.SortOrder
+  birthDate?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  occupationGroup?: Prisma.SortOrder
+  registeredAt?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  postalCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -419,26 +617,52 @@ export type CustomerUpdateOneRequiredWithoutRepairsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutRepairsInput, Prisma.CustomerUpdateWithoutRepairsInput>, Prisma.CustomerUncheckedUpdateWithoutRepairsInput>
 }
 
+export type EnumGenderFieldUpdateOperationsInput = {
+  set?: $Enums.Gender
+}
+
+export type EnumOccupationGroupFieldUpdateOperationsInput = {
+  set?: $Enums.OccupationGroup
+}
+
 export type CustomerCreateWithoutRepairsInput = {
   id?: string
-  fullName: string
-  phoneNumber: string
-  companyName?: string | null
-  nationalCode?: string | null
-  address?: string | null
-  description?: string | null
+  firstName: string
+  lastName: string
+  mobile: string
+  phone: string
+  nationalCode: string
+  birthDate: string
+  gender: $Enums.Gender
+  province: string
+  city: string
+  address: string
+  occupation: string
+  occupationGroup: $Enums.OccupationGroup
+  registeredAt?: Date | string
+  email?: string | null
+  postalCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type CustomerUncheckedCreateWithoutRepairsInput = {
   id?: string
-  fullName: string
-  phoneNumber: string
-  companyName?: string | null
-  nationalCode?: string | null
-  address?: string | null
-  description?: string | null
+  firstName: string
+  lastName: string
+  mobile: string
+  phone: string
+  nationalCode: string
+  birthDate: string
+  gender: $Enums.Gender
+  province: string
+  city: string
+  address: string
+  occupation: string
+  occupationGroup: $Enums.OccupationGroup
+  registeredAt?: Date | string
+  email?: string | null
+  postalCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -461,24 +685,42 @@ export type CustomerUpdateToOneWithWhereWithoutRepairsInput = {
 
 export type CustomerUpdateWithoutRepairsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nationalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  mobile?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  birthDate?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  occupation?: Prisma.StringFieldUpdateOperationsInput | string
+  occupationGroup?: Prisma.EnumOccupationGroupFieldUpdateOperationsInput | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CustomerUncheckedUpdateWithoutRepairsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nationalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  mobile?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  birthDate?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  occupation?: Prisma.StringFieldUpdateOperationsInput | string
+  occupationGroup?: Prisma.EnumOccupationGroupFieldUpdateOperationsInput | $Enums.OccupationGroup
+  registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -516,12 +758,21 @@ export type CustomerCountOutputTypeCountRepairsArgs<ExtArgs extends runtime.Type
 
 export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  fullName?: boolean
-  phoneNumber?: boolean
-  companyName?: boolean
+  firstName?: boolean
+  lastName?: boolean
+  mobile?: boolean
+  phone?: boolean
   nationalCode?: boolean
+  birthDate?: boolean
+  gender?: boolean
+  province?: boolean
+  city?: boolean
   address?: boolean
-  description?: boolean
+  occupation?: boolean
+  occupationGroup?: boolean
+  registeredAt?: boolean
+  email?: boolean
+  postalCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   repairs?: boolean | Prisma.Customer$repairsArgs<ExtArgs>
@@ -530,41 +781,68 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type CustomerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  fullName?: boolean
-  phoneNumber?: boolean
-  companyName?: boolean
+  firstName?: boolean
+  lastName?: boolean
+  mobile?: boolean
+  phone?: boolean
   nationalCode?: boolean
+  birthDate?: boolean
+  gender?: boolean
+  province?: boolean
+  city?: boolean
   address?: boolean
-  description?: boolean
+  occupation?: boolean
+  occupationGroup?: boolean
+  registeredAt?: boolean
+  email?: boolean
+  postalCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["customer"]>
 
 export type CustomerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  fullName?: boolean
-  phoneNumber?: boolean
-  companyName?: boolean
+  firstName?: boolean
+  lastName?: boolean
+  mobile?: boolean
+  phone?: boolean
   nationalCode?: boolean
+  birthDate?: boolean
+  gender?: boolean
+  province?: boolean
+  city?: boolean
   address?: boolean
-  description?: boolean
+  occupation?: boolean
+  occupationGroup?: boolean
+  registeredAt?: boolean
+  email?: boolean
+  postalCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["customer"]>
 
 export type CustomerSelectScalar = {
   id?: boolean
-  fullName?: boolean
-  phoneNumber?: boolean
-  companyName?: boolean
+  firstName?: boolean
+  lastName?: boolean
+  mobile?: boolean
+  phone?: boolean
   nationalCode?: boolean
+  birthDate?: boolean
+  gender?: boolean
+  province?: boolean
+  city?: boolean
   address?: boolean
-  description?: boolean
+  occupation?: boolean
+  occupationGroup?: boolean
+  registeredAt?: boolean
+  email?: boolean
+  postalCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "phoneNumber" | "companyName" | "nationalCode" | "address" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
+export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "mobile" | "phone" | "nationalCode" | "birthDate" | "gender" | "province" | "city" | "address" | "occupation" | "occupationGroup" | "registeredAt" | "email" | "postalCode" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
 export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repairs?: boolean | Prisma.Customer$repairsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
@@ -579,12 +857,21 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    fullName: string
-    phoneNumber: string
-    companyName: string | null
-    nationalCode: string | null
-    address: string | null
-    description: string | null
+    firstName: string
+    lastName: string
+    mobile: string
+    phone: string
+    nationalCode: string
+    birthDate: string
+    gender: $Enums.Gender
+    province: string
+    city: string
+    address: string
+    occupation: string
+    occupationGroup: $Enums.OccupationGroup
+    registeredAt: Date
+    email: string | null
+    postalCode: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["customer"]>
@@ -1012,12 +1299,21 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
  */
 export interface CustomerFieldRefs {
   readonly id: Prisma.FieldRef<"Customer", 'String'>
-  readonly fullName: Prisma.FieldRef<"Customer", 'String'>
-  readonly phoneNumber: Prisma.FieldRef<"Customer", 'String'>
-  readonly companyName: Prisma.FieldRef<"Customer", 'String'>
+  readonly firstName: Prisma.FieldRef<"Customer", 'String'>
+  readonly lastName: Prisma.FieldRef<"Customer", 'String'>
+  readonly mobile: Prisma.FieldRef<"Customer", 'String'>
+  readonly phone: Prisma.FieldRef<"Customer", 'String'>
   readonly nationalCode: Prisma.FieldRef<"Customer", 'String'>
+  readonly birthDate: Prisma.FieldRef<"Customer", 'String'>
+  readonly gender: Prisma.FieldRef<"Customer", 'Gender'>
+  readonly province: Prisma.FieldRef<"Customer", 'String'>
+  readonly city: Prisma.FieldRef<"Customer", 'String'>
   readonly address: Prisma.FieldRef<"Customer", 'String'>
-  readonly description: Prisma.FieldRef<"Customer", 'String'>
+  readonly occupation: Prisma.FieldRef<"Customer", 'String'>
+  readonly occupationGroup: Prisma.FieldRef<"Customer", 'OccupationGroup'>
+  readonly registeredAt: Prisma.FieldRef<"Customer", 'DateTime'>
+  readonly email: Prisma.FieldRef<"Customer", 'String'>
+  readonly postalCode: Prisma.FieldRef<"Customer", 'String'>
   readonly createdAt: Prisma.FieldRef<"Customer", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Customer", 'DateTime'>
 }
