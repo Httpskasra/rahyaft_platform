@@ -42,6 +42,7 @@ type GroupKey =
   | "نمودارها"
   | "تعمیرات"
   | "کاربران"
+  | "مشتریان"
   | "ترددهای روزانه";
 
 function MenuGroupTitle({
@@ -139,6 +140,9 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
     ) {
       return "تعمیرات";
     }
+    if (pathname.startsWith("/dashboard/customers")) {
+  return "مشتریان";
+}
     return "داشبورد";
   };
 
@@ -245,6 +249,56 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
             }
           </li> */}
           {/* fixing dropdown */}
+          <li>
+  <button
+    type="button"
+    onClick={() =>
+      setOpen((v) => (v === "مشتریان" ? ("" as any) : "مشتریان"))
+    }
+    className={[
+      "menu-item group w-full text-right",
+      open === "مشتریان"
+        ? "menu-item-active"
+        : "menu-item-inactive",
+    ].join(" ")}
+  >
+    <User size={20} />
+
+    <span className={collapsed ? "lg:hidden" : ""}>
+      مشتریان
+    </span>
+
+    <span
+      className={[
+        "menu-item-arrow",
+        collapsed ? "lg:hidden" : "",
+      ].join(" ")}
+    >
+      <ChevronDown
+        size={18}
+        className={open === "مشتریان" ? "rotate-180" : ""}
+      />
+    </span>
+  </button>
+
+  <div className="translate transform overflow-hidden">
+    <ul
+      className={[
+        "menu-dropdown",
+        open === "مشتریان" ? "open" : "closed",
+        collapsed ? "lg:hidden" : "",
+      ].join(" ")}
+    >
+      <li>
+        <DropdownItem
+          href="/dashboard/customers"
+          label="مدیریت مشتریان"
+          active={isActive("/dashboard/customers")}
+        />
+      </li>
+    </ul>
+  </div>
+</li>
           <li>
             <button
               type="button"
