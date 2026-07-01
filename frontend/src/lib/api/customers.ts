@@ -1,15 +1,56 @@
 import { apiClient } from "./client";
 
+export type Gender = "MALE" | "FEMALE";
+
+export type OccupationGroup =
+  | "HAIR_TRANSPLANT_TECHNICIAN"
+  | "NAIL_TECHNICIAN"
+  | "GENERAL_PRACTITIONER"
+  | "PHYSICIAN"
+  | "HAIR_BEAUTY_CLINIC"
+  | "HOME_DEVICE_CUSTOMER"
+  | "BARBER"
+  | "DENTIST"
+  | "VETERINARIAN"
+  | "COLLEAGUE"
+  | "EMPLOYEE"
+  | "DERMATOLOGIST"
+  | "GYNECOLOGIST"
+  | "OTHER";
+
 export interface Customer {
   id: string;
-  fullName: string;
-  phoneNumber: string;
-  companyName: string | null;
-  nationalCode: string | null;
-  address: string | null;
-  description: string | null;
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  phone: string;
+  nationalCode: string;
+  gender: Gender;
+  birthDate: string;
+  province: string;
+  city: string;
+  address: string;
+  occupation: string;
+  occupationGroup: OccupationGroup;
+  email?: string | null;
+  postalCode?: string | null;
+  registeredAt: string;
   createdAt: string;
   updatedAt: string;
+  _count?: { repairs: number };
+}
+
+export interface CustomerRepairSummary {
+  id: string;
+  caseNumber: string;
+  status: string;
+  type: string;
+  deviceTitle: string;
+  createdAt: string;
+}
+
+export interface CustomerDetail extends Customer {
+  repairs: CustomerRepairSummary[];
 }
 
 export interface CustomerListResponse {
@@ -24,22 +65,47 @@ export interface CustomerListResponse {
 
 export interface QueryCustomerParams {
   search?: string;
-  phoneNumber?: string;
+  firstName?: string;
+  lastName?: string;
   nationalCode?: string;
-  companyName?: string;
+  mobile?: string;
+  phone?: string;
+  province?: string;
+  city?: string;
+  occupation?: string;
+  occupationGroup?: OccupationGroup | string;
+  gender?: Gender | string;
+  email?: string;
+  registeredFrom?: string;
+  registeredTo?: string;
   page?: number;
   pageSize?: number;
-  sortBy?: "createdAt" | "updatedAt" | "fullName";
+  sortBy?:
+    | "createdAt"
+    | "updatedAt"
+    | "firstName"
+    | "lastName"
+    | "registeredAt"
+    | "city"
+    | "province";
   sortOrder?: "asc" | "desc";
 }
 
 export interface CreateCustomerDto {
-  fullName: string;
-  phoneNumber: string;
-  companyName?: string;
-  nationalCode?: string;
-  address?: string;
-  description?: string;
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  phone: string;
+  nationalCode: string;
+  birthDate: string;
+  gender: Gender;
+  province: string;
+  city: string;
+  address: string;
+  occupation: string;
+  occupationGroup: OccupationGroup;
+  email?: string;
+  postalCode?: string;
 }
 
 export interface UpdateCustomerDto extends Partial<CreateCustomerDto> {}
@@ -48,7 +114,7 @@ export const customersApi = {
   findAll: (params?: QueryCustomerParams) =>
     apiClient.get<CustomerListResponse>("/customers", { params }),
 
-  findOne: (id: string) => apiClient.get<Customer>(`/customers/${id}`),
+  findOne: (id: string) => apiClient.get<CustomerDetail>(`/customers/${id}`),
 
   create: (body: CreateCustomerDto) =>
     apiClient.post<Customer>("/customers", body),
