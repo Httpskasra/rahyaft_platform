@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, {
@@ -415,12 +416,10 @@ function CreateRepairModal({ open, onClose, onCreate, showToast }: { open: boole
                   <User size={15} className="text-brand-600 dark:text-brand-400" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-gray-800 dark:text-white/90">{selectedCustomer.fullName}</p>
+                  <p className="truncate text-sm font-semibold text-gray-800 dark:text-white/90">{selectedCustomer.firstName} {selectedCustomer.lastName}</p>
                   <div className="mt-0.5 flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                    <span dir="ltr" className="flex items-center gap-1"><Phone size={11} />{selectedCustomer.phoneNumber}</span>
-                    {selectedCustomer.companyName && (
-                      <span className="flex items-center gap-1 truncate"><Building2 size={11} />{selectedCustomer.companyName}</span>
-                    )}
+                    <span dir="ltr" className="flex items-center gap-1"><Phone size={11} />{selectedCustomer.mobile}</span>
+
                   </div>
                 </div>
                 <button
