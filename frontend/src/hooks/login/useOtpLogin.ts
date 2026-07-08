@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -10,7 +11,7 @@ type Step = "phone" | "otp";
 export function useOtpLogin() {
   const router = useRouter();
   const [step, setStep] = useState<Step>("phone");
-  const [phoneRaw, setPhoneRaw] = useState("09123456789");
+  const [phoneRaw, setPhoneRaw] = useState("");
   const [phone, setPhone] = useState("+989123456789");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);

@@ -108,7 +108,7 @@ export interface CreateCustomerDto {
   postalCode?: string;
 }
 
-export interface UpdateCustomerDto extends Partial<CreateCustomerDto> {}
+export type UpdateCustomerDto = Partial<CreateCustomerDto>
 
 export const customersApi = {
   findAll: (params?: QueryCustomerParams) =>
