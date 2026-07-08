@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability */
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
@@ -63,10 +64,9 @@ import {
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { cn } from "@/lib/cn";
 // ─── Utility ──────────────────────────────────────────────────
-function cn(...c: (string | false | null | undefined)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 function fmt(n: number | null | undefined, dec = 1): string {
   if (n == null) return "—";
   return n.toFixed(dec);

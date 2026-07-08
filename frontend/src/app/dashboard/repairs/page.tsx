@@ -30,6 +30,9 @@ import { usersApi, type UserData } from "@/lib/api/users";
 import { CustomerPickerModal } from "@/components/repairs/CustomerPickerModal";
 import type { Customer } from "@/lib/api/customers";
 import { StatusTimeline } from "@/components/repairs/StatusTimeline";
+import { Spinner } from "@/components/ui/Spinner";
+import { Modal } from "@/components/ui/Modal";
+import { cn } from "@/lib/cn";
 // ─── Constants ────────────────────────────────────────────────
 const STATUS_FA: Record<RepairStatus, string> = {
   REGISTERED: "ثبت شده",
@@ -77,10 +80,7 @@ const TYPE_FA: Record<RepairType, string> = {
   ON_SITE: "در محل",
 };
 
-// ─── Utility ──────────────────────────────────────────────────
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 
 function formatDate(d?: string | null) {
   if (!d) return "—";
@@ -118,35 +118,9 @@ function ToastContainer({ toasts }: { toasts: Toast[] }) {
 }
 
 // ─── Modal ────────────────────────────────────────────────────
-function Modal({ open, onClose, title, subtitle, children, maxWidth = "max-w-md" }: { open: boolean; onClose: () => void; title: string; subtitle?: string; children: React.ReactNode; maxWidth?: string; }) {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
-  }, [open, onClose]);
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className={cn("relative w-full rounded-3xl border border-gray-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-900", maxWidth)} onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-start justify-between gap-4 border-b border-gray-100 px-6 py-5 dark:border-gray-800">
-          <div>
-            <h3 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h3>
-            {subtitle && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>}
-          </div>
-          <button onClick={onClose} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300 transition-colors"><X size={16} /></button>
-        </div>
-        <div className="px-6 py-5">{children}</div>
-      </div>
-    </div>
-  );
-}
 
-function Spinner({ size = 16 }: { size?: number }) {
-  return <Loader2 size={size} className="animate-spin text-brand-500 dark:text-brand-400" />;
-}
+
+
 
 // ─── Form Controls ────────────────────────────────────────────
 function InputField({ label, value, onChange, placeholder, ltr, required }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; ltr?: boolean; required?: boolean; }) {

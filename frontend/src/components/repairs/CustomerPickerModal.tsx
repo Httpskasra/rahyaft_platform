@@ -16,16 +16,13 @@ import {
 } from "lucide-react";
 import { customersApi, Gender, OccupationGroup, type Customer } from "@/lib/api/customers";
 import Link from "next/link";
+import { Spinner } from "../ui/Spinner";
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 
 const IR_PHONE_REGEX = /^09\d{9}$/;
 
-function Spinner({ size = 16 }: { size?: number }) {
-  return <Loader2 size={size} className="animate-spin text-brand-500 dark:text-brand-400" />;
-}
+
 
 // ─── Customer result row ──────────────────────────────────────
 function CustomerRow({

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/login/cn";
+import { cn } from "@/lib/cn";
+
 
 
 export function OtpStep(props: {

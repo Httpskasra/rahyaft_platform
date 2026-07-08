@@ -10,10 +10,9 @@ import {
   Loader2,
 } from "lucide-react";
 import { attendanceApi, AttendanceImportResult } from "@/lib/api/attendance";
+import { cn } from "@/lib/cn";
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 
 const ACCEPTED_TYPES = [
   "application/vnd.ms-excel",

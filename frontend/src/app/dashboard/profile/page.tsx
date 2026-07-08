@@ -15,10 +15,8 @@ import {
   Check,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { cn } from "@/lib/cn";
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
 
 // ─── Copy button ─────────────────────────────────────────────
 function CopyButton({ text }: { text: string }) {

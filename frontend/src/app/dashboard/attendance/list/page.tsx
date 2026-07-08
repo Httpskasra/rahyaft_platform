@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -14,10 +15,9 @@ import {
   attendanceApi,
   AttendanceDailySummary,
 } from "@/lib/api/attendance";
+import { cn } from "@/lib/cn";
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("fa-IR");

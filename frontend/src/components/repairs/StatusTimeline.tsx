@@ -19,10 +19,9 @@ import {
   User2,
 } from "lucide-react";
 import type { RepairStatus, RepairStatusLog } from "@/lib/api/repairs";
+import { cn } from "@/lib/cn";
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 
 export const STATUS_FA: Record<RepairStatus, string> = {
   REGISTERED: "ثبت شده",

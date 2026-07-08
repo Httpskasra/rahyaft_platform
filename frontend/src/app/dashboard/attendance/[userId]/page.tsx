@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
@@ -12,10 +13,9 @@ import {
 } from "lucide-react";
 import { attendanceApi, AttendanceRecord } from "@/lib/api/attendance";
 import { usersApi } from "@/lib/api/users";
+import { cn } from "@/lib/cn";
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("fa-IR", {

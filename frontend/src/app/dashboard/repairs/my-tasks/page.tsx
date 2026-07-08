@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -18,6 +19,8 @@ import {
 } from "lucide-react";
 import { repairsApi, type RepairCase, type RepairCaseDetail, type RepairStatus, type RepairType } from "@/lib/api/repairs";
 import { StatusTimeline } from "@/components/repairs/StatusTimeline";
+import { Spinner } from "@/components/ui/Spinner";
+import { cn } from "@/lib/cn";
 
 // ─── Constants (همان مقادیر صفحه‌ی اصلی repairs) ──────────────
 const STATUS_FA: Record<RepairStatus, string> = {
@@ -73,9 +76,6 @@ const ACTIVE_STATUSES: RepairStatus[] = [
   "QC",
 ];
 
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
 
 function formatDate(d?: string | null) {
   if (!d) return "—";
@@ -112,9 +112,7 @@ function ToastContainer({ toasts }: { toasts: Toast[] }) {
   );
 }
 
-function Spinner({ size = 16 }: { size?: number }) {
-  return <Loader2 size={size} className="animate-spin text-brand-500 dark:text-brand-400" />;
-}
+
 
 function InfoRow({ icon, label, value, ltr }: { icon: React.ReactNode; label: string; value: string; ltr?: boolean; }) {
   return (

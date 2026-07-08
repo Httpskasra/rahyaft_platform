@@ -17,10 +17,7 @@ import { departmentsApi } from "@/lib/api/departments";
 import { rolesApi } from "@/lib/api/roles";
 import { usersApi } from "@/lib/api/users";
 import { usePermission } from "@/hooks/usePermission";
-
-function cn(...c: (string | false | undefined | null)[]) {
-  return c.filter(Boolean).join(" ");
-}
+import { cn } from "@/lib/cn";
 
 // ─── Stat card ───────────────────────────────────────────────
 function StatCard({
