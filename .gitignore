@@ -39,4 +39,4 @@ Thumbs.db
 
 # Docker
 .dockerignore
-.zip
+*.zip
