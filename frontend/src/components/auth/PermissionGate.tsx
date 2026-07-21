@@ -1,26 +1,29 @@
 "use client";
-import { useAuth } from "@/context/AuthContext";
 
-interface Props {
+import React from "react";
+import { usePermission } from "@/hooks/usePermission";
+
+interface PermissionGateProps {
   action: string;
   resource: string;
-  fallback?: React.ReactNode;   // what to show if no permission (default: null)
   children: React.ReactNode;
+  fallback?: React.ReactNode;
 }
 
-/**
- * Usage:
- *   <PermissionGate action="create" resource="roles">
- *     <Button>افزودن نقش</Button>
- *   </PermissionGate>
- *
- *   <PermissionGate action="delete" resource="users" fallback={<span>دسترسی ندارید</span>}>
- *     <DeleteButton />
- *   </PermissionGate>
- */
-export function PermissionGate({ action, resource, fallback = null, children }: Props) {
-  const { hasPermission, loading } = useAuth();
-  if (loading) return null;
-  if (!hasPermission(action, resource)) return <>{fallback}</>;
+export function PermissionGate({
+  action,
+  resource,
+  children,
+  fallback = null,
+}: PermissionGateProps) {
+  const allowed = usePermission(
+    action,
+    resource,
+  );
+
+  if (!allowed) {
+    return <>{fallback}</>;
+  }
+
   return <>{children}</>;
 }

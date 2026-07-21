@@ -2,4 +2,76 @@
 @import "./partials/theme-tailadmin.css";
 @import "./partials/utilities.css";
 /* @import "./partials/vendor/third-party.css"; */
+@import "@xyflow/react/dist/style.css";
+/* React Flow organization chart fixes */
 
+.organization-chart-wrapper {
+  direction: ltr;
+  isolation: isolate;
+}
+
+.organization-chart-wrapper .react-flow {
+  direction: ltr;
+}
+
+.organization-chart-wrapper .react-flow__viewport {
+  direction: ltr;
+}
+
+.organization-chart-wrapper .react-flow__node {
+  direction: rtl;
+  font-family: inherit;
+}
+
+.organization-chart-wrapper .react-flow__edge-text {
+  direction: rtl;
+  font-family: inherit;
+}
+
+.organization-chart-wrapper .react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 12px;
+  background: white;
+  box-shadow: var(--shadow-theme-sm);
+}
+
+.organization-chart-wrapper
+  .react-flow__controls-button {
+  width: 36px;
+  height: 36px;
+  border-bottom: 1px solid
+    var(--color-gray-200);
+  background: white;
+  color: var(--color-gray-700);
+}
+
+.organization-chart-wrapper
+  .react-flow__controls-button:hover {
+  background: var(--color-gray-50);
+}
+
+.organization-chart-wrapper
+  .react-flow__controls-button:last-child {
+  border-bottom: 0;
+}
+
+.organization-chart-wrapper
+  .react-flow__controls-button
+  svg {
+  width: 16px;
+  height: 16px;
+  max-width: 16px;
+  max-height: 16px;
+  fill: currentColor;
+}
+
+.organization-chart-wrapper
+  .react-flow__handle {
+  opacity: 1;
+}
+
+.organization-chart-wrapper:fullscreen {
+  height: 100vh !important;
+  border-radius: 0;
+}

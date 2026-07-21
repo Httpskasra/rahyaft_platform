@@ -6,7 +6,6 @@ import Link from "next/link";
 import { translations } from "@/lib/i18n";
 import {
   ChevronDown,
-  LayoutDashboard,
   User,
   // CalendarDays,
   // User,
@@ -129,6 +128,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const canReadRoles = usePermission("read", "roles");
   const canReadUsers = usePermission("read", "users");
   const canReadDepartments = usePermission("read", "departments");
+  const canReadOrganizationChart = usePermission("read", "organization-chart");
   // تعیین کدام dropdown باید باز باشد بر اساس pathname
   const getInitialOpenGroup = (): GroupKey => {
     if (
@@ -141,8 +141,8 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
       return "تعمیرات";
     }
     if (pathname.startsWith("/dashboard/customers")) {
-  return "مشتریان";
-}
+      return "مشتریان";
+    }
     return "داشبورد";
   };
 
@@ -250,55 +250,48 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
           </li> */}
           {/* fixing dropdown */}
           <li>
-  <button
-    type="button"
-    onClick={() =>
-      setOpen((v) => (v === "مشتریان" ? ("" as any) : "مشتریان"))
-    }
-    className={[
-      "menu-item group w-full text-right",
-      open === "مشتریان"
-        ? "menu-item-active"
-        : "menu-item-inactive",
-    ].join(" ")}
-  >
-    <User size={20} />
+            <button
+              type="button"
+              onClick={() =>
+                setOpen((v) => (v === "مشتریان" ? ("" as any) : "مشتریان"))
+              }
+              className={[
+                "menu-item group w-full text-right",
+                open === "مشتریان" ? "menu-item-active" : "menu-item-inactive",
+              ].join(" ")}>
+              <User size={20} />
 
-    <span className={collapsed ? "lg:hidden" : ""}>
-      مشتریان
-    </span>
+              <span className={collapsed ? "lg:hidden" : ""}>مشتریان</span>
 
-    <span
-      className={[
-        "menu-item-arrow",
-        collapsed ? "lg:hidden" : "",
-      ].join(" ")}
-    >
-      <ChevronDown
-        size={18}
-        className={open === "مشتریان" ? "rotate-180" : ""}
-      />
-    </span>
-  </button>
+              <span
+                className={[
+                  "menu-item-arrow",
+                  collapsed ? "lg:hidden" : "",
+                ].join(" ")}>
+                <ChevronDown
+                  size={18}
+                  className={open === "مشتریان" ? "rotate-180" : ""}
+                />
+              </span>
+            </button>
 
-  <div className="translate transform overflow-hidden">
-    <ul
-      className={[
-        "menu-dropdown",
-        open === "مشتریان" ? "open" : "closed",
-        collapsed ? "lg:hidden" : "",
-      ].join(" ")}
-    >
-      <li>
-        <DropdownItem
-          href="/dashboard/customers"
-          label="مدیریت مشتریان"
-          active={isActive("/dashboard/customers")}
-        />
-      </li>
-    </ul>
-  </div>
-</li>
+            <div className="translate transform overflow-hidden">
+              <ul
+                className={[
+                  "menu-dropdown",
+                  open === "مشتریان" ? "open" : "closed",
+                  collapsed ? "lg:hidden" : "",
+                ].join(" ")}>
+                <li>
+                  <DropdownItem
+                    href="/dashboard/customers"
+                    label="مدیریت مشتریان"
+                    active={isActive("/dashboard/customers")}
+                  />
+                </li>
+              </ul>
+            </div>
+          </li>
           <li>
             <button
               type="button"
@@ -521,8 +514,8 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
               <button
                 type="button"
                 onClick={() =>
-                  setOpen((v) =>
-                    v === "دپارتمان‌ها" ? ("" as any) : "دپارتمان‌ها",
+                  setOpen((value) =>
+                    value === "دپارتمان‌ها" ? ("" as any) : "دپارتمان‌ها",
                   )
                 }
                 className={[
@@ -532,9 +525,11 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                   ),
                 ].join(" ")}>
                 <Building2 size={20} />
+
                 <span className={collapsed ? "lg:hidden" : ""}>
                   دپارتمان‌ها
                 </span>
+
                 <span
                   className={[
                     "menu-item-arrow",
@@ -546,6 +541,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                   />
                 </span>
               </button>
+
               <div className="translate transform overflow-hidden">
                 <ul
                   className={[
@@ -560,6 +556,16 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                       active={isActive("/dashboard/departments")}
                     />
                   </li>
+
+                  {canReadOrganizationChart && (
+                    <li>
+                      <DropdownItem
+                        href="/dashboard/organization-chart"
+                        label="چارت سازمانی"
+                        active={isActive("/dashboard/organization-chart")}
+                      />
+                    </li>
+                  )}
                 </ul>
               </div>
             </li>
@@ -612,14 +618,20 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
               <button
                 type="button"
                 onClick={() =>
-                  setOpen((v) => (v === "ترددهای روزانه" ? ("" as any) : "ترددهای روزانه"))
+                  setOpen((v) =>
+                    v === "ترددهای روزانه" ? ("" as any) : "ترددهای روزانه",
+                  )
                 }
                 className={[
                   "menu-item group w-full text-right",
-                  open === "ترددهای روزانه" ? "menu-item-active" : "menu-item-inactive",
+                  open === "ترددهای روزانه" ? "menu-item-active" : (
+                    "menu-item-inactive"
+                  ),
                 ].join(" ")}>
-                <LucideCalendarClock  size={20} />
-                <span className={collapsed ? "lg:hidden" : ""}>ترددهای روزانه</span>
+                <LucideCalendarClock size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>
+                  ترددهای روزانه
+                </span>
                 <span
                   className={[
                     "menu-item-arrow",

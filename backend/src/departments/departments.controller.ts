@@ -25,7 +25,14 @@ export class DepartmentsController {
   findAll() {
     return this.departmentsService.findAll();
   }
-
+  @Get('organization-chart')
+  @RequirePermission({
+    action: 'read',
+    resource: 'organization-chart',
+  })
+  getOrganizationChart() {
+    return this.departmentsService.getOrganizationChart();
+  }
   @Get(':departmentId')
   @RequirePermission({ action: 'read', resource: 'departments' })
   findOne(@Param('departmentId', ParseUUIDPipe) departmentId: string) {

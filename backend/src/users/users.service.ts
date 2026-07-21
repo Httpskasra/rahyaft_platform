@@ -68,7 +68,7 @@ export class UsersService {
       where: { id: dto.departmentId },
     });
     if (!department) throw new NotFoundException('Department not found');
-
+    await this.validateManager(null, dto.managerId);
     return this.prisma.user.create({
       data: {
         name: dto.name,
@@ -85,6 +85,9 @@ export class UsersService {
     await this.findOne(userId);
 
     try {
+      if (dto.managerId !== undefined) {
+        await this.validateManager(userId, dto.managerId);
+      }
       return await this.prisma.user.update({
         where: { id: userId },
         data: dto,
@@ -121,5 +124,50 @@ export class UsersService {
       data: { baleChatId: null },
     });
     return { message: 'Bale chat ID reset successfully' };
+  }
+  private async validateManager(
+    userId: string | null,
+    managerId: string | null | undefined,
+  ): Promise<void> {
+    if (!managerId) return;
+
+    if (userId && userId === managerId) {
+      throw new ConflictException('User cannot be their own manager');
+    }
+
+    const manager = await this.prisma.user.findUnique({
+      where: {
+        id: managerId,
+      },
+      select: {
+        id: true,
+        managerId: true,
+      },
+    });
+
+    if (!manager) {
+      throw new NotFoundException('Manager not found');
+    }
+
+    if (!userId) return;
+
+    let currentManagerId: string | null = manager.managerId;
+
+    while (currentManagerId) {
+      if (currentManagerId === userId) {
+        throw new ConflictException('Manager hierarchy cycle is not allowed');
+      }
+
+      const currentManager = await this.prisma.user.findUnique({
+        where: {
+          id: currentManagerId,
+        },
+        select: {
+          managerId: true,
+        },
+      });
+
+      currentManagerId = currentManager?.managerId ?? null;
+    }
   }
 }

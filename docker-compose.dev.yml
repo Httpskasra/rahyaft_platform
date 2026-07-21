@@ -56,53 +56,53 @@ services:
       start_period: 30s
 
   # ─── Application services ──────────────────────────────────
-  backend:
-    build:
-      context: ./backend
-      target: dev
-    container_name: enterprise_backend
-    restart: unless-stopped
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@postgres:5432/${POSTGRES_DB:-enterprise}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-user}:${RABBITMQ_PASS:-pass}@rabbitmq:5672
-      JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-prod}
-      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-15m}
-      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-refresh-secret}
-      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-7d}
-      FRONTEND_URL: http://localhost:3001
-      PORT: 3000
-      NODE_ENV: development
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./backend:/usr/src/app
-      - backend_node_modules:/usr/src/app/node_modules
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     target: dev
+  #   container_name: enterprise_backend
+  #   restart: unless-stopped
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #     rabbitmq:
+  #       condition: service_healthy
+  #   environment:
+  #     DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@postgres:5432/${POSTGRES_DB:-enterprise}
+  #     REDIS_HOST: redis
+  #     REDIS_PORT: 6379
+  #     RABBITMQ_URL: amqp://${RABBITMQ_USER:-user}:${RABBITMQ_PASS:-pass}@rabbitmq:5672
+  #     JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-prod}
+  #     JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-15m}
+  #     JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-refresh-secret}
+  #     JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-7d}
+  #     FRONTEND_URL: http://localhost:3001
+  #     PORT: 3000
+  #     NODE_ENV: development
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./backend:/usr/src/app
+  #     - backend_node_modules:/usr/src/app/node_modules
 
-  frontend:
-    build:
-      context: ./frontend
-      target: dev
-    container_name: enterprise_frontend
-    restart: unless-stopped
-    depends_on:
-      - backend
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:3000/api/v1
-      BACKEND_URL: http://backend:3000/api/v1
-    ports:
-      - "3001:3001"
-    volumes:
-      - ./frontend:/usr/src/app
-      - frontend_node_modules:/usr/src/app/node_modules
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     target: dev
+  #   container_name: enterprise_frontend
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     NEXT_PUBLIC_API_URL: http://localhost:3000/api/v1
+  #     BACKEND_URL: http://backend:3000/api/v1
+  #   ports:
+  #     - "3001:3001"
+  #   volumes:
+  #     - ./frontend:/usr/src/app
+  #     - frontend_node_modules:/usr/src/app/node_modules
 
   analytics:
     build:

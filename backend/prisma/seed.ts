@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { PrismaClient } from '../src/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
@@ -27,7 +26,7 @@ async function main() {
       phoneNumber: '09164532683',
       name: 'Super Admin',
       departmentId: dept.id,
-      employeeCode: "1",
+      employeeCode: '1',
     },
   });
 
@@ -40,7 +39,7 @@ async function main() {
 
   // 4. Create permissions for all actions + resources
 
-  const actions = ['create', 'read', 'update', 'delete', 'approve','assign'];
+  const actions = ['create', 'read', 'update', 'delete', 'approve', 'assign'];
   const resources = [
     'users',
     'roles',
@@ -51,6 +50,7 @@ async function main() {
     'user-info',
     'attendance',
     'repairs',
+    'organization-chart',
   ];
 
   for (const action of actions) {
