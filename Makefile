@@ -40,3 +40,8 @@ api:
 ## Open frontend
 app:
 	open http://localhost:3001
+
+
+docker logs cloudflared | grep trycloudflare
+
+curl -X POST "https://tapi.bale.ai/bot205553143:ZX0KlvSNqF7sjqlMXl9-UuxdpozEqGQQQ-0/setWebhook" -d '{"url": "https://pond-coordinator-profession-present.trycloudflare.com"  /api/v1/bale/webhook"}'
