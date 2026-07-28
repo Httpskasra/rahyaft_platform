@@ -408,7 +408,11 @@ export const ModelName = {
   RepairStatusLog: 'RepairStatusLog',
   RepairSla: 'RepairSla',
   NotificationEvent: 'NotificationEvent',
-  Customer: 'Customer'
+  Customer: 'Customer',
+  CustomerContact: 'CustomerContact',
+  SalesOpportunity: 'SalesOpportunity',
+  CustomerActivity: 'CustomerActivity',
+  CustomerAiAnalysis: 'CustomerAiAnalysis'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer"
+    modelProps: "department" | "departmentRelation" | "user" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2278,6 +2282,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CustomerContact: {
+      payload: Prisma.$CustomerContactPayload<ExtArgs>
+      fields: Prisma.CustomerContactFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerContactFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerContactFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerContactFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerContactFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerContactFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerContactCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerContactCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerContactCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerContactDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>
+        }
+        update: {
+          args: Prisma.CustomerContactUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerContactDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerContactUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerContactUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerContactUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerContactPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerContactAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerContact>
+        }
+        groupBy: {
+          args: Prisma.CustomerContactGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerContactGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerContactCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerContactCountAggregateOutputType> | number
+        }
+      }
+    }
+    SalesOpportunity: {
+      payload: Prisma.$SalesOpportunityPayload<ExtArgs>
+      fields: Prisma.SalesOpportunityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SalesOpportunityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SalesOpportunityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>
+        }
+        findFirst: {
+          args: Prisma.SalesOpportunityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SalesOpportunityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>
+        }
+        findMany: {
+          args: Prisma.SalesOpportunityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>[]
+        }
+        create: {
+          args: Prisma.SalesOpportunityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>
+        }
+        createMany: {
+          args: Prisma.SalesOpportunityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SalesOpportunityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>[]
+        }
+        delete: {
+          args: Prisma.SalesOpportunityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>
+        }
+        update: {
+          args: Prisma.SalesOpportunityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>
+        }
+        deleteMany: {
+          args: Prisma.SalesOpportunityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SalesOpportunityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SalesOpportunityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>[]
+        }
+        upsert: {
+          args: Prisma.SalesOpportunityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalesOpportunityPayload>
+        }
+        aggregate: {
+          args: Prisma.SalesOpportunityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSalesOpportunity>
+        }
+        groupBy: {
+          args: Prisma.SalesOpportunityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalesOpportunityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SalesOpportunityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalesOpportunityCountAggregateOutputType> | number
+        }
+      }
+    }
+    CustomerActivity: {
+      payload: Prisma.$CustomerActivityPayload<ExtArgs>
+      fields: Prisma.CustomerActivityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerActivityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerActivityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerActivityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerActivityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerActivityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerActivityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerActivityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerActivityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerActivityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>
+        }
+        update: {
+          args: Prisma.CustomerActivityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerActivityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerActivityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerActivityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerActivityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerActivityPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerActivityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerActivity>
+        }
+        groupBy: {
+          args: Prisma.CustomerActivityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerActivityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerActivityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerActivityCountAggregateOutputType> | number
+        }
+      }
+    }
+    CustomerAiAnalysis: {
+      payload: Prisma.$CustomerAiAnalysisPayload<ExtArgs>
+      fields: Prisma.CustomerAiAnalysisFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerAiAnalysisFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerAiAnalysisFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerAiAnalysisFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerAiAnalysisFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerAiAnalysisFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerAiAnalysisCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerAiAnalysisCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerAiAnalysisCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerAiAnalysisDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>
+        }
+        update: {
+          args: Prisma.CustomerAiAnalysisUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerAiAnalysisDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerAiAnalysisUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerAiAnalysisUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerAiAnalysisUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAiAnalysisPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerAiAnalysisAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerAiAnalysis>
+        }
+        groupBy: {
+          args: Prisma.CustomerAiAnalysisGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerAiAnalysisGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerAiAnalysisCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerAiAnalysisCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2622,26 +2922,102 @@ export type NotificationEventScalarFieldEnum = (typeof NotificationEventScalarFi
 
 export const CustomerScalarFieldEnum = {
   id: 'id',
+  type: 'type',
+  status: 'status',
   firstName: 'firstName',
   lastName: 'lastName',
-  mobile: 'mobile',
-  phone: 'phone',
   nationalCode: 'nationalCode',
   birthDate: 'birthDate',
   gender: 'gender',
+  organizationName: 'organizationName',
+  economicCode: 'economicCode',
+  registrationNo: 'registrationNo',
+  nationalId: 'nationalId',
+  mobile: 'mobile',
+  phone: 'phone',
+  email: 'email',
   province: 'province',
   city: 'city',
   address: 'address',
+  postalCode: 'postalCode',
   occupation: 'occupation',
   occupationGroup: 'occupationGroup',
   registeredAt: 'registeredAt',
-  email: 'email',
-  postalCode: 'postalCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const CustomerContactScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  fullName: 'fullName',
+  role: 'role',
+  mobile: 'mobile',
+  phone: 'phone',
+  email: 'email',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerContactScalarFieldEnum = (typeof CustomerContactScalarFieldEnum)[keyof typeof CustomerContactScalarFieldEnum]
+
+
+export const SalesOpportunityScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  estimatedValue: 'estimatedValue',
+  probability: 'probability',
+  expectedCloseAt: 'expectedCloseAt',
+  nextFollowUpAt: 'nextFollowUpAt',
+  lossReason: 'lossReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SalesOpportunityScalarFieldEnum = (typeof SalesOpportunityScalarFieldEnum)[keyof typeof SalesOpportunityScalarFieldEnum]
+
+
+export const CustomerActivityScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  relatedRepairId: 'relatedRepairId',
+  relatedSalesOpportunityId: 'relatedSalesOpportunityId',
+  dueAt: 'dueAt',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerActivityScalarFieldEnum = (typeof CustomerActivityScalarFieldEnum)[keyof typeof CustomerActivityScalarFieldEnum]
+
+
+export const CustomerAiAnalysisScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  summary: 'summary',
+  riskLevel: 'riskLevel',
+  salesPotential: 'salesPotential',
+  nextBestAction: 'nextBestAction',
+  tags: 'tags',
+  insights: 'insights',
+  source: 'source',
+  modelName: 'modelName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerAiAnalysisScalarFieldEnum = (typeof CustomerAiAnalysisScalarFieldEnum)[keyof typeof CustomerAiAnalysisScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2860,6 +3236,34 @@ export type ListEnumVisitResultFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'CustomerType'
+ */
+export type EnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerType'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerType[]'
+ */
+export type ListEnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerStatus'
+ */
+export type EnumCustomerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerStatus[]'
+ */
+export type ListEnumCustomerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Gender'
  */
 export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
@@ -2884,6 +3288,62 @@ export type EnumOccupationGroupFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'OccupationGroup[]'
  */
 export type ListEnumOccupationGroupFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OccupationGroup[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SalesOpportunityStatus'
+ */
+export type EnumSalesOpportunityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalesOpportunityStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SalesOpportunityStatus[]'
+ */
+export type ListEnumSalesOpportunityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalesOpportunityStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SalesOpportunityPriority'
+ */
+export type EnumSalesOpportunityPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalesOpportunityPriority'>
+    
+
+
+/**
+ * Reference to a field of type 'SalesOpportunityPriority[]'
+ */
+export type ListEnumSalesOpportunityPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalesOpportunityPriority[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerActivityType'
+ */
+export type EnumCustomerActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerActivityType'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerActivityType[]'
+ */
+export type ListEnumCustomerActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerActivityType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AiInsightLevel'
+ */
+export type EnumAiInsightLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiInsightLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'AiInsightLevel[]'
+ */
+export type ListEnumAiInsightLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiInsightLevel[]'>
     
 
 
@@ -3035,6 +3495,10 @@ export type GlobalOmitConfig = {
   repairSla?: Prisma.RepairSlaOmit
   notificationEvent?: Prisma.NotificationEventOmit
   customer?: Prisma.CustomerOmit
+  customerContact?: Prisma.CustomerContactOmit
+  salesOpportunity?: Prisma.SalesOpportunityOmit
+  customerActivity?: Prisma.CustomerActivityOmit
+  customerAiAnalysis?: Prisma.CustomerAiAnalysisOmit
 }
 
 /* Types for Logging */

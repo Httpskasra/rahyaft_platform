@@ -18,11 +18,22 @@ export interface SubmissionEvent {
   createdAt: string;
 }
 
+export interface DomainEvent<TPayload = Record<string, unknown>> {
+  eventId: string;
+  type: string;
+  source: string;
+  occurredAt: string;
+  payload: TPayload;
+}
+
 @Injectable()
 export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   private connection!: ChannelModel;
   private channel!: ConfirmChannel;
-  private readonly exchange = 'form_submissions';
+
+  private readonly formExchange = 'form_submissions';
+  private readonly domainExchange = 'domain_events';
+
   private readonly logger = new Logger(RabbitMQService.name);
   private isReady = false;
 
@@ -47,6 +58,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
       'RABBITMQ_URL',
       'amqp://user:pass@rabbitmq:5672',
     );
+
     try {
       this.connection = await amqp.connect(url);
       this.logger.log(`Connected to RabbitMQ (${url})`);
@@ -57,45 +69,74 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
       });
 
       this.channel = await this.connection.createConfirmChannel();
+
       this.channel.on('error', (err) => {
         this.logger.error(`Channel error: ${err.message}`);
         this.isReady = false;
       });
 
-      await this.channel.assertExchange(this.exchange, 'fanout', {
+      await this.channel.assertExchange(this.formExchange, 'fanout', {
+        durable: true,
+        autoDelete: false,
+      });
+
+      await this.channel.assertExchange(this.domainExchange, 'topic', {
         durable: true,
         autoDelete: false,
       });
 
       this.isReady = true;
-      this.logger.log(`Exchange '${this.exchange}' ready`);
+
+      this.logger.log(`Exchange '${this.formExchange}' ready`);
+      this.logger.log(`Exchange '${this.domainExchange}' ready`);
     } catch (err) {
       this.logger.error(
         `Failed to connect to RabbitMQ: ${(err as Error).message}`,
       );
-      // Don't crash the app — forms still save to DB even without analytics
     }
   }
 
   async publish(event: SubmissionEvent): Promise<void> {
+    return this.publishToExchange(this.formExchange, '', event);
+  }
+
+  async publishDomainEvent<TPayload = Record<string, unknown>>(
+    routingKey: string,
+    event: DomainEvent<TPayload>,
+  ): Promise<void> {
+    return this.publishToExchange(this.domainExchange, routingKey, event);
+  }
+
+  private async publishToExchange(
+    exchange: string,
+    routingKey: string,
+    event: unknown,
+  ): Promise<void> {
     if (!this.isReady || !this.channel) {
-      this.logger.warn('RabbitMQ not ready — skipping publish');
+      this.logger.warn(`RabbitMQ not ready — skipping publish to ${exchange}`);
       return;
     }
 
     const msg = Buffer.from(JSON.stringify(event));
+
     return new Promise<void>((resolve, reject) => {
       this.channel.publish(
-        this.exchange,
-        '',
+        exchange,
+        routingKey,
         msg,
-        { persistent: true, contentType: 'application/json' },
+        {
+          persistent: true,
+          contentType: 'application/json',
+        },
         (err) => {
           if (err) {
             this.logger.error(`Publish failed: ${err.message}`);
             return reject(err);
           }
-          this.logger.log(`Published submission event (${event.id})`);
+
+          this.logger.log(
+            `Published event to ${exchange} with routingKey='${routingKey}'`,
+          );
           resolve();
         },
       );

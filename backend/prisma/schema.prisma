@@ -59,23 +59,24 @@ model User {
   managerId    String?
   refreshToken String?
 
-  department   Department      @relation(fields: [departmentId], references: [id])
-  manager      User?           @relation("UserHierarchy", fields: [managerId], references: [id])
-  subordinates User[]          @relation("UserHierarchy")
+  department   Department       @relation(fields: [departmentId], references: [id])
+  manager      User?            @relation("UserHierarchy", fields: [managerId], references: [id])
+  subordinates User[]           @relation("UserHierarchy")
   roles        UserRole[]
   submissions  FormSubmission[]
-  userInfo  UserInfo?//mehrak
-  baleChatId   String?//mehrak
+  userInfo     UserInfo? //mehrak
+  baleChatId   String? //mehrak
 
   createdAt DateTime @default(now())
 
   approvalActions ApprovalAction[]
-  employeeCode String? @unique
-  attendances  Attendance[]
-  assignedRepairs RepairCase[]@relation("TechnicianRepairs")
-  repairVisits RepairVisit[] @relation("TechnicianVisits")
-  statusLogs RepairStatusLog[] @relation("UserStatusChanges")
+  employeeCode    String?           @unique
+  attendances     Attendance[]
+  assignedRepairs RepairCase[]      @relation("TechnicianRepairs")
+  repairVisits    RepairVisit[]     @relation("TechnicianVisits")
+  statusLogs      RepairStatusLog[] @relation("UserStatusChanges")
 }
+
 model Attendance {
   id        String   @id @default(uuid())
   userId    String
@@ -90,6 +91,7 @@ model Attendance {
   @@unique([userId, checkTime])
   @@index([userId, date])
 }
+
 model Role {
   id   String @id @default(uuid())
   name String @unique
@@ -114,7 +116,7 @@ model UserRole {
   userId String
   roleId String
 
-  user User @relation(fields: [userId], references: [id] ,onDelete: Cascade )
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   role Role @relation(fields: [roleId], references: [id])
 
   @@id([userId, roleId])
@@ -137,9 +139,9 @@ model RolePermission {
 // ─── Forms & Analytics ────────────────────────────────────────
 
 model Form {
-  id          String  @id @default(uuid())
-  ownerId     String
-  customId    String? @unique  // ← شناسه دستی یکتا
+  id       String  @id @default(uuid())
+  ownerId  String
+  customId String? @unique // ← شناسه دستی یکتا
 
   name        String
   description String?
@@ -222,26 +224,26 @@ model ApprovalPolicy {
 }
 
 model ApprovalStep {
-  id        String         @id @default(uuid())
-  policyId  String
-  policy    ApprovalPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
-  stepOrder Int
-  roleId    String
-  role      Role           @relation(fields: [roleId], references: [id])
-  createdAt DateTime       @default(now())
+  id              String           @id @default(uuid())
+  policyId        String
+  policy          ApprovalPolicy   @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  stepOrder       Int
+  roleId          String
+  role            Role             @relation(fields: [roleId], references: [id])
+  createdAt       DateTime         @default(now())
+  approvalActions ApprovalAction[]
 
   @@unique([policyId, stepOrder])
-  approvalActions ApprovalAction[]
 }
 
 model ApprovalInstance {
-  id               String           @id @default(uuid())
-  submissionId     String           @unique
-  submission       FormSubmission   @relation(fields: [submissionId], references: [id], onDelete: Cascade)
-  status           ApprovalStatus   @default(PENDING)
+  id               String         @id @default(uuid())
+  submissionId     String         @unique
+  submission       FormSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  status           ApprovalStatus @default(PENDING)
   currentStepOrder Int?
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
 
   actions ApprovalAction[]
 }
@@ -261,16 +263,16 @@ model ApprovalAction {
 
 // ─── User Info & Relatives ────────────────────────────────────────mehrak
 model UserInfo {
-  id        String   @id @default(uuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // مشخصات فردی
   firstName    String?
   lastName     String?
   fatherName   String?
   birthDate    String?
-  nationalCode String?  @unique
+  nationalCode String? @unique
   birthPlace   String?
   residence    String?
   mobile       String?
@@ -281,7 +283,7 @@ model UserInfo {
   university   String?
   graduateYear String?
 
-  relatives    Relative[]
+  relatives Relative[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -293,10 +295,9 @@ model Relative {
   userInfo   UserInfo @relation(fields: [userInfoId], references: [id], onDelete: Cascade)
 
   name     String
-  relation String   // مثلاً: پدر، مادر، برادر
+  relation String // مثلاً: پدر، مادر، برادر
   address  String?
   phone    String?
-
 }
 
 model RepairCase {
@@ -305,7 +306,6 @@ model RepairCase {
   caseNumber String @unique
 
   customerId String
-
 
   type RepairType
 
@@ -317,9 +317,9 @@ model RepairCase {
 
   needCostApproval Boolean @default(false)
 
-  estimatedCost Decimal? @db.Decimal(12,2)
+  estimatedCost Decimal? @db.Decimal(12, 2)
 
-  startedAt DateTime?
+  startedAt   DateTime?
   completedAt DateTime?
 
   createdAt DateTime @default(now())
@@ -330,15 +330,16 @@ model RepairCase {
   serialNumber String?
 
   problemDescription String
-  customer Customer @relation(fields: [customerId],references: [id])
-  technician User? @relation("TechnicianRepairs",fields: [technicianId],references: [id])
-  visits RepairVisit[]
+  customer           Customer      @relation(fields: [customerId], references: [id])
+  technician         User?         @relation("TechnicianRepairs", fields: [technicianId], references: [id])
+  visits             RepairVisit[]
 
-  parts RepairItem[]
+  parts      RepairItem[]
   statusLogs RepairStatusLog[]
-// notificationEvents NotificationEvent[]
-// sla RepairSla?
+  // notificationEvents NotificationEvent[]
+  // sla RepairSla?
 }
+
 model RepairItem {
   id String @id @default(uuid())
 
@@ -348,18 +349,20 @@ model RepairItem {
 
   quantity Int
 
-  unitPrice Decimal @db.Decimal(12,2)
+  unitPrice Decimal @db.Decimal(12, 2)
 
   description String?
 
   createdAt DateTime @default(now())
 
-  repairCase RepairCase @relation( fields: [repairCaseId], references: [id])
+  repairCase RepairCase @relation(fields: [repairCaseId], references: [id])
 }
+
 enum RepairType {
   IN_HOUSE
   ON_SITE
 }
+
 enum RepairStatus {
   REGISTERED
 
@@ -407,6 +410,7 @@ model RepairVisit {
 
   repairCase RepairCase @relation(fields: [repairCaseId], references: [id])
 }
+
 enum VisitResult {
   REPAIRED
   NEED_SECOND_VISIT
@@ -414,6 +418,7 @@ enum VisitResult {
   CUSTOMER_ABSENT
   CANCELED
 }
+
 model RepairStatusLog {
   id String @id @default(uuid())
 
@@ -429,9 +434,9 @@ model RepairStatusLog {
 
   createdAt DateTime @default(now())
 
-  repairCase RepairCase @relation(fields: [repairCaseId],references: [id],onDelete: Cascade)
+  repairCase RepairCase @relation(fields: [repairCaseId], references: [id], onDelete: Cascade)
 
-  changedBy User @relation("UserStatusChanges",fields: [changedById],references: [id])
+  changedBy User @relation("UserStatusChanges", fields: [changedById], references: [id])
 }
 
 model RepairSla {
@@ -445,18 +450,18 @@ model RepairSla {
 
   isBreached Boolean @default(false)
 }
+
 model NotificationEvent {
   id String @id @default(uuid())
 
   repairCaseId String
-
 
   status RepairStatus
 
   payload Json
 
   sentAt DateTime?
-  
+
   createdAt DateTime @default(now())
 }
 
@@ -465,54 +470,237 @@ enum Gender {
   FEMALE
 }
 
-enum OccupationGroup {
-  HAIR_TRANSPLANT_TECHNICIAN // تکنسین کاشت مو
-  NAIL_TECHNICIAN            // تکنسین کاشت ناخن
-  GENERAL_PRACTITIONER       // پزشک عمومی
-  PHYSICIAN                  // پزشک
-  HAIR_BEAUTY_CLINIC         // کلینیک کاشت مو و زیبایی
-  HOME_DEVICE_CUSTOMER       // مشتری حضوری دستگاه خانگی
-  BARBER                     // آرایشگر
-  DENTIST                    // دندانپزشک
-  VETERINARIAN               // دامپزشک
-  COLLEAGUE                  // همکار
-  EMPLOYEE                   // کارمند
-  DERMATOLOGIST              // متخصص پوست و مو
-  GYNECOLOGIST               // متخصص زنان
-  OTHER                      // سایر
+enum CustomerType {
+  PERSON
+  ORGANIZATION
 }
 
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+  BLACKLISTED
+}
+
+enum OccupationGroup {
+  HAIR_TRANSPLANT_TECHNICIAN // تکنسین کاشت مو
+  NAIL_TECHNICIAN // تکنسین کاشت ناخن
+  GENERAL_PRACTITIONER // پزشک عمومی
+  PHYSICIAN // پزشک
+  HAIR_BEAUTY_CLINIC // کلینیک کاشت مو و زیبایی
+  HOME_DEVICE_CUSTOMER // مشتری حضوری دستگاه خانگی
+  BARBER // آرایشگر
+  DENTIST // دندانپزشک
+  VETERINARIAN // دامپزشک
+  COLLEAGUE // همکار
+  EMPLOYEE // کارمند
+  DERMATOLOGIST // متخصص پوست و مو
+  GYNECOLOGIST // متخصص زنان
+  OTHER // سایر
+}
+
+enum SalesOpportunityStatus {
+  NEW
+  CONTACTED
+  NEEDS_QUOTE
+  QUOTED
+  NEGOTIATION
+  WON
+  LOST
+  CANCELED
+}
+
+enum SalesOpportunityPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum CustomerActivityType {
+  NOTE
+  CALL
+  SMS
+  VISIT
+  FOLLOW_UP
+
+  CUSTOMER_CREATED
+  CUSTOMER_UPDATED
+
+  CONTACT_CREATED
+  CONTACT_UPDATED
+  CONTACT_DELETED
+
+  SALES_OPPORTUNITY_CREATED
+  SALES_OPPORTUNITY_UPDATED
+  SALES_OPPORTUNITY_DELETED
+
+  REPAIR_CREATED
+  REPAIR_STATUS_CHANGED
+
+  AI_ANALYSIS_UPDATED
+}
+
+enum AiInsightLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
 
 model Customer {
   id String @id @default(uuid())
 
-  // ─── اطلاعات شخصی (اجباری) ───────────────────────────────
-  firstName    String
-  lastName     String
-  mobile       String
-  phone        String
-  nationalCode String  @unique
-  birthDate    String
-  gender       Gender
+  // نوع مشتری: شخص حقیقی یا سازمان
+  type   CustomerType   @default(PERSON)
+  status CustomerStatus @default(ACTIVE)
 
-  // ─── اطلاعات جغرافیایی (اجباری) ─────────────────────────
-  province String
-  city     String
-  address  String
+  // اطلاعات شخص حقیقی
+  firstName    String?
+  lastName     String?
+  nationalCode String? @unique
+  birthDate    String?
+  gender       Gender?
 
-  // ─── اطلاعات شغلی (اجباری) ───────────────────────────────
-  occupation      String
-  occupationGroup OccupationGroup
+  // اطلاعات سازمان / شرکت / کلینیک
+  organizationName String?
+  economicCode     String? @unique
+  registrationNo   String? @unique
+  nationalId       String? @unique
 
-  // ─── زمان ثبت (اجباری) ───────────────────────────────────
-  registeredAt DateTime @default(now())
-
-  // ─── اطلاعات اختیاری ─────────────────────────────────────
+  // اطلاعات تماس مشترک
+  mobile     String?
+  phone      String?
   email      String?
+  province   String?
+  city       String?
+  address    String?
   postalCode String?
+
+  // دسته‌بندی کاری مشتری برای کارفرما
+  occupation      String?
+  occupationGroup OccupationGroup?
+
+  registeredAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  repairs            RepairCase[]
+  contacts           CustomerContact[]
+  salesOpportunities SalesOpportunity[]
+  activities         CustomerActivity[]
+  aiAnalyses         CustomerAiAnalysis[]
+
+  @@index([type])
+  @@index([status])
+  @@index([mobile])
+  @@index([phone])
+  @@index([email])
+  @@index([organizationName])
+  @@index([firstName, lastName])
+  @@index([occupationGroup])
+}
+
+model CustomerContact {
+  id String @id @default(uuid())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  fullName  String
+  role      String?
+  mobile    String?
+  phone     String?
+  email     String?
+  isPrimary Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  repairs RepairCase[]
+  @@index([customerId])
+  @@index([mobile])
+  @@index([email])
+}
+
+model SalesOpportunity {
+  id String @id @default(uuid())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String?
+
+  status   SalesOpportunityStatus   @default(NEW)
+  priority SalesOpportunityPriority @default(MEDIUM)
+
+  estimatedValue Decimal? @db.Decimal(12, 2)
+  probability    Int?     @default(0)
+
+  expectedCloseAt DateTime?
+  nextFollowUpAt  DateTime?
+
+  lossReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([priority])
+  @@index([nextFollowUpAt])
+  @@index([expectedCloseAt])
+}
+
+model CustomerActivity {
+  id String @id @default(uuid())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  type  CustomerActivityType
+  title String
+  body  String?
+
+  relatedRepairId           String?
+  relatedSalesOpportunityId String?
+
+  dueAt DateTime?
+
+  createdById String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([dueAt])
+  @@index([relatedRepairId])
+  @@index([relatedSalesOpportunityId])
+}
+
+model CustomerAiAnalysis {
+  id String @id @default(uuid())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  summary        String
+  riskLevel      AiInsightLevel?
+  salesPotential AiInsightLevel?
+  nextBestAction String?
+
+  tags     Json?
+  insights Json?
+
+  source    String  @default("manual")
+  modelName String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([riskLevel])
+  @@index([salesPotential])
+  @@index([createdAt])
 }

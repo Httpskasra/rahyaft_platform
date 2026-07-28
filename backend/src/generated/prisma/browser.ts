@@ -142,3 +142,23 @@ export type NotificationEvent = Prisma.NotificationEventModel
  * 
  */
 export type Customer = Prisma.CustomerModel
+/**
+ * Model CustomerContact
+ * 
+ */
+export type CustomerContact = Prisma.CustomerContactModel
+/**
+ * Model SalesOpportunity
+ * 
+ */
+export type SalesOpportunity = Prisma.SalesOpportunityModel
+/**
+ * Model CustomerActivity
+ * 
+ */
+export type CustomerActivity = Prisma.CustomerActivityModel
+/**
+ * Model CustomerAiAnalysis
+ * 
+ */
+export type CustomerAiAnalysis = Prisma.CustomerAiAnalysisModel
