@@ -75,7 +75,11 @@ export const ModelName = {
   RepairStatusLog: 'RepairStatusLog',
   RepairSla: 'RepairSla',
   NotificationEvent: 'NotificationEvent',
-  Customer: 'Customer'
+  Customer: 'Customer',
+  CustomerContact: 'CustomerContact',
+  SalesOpportunity: 'SalesOpportunity',
+  CustomerActivity: 'CustomerActivity',
+  CustomerAiAnalysis: 'CustomerAiAnalysis'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -399,26 +403,102 @@ export type NotificationEventScalarFieldEnum = (typeof NotificationEventScalarFi
 
 export const CustomerScalarFieldEnum = {
   id: 'id',
+  type: 'type',
+  status: 'status',
   firstName: 'firstName',
   lastName: 'lastName',
-  mobile: 'mobile',
-  phone: 'phone',
   nationalCode: 'nationalCode',
   birthDate: 'birthDate',
   gender: 'gender',
+  organizationName: 'organizationName',
+  economicCode: 'economicCode',
+  registrationNo: 'registrationNo',
+  nationalId: 'nationalId',
+  mobile: 'mobile',
+  phone: 'phone',
+  email: 'email',
   province: 'province',
   city: 'city',
   address: 'address',
+  postalCode: 'postalCode',
   occupation: 'occupation',
   occupationGroup: 'occupationGroup',
   registeredAt: 'registeredAt',
-  email: 'email',
-  postalCode: 'postalCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const CustomerContactScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  fullName: 'fullName',
+  role: 'role',
+  mobile: 'mobile',
+  phone: 'phone',
+  email: 'email',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerContactScalarFieldEnum = (typeof CustomerContactScalarFieldEnum)[keyof typeof CustomerContactScalarFieldEnum]
+
+
+export const SalesOpportunityScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  estimatedValue: 'estimatedValue',
+  probability: 'probability',
+  expectedCloseAt: 'expectedCloseAt',
+  nextFollowUpAt: 'nextFollowUpAt',
+  lossReason: 'lossReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SalesOpportunityScalarFieldEnum = (typeof SalesOpportunityScalarFieldEnum)[keyof typeof SalesOpportunityScalarFieldEnum]
+
+
+export const CustomerActivityScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  relatedRepairId: 'relatedRepairId',
+  relatedSalesOpportunityId: 'relatedSalesOpportunityId',
+  dueAt: 'dueAt',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerActivityScalarFieldEnum = (typeof CustomerActivityScalarFieldEnum)[keyof typeof CustomerActivityScalarFieldEnum]
+
+
+export const CustomerAiAnalysisScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  summary: 'summary',
+  riskLevel: 'riskLevel',
+  salesPotential: 'salesPotential',
+  nextBestAction: 'nextBestAction',
+  tags: 'tags',
+  insights: 'insights',
+  source: 'source',
+  modelName: 'modelName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerAiAnalysisScalarFieldEnum = (typeof CustomerAiAnalysisScalarFieldEnum)[keyof typeof CustomerAiAnalysisScalarFieldEnum]
 
 
 export const SortOrder = {

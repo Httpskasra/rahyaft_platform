@@ -85,6 +85,23 @@ export const Gender = {
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
+export const CustomerType = {
+  PERSON: 'PERSON',
+  ORGANIZATION: 'ORGANIZATION'
+} as const
+
+export type CustomerType = (typeof CustomerType)[keyof typeof CustomerType]
+
+
+export const CustomerStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  BLACKLISTED: 'BLACKLISTED'
+} as const
+
+export type CustomerStatus = (typeof CustomerStatus)[keyof typeof CustomerStatus]
+
+
 export const OccupationGroup = {
   HAIR_TRANSPLANT_TECHNICIAN: 'HAIR_TRANSPLANT_TECHNICIAN',
   NAIL_TECHNICIAN: 'NAIL_TECHNICIAN',
@@ -103,3 +120,58 @@ export const OccupationGroup = {
 } as const
 
 export type OccupationGroup = (typeof OccupationGroup)[keyof typeof OccupationGroup]
+
+
+export const SalesOpportunityStatus = {
+  NEW: 'NEW',
+  CONTACTED: 'CONTACTED',
+  NEEDS_QUOTE: 'NEEDS_QUOTE',
+  QUOTED: 'QUOTED',
+  NEGOTIATION: 'NEGOTIATION',
+  WON: 'WON',
+  LOST: 'LOST',
+  CANCELED: 'CANCELED'
+} as const
+
+export type SalesOpportunityStatus = (typeof SalesOpportunityStatus)[keyof typeof SalesOpportunityStatus]
+
+
+export const SalesOpportunityPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type SalesOpportunityPriority = (typeof SalesOpportunityPriority)[keyof typeof SalesOpportunityPriority]
+
+
+export const CustomerActivityType = {
+  NOTE: 'NOTE',
+  CALL: 'CALL',
+  SMS: 'SMS',
+  VISIT: 'VISIT',
+  FOLLOW_UP: 'FOLLOW_UP',
+  CUSTOMER_CREATED: 'CUSTOMER_CREATED',
+  CUSTOMER_UPDATED: 'CUSTOMER_UPDATED',
+  CONTACT_CREATED: 'CONTACT_CREATED',
+  CONTACT_UPDATED: 'CONTACT_UPDATED',
+  CONTACT_DELETED: 'CONTACT_DELETED',
+  SALES_OPPORTUNITY_CREATED: 'SALES_OPPORTUNITY_CREATED',
+  SALES_OPPORTUNITY_UPDATED: 'SALES_OPPORTUNITY_UPDATED',
+  SALES_OPPORTUNITY_DELETED: 'SALES_OPPORTUNITY_DELETED',
+  REPAIR_CREATED: 'REPAIR_CREATED',
+  REPAIR_STATUS_CHANGED: 'REPAIR_STATUS_CHANGED',
+  AI_ANALYSIS_UPDATED: 'AI_ANALYSIS_UPDATED'
+} as const
+
+export type CustomerActivityType = (typeof CustomerActivityType)[keyof typeof CustomerActivityType]
+
+
+export const AiInsightLevel = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+} as const
+
+export type AiInsightLevel = (typeof AiInsightLevel)[keyof typeof AiInsightLevel]

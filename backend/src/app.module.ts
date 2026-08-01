@@ -26,6 +26,7 @@ import { AttendanceModule } from './attendance/attendance.module';
 import { RepairsModule } from './repairs/repairs.module';
 import { CustomerModule } from './customer/customer.module';
 // import { PermissionsGuard } from './auth/permissions.guard';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { CustomerModule } from './customer/customer.module';
     AttendanceModule,
     RepairsModule,
     CustomerModule,
+    EventsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

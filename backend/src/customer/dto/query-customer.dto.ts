@@ -9,18 +9,33 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { Gender, OccupationGroup } from './create-customer.dto';
+import {
+  CustomerStatus,
+  CustomerType,
+  Gender,
+  OccupationGroup,
+} from './create-customer.dto';
 
 export class QueryCustomerDto {
   // ─── جستجوی عمومی ───────────────────────────────────────
   /**
-   * جستجوی آزاد روی نام، نام خانوادگی، کد ملی، موبایل، تلفن
+   * جستجوی آزاد روی نام، نام خانوادگی، نام سازمان، کد ملی، موبایل، تلفن، ایمیل
    */
   @IsOptional()
   @IsString()
   search?: string;
 
-  // ─── فیلترهای دقیق (Advanced Search) ────────────────────
+  // ─── فیلتر نوع و وضعیت مشتری ─────────────────────────────
+
+  @IsOptional()
+  @IsEnum(CustomerType, { message: 'نوع مشتری باید PERSON یا ORGANIZATION باشد' })
+  type?: CustomerType;
+
+  @IsOptional()
+  @IsEnum(CustomerStatus, { message: 'وضعیت مشتری معتبر نیست' })
+  status?: CustomerStatus;
+
+  // ─── فیلترهای شخص حقیقی ──────────────────────────────────
 
   @IsOptional()
   @IsString()
@@ -36,6 +51,30 @@ export class QueryCustomerDto {
   nationalCode?: string;
 
   @IsOptional()
+  @IsEnum(Gender, { message: 'جنسیت باید MALE یا FEMALE باشد' })
+  gender?: Gender;
+
+  // ─── فیلترهای سازمانی ────────────────────────────────────
+
+  @IsOptional()
+  @IsString()
+  organizationName?: string;
+
+  @IsOptional()
+  @IsString()
+  economicCode?: string;
+
+  @IsOptional()
+  @IsString()
+  registrationNo?: string;
+
+  @IsOptional()
+  @IsString()
+  nationalId?: string;
+
+  // ─── فیلترهای تماس و آدرس ─────────────────────────────────
+
+  @IsOptional()
   @IsString()
   mobile?: string;
 
@@ -45,11 +84,17 @@ export class QueryCustomerDto {
 
   @IsOptional()
   @IsString()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
   province?: string;
 
   @IsOptional()
   @IsString()
   city?: string;
+
+  // ─── فیلترهای شغلی ───────────────────────────────────────
 
   @IsOptional()
   @IsString()
@@ -59,24 +104,12 @@ export class QueryCustomerDto {
   @IsEnum(OccupationGroup, { message: 'گروه شغلی معتبر نیست' })
   occupationGroup?: OccupationGroup;
 
-  @IsOptional()
-  @IsEnum(Gender, { message: 'جنسیت باید MALE یا FEMALE باشد' })
-  gender?: Gender;
+  // ─── فیلتر بازه زمانی ثبت ────────────────────────────────
 
-  @IsOptional()
-  @IsString()
-  email?: string;
-
-  /**
-   * فیلتر بر اساس تاریخ ثبت از (فرمت ISO: 2026-01-01)
-   */
   @IsOptional()
   @IsString()
   registeredFrom?: string;
 
-  /**
-   * فیلتر بر اساس تاریخ ثبت تا (فرمت ISO: 2026-12-31)
-   */
   @IsOptional()
   @IsString()
   registeredTo?: string;
@@ -100,20 +133,26 @@ export class QueryCustomerDto {
   @IsIn([
     'createdAt',
     'updatedAt',
+    'registeredAt',
     'firstName',
     'lastName',
-    'registeredAt',
+    'organizationName',
     'city',
     'province',
+    'type',
+    'status',
   ])
   sortBy?:
     | 'createdAt'
     | 'updatedAt'
+    | 'registeredAt'
     | 'firstName'
     | 'lastName'
-    | 'registeredAt'
+    | 'organizationName'
     | 'city'
-    | 'province' = 'registeredAt';
+    | 'province'
+    | 'type'
+    | 'status' = 'registeredAt';
 
   @IsOptional()
   @IsIn(['asc', 'desc'])
