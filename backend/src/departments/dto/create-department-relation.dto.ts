@@ -3,11 +3,11 @@ import { DepartmentRelationType } from 'src/generated/prisma/enums';
 
 export class CreateDepartmentRelationDto {
   @IsUUID()
-  fromDepartmentId: string;
+  fromDepartmentId!: string;
 
   @IsUUID()
-  toDepartmentId: string;
+  toDepartmentId!: string;
 
   @IsEnum(DepartmentRelationType)
-  type: DepartmentRelationType;
+  type!: DepartmentRelationType;
 }

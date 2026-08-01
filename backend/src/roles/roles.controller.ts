@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -17,6 +18,8 @@ import { AddPermissionDto } from './dto/add-permission.dto';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 import { UpdateRoleDto } from './dto/updtade-role.dto';
 
+@ApiTags('Roles')
+@ApiBearerAuth('access-token')
 @Controller('roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

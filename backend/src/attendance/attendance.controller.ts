@@ -1,4 +1,11 @@
 import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
   Controller,
   Get,
   Post,
@@ -18,6 +25,8 @@ const ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 ];
 
+@ApiTags('Attendance')
+@ApiBearerAuth('access-token')
 @Controller('attendance')
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
@@ -28,6 +37,21 @@ export class AttendanceController {
    * فایل ذخیره نمی‌شود؛ فقط در حافظه پردازش می‌شود.
    */
   @Post('import')
+  @ApiOperation({ summary: 'Import attendance records from an Excel workbook' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['file'],
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Excel workbook (.xls or .xlsx), maximum size 10 MB',
+        },
+      },
+    },
+  })
   @RequirePermission({ action: 'create', resource: 'attendance' })
   @UseInterceptors(
     FileInterceptor('file', {

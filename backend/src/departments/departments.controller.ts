@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -16,6 +18,8 @@ import { UpdateDepartmentDto } from './dto/update-department.dto';
 import { CreateDepartmentRelationDto } from './dto/create-department-relation.dto';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 
+@ApiTags('Departments')
+@ApiBearerAuth('access-token')
 @Controller('departments')
 export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}

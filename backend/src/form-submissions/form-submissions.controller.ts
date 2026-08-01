@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -12,6 +13,8 @@ import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 import type { AuthenticatedUser } from 'src/common/interfaces/auth.interface';
 
+@ApiTags('Form Submissions')
+@ApiBearerAuth('access-token')
 @Controller('form-submissions')
 export class FormSubmissionsController {
   constructor(private readonly service: FormSubmissionsService) {}

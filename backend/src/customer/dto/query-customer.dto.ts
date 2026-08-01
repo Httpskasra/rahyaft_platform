@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Type } from 'class-transformer';
 import {
   IsEnum,
@@ -28,7 +29,9 @@ export class QueryCustomerDto {
   // ─── فیلتر نوع و وضعیت مشتری ─────────────────────────────
 
   @IsOptional()
-  @IsEnum(CustomerType, { message: 'نوع مشتری باید PERSON یا ORGANIZATION باشد' })
+  @IsEnum(CustomerType, {
+    message: 'نوع مشتری باید PERSON یا ORGANIZATION باشد',
+  })
   type?: CustomerType;
 
   @IsOptional()

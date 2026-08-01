@@ -1,3 +1,10 @@
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import {
   Controller,
@@ -27,6 +34,7 @@ import { Public } from '../common/decorators/public.decorator';
  *   POST /auth/logout      → invalidate refresh token (requires valid JWT)
  *   GET  /auth/me          → return current authenticated user
  */
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -40,6 +48,8 @@ export class AuthController {
    */
   @Public()
   @Post('send-otp')
+  @ApiOperation({ summary: 'Send a one-time password to a registered phone number' })
+  @ApiOkResponse({ description: 'OTP request accepted.' })
   sendOtp(@Body() dto: SendOtpDto) {
     return this.authService.sendOtp(dto);
   }
@@ -50,6 +60,7 @@ export class AuthController {
    */
   @Public()
   @Post('verify-otp')
+  @ApiOperation({ summary: 'Verify OTP and issue access/refresh tokens' })
   @HttpCode(HttpStatus.OK)
   verifyOtp(@Body() dto: VerifyOtpDto) {
     return this.authService.verifyOtp(dto);
@@ -61,6 +72,8 @@ export class AuthController {
    */
   @Public()
   @Post('refresh')
+  @ApiOperation({ summary: 'Rotate an existing refresh token' })
+  @ApiUnauthorizedResponse({ description: 'Refresh token is invalid, expired, or revoked.' })
   @HttpCode(HttpStatus.OK)
   refresh(@Body() dto: RefreshTokenDto) {
     const decoded = this.jwtService.decode(dto.refreshToken) as {
@@ -77,6 +90,8 @@ export class AuthController {
    * Protected — clears the stored refresh token
    */
   @Post('logout')
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: 'Revoke the current user refresh token' })
   @HttpCode(HttpStatus.OK)
   logout(@CurrentUser() user: AuthenticatedUser) {
     return this.authService.logout(user.id);
@@ -87,6 +102,8 @@ export class AuthController {
    * Protected — returns current user from JWT
    */
   @Get('me')
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: 'Get the current authenticated user' })
   me(@CurrentUser() user: AuthenticatedUser) {
     return user;
   }

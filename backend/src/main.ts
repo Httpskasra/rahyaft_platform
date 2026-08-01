@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
+import { setupSwagger } from './config/swagger/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -31,6 +32,8 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api/v1');
+
+  setupSwagger(app);
 
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
   console.log(`Application running on: ${await app.getUrl()}`);

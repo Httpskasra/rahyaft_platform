@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
@@ -9,6 +10,8 @@ import { AssignTechnicianDto } from './dto/assign-technician.dto';
 import { UpdateRepairStatusDto } from './dto/update-repair-status.dto';
 import { RequirePermission } from 'src/common/decorators/require-permission.decorator';
 
+@ApiTags('Repairs')
+@ApiBearerAuth('access-token')
 @Controller('repairs')
 export class RepairsController {
   constructor(private readonly repairsService: RepairsService) {}

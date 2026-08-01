@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import {
   Controller,
@@ -19,6 +20,8 @@ import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../common/interfaces/auth.interface';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 
+@ApiTags('Forms')
+@ApiBearerAuth('access-token')
 @Controller('forms')
 export class FormsController {
   constructor(private readonly formsService: FormsService) {}

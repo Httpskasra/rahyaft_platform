@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Post, Patch, Delete, Body } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
 import { CreateUserInfoDto } from './dto/create-user-info.dto';
@@ -6,6 +7,8 @@ import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../common/interfaces/auth.interface';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 
+@ApiTags('User Profile')
+@ApiBearerAuth('access-token')
 @Controller('user-info')
 export class UserInfoController {
   constructor(private readonly userInfoService: UserInfoService) {}

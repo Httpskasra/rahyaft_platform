@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -24,6 +25,7 @@ import { CreateCustomerActivityDto } from './dto/create-customer-activity.dto';
 import { CreateCustomerAiAnalysisDto } from './dto/create-customer-ai-analysis.dto';
 
 @Public() //موقتی
+@ApiTags('Customers')
 @Controller('customers')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
@@ -176,7 +178,7 @@ export class CustomerController {
       opportunityId,
     );
   }
-    /**
+  /**
    * POST /customers/:customerId/activities
    * افزودن فعالیت / یادداشت / تماس / پیگیری برای مشتری
    */
@@ -187,7 +189,7 @@ export class CustomerController {
   ) {
     return this.customerService.createActivity(customerId, dto);
   }
-    /**
+  /**
    * POST /customers/:customerId/ai-analysis
    * ثبت تحلیل مشتری
    */
@@ -204,9 +206,7 @@ export class CustomerController {
    * آخرین تحلیل مشتری
    */
   @Get(':customerId/ai-analysis/latest')
-  getLatestAiAnalysis(
-    @Param('customerId', ParseUUIDPipe) customerId: string,
-  ) {
+  getLatestAiAnalysis(@Param('customerId', ParseUUIDPipe) customerId: string) {
     return this.customerService.getLatestAiAnalysis(customerId);
   }
 }
