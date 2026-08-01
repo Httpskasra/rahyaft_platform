@@ -1,47 +1,37 @@
-# ─── Enterprise Platform — Dev & Prod commands ───────────────
+COMPOSE_DEV=docker compose --env-file .env.development -f docker-compose.dev.yml
+COMPOSE_PROD=docker compose --env-file .env.production -f docker-compose.prod.yml
 
-.PHONY: dev prod down logs migrate seed
+.PHONY: dev dev-build prod prod-build down down-prod logs ps migrate seed pull-model
 
-## Start development environment (hot-reload)
 dev:
-# 	docker compose -f docker-compose.dev.yml up --build
-# 	docker compose -f docker-compose.dev.yml build --no-cache
-	docker compose -f docker-compose.dev.yml up -d         
+	$(COMPOSE_DEV) up -d
 
-## Start production environment
+dev-build:
+	$(COMPOSE_DEV) up -d --build
+
 prod:
-	docker compose -f docker-compose.prod.yml up --build -d
+	$(COMPOSE_PROD) up -d
 
-## Stop all services
+prod-build:
+	$(COMPOSE_PROD) up -d --build
+
 down:
-	docker compose -f docker-compose.dev.yml down
-	docker compose -f docker-compose.prod.yml down 2>/dev/null || true
+	$(COMPOSE_DEV) down
 
-## Follow logs
+down-prod:
+	$(COMPOSE_PROD) down
+
 logs:
-	docker compose -f docker-compose.dev.yml logs -f
+	$(COMPOSE_DEV) logs -f
 
-## Run Prisma migrations inside the running backend container
+ps:
+	$(COMPOSE_DEV) ps
+
 migrate:
-	docker compose -f docker-compose.dev.yml exec backend npx prisma migrate deploy
+	$(COMPOSE_DEV) exec backend npx prisma migrate deploy
 
-## Run seed inside the running backend container
 seed:
-	docker compose -f docker-compose.dev.yml exec backend npx tsx prisma/seed.ts
+	$(COMPOSE_DEV) exec backend npx tsx prisma/seed.ts
 
-## Open RabbitMQ management UI
-rabbitmq-ui:
-	open http://localhost:15672
-
-## Open backend API
-api:
-	open http://localhost:3000/api/v1
-
-## Open frontend
-app:
-	open http://localhost:3001
-
-
-docker logs cloudflared | grep trycloudflare
-
-curl -X POST "https://tapi.bale.ai/bot205553143:ZX0KlvSNqF7sjqlMXl9-UuxdpozEqGQQQ-0/setWebhook" -d '{"url": "https://pond-coordinator-profession-present.trycloudflare.com"  /api/v1/bale/webhook"}'
+pull-model:
+	$(COMPOSE_DEV) run --rm ollama-init
