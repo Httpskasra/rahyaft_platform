@@ -49,9 +49,14 @@ services:
   ollama:
     image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
     restart: always
+
     volumes:
       - ollama_prod_data:/root/.ollama
-    networks: [internal]
+
+    networks:
+      - internal
+      - public
+
     healthcheck:
       test: ["CMD", "ollama", "list"]
       interval: 15s
@@ -62,15 +67,44 @@ services:
   ollama-init:
     image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
     restart: "no"
+
     depends_on:
       ollama:
         condition: service_healthy
+
     environment:
       OLLAMA_HOST: http://ollama:11434
-    entrypoint: ["/bin/sh", "-c"]
-    command: ["ollama pull ${OLLAMA_MODEL:-llama3.1:8b}"]
-    networks: [internal, public]
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
 
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+    entrypoint: ["/bin/sh", "-c"]
+
+    command:
+      - |
+        set -eu
+
+        echo "Waiting for Ollama server..."
+
+        until ollama list >/dev/null 2>&1; do
+          sleep 3
+        done
+
+        echo "Checking model: $${OLLAMA_MODEL}"
+
+        if ollama list | awk 'NR > 1 {print $$1}' | grep -Fxq "$${OLLAMA_MODEL}"; then
+          echo "Model already exists: $${OLLAMA_MODEL}"
+        else
+          echo "Downloading model: $${OLLAMA_MODEL}"
+          ollama pull "$${OLLAMA_MODEL}"
+        fi
+
+        echo "Ollama model is ready."
+
+    networks:
+      - public
   migrate:
     build:
       context: ./backend
@@ -114,7 +148,7 @@ services:
       API_VERSION: ${API_VERSION:-1.0.0}
       BALE_BOT_TOKEN: ${BALE_BOT_TOKEN:-}
     ports:
-      - "127.0.0.1:${BACKEND_PORT:-3000}:3000"
+      - "0.0.0.0:${BACKEND_PORT:-3000}:3000"
     networks: [internal, public]
     security_opt:
       - no-new-privileges:true
@@ -135,7 +169,7 @@ services:
       HOSTNAME: 0.0.0.0
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     ports:
-      - "127.0.0.1:${FRONTEND_PORT:-3001}:3001"
+      - "0.0.0.0:${FRONTEND_PORT:-3001}:3001"
     networks: [public]
     security_opt:
       - no-new-privileges:true
