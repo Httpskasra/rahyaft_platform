@@ -12,7 +12,7 @@ class OllamaClient:
             "OLLAMA_BASE_URL",
             "http://localhost:11434",
         ).rstrip("/")
-        self.model = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
+        self.model = os.getenv("OLLAMA_MODEL", "qwen2.5:3b")
         self.timeout = int(os.getenv("OLLAMA_TIMEOUT_SECONDS", "120"))
 
     async def generate_json(

@@ -73,7 +73,7 @@ services:
     environment:
       OLLAMA_HOST: http://ollama:11434
     entrypoint: ["/bin/sh", "-c"]
-    command: ["ollama pull ${OLLAMA_MODEL:-llama3.1:8b}"]
+    command: ["ollama pull ${OLLAMA_MODEL:-qwen2.5:3b}"]
 
   backend:
     build:
@@ -171,7 +171,7 @@ services:
       DOMAIN_EXCHANGE: ${DOMAIN_EXCHANGE:-domain_events}
       CRM_QUEUE: ${CRM_QUEUE:-crm_ai_worker}
       OLLAMA_BASE_URL: http://ollama:11434
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b}
       OLLAMA_TIMEOUT_SECONDS: ${OLLAMA_TIMEOUT_SECONDS:-120}
       LOG_LEVEL: ${LOG_LEVEL:-DEBUG}
     volumes:
