@@ -152,6 +152,138 @@ services:
     networks: [internal, public]
     security_opt:
       - no-new-privileges:true
+  bale-tunnel:
+    build:
+      context: ./infrastructure/bale-tunnel
+    restart: always
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    environment:
+      BACKEND_URL: http://backend:3000
+      STATE_DIR: /state
+      CLOUDFLARED_PROTOCOL: http2
+      TUNNEL_STARTUP_ATTEMPTS: 60
+
+    volumes:
+      - bale_tunnel_state:/state
+
+    networks:
+      - public
+
+    security_opt:
+      - no-new-privileges:true
+
+  bale-webhook-init:
+    image: alpine:3.22
+    restart: on-failure
+
+    depends_on:
+      backend:
+        condition: service_healthy
+      bale-tunnel:
+        condition: service_started
+
+    environment:
+      BALE_BOT_TOKEN: ${BALE_BOT_TOKEN:?BALE_BOT_TOKEN is required}
+      TUNNEL_URL_FILE: /state/tunnel-url
+      WEBHOOK_PATH: /api/v1/bale/webhook
+
+    volumes:
+      - bale_tunnel_state:/state:ro
+
+    entrypoint:
+      - /bin/sh
+      - -c
+
+    command:
+      - |
+        set -eu
+
+        apk add --no-cache curl ca-certificates >/dev/null
+
+        URL_FILE="$${TUNNEL_URL_FILE}"
+        ATTEMPT=0
+        MAX_ATTEMPTS=90
+
+        echo "Waiting for Cloudflare Tunnel URL..."
+
+        while [ "$${ATTEMPT}" -lt "$${MAX_ATTEMPTS}" ]; do
+          if [ -s "$${URL_FILE}" ]; then
+            TUNNEL_URL="$$(cat "$${URL_FILE}")"
+            break
+          fi
+
+          ATTEMPT=$$((ATTEMPT + 1))
+          sleep 2
+        done
+
+        if [ -z "$${TUNNEL_URL:-}" ]; then
+          echo "Tunnel URL was not found."
+          exit 1
+        fi
+
+        WEBHOOK_URL="$${TUNNEL_URL}$${WEBHOOK_PATH}"
+
+        echo "Checking public webhook endpoint:"
+        echo "$${WEBHOOK_URL}"
+
+        ATTEMPT=0
+
+        while [ "$${ATTEMPT}" -lt 30 ]; do
+          STATUS="$$(curl \
+            --silent \
+            --output /tmp/webhook-response \
+            --write-out '%{http_code}' \
+            --request POST \
+            --header 'Content-Type: application/json' \
+            --data '{}' \
+            "$${WEBHOOK_URL}" || true)"
+
+          if [ "$${STATUS}" = "200" ] || [ "$${STATUS}" = "201" ]; then
+            echo "Public webhook endpoint is reachable."
+            break
+          fi
+
+          echo "Webhook endpoint not ready. HTTP status: $${STATUS}"
+          ATTEMPT=$$((ATTEMPT + 1))
+          sleep 3
+        done
+
+        if [ "$${STATUS}" != "200" ] && [ "$${STATUS}" != "201" ]; then
+          echo "Public webhook endpoint is unavailable."
+          cat /tmp/webhook-response 2>/dev/null || true
+          exit 1
+        fi
+
+        echo "Registering Bale webhook..."
+
+        RESPONSE="$$(curl \
+          --silent \
+          --show-error \
+          --fail \
+          --request POST \
+          "https://tapi.bale.ai/bot$${BALE_BOT_TOKEN}/setWebhook" \
+          --header 'Content-Type: application/json' \
+          --data "{\"url\":\"$${WEBHOOK_URL}\"}")"
+
+        echo "$${RESPONSE}"
+
+        echo "$${RESPONSE}" | grep -q '"ok":true' || {
+          echo "Bale webhook registration failed."
+          exit 1
+        }
+
+        echo "Bale webhook registered successfully:"
+        echo "$${WEBHOOK_URL}"
+
+    networks:
+      - public
+
+    security_opt:
+      - no-new-privileges:true
 
   frontend:
     build:
@@ -229,3 +361,4 @@ volumes:
   redis_prod_data:
   rabbitmq_prod_data:
   ollama_prod_data:
+  bale_tunnel_state:
