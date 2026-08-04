@@ -75,6 +75,30 @@ async function main() {
     }
   }
 
+  // Recruitment permissions (independent workflow)
+  const recruitmentPermissions = [
+    ['read', 'recruitment-applications'],
+    ['review-initial', 'recruitment-applications'],
+    ['conduct-initial-interview', 'recruitment-applications'],
+    ['assign-technical-interviewer', 'recruitment-applications'],
+    ['conduct-technical-interview', 'recruitment-interviews'],
+    ['final-approve', 'recruitment-applications'],
+    ['manage', 'recruitment-settings'],
+  ] as const;
+
+  for (const [action, resource] of recruitmentPermissions) {
+    const permission = await prisma.permission.upsert({
+      where: { action_resource: { action, resource } },
+      update: {},
+      create: { action, resource },
+    });
+    await prisma.rolePermission.upsert({
+      where: { roleId_permissionId: { roleId: role.id, permissionId: permission.id } },
+      update: { scope: 'ORG_WIDE' },
+      create: { roleId: role.id, permissionId: permission.id, scope: 'ORG_WIDE' },
+    });
+  }
+
   // 5. Assign role to admin user
   await prisma.userRole.upsert({
     where: { userId_roleId: { userId: admin.id, roleId: role.id } },

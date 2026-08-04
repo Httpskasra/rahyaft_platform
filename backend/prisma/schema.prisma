@@ -36,6 +36,8 @@ model Department {
   outgoingRelations DepartmentRelation[] @relation("FromDepartment")
   incomingRelations DepartmentRelation[] @relation("ToDepartment")
 
+  recruitmentJobOpenings JobOpening[]
+
   createdAt DateTime @default(now())
 }
 
@@ -75,6 +77,12 @@ model User {
   assignedRepairs RepairCase[]      @relation("TechnicianRepairs")
   repairVisits    RepairVisit[]     @relation("TechnicianVisits")
   statusLogs      RepairStatusLog[] @relation("UserStatusChanges")
+
+  recruitmentAssignments RecruitmentAssignment[] @relation("RecruitmentAssignee")
+  recruitmentAssignedBy RecruitmentAssignment[] @relation("RecruitmentAssignedBy")
+  recruitmentTransitions RecruitmentTransition[]
+  recruitmentSubmissions RecruitmentFormSubmission[]
+  recruitmentFinalized   RecruitmentApplication[] @relation("RecruitmentFinalUser")
 }
 
 model Attendance {
@@ -703,4 +711,221 @@ model CustomerAiAnalysis {
   @@index([riskLevel])
   @@index([salesPotential])
   @@index([createdAt])
+}
+
+
+// ─── Recruitment (independent from internal Forms) ──────────────
+
+enum RecruitmentFormType {
+  PRE_INTERVIEW
+  INITIAL_INTERVIEW
+  TECHNICAL_INTERVIEW
+  SUPERADMIN_REVIEW
+  PROFILE_COMPLETION
+}
+
+enum RecruitmentApplicationStatus {
+  DRAFT
+  IN_PROGRESS
+  REJECTED
+  WITHDRAWN
+  HIRED
+  CANCELLED
+}
+
+enum RecruitmentStage {
+  PRE_INTERVIEW_FORM
+  INITIAL_REVIEW
+  INITIAL_INTERVIEW
+  TECHNICAL_INTERVIEW_ASSIGNMENT
+  TECHNICAL_INTERVIEW
+  SUPERADMIN_APPROVAL
+  ACCOUNT_PROVISIONING
+  PROFILE_COMPLETION
+  COMPLETED
+}
+
+enum RecruitmentActorType {
+  APPLICANT
+  USER
+  SYSTEM
+}
+
+enum RecruitmentAction {
+  SUBMIT_PRE_INTERVIEW
+  APPROVE_INITIAL_REVIEW
+  REJECT_INITIAL_REVIEW
+  SUBMIT_INITIAL_INTERVIEW
+  APPROVE_INITIAL_INTERVIEW
+  REJECT_INITIAL_INTERVIEW
+  ASSIGN_TECHNICAL_INTERVIEWER
+  SUBMIT_TECHNICAL_INTERVIEW
+  APPROVE_TECHNICAL_INTERVIEW
+  REJECT_TECHNICAL_INTERVIEW
+  FINAL_APPROVE
+  FINAL_REJECT
+  CREATE_USER_ACCOUNT
+  COMPLETE_PROFILE
+  WITHDRAW
+  REASSIGN
+}
+
+enum InterviewRecommendation {
+  STRONG_HIRE
+  HIRE
+  NO_HIRE
+  STRONG_NO_HIRE
+}
+
+model RecruitmentFormTemplate {
+  id          String @id @default(uuid())
+  name        String
+  description String?
+  type        RecruitmentFormType
+  isActive    Boolean @default(true)
+  versions    RecruitmentFormVersion[]
+  jobOpeningsPre       JobOpening[] @relation("PreInterviewForm")
+  jobOpeningsInitial   JobOpening[] @relation("InitialInterviewForm")
+  jobOpeningsTechnical JobOpening[] @relation("TechnicalInterviewForm")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([type, isActive])
+}
+
+model RecruitmentFormVersion {
+  id          String @id @default(uuid())
+  templateId  String
+  version     Int
+  schema      Json
+  isPublished Boolean @default(false)
+  publishedAt DateTime?
+  template RecruitmentFormTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  submissions RecruitmentFormSubmission[]
+  createdAt DateTime @default(now())
+  @@unique([templateId, version])
+  @@index([templateId, isPublished])
+}
+
+model JobOpening {
+  id           String @id @default(uuid())
+  title        String
+  slug         String @unique
+  description  String?
+  departmentId String?
+  isActive     Boolean @default(true)
+  preInterviewFormId String
+  initialInterviewFormId String?
+  technicalInterviewFormId String?
+  initialReviewerRoleId String?
+  department Department? @relation(fields: [departmentId], references: [id])
+  preInterviewForm RecruitmentFormTemplate @relation("PreInterviewForm", fields: [preInterviewFormId], references: [id])
+  initialInterviewForm RecruitmentFormTemplate? @relation("InitialInterviewForm", fields: [initialInterviewFormId], references: [id])
+  technicalInterviewForm RecruitmentFormTemplate? @relation("TechnicalInterviewForm", fields: [technicalInterviewFormId], references: [id])
+  applications RecruitmentApplication[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([isActive])
+}
+
+model RecruitmentApplicant {
+  id              String @id @default(uuid())
+  fullName        String
+  phoneNumber     String
+  normalizedPhone String
+  email           String?
+  nationalCode    String?
+  applications RecruitmentApplication[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([normalizedPhone])
+  @@index([nationalCode])
+}
+
+model RecruitmentApplication {
+  id           String @id @default(uuid())
+  trackingCode String @unique
+  publicTokenHash String @unique
+  applicantId  String
+  jobOpeningId String
+  status       RecruitmentApplicationStatus @default(IN_PROGRESS)
+  currentStage RecruitmentStage @default(INITIAL_REVIEW)
+  finalUserId  String? @unique
+  rejectionReasonInternal String?
+  rejectionMessagePublic String?
+  version Int @default(0)
+  submittedAt DateTime @default(now())
+  rejectedAt DateTime?
+  hiredAt DateTime?
+  applicant RecruitmentApplicant @relation(fields: [applicantId], references: [id])
+  jobOpening JobOpening @relation(fields: [jobOpeningId], references: [id])
+  finalUser User? @relation("RecruitmentFinalUser", fields: [finalUserId], references: [id])
+  submissions RecruitmentFormSubmission[]
+  assignments RecruitmentAssignment[]
+  transitions RecruitmentTransition[]
+  technicalEvaluation TechnicalInterviewEvaluation?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([status, currentStage])
+  @@index([jobOpeningId, createdAt])
+}
+
+model RecruitmentFormSubmission {
+  id            String @id @default(uuid())
+  applicationId String
+  formVersionId String
+  stage         RecruitmentStage
+  answers       Json
+  submittedByType RecruitmentActorType
+  submittedByUserId String?
+  application RecruitmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  formVersion RecruitmentFormVersion @relation(fields: [formVersionId], references: [id])
+  submittedByUser User? @relation(fields: [submittedByUserId], references: [id])
+  createdAt DateTime @default(now())
+  @@unique([applicationId, stage])
+  @@index([formVersionId])
+}
+
+model RecruitmentAssignment {
+  id String @id @default(uuid())
+  applicationId String
+  stage RecruitmentStage
+  assigneeUserId String
+  assignedByUserId String
+  assignedAt DateTime @default(now())
+  completedAt DateTime?
+  revokedAt DateTime?
+  application RecruitmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  assignee User @relation("RecruitmentAssignee", fields: [assigneeUserId], references: [id])
+  assignedBy User @relation("RecruitmentAssignedBy", fields: [assignedByUserId], references: [id])
+  @@index([assigneeUserId, stage, completedAt])
+  @@index([applicationId, stage])
+}
+
+model RecruitmentTransition {
+  id String @id @default(uuid())
+  applicationId String
+  fromStage RecruitmentStage?
+  toStage RecruitmentStage
+  action RecruitmentAction
+  actorType RecruitmentActorType
+  actorUserId String?
+  reasonCode String?
+  comment String?
+  metadata Json?
+  application RecruitmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  actorUser User? @relation(fields: [actorUserId], references: [id])
+  createdAt DateTime @default(now())
+  @@index([applicationId, createdAt])
+}
+
+model TechnicalInterviewEvaluation {
+  id String @id @default(uuid())
+  applicationId String @unique
+  interviewerId String
+  overallScore Int
+  recommendation InterviewRecommendation
+  internalSummary String
+  completedAt DateTime @default(now())
+  application RecruitmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  @@index([interviewerId])
 }

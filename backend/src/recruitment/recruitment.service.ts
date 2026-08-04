@@ -1,0 +1,542 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { createHash, randomBytes } from 'crypto';
+import { PrismaService } from '../prisma/prisma.service';
+import type { Prisma } from '../generated/prisma/client';
+import {
+  RecruitmentAction,
+  RecruitmentActorType,
+  RecruitmentApplicationStatus,
+  RecruitmentFormType,
+  RecruitmentStage,
+} from '../generated/prisma/enums';
+import {
+  AssignInterviewerDto,
+  CreateJobOpeningDto,
+  CreateRecruitmentFormTemplateDto,
+  FinalApproveDto,
+  PublicCreateApplicationDto,
+  ReviewDto,
+  SubmitStageFormDto,
+  TechnicalInterviewDto,
+} from './dto/recruitment.dto';
+import { RecruitmentSchemaService } from './recruitment-schema.service';
+
+@Injectable()
+export class RecruitmentService {
+  constructor(
+    private prisma: PrismaService,
+    private schemas: RecruitmentSchemaService,
+  ) {}
+  private normalizePhone(v: string) {
+    return v.replace(/\D/g, '').replace(/^0/, '98');
+  }
+  private hash(v: string) {
+    return createHash('sha256').update(v).digest('hex');
+  }
+  private async app(id: string) {
+    const a = await this.prisma.recruitmentApplication.findUnique({
+      where: { id },
+      include: {
+        applicant: true,
+        jobOpening: true,
+        assignments: true,
+        submissions: {
+          include: { formVersion: { include: { template: true } } },
+        },
+        transitions: { orderBy: { createdAt: 'asc' } },
+      },
+    });
+    if (!a) throw new NotFoundException('Recruitment application not found');
+    return a;
+  }
+  private ensureStage(actual: RecruitmentStage, expected: RecruitmentStage) {
+    if (actual !== expected)
+      throw new ConflictException(`Action is not allowed in stage ${actual}`);
+  }
+  private async publishedVersion(templateId: string) {
+    const v = await this.prisma.recruitmentFormVersion.findFirst({
+      where: { templateId, isPublished: true },
+      orderBy: { version: 'desc' },
+    });
+    if (!v) throw new BadRequestException('No published form version');
+    return v;
+  }
+  private transition(
+    tx: any,
+    applicationId: string,
+    fromStage: RecruitmentStage | null,
+    toStage: RecruitmentStage,
+    action: RecruitmentAction,
+    actorUserId?: string,
+    comment?: string,
+  ) {
+    return tx.recruitmentTransition.create({
+      data: {
+        applicationId,
+        fromStage,
+        toStage,
+        action,
+        actorType: actorUserId
+          ? RecruitmentActorType.USER
+          : RecruitmentActorType.SYSTEM,
+        actorUserId,
+        comment,
+      },
+    });
+  }
+  async listPublicJobs() {
+    return this.prisma.jobOpening.findMany({
+      where: { isActive: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        description: true,
+        department: { select: { name: true } },
+      },
+    });
+  }
+  async publicJob(slug: string) {
+    const job = await this.prisma.jobOpening.findUnique({
+      where: { slug },
+      include: {
+        preInterviewForm: {
+          include: {
+            versions: {
+              where: { isPublished: true },
+              orderBy: { version: 'desc' },
+              take: 1,
+            },
+          },
+        },
+      },
+    });
+    if (!job?.isActive) throw new NotFoundException('Job opening not found');
+    return job;
+  }
+  async createPublicApplication(slug: string, dto: PublicCreateApplicationDto) {
+    const job = await this.prisma.jobOpening.findUnique({ where: { slug } });
+    if (!job?.isActive) throw new NotFoundException('Job opening not found');
+    const version = await this.prisma.recruitmentFormVersion.findUnique({
+      where: { id: dto.formVersionId },
+      include: { template: true },
+    });
+    if (!version?.isPublished || version.templateId !== job.preInterviewFormId)
+      throw new BadRequestException('Invalid form version');
+    this.schemas.validate(version.schema, dto.answers);
+    const normalizedPhone = this.normalizePhone(dto.phoneNumber);
+    const existing = await this.prisma.recruitmentApplication.findFirst({
+      where: {
+        jobOpeningId: job.id,
+        applicant: { normalizedPhone },
+        status: {
+          in: [
+            RecruitmentApplicationStatus.DRAFT,
+            RecruitmentApplicationStatus.IN_PROGRESS,
+          ],
+        },
+      },
+    });
+    if (existing)
+      throw new ConflictException('An active application already exists');
+    const publicToken = randomBytes(32).toString('hex');
+    const trackingCode = `REC-${Date.now().toString(36).toUpperCase()}-${randomBytes(3).toString('hex').toUpperCase()}`;
+    const created = await this.prisma.$transaction(async (tx) => {
+      const applicant = await tx.recruitmentApplicant.create({
+        data: {
+          fullName: dto.fullName,
+          phoneNumber: dto.phoneNumber,
+          normalizedPhone,
+          email: dto.email,
+          nationalCode: dto.nationalCode,
+        },
+      });
+      const app = await tx.recruitmentApplication.create({
+        data: {
+          trackingCode,
+          publicTokenHash: this.hash(publicToken),
+          applicantId: applicant.id,
+          jobOpeningId: job.id,
+          currentStage: RecruitmentStage.INITIAL_REVIEW,
+        },
+      });
+      await tx.recruitmentFormSubmission.create({
+        data: {
+          applicationId: app.id,
+          formVersionId: version.id,
+          stage: RecruitmentStage.PRE_INTERVIEW_FORM,
+          answers: dto.answers as Prisma.InputJsonValue,
+          submittedByType: RecruitmentActorType.APPLICANT,
+        },
+      });
+      await this.transition(
+        tx,
+        app.id,
+        RecruitmentStage.PRE_INTERVIEW_FORM,
+        RecruitmentStage.INITIAL_REVIEW,
+        RecruitmentAction.SUBMIT_PRE_INTERVIEW,
+      );
+      return app;
+    });
+    return {
+      id: created.id,
+      trackingCode,
+      publicToken,
+      status: created.status,
+      currentStage: created.currentStage,
+    };
+  }
+  async publicStatus(trackingCode: string, token: string) {
+    const a = await this.prisma.recruitmentApplication.findUnique({
+      where: { trackingCode },
+      include: {
+        jobOpening: { select: { title: true } },
+        transitions: { select: { toStage: true, createdAt: true } },
+      },
+    });
+    if (!a || a.publicTokenHash !== this.hash(token))
+      throw new NotFoundException('Application not found');
+    return {
+      trackingCode: a.trackingCode,
+      status: a.status,
+      currentStage: a.currentStage,
+      jobOpening: a.jobOpening,
+      rejectionMessage: a.rejectionMessagePublic,
+      updatedAt: a.updatedAt,
+    };
+  }
+  listApplications() {
+    return this.prisma.recruitmentApplication.findMany({
+      include: {
+        applicant: true,
+        jobOpening: true,
+        assignments: {
+          where: { revokedAt: null },
+          include: { assignee: { select: { id: true, name: true } } },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+  getApplication(id: string) {
+    return this.app(id);
+  }
+  async approveInitial(id: string, userId: string, dto: ReviewDto) {
+    const a = await this.app(id);
+    this.ensureStage(a.currentStage, RecruitmentStage.INITIAL_REVIEW);
+    return this.prisma.$transaction(async (tx) => {
+      await tx.recruitmentApplication.update({
+        where: { id, version: a.version },
+        data: {
+          currentStage: RecruitmentStage.INITIAL_INTERVIEW,
+          version: { increment: 1 },
+        },
+      });
+      await this.transition(
+        tx,
+        id,
+        a.currentStage,
+        RecruitmentStage.INITIAL_INTERVIEW,
+        RecruitmentAction.APPROVE_INITIAL_REVIEW,
+        userId,
+        dto.comment,
+      );
+      return { ok: true };
+    });
+  }
+  async reject(
+    id: string,
+    userId: string,
+    expected: RecruitmentStage,
+    action: RecruitmentAction,
+    dto: ReviewDto,
+  ) {
+    const a = await this.app(id);
+    this.ensureStage(a.currentStage, expected);
+    return this.prisma.$transaction(async (tx) => {
+      await tx.recruitmentApplication.update({
+        where: { id, version: a.version },
+        data: {
+          status: RecruitmentApplicationStatus.REJECTED,
+          rejectedAt: new Date(),
+          rejectionReasonInternal: dto.comment,
+          rejectionMessagePublic: dto.publicMessage,
+          version: { increment: 1 },
+        },
+      });
+      await this.transition(
+        tx,
+        id,
+        a.currentStage,
+        a.currentStage,
+        action,
+        userId,
+        dto.comment,
+      );
+      return { ok: true };
+    });
+  }
+  async submitInitial(id: string, userId: string, dto: SubmitStageFormDto) {
+    const a = await this.app(id);
+    this.ensureStage(a.currentStage, RecruitmentStage.INITIAL_INTERVIEW);
+    const v = await this.prisma.recruitmentFormVersion.findUnique({
+      where: { id: dto.formVersionId },
+      include: { template: true },
+    });
+    if (
+      !v?.isPublished ||
+      v.template.type !== RecruitmentFormType.INITIAL_INTERVIEW
+    )
+      throw new BadRequestException('Invalid initial interview form');
+    this.schemas.validate(v.schema, dto.answers);
+    return this.prisma.$transaction(async (tx) => {
+      await tx.recruitmentFormSubmission.create({
+        data: {
+          applicationId: id,
+          formVersionId: v.id,
+          stage: RecruitmentStage.INITIAL_INTERVIEW,
+          answers: dto.answers as Prisma.InputJsonValue,
+          submittedByType: RecruitmentActorType.USER,
+          submittedByUserId: userId,
+        },
+      });
+      await tx.recruitmentApplication.update({
+        where: { id, version: a.version },
+        data: {
+          currentStage: RecruitmentStage.TECHNICAL_INTERVIEW_ASSIGNMENT,
+          version: { increment: 1 },
+        },
+      });
+      await this.transition(
+        tx,
+        id,
+        a.currentStage,
+        RecruitmentStage.TECHNICAL_INTERVIEW_ASSIGNMENT,
+        RecruitmentAction.SUBMIT_INITIAL_INTERVIEW,
+        userId,
+      );
+      return { ok: true };
+    });
+  }
+  async assignInterviewer(
+    id: string,
+    userId: string,
+    dto: AssignInterviewerDto,
+  ) {
+    const a = await this.app(id);
+    this.ensureStage(
+      a.currentStage,
+      RecruitmentStage.TECHNICAL_INTERVIEW_ASSIGNMENT,
+    );
+    const user = await this.prisma.user.findUnique({
+      where: { id: dto.interviewerId },
+    });
+    if (!user) throw new NotFoundException('Interviewer not found');
+    return this.prisma.$transaction(async (tx) => {
+      await tx.recruitmentAssignment.updateMany({
+        where: {
+          applicationId: id,
+          stage: RecruitmentStage.TECHNICAL_INTERVIEW,
+          revokedAt: null,
+        },
+        data: { revokedAt: new Date() },
+      });
+      await tx.recruitmentAssignment.create({
+        data: {
+          applicationId: id,
+          stage: RecruitmentStage.TECHNICAL_INTERVIEW,
+          assigneeUserId: dto.interviewerId,
+          assignedByUserId: userId,
+        },
+      });
+      await tx.recruitmentApplication.update({
+        where: { id, version: a.version },
+        data: {
+          currentStage: RecruitmentStage.TECHNICAL_INTERVIEW,
+          version: { increment: 1 },
+        },
+      });
+      await this.transition(
+        tx,
+        id,
+        a.currentStage,
+        RecruitmentStage.TECHNICAL_INTERVIEW,
+        RecruitmentAction.ASSIGN_TECHNICAL_INTERVIEWER,
+        userId,
+      );
+      return { ok: true };
+    });
+  }
+  async submitTechnical(
+    id: string,
+    userId: string,
+    dto: TechnicalInterviewDto,
+  ) {
+    const a = await this.app(id);
+    this.ensureStage(a.currentStage, RecruitmentStage.TECHNICAL_INTERVIEW);
+    const assignment = a.assignments.find(
+      (x) => x.stage === RecruitmentStage.TECHNICAL_INTERVIEW && !x.revokedAt,
+    );
+    if (!assignment || assignment.assigneeUserId !== userId)
+      throw new ForbiddenException('Only assigned interviewer can submit');
+    const v = await this.prisma.recruitmentFormVersion.findUnique({
+      where: { id: dto.formVersionId },
+      include: { template: true },
+    });
+    if (
+      !v?.isPublished ||
+      v.template.type !== RecruitmentFormType.TECHNICAL_INTERVIEW
+    )
+      throw new BadRequestException('Invalid technical interview form');
+    this.schemas.validate(v.schema, dto.answers);
+    return this.prisma.$transaction(async (tx) => {
+      await tx.recruitmentFormSubmission.create({
+        data: {
+          applicationId: id,
+          formVersionId: v.id,
+          stage: RecruitmentStage.TECHNICAL_INTERVIEW,
+          answers: dto.answers as Prisma.InputJsonValue,
+          submittedByType: RecruitmentActorType.USER,
+          submittedByUserId: userId,
+        },
+      });
+      await tx.technicalInterviewEvaluation.create({
+        data: {
+          applicationId: id,
+          interviewerId: userId,
+          overallScore: dto.overallScore,
+          recommendation: dto.recommendation,
+          internalSummary: dto.internalSummary,
+        },
+      });
+      await tx.recruitmentAssignment.update({
+        where: { id: assignment.id },
+        data: { completedAt: new Date() },
+      });
+      await tx.recruitmentApplication.update({
+        where: { id, version: a.version },
+        data: {
+          currentStage: RecruitmentStage.SUPERADMIN_APPROVAL,
+          version: { increment: 1 },
+        },
+      });
+      await this.transition(
+        tx,
+        id,
+        a.currentStage,
+        RecruitmentStage.SUPERADMIN_APPROVAL,
+        RecruitmentAction.SUBMIT_TECHNICAL_INTERVIEW,
+        userId,
+      );
+      return { ok: true };
+    });
+  }
+  async finalApprove(id: string, userId: string, dto: FinalApproveDto) {
+    const a = await this.app(id);
+    this.ensureStage(a.currentStage, RecruitmentStage.SUPERADMIN_APPROVAL);
+    if (a.finalUserId) return { userId: a.finalUserId, alreadyCreated: true };
+    const role = await this.prisma.role.findFirst({
+      where: { name: { equals: 'user', mode: 'insensitive' } },
+    });
+    if (!role) throw new BadRequestException("System role 'user' not found");
+    const existing = await this.prisma.user.findUnique({
+      where: { phoneNumber: a.applicant.phoneNumber },
+    });
+    if (existing)
+      throw new ConflictException('Phone number already belongs to a user');
+    return this.prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          name: a.applicant.fullName,
+          phoneNumber: a.applicant.phoneNumber,
+          departmentId: dto.departmentId,
+          managerId: dto.managerId,
+          employeeCode: dto.employeeCode,
+          roles: { create: { roleId: role.id } },
+          userInfo: {
+            create: {
+              firstName: a.applicant.fullName,
+              nationalCode: a.applicant.nationalCode,
+              mobile: a.applicant.phoneNumber,
+            },
+          },
+        },
+      });
+      await tx.recruitmentApplication.update({
+        where: { id, version: a.version },
+        data: {
+          finalUserId: user.id,
+          status: RecruitmentApplicationStatus.HIRED,
+          currentStage: RecruitmentStage.PROFILE_COMPLETION,
+          hiredAt: new Date(),
+          version: { increment: 1 },
+        },
+      });
+      await this.transition(
+        tx,
+        id,
+        a.currentStage,
+        RecruitmentStage.PROFILE_COMPLETION,
+        RecruitmentAction.FINAL_APPROVE,
+        userId,
+      );
+      return { userId: user.id };
+    });
+  }
+  async createTemplate(dto: CreateRecruitmentFormTemplateDto) {
+    return this.prisma.$transaction(async (tx) => {
+      const t = await tx.recruitmentFormTemplate.create({
+        data: { name: dto.name, description: dto.description, type: dto.type },
+      });
+      await tx.recruitmentFormVersion.create({
+        data: { templateId: t.id, version: 1, schema: dto.schema as any },
+      });
+      return t;
+    });
+  }
+  listTemplates() {
+    return this.prisma.recruitmentFormTemplate.findMany({
+      include: { versions: { orderBy: { version: 'desc' } } },
+    });
+  }
+  async publishVersion(id: string) {
+    const v = await this.prisma.recruitmentFormVersion.findUnique({
+      where: { id },
+    });
+    if (!v) throw new NotFoundException('Version not found');
+    return this.prisma.$transaction(async (tx) => {
+      await tx.recruitmentFormVersion.updateMany({
+        where: { templateId: v.templateId, isPublished: true },
+        data: { isPublished: false },
+      });
+      return tx.recruitmentFormVersion.update({
+        where: { id },
+        data: { isPublished: true, publishedAt: new Date() },
+      });
+    });
+  }
+  createJob(dto: CreateJobOpeningDto) {
+    return this.prisma.jobOpening.create({ data: dto });
+  }
+  listJobs() {
+    return this.prisma.jobOpening.findMany({
+      include: {
+        department: true,
+        preInterviewForm: true,
+        initialInterviewForm: true,
+        technicalInterviewForm: true,
+      },
+    });
+  }
+}

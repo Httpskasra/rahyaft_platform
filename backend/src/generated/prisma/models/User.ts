@@ -225,6 +225,11 @@ export type UserWhereInput = {
   assignedRepairs?: Prisma.RepairCaseListRelationFilter
   repairVisits?: Prisma.RepairVisitListRelationFilter
   statusLogs?: Prisma.RepairStatusLogListRelationFilter
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentListRelationFilter
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentListRelationFilter
+  recruitmentTransitions?: Prisma.RecruitmentTransitionListRelationFilter
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionListRelationFilter
+  recruitmentFinalized?: Prisma.RecruitmentApplicationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -248,6 +253,11 @@ export type UserOrderByWithRelationInput = {
   assignedRepairs?: Prisma.RepairCaseOrderByRelationAggregateInput
   repairVisits?: Prisma.RepairVisitOrderByRelationAggregateInput
   statusLogs?: Prisma.RepairStatusLogOrderByRelationAggregateInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentOrderByRelationAggregateInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentOrderByRelationAggregateInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionOrderByRelationAggregateInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionOrderByRelationAggregateInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -274,6 +284,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   assignedRepairs?: Prisma.RepairCaseListRelationFilter
   repairVisits?: Prisma.RepairVisitListRelationFilter
   statusLogs?: Prisma.RepairStatusLogListRelationFilter
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentListRelationFilter
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentListRelationFilter
+  recruitmentTransitions?: Prisma.RecruitmentTransitionListRelationFilter
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionListRelationFilter
+  recruitmentFinalized?: Prisma.RecruitmentApplicationListRelationFilter
 }, "id" | "phoneNumber" | "employeeCode">
 
 export type UserOrderByWithAggregationInput = {
@@ -325,6 +340,11 @@ export type UserCreateInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -346,6 +366,11 @@ export type UserUncheckedCreateInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUpdateInput = {
@@ -367,6 +392,11 @@ export type UserUpdateInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -388,6 +418,11 @@ export type UserUncheckedUpdateInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -696,6 +731,82 @@ export type UserUpdateOneRequiredWithoutStatusLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStatusLogsInput, Prisma.UserUpdateWithoutStatusLogsInput>, Prisma.UserUncheckedUpdateWithoutStatusLogsInput>
 }
 
+export type UserCreateNestedOneWithoutRecruitmentFinalizedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentFinalizedInput, Prisma.UserUncheckedCreateWithoutRecruitmentFinalizedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentFinalizedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutRecruitmentFinalizedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentFinalizedInput, Prisma.UserUncheckedCreateWithoutRecruitmentFinalizedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentFinalizedInput
+  upsert?: Prisma.UserUpsertWithoutRecruitmentFinalizedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecruitmentFinalizedInput, Prisma.UserUpdateWithoutRecruitmentFinalizedInput>, Prisma.UserUncheckedUpdateWithoutRecruitmentFinalizedInput>
+}
+
+export type UserCreateNestedOneWithoutRecruitmentSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentSubmissionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutRecruitmentSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentSubmissionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutRecruitmentSubmissionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecruitmentSubmissionsInput, Prisma.UserUpdateWithoutRecruitmentSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutRecruitmentSubmissionsInput>
+}
+
+export type UserCreateNestedOneWithoutRecruitmentAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignmentsInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRecruitmentAssignedByInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignedByInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignedByInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentAssignedByInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRecruitmentAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignmentsInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutRecruitmentAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecruitmentAssignmentsInput, Prisma.UserUpdateWithoutRecruitmentAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutRecruitmentAssignmentsInput>
+}
+
+export type UserUpdateOneRequiredWithoutRecruitmentAssignedByNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignedByInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignedByInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentAssignedByInput
+  upsert?: Prisma.UserUpsertWithoutRecruitmentAssignedByInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecruitmentAssignedByInput, Prisma.UserUpdateWithoutRecruitmentAssignedByInput>, Prisma.UserUncheckedUpdateWithoutRecruitmentAssignedByInput>
+}
+
+export type UserCreateNestedOneWithoutRecruitmentTransitionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentTransitionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentTransitionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentTransitionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutRecruitmentTransitionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentTransitionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentTransitionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecruitmentTransitionsInput
+  upsert?: Prisma.UserUpsertWithoutRecruitmentTransitionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecruitmentTransitionsInput, Prisma.UserUpdateWithoutRecruitmentTransitionsInput>, Prisma.UserUncheckedUpdateWithoutRecruitmentTransitionsInput>
+}
+
 export type UserCreateWithoutDepartmentInput = {
   id?: string
   phoneNumber: string
@@ -714,6 +825,11 @@ export type UserCreateWithoutDepartmentInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -734,6 +850,11 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -795,6 +916,11 @@ export type UserCreateWithoutSubordinatesInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutSubordinatesInput = {
@@ -815,6 +941,11 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutSubordinatesInput = {
@@ -840,6 +971,11 @@ export type UserCreateWithoutManagerInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutManagerInput = {
@@ -860,6 +996,11 @@ export type UserUncheckedCreateWithoutManagerInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutManagerInput = {
@@ -901,6 +1042,11 @@ export type UserUpdateWithoutSubordinatesInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubordinatesInput = {
@@ -921,6 +1067,11 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutManagerInput = {
@@ -957,6 +1108,11 @@ export type UserCreateWithoutAttendancesInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -977,6 +1133,11 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -1013,6 +1174,11 @@ export type UserUpdateWithoutAttendancesInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
@@ -1033,6 +1199,11 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -1053,6 +1224,11 @@ export type UserCreateWithoutRolesInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -1073,6 +1249,11 @@ export type UserUncheckedCreateWithoutRolesInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -1109,6 +1290,11 @@ export type UserUpdateWithoutRolesInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -1129,6 +1315,11 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutSubmissionsInput = {
@@ -1149,6 +1340,11 @@ export type UserCreateWithoutSubmissionsInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -1169,6 +1365,11 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -1205,6 +1406,11 @@ export type UserUpdateWithoutSubmissionsInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -1225,6 +1431,11 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutApprovalActionsInput = {
@@ -1245,6 +1456,11 @@ export type UserCreateWithoutApprovalActionsInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovalActionsInput = {
@@ -1265,6 +1481,11 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovalActionsInput = {
@@ -1301,6 +1522,11 @@ export type UserUpdateWithoutApprovalActionsInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovalActionsInput = {
@@ -1321,6 +1547,11 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutUserInfoInput = {
@@ -1341,6 +1572,11 @@ export type UserCreateWithoutUserInfoInput = {
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutUserInfoInput = {
@@ -1361,6 +1597,11 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutUserInfoInput = {
@@ -1397,6 +1638,11 @@ export type UserUpdateWithoutUserInfoInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserInfoInput = {
@@ -1417,6 +1663,11 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutAssignedRepairsInput = {
@@ -1437,6 +1688,11 @@ export type UserCreateWithoutAssignedRepairsInput = {
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedRepairsInput = {
@@ -1457,6 +1713,11 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedRepairsInput = {
@@ -1493,6 +1754,11 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
@@ -1513,6 +1779,11 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutRepairVisitsInput = {
@@ -1533,6 +1804,11 @@ export type UserCreateWithoutRepairVisitsInput = {
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutRepairVisitsInput = {
@@ -1553,6 +1829,11 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutRepairVisitsInput = {
@@ -1589,6 +1870,11 @@ export type UserUpdateWithoutRepairVisitsInput = {
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepairVisitsInput = {
@@ -1609,6 +1895,11 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateWithoutStatusLogsInput = {
@@ -1629,6 +1920,11 @@ export type UserCreateWithoutStatusLogsInput = {
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
   assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserUncheckedCreateWithoutStatusLogsInput = {
@@ -1649,6 +1945,11 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
   assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
   repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
 }
 
 export type UserCreateOrConnectWithoutStatusLogsInput = {
@@ -1685,6 +1986,11 @@ export type UserUpdateWithoutStatusLogsInput = {
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatusLogsInput = {
@@ -1705,6 +2011,591 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserCreateWithoutRecruitmentFinalizedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+}
+
+export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+}
+
+export type UserCreateOrConnectWithoutRecruitmentFinalizedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentFinalizedInput, Prisma.UserUncheckedCreateWithoutRecruitmentFinalizedInput>
+}
+
+export type UserUpsertWithoutRecruitmentFinalizedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentFinalizedInput, Prisma.UserUncheckedUpdateWithoutRecruitmentFinalizedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentFinalizedInput, Prisma.UserUncheckedCreateWithoutRecruitmentFinalizedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecruitmentFinalizedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentFinalizedInput, Prisma.UserUncheckedUpdateWithoutRecruitmentFinalizedInput>
+}
+
+export type UserUpdateWithoutRecruitmentFinalizedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+}
+
+export type UserCreateWithoutRecruitmentSubmissionsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserCreateOrConnectWithoutRecruitmentSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentSubmissionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentSubmissionsInput>
+}
+
+export type UserUpsertWithoutRecruitmentSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentSubmissionsInput, Prisma.UserUncheckedUpdateWithoutRecruitmentSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentSubmissionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecruitmentSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentSubmissionsInput, Prisma.UserUncheckedUpdateWithoutRecruitmentSubmissionsInput>
+}
+
+export type UserUpdateWithoutRecruitmentSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserCreateWithoutRecruitmentAssignmentsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserCreateOrConnectWithoutRecruitmentAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignmentsInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignmentsInput>
+}
+
+export type UserCreateWithoutRecruitmentAssignedByInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserCreateOrConnectWithoutRecruitmentAssignedByInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignedByInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignedByInput>
+}
+
+export type UserUpsertWithoutRecruitmentAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentAssignmentsInput, Prisma.UserUncheckedUpdateWithoutRecruitmentAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignmentsInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecruitmentAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentAssignmentsInput, Prisma.UserUncheckedUpdateWithoutRecruitmentAssignmentsInput>
+}
+
+export type UserUpdateWithoutRecruitmentAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserUpsertWithoutRecruitmentAssignedByInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentAssignedByInput, Prisma.UserUncheckedUpdateWithoutRecruitmentAssignedByInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentAssignedByInput, Prisma.UserUncheckedCreateWithoutRecruitmentAssignedByInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecruitmentAssignedByInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentAssignedByInput, Prisma.UserUncheckedUpdateWithoutRecruitmentAssignedByInput>
+}
+
+export type UserUpdateWithoutRecruitmentAssignedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserCreateWithoutRecruitmentTransitionsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+}
+
+export type UserCreateOrConnectWithoutRecruitmentTransitionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentTransitionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentTransitionsInput>
+}
+
+export type UserUpsertWithoutRecruitmentTransitionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentTransitionsInput, Prisma.UserUncheckedUpdateWithoutRecruitmentTransitionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecruitmentTransitionsInput, Prisma.UserUncheckedCreateWithoutRecruitmentTransitionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecruitmentTransitionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecruitmentTransitionsInput, Prisma.UserUncheckedUpdateWithoutRecruitmentTransitionsInput>
+}
+
+export type UserUpdateWithoutRecruitmentTransitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -1736,6 +2627,11 @@ export type UserUpdateWithoutDepartmentInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -1756,6 +2652,11 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1798,6 +2699,11 @@ export type UserUpdateWithoutManagerInput = {
   assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagerInput = {
@@ -1818,6 +2724,11 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
   repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagerInput = {
@@ -1845,6 +2756,11 @@ export type UserCountOutputType = {
   assignedRepairs: number
   repairVisits: number
   statusLogs: number
+  recruitmentAssignments: number
+  recruitmentAssignedBy: number
+  recruitmentTransitions: number
+  recruitmentSubmissions: number
+  recruitmentFinalized: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1856,6 +2772,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   assignedRepairs?: boolean | UserCountOutputTypeCountAssignedRepairsArgs
   repairVisits?: boolean | UserCountOutputTypeCountRepairVisitsArgs
   statusLogs?: boolean | UserCountOutputTypeCountStatusLogsArgs
+  recruitmentAssignments?: boolean | UserCountOutputTypeCountRecruitmentAssignmentsArgs
+  recruitmentAssignedBy?: boolean | UserCountOutputTypeCountRecruitmentAssignedByArgs
+  recruitmentTransitions?: boolean | UserCountOutputTypeCountRecruitmentTransitionsArgs
+  recruitmentSubmissions?: boolean | UserCountOutputTypeCountRecruitmentSubmissionsArgs
+  recruitmentFinalized?: boolean | UserCountOutputTypeCountRecruitmentFinalizedArgs
 }
 
 /**
@@ -1924,6 +2845,41 @@ export type UserCountOutputTypeCountStatusLogsArgs<ExtArgs extends runtime.Types
   where?: Prisma.RepairStatusLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecruitmentAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecruitmentAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecruitmentAssignedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecruitmentAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecruitmentTransitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecruitmentTransitionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecruitmentSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecruitmentFormSubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecruitmentFinalizedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecruitmentApplicationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1946,6 +2902,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   assignedRepairs?: boolean | Prisma.User$assignedRepairsArgs<ExtArgs>
   repairVisits?: boolean | Prisma.User$repairVisitsArgs<ExtArgs>
   statusLogs?: boolean | Prisma.User$statusLogsArgs<ExtArgs>
+  recruitmentAssignments?: boolean | Prisma.User$recruitmentAssignmentsArgs<ExtArgs>
+  recruitmentAssignedBy?: boolean | Prisma.User$recruitmentAssignedByArgs<ExtArgs>
+  recruitmentTransitions?: boolean | Prisma.User$recruitmentTransitionsArgs<ExtArgs>
+  recruitmentSubmissions?: boolean | Prisma.User$recruitmentSubmissionsArgs<ExtArgs>
+  recruitmentFinalized?: boolean | Prisma.User$recruitmentFinalizedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2002,6 +2963,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   assignedRepairs?: boolean | Prisma.User$assignedRepairsArgs<ExtArgs>
   repairVisits?: boolean | Prisma.User$repairVisitsArgs<ExtArgs>
   statusLogs?: boolean | Prisma.User$statusLogsArgs<ExtArgs>
+  recruitmentAssignments?: boolean | Prisma.User$recruitmentAssignmentsArgs<ExtArgs>
+  recruitmentAssignedBy?: boolean | Prisma.User$recruitmentAssignedByArgs<ExtArgs>
+  recruitmentTransitions?: boolean | Prisma.User$recruitmentTransitionsArgs<ExtArgs>
+  recruitmentSubmissions?: boolean | Prisma.User$recruitmentSubmissionsArgs<ExtArgs>
+  recruitmentFinalized?: boolean | Prisma.User$recruitmentFinalizedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2027,6 +2993,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     assignedRepairs: Prisma.$RepairCasePayload<ExtArgs>[]
     repairVisits: Prisma.$RepairVisitPayload<ExtArgs>[]
     statusLogs: Prisma.$RepairStatusLogPayload<ExtArgs>[]
+    recruitmentAssignments: Prisma.$RecruitmentAssignmentPayload<ExtArgs>[]
+    recruitmentAssignedBy: Prisma.$RecruitmentAssignmentPayload<ExtArgs>[]
+    recruitmentTransitions: Prisma.$RecruitmentTransitionPayload<ExtArgs>[]
+    recruitmentSubmissions: Prisma.$RecruitmentFormSubmissionPayload<ExtArgs>[]
+    recruitmentFinalized: Prisma.$RecruitmentApplicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2443,6 +3414,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   assignedRepairs<T extends Prisma.User$assignedRepairsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedRepairsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairCasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   repairVisits<T extends Prisma.User$repairVisitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$repairVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   statusLogs<T extends Prisma.User$statusLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairStatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recruitmentAssignments<T extends Prisma.User$recruitmentAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recruitmentAssignedBy<T extends Prisma.User$recruitmentAssignedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentAssignedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recruitmentTransitions<T extends Prisma.User$recruitmentTransitionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentTransitionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentTransitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recruitmentSubmissions<T extends Prisma.User$recruitmentSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentFormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recruitmentFinalized<T extends Prisma.User$recruitmentFinalizedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentFinalizedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3109,6 +4085,126 @@ export type User$statusLogsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.RepairStatusLogScalarFieldEnum | Prisma.RepairStatusLogScalarFieldEnum[]
+}
+
+/**
+ * User.recruitmentAssignments
+ */
+export type User$recruitmentAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecruitmentAssignment
+   */
+  select?: Prisma.RecruitmentAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecruitmentAssignment
+   */
+  omit?: Prisma.RecruitmentAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecruitmentAssignmentInclude<ExtArgs> | null
+  where?: Prisma.RecruitmentAssignmentWhereInput
+  orderBy?: Prisma.RecruitmentAssignmentOrderByWithRelationInput | Prisma.RecruitmentAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.RecruitmentAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecruitmentAssignmentScalarFieldEnum | Prisma.RecruitmentAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.recruitmentAssignedBy
+ */
+export type User$recruitmentAssignedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecruitmentAssignment
+   */
+  select?: Prisma.RecruitmentAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecruitmentAssignment
+   */
+  omit?: Prisma.RecruitmentAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecruitmentAssignmentInclude<ExtArgs> | null
+  where?: Prisma.RecruitmentAssignmentWhereInput
+  orderBy?: Prisma.RecruitmentAssignmentOrderByWithRelationInput | Prisma.RecruitmentAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.RecruitmentAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecruitmentAssignmentScalarFieldEnum | Prisma.RecruitmentAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.recruitmentTransitions
+ */
+export type User$recruitmentTransitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecruitmentTransition
+   */
+  select?: Prisma.RecruitmentTransitionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecruitmentTransition
+   */
+  omit?: Prisma.RecruitmentTransitionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecruitmentTransitionInclude<ExtArgs> | null
+  where?: Prisma.RecruitmentTransitionWhereInput
+  orderBy?: Prisma.RecruitmentTransitionOrderByWithRelationInput | Prisma.RecruitmentTransitionOrderByWithRelationInput[]
+  cursor?: Prisma.RecruitmentTransitionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecruitmentTransitionScalarFieldEnum | Prisma.RecruitmentTransitionScalarFieldEnum[]
+}
+
+/**
+ * User.recruitmentSubmissions
+ */
+export type User$recruitmentSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecruitmentFormSubmission
+   */
+  select?: Prisma.RecruitmentFormSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecruitmentFormSubmission
+   */
+  omit?: Prisma.RecruitmentFormSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecruitmentFormSubmissionInclude<ExtArgs> | null
+  where?: Prisma.RecruitmentFormSubmissionWhereInput
+  orderBy?: Prisma.RecruitmentFormSubmissionOrderByWithRelationInput | Prisma.RecruitmentFormSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.RecruitmentFormSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecruitmentFormSubmissionScalarFieldEnum | Prisma.RecruitmentFormSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.recruitmentFinalized
+ */
+export type User$recruitmentFinalizedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecruitmentApplication
+   */
+  select?: Prisma.RecruitmentApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecruitmentApplication
+   */
+  omit?: Prisma.RecruitmentApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecruitmentApplicationInclude<ExtArgs> | null
+  where?: Prisma.RecruitmentApplicationWhereInput
+  orderBy?: Prisma.RecruitmentApplicationOrderByWithRelationInput | Prisma.RecruitmentApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.RecruitmentApplicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecruitmentApplicationScalarFieldEnum | Prisma.RecruitmentApplicationScalarFieldEnum[]
 }
 
 /**

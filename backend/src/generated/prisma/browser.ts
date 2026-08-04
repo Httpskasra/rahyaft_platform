@@ -162,3 +162,48 @@ export type CustomerActivity = Prisma.CustomerActivityModel
  * 
  */
 export type CustomerAiAnalysis = Prisma.CustomerAiAnalysisModel
+/**
+ * Model RecruitmentFormTemplate
+ * 
+ */
+export type RecruitmentFormTemplate = Prisma.RecruitmentFormTemplateModel
+/**
+ * Model RecruitmentFormVersion
+ * 
+ */
+export type RecruitmentFormVersion = Prisma.RecruitmentFormVersionModel
+/**
+ * Model JobOpening
+ * 
+ */
+export type JobOpening = Prisma.JobOpeningModel
+/**
+ * Model RecruitmentApplicant
+ * 
+ */
+export type RecruitmentApplicant = Prisma.RecruitmentApplicantModel
+/**
+ * Model RecruitmentApplication
+ * 
+ */
+export type RecruitmentApplication = Prisma.RecruitmentApplicationModel
+/**
+ * Model RecruitmentFormSubmission
+ * 
+ */
+export type RecruitmentFormSubmission = Prisma.RecruitmentFormSubmissionModel
+/**
+ * Model RecruitmentAssignment
+ * 
+ */
+export type RecruitmentAssignment = Prisma.RecruitmentAssignmentModel
+/**
+ * Model RecruitmentTransition
+ * 
+ */
+export type RecruitmentTransition = Prisma.RecruitmentTransitionModel
+/**
+ * Model TechnicalInterviewEvaluation
+ * 
+ */
+export type TechnicalInterviewEvaluation = Prisma.TechnicalInterviewEvaluationModel

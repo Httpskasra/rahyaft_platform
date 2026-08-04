@@ -79,7 +79,16 @@ export const ModelName = {
   CustomerContact: 'CustomerContact',
   SalesOpportunity: 'SalesOpportunity',
   CustomerActivity: 'CustomerActivity',
-  CustomerAiAnalysis: 'CustomerAiAnalysis'
+  CustomerAiAnalysis: 'CustomerAiAnalysis',
+  RecruitmentFormTemplate: 'RecruitmentFormTemplate',
+  RecruitmentFormVersion: 'RecruitmentFormVersion',
+  JobOpening: 'JobOpening',
+  RecruitmentApplicant: 'RecruitmentApplicant',
+  RecruitmentApplication: 'RecruitmentApplication',
+  RecruitmentFormSubmission: 'RecruitmentFormSubmission',
+  RecruitmentAssignment: 'RecruitmentAssignment',
+  RecruitmentTransition: 'RecruitmentTransition',
+  TechnicalInterviewEvaluation: 'TechnicalInterviewEvaluation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -499,6 +508,144 @@ export const CustomerAiAnalysisScalarFieldEnum = {
 } as const
 
 export type CustomerAiAnalysisScalarFieldEnum = (typeof CustomerAiAnalysisScalarFieldEnum)[keyof typeof CustomerAiAnalysisScalarFieldEnum]
+
+
+export const RecruitmentFormTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecruitmentFormTemplateScalarFieldEnum = (typeof RecruitmentFormTemplateScalarFieldEnum)[keyof typeof RecruitmentFormTemplateScalarFieldEnum]
+
+
+export const RecruitmentFormVersionScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  version: 'version',
+  schema: 'schema',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type RecruitmentFormVersionScalarFieldEnum = (typeof RecruitmentFormVersionScalarFieldEnum)[keyof typeof RecruitmentFormVersionScalarFieldEnum]
+
+
+export const JobOpeningScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  departmentId: 'departmentId',
+  isActive: 'isActive',
+  preInterviewFormId: 'preInterviewFormId',
+  initialInterviewFormId: 'initialInterviewFormId',
+  technicalInterviewFormId: 'technicalInterviewFormId',
+  initialReviewerRoleId: 'initialReviewerRoleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobOpeningScalarFieldEnum = (typeof JobOpeningScalarFieldEnum)[keyof typeof JobOpeningScalarFieldEnum]
+
+
+export const RecruitmentApplicantScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  phoneNumber: 'phoneNumber',
+  normalizedPhone: 'normalizedPhone',
+  email: 'email',
+  nationalCode: 'nationalCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecruitmentApplicantScalarFieldEnum = (typeof RecruitmentApplicantScalarFieldEnum)[keyof typeof RecruitmentApplicantScalarFieldEnum]
+
+
+export const RecruitmentApplicationScalarFieldEnum = {
+  id: 'id',
+  trackingCode: 'trackingCode',
+  publicTokenHash: 'publicTokenHash',
+  applicantId: 'applicantId',
+  jobOpeningId: 'jobOpeningId',
+  status: 'status',
+  currentStage: 'currentStage',
+  finalUserId: 'finalUserId',
+  rejectionReasonInternal: 'rejectionReasonInternal',
+  rejectionMessagePublic: 'rejectionMessagePublic',
+  version: 'version',
+  submittedAt: 'submittedAt',
+  rejectedAt: 'rejectedAt',
+  hiredAt: 'hiredAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecruitmentApplicationScalarFieldEnum = (typeof RecruitmentApplicationScalarFieldEnum)[keyof typeof RecruitmentApplicationScalarFieldEnum]
+
+
+export const RecruitmentFormSubmissionScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  formVersionId: 'formVersionId',
+  stage: 'stage',
+  answers: 'answers',
+  submittedByType: 'submittedByType',
+  submittedByUserId: 'submittedByUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type RecruitmentFormSubmissionScalarFieldEnum = (typeof RecruitmentFormSubmissionScalarFieldEnum)[keyof typeof RecruitmentFormSubmissionScalarFieldEnum]
+
+
+export const RecruitmentAssignmentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  stage: 'stage',
+  assigneeUserId: 'assigneeUserId',
+  assignedByUserId: 'assignedByUserId',
+  assignedAt: 'assignedAt',
+  completedAt: 'completedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type RecruitmentAssignmentScalarFieldEnum = (typeof RecruitmentAssignmentScalarFieldEnum)[keyof typeof RecruitmentAssignmentScalarFieldEnum]
+
+
+export const RecruitmentTransitionScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  fromStage: 'fromStage',
+  toStage: 'toStage',
+  action: 'action',
+  actorType: 'actorType',
+  actorUserId: 'actorUserId',
+  reasonCode: 'reasonCode',
+  comment: 'comment',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type RecruitmentTransitionScalarFieldEnum = (typeof RecruitmentTransitionScalarFieldEnum)[keyof typeof RecruitmentTransitionScalarFieldEnum]
+
+
+export const TechnicalInterviewEvaluationScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  interviewerId: 'interviewerId',
+  overallScore: 'overallScore',
+  recommendation: 'recommendation',
+  internalSummary: 'internalSummary',
+  completedAt: 'completedAt'
+} as const
+
+export type TechnicalInterviewEvaluationScalarFieldEnum = (typeof TechnicalInterviewEvaluationScalarFieldEnum)[keyof typeof TechnicalInterviewEvaluationScalarFieldEnum]
 
 
 export const SortOrder = {

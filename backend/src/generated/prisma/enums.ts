@@ -175,3 +175,82 @@ export const AiInsightLevel = {
 } as const
 
 export type AiInsightLevel = (typeof AiInsightLevel)[keyof typeof AiInsightLevel]
+
+
+export const RecruitmentFormType = {
+  PRE_INTERVIEW: 'PRE_INTERVIEW',
+  INITIAL_INTERVIEW: 'INITIAL_INTERVIEW',
+  TECHNICAL_INTERVIEW: 'TECHNICAL_INTERVIEW',
+  SUPERADMIN_REVIEW: 'SUPERADMIN_REVIEW',
+  PROFILE_COMPLETION: 'PROFILE_COMPLETION'
+} as const
+
+export type RecruitmentFormType = (typeof RecruitmentFormType)[keyof typeof RecruitmentFormType]
+
+
+export const RecruitmentApplicationStatus = {
+  DRAFT: 'DRAFT',
+  IN_PROGRESS: 'IN_PROGRESS',
+  REJECTED: 'REJECTED',
+  WITHDRAWN: 'WITHDRAWN',
+  HIRED: 'HIRED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RecruitmentApplicationStatus = (typeof RecruitmentApplicationStatus)[keyof typeof RecruitmentApplicationStatus]
+
+
+export const RecruitmentStage = {
+  PRE_INTERVIEW_FORM: 'PRE_INTERVIEW_FORM',
+  INITIAL_REVIEW: 'INITIAL_REVIEW',
+  INITIAL_INTERVIEW: 'INITIAL_INTERVIEW',
+  TECHNICAL_INTERVIEW_ASSIGNMENT: 'TECHNICAL_INTERVIEW_ASSIGNMENT',
+  TECHNICAL_INTERVIEW: 'TECHNICAL_INTERVIEW',
+  SUPERADMIN_APPROVAL: 'SUPERADMIN_APPROVAL',
+  ACCOUNT_PROVISIONING: 'ACCOUNT_PROVISIONING',
+  PROFILE_COMPLETION: 'PROFILE_COMPLETION',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type RecruitmentStage = (typeof RecruitmentStage)[keyof typeof RecruitmentStage]
+
+
+export const RecruitmentActorType = {
+  APPLICANT: 'APPLICANT',
+  USER: 'USER',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type RecruitmentActorType = (typeof RecruitmentActorType)[keyof typeof RecruitmentActorType]
+
+
+export const RecruitmentAction = {
+  SUBMIT_PRE_INTERVIEW: 'SUBMIT_PRE_INTERVIEW',
+  APPROVE_INITIAL_REVIEW: 'APPROVE_INITIAL_REVIEW',
+  REJECT_INITIAL_REVIEW: 'REJECT_INITIAL_REVIEW',
+  SUBMIT_INITIAL_INTERVIEW: 'SUBMIT_INITIAL_INTERVIEW',
+  APPROVE_INITIAL_INTERVIEW: 'APPROVE_INITIAL_INTERVIEW',
+  REJECT_INITIAL_INTERVIEW: 'REJECT_INITIAL_INTERVIEW',
+  ASSIGN_TECHNICAL_INTERVIEWER: 'ASSIGN_TECHNICAL_INTERVIEWER',
+  SUBMIT_TECHNICAL_INTERVIEW: 'SUBMIT_TECHNICAL_INTERVIEW',
+  APPROVE_TECHNICAL_INTERVIEW: 'APPROVE_TECHNICAL_INTERVIEW',
+  REJECT_TECHNICAL_INTERVIEW: 'REJECT_TECHNICAL_INTERVIEW',
+  FINAL_APPROVE: 'FINAL_APPROVE',
+  FINAL_REJECT: 'FINAL_REJECT',
+  CREATE_USER_ACCOUNT: 'CREATE_USER_ACCOUNT',
+  COMPLETE_PROFILE: 'COMPLETE_PROFILE',
+  WITHDRAW: 'WITHDRAW',
+  REASSIGN: 'REASSIGN'
+} as const
+
+export type RecruitmentAction = (typeof RecruitmentAction)[keyof typeof RecruitmentAction]
+
+
+export const InterviewRecommendation = {
+  STRONG_HIRE: 'STRONG_HIRE',
+  HIRE: 'HIRE',
+  NO_HIRE: 'NO_HIRE',
+  STRONG_NO_HIRE: 'STRONG_NO_HIRE'
+} as const
+
+export type InterviewRecommendation = (typeof InterviewRecommendation)[keyof typeof InterviewRecommendation]

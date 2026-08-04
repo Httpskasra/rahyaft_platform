@@ -179,6 +179,7 @@ export type DepartmentWhereInput = {
   users?: Prisma.UserListRelationFilter
   outgoingRelations?: Prisma.DepartmentRelationListRelationFilter
   incomingRelations?: Prisma.DepartmentRelationListRelationFilter
+  recruitmentJobOpenings?: Prisma.JobOpeningListRelationFilter
 }
 
 export type DepartmentOrderByWithRelationInput = {
@@ -191,6 +192,7 @@ export type DepartmentOrderByWithRelationInput = {
   users?: Prisma.UserOrderByRelationAggregateInput
   outgoingRelations?: Prisma.DepartmentRelationOrderByRelationAggregateInput
   incomingRelations?: Prisma.DepartmentRelationOrderByRelationAggregateInput
+  recruitmentJobOpenings?: Prisma.JobOpeningOrderByRelationAggregateInput
 }
 
 export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -206,6 +208,7 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   users?: Prisma.UserListRelationFilter
   outgoingRelations?: Prisma.DepartmentRelationListRelationFilter
   incomingRelations?: Prisma.DepartmentRelationListRelationFilter
+  recruitmentJobOpenings?: Prisma.JobOpeningListRelationFilter
 }, "id">
 
 export type DepartmentOrderByWithAggregationInput = {
@@ -237,6 +240,7 @@ export type DepartmentCreateInput = {
   users?: Prisma.UserCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateInput = {
@@ -248,6 +252,7 @@ export type DepartmentUncheckedCreateInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUpdateInput = {
@@ -259,6 +264,7 @@ export type DepartmentUpdateInput = {
   users?: Prisma.UserUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateInput = {
@@ -270,6 +276,7 @@ export type DepartmentUncheckedUpdateInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateManyInput = {
@@ -445,6 +452,22 @@ export type DepartmentUpdateOneRequiredWithoutUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutUsersInput, Prisma.DepartmentUpdateWithoutUsersInput>, Prisma.DepartmentUncheckedUpdateWithoutUsersInput>
 }
 
+export type DepartmentCreateNestedOneWithoutRecruitmentJobOpeningsInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUncheckedCreateWithoutRecruitmentJobOpeningsInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutRecruitmentJobOpeningsInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+}
+
+export type DepartmentUpdateOneWithoutRecruitmentJobOpeningsNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUncheckedCreateWithoutRecruitmentJobOpeningsInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutRecruitmentJobOpeningsInput
+  upsert?: Prisma.DepartmentUpsertWithoutRecruitmentJobOpeningsInput
+  disconnect?: Prisma.DepartmentWhereInput | boolean
+  delete?: Prisma.DepartmentWhereInput | boolean
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUpdateWithoutRecruitmentJobOpeningsInput>, Prisma.DepartmentUncheckedUpdateWithoutRecruitmentJobOpeningsInput>
+}
+
 export type DepartmentCreateWithoutChildrenInput = {
   id?: string
   name: string
@@ -453,6 +476,7 @@ export type DepartmentCreateWithoutChildrenInput = {
   users?: Prisma.UserCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutChildrenInput = {
@@ -463,6 +487,7 @@ export type DepartmentUncheckedCreateWithoutChildrenInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutChildrenInput = {
@@ -478,6 +503,7 @@ export type DepartmentCreateWithoutParentInput = {
   users?: Prisma.UserCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutParentInput = {
@@ -488,6 +514,7 @@ export type DepartmentUncheckedCreateWithoutParentInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutParentInput = {
@@ -519,6 +546,7 @@ export type DepartmentUpdateWithoutChildrenInput = {
   users?: Prisma.UserUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutChildrenInput = {
@@ -529,6 +557,7 @@ export type DepartmentUncheckedUpdateWithoutChildrenInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUpsertWithWhereUniqueWithoutParentInput = {
@@ -565,6 +594,7 @@ export type DepartmentCreateWithoutOutgoingRelationsInput = {
   children?: Prisma.DepartmentCreateNestedManyWithoutParentInput
   users?: Prisma.UserCreateNestedManyWithoutDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutOutgoingRelationsInput = {
@@ -575,6 +605,7 @@ export type DepartmentUncheckedCreateWithoutOutgoingRelationsInput = {
   children?: Prisma.DepartmentUncheckedCreateNestedManyWithoutParentInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutOutgoingRelationsInput = {
@@ -590,6 +621,7 @@ export type DepartmentCreateWithoutIncomingRelationsInput = {
   children?: Prisma.DepartmentCreateNestedManyWithoutParentInput
   users?: Prisma.UserCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutFromDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutIncomingRelationsInput = {
@@ -600,6 +632,7 @@ export type DepartmentUncheckedCreateWithoutIncomingRelationsInput = {
   children?: Prisma.DepartmentUncheckedCreateNestedManyWithoutParentInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutDepartmentInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutFromDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutIncomingRelationsInput = {
@@ -626,6 +659,7 @@ export type DepartmentUpdateWithoutOutgoingRelationsInput = {
   children?: Prisma.DepartmentUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUpdateManyWithoutDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutOutgoingRelationsInput = {
@@ -636,6 +670,7 @@ export type DepartmentUncheckedUpdateWithoutOutgoingRelationsInput = {
   children?: Prisma.DepartmentUncheckedUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUpsertWithoutIncomingRelationsInput = {
@@ -657,6 +692,7 @@ export type DepartmentUpdateWithoutIncomingRelationsInput = {
   children?: Prisma.DepartmentUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUpdateManyWithoutFromDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutIncomingRelationsInput = {
@@ -667,6 +703,7 @@ export type DepartmentUncheckedUpdateWithoutIncomingRelationsInput = {
   children?: Prisma.DepartmentUncheckedUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutFromDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutUsersInput = {
@@ -677,6 +714,7 @@ export type DepartmentCreateWithoutUsersInput = {
   children?: Prisma.DepartmentCreateNestedManyWithoutParentInput
   outgoingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutUsersInput = {
@@ -687,6 +725,7 @@ export type DepartmentUncheckedCreateWithoutUsersInput = {
   children?: Prisma.DepartmentUncheckedCreateNestedManyWithoutParentInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutFromDepartmentInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutToDepartmentInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutUsersInput = {
@@ -713,6 +752,7 @@ export type DepartmentUpdateWithoutUsersInput = {
   children?: Prisma.DepartmentUpdateManyWithoutParentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutUsersInput = {
@@ -721,6 +761,67 @@ export type DepartmentUncheckedUpdateWithoutUsersInput = {
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.DepartmentUncheckedUpdateManyWithoutParentNestedInput
+  outgoingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutFromDepartmentNestedInput
+  incomingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentCreateWithoutRecruitmentJobOpeningsInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  parent?: Prisma.DepartmentCreateNestedOneWithoutChildrenInput
+  children?: Prisma.DepartmentCreateNestedManyWithoutParentInput
+  users?: Prisma.UserCreateNestedManyWithoutDepartmentInput
+  outgoingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutFromDepartmentInput
+  incomingRelations?: Prisma.DepartmentRelationCreateNestedManyWithoutToDepartmentInput
+}
+
+export type DepartmentUncheckedCreateWithoutRecruitmentJobOpeningsInput = {
+  id?: string
+  name: string
+  parentId?: string | null
+  createdAt?: Date | string
+  children?: Prisma.DepartmentUncheckedCreateNestedManyWithoutParentInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutDepartmentInput
+  outgoingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutFromDepartmentInput
+  incomingRelations?: Prisma.DepartmentRelationUncheckedCreateNestedManyWithoutToDepartmentInput
+}
+
+export type DepartmentCreateOrConnectWithoutRecruitmentJobOpeningsInput = {
+  where: Prisma.DepartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUncheckedCreateWithoutRecruitmentJobOpeningsInput>
+}
+
+export type DepartmentUpsertWithoutRecruitmentJobOpeningsInput = {
+  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUncheckedUpdateWithoutRecruitmentJobOpeningsInput>
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUncheckedCreateWithoutRecruitmentJobOpeningsInput>
+  where?: Prisma.DepartmentWhereInput
+}
+
+export type DepartmentUpdateToOneWithWhereWithoutRecruitmentJobOpeningsInput = {
+  where?: Prisma.DepartmentWhereInput
+  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutRecruitmentJobOpeningsInput, Prisma.DepartmentUncheckedUpdateWithoutRecruitmentJobOpeningsInput>
+}
+
+export type DepartmentUpdateWithoutRecruitmentJobOpeningsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  parent?: Prisma.DepartmentUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.DepartmentUpdateManyWithoutParentNestedInput
+  users?: Prisma.UserUpdateManyWithoutDepartmentNestedInput
+  outgoingRelations?: Prisma.DepartmentRelationUpdateManyWithoutFromDepartmentNestedInput
+  incomingRelations?: Prisma.DepartmentRelationUpdateManyWithoutToDepartmentNestedInput
+}
+
+export type DepartmentUncheckedUpdateWithoutRecruitmentJobOpeningsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.DepartmentUncheckedUpdateManyWithoutParentNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutToDepartmentNestedInput
 }
@@ -739,6 +840,7 @@ export type DepartmentUpdateWithoutParentInput = {
   users?: Prisma.UserUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutParentInput = {
@@ -749,6 +851,7 @@ export type DepartmentUncheckedUpdateWithoutParentInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutDepartmentNestedInput
   outgoingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutFromDepartmentNestedInput
   incomingRelations?: Prisma.DepartmentRelationUncheckedUpdateManyWithoutToDepartmentNestedInput
+  recruitmentJobOpenings?: Prisma.JobOpeningUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutParentInput = {
@@ -767,6 +870,7 @@ export type DepartmentCountOutputType = {
   users: number
   outgoingRelations: number
   incomingRelations: number
+  recruitmentJobOpenings: number
 }
 
 export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -774,6 +878,7 @@ export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   users?: boolean | DepartmentCountOutputTypeCountUsersArgs
   outgoingRelations?: boolean | DepartmentCountOutputTypeCountOutgoingRelationsArgs
   incomingRelations?: boolean | DepartmentCountOutputTypeCountIncomingRelationsArgs
+  recruitmentJobOpenings?: boolean | DepartmentCountOutputTypeCountRecruitmentJobOpeningsArgs
 }
 
 /**
@@ -814,6 +919,13 @@ export type DepartmentCountOutputTypeCountIncomingRelationsArgs<ExtArgs extends 
   where?: Prisma.DepartmentRelationWhereInput
 }
 
+/**
+ * DepartmentCountOutputType without action
+ */
+export type DepartmentCountOutputTypeCountRecruitmentJobOpeningsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobOpeningWhereInput
+}
+
 
 export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -825,6 +937,7 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   users?: boolean | Prisma.Department$usersArgs<ExtArgs>
   outgoingRelations?: boolean | Prisma.Department$outgoingRelationsArgs<ExtArgs>
   incomingRelations?: boolean | Prisma.Department$incomingRelationsArgs<ExtArgs>
+  recruitmentJobOpenings?: boolean | Prisma.Department$recruitmentJobOpeningsArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
@@ -858,6 +971,7 @@ export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   users?: boolean | Prisma.Department$usersArgs<ExtArgs>
   outgoingRelations?: boolean | Prisma.Department$outgoingRelationsArgs<ExtArgs>
   incomingRelations?: boolean | Prisma.Department$incomingRelationsArgs<ExtArgs>
+  recruitmentJobOpenings?: boolean | Prisma.Department$recruitmentJobOpeningsArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -875,6 +989,7 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     users: Prisma.$UserPayload<ExtArgs>[]
     outgoingRelations: Prisma.$DepartmentRelationPayload<ExtArgs>[]
     incomingRelations: Prisma.$DepartmentRelationPayload<ExtArgs>[]
+    recruitmentJobOpenings: Prisma.$JobOpeningPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1280,6 +1395,7 @@ export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runti
   users<T extends Prisma.Department$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   outgoingRelations<T extends Prisma.Department$outgoingRelationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$outgoingRelationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   incomingRelations<T extends Prisma.Department$incomingRelationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$incomingRelationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recruitmentJobOpenings<T extends Prisma.Department$recruitmentJobOpeningsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$recruitmentJobOpeningsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobOpeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1826,6 +1942,30 @@ export type Department$incomingRelationsArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   distinct?: Prisma.DepartmentRelationScalarFieldEnum | Prisma.DepartmentRelationScalarFieldEnum[]
+}
+
+/**
+ * Department.recruitmentJobOpenings
+ */
+export type Department$recruitmentJobOpeningsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobOpening
+   */
+  select?: Prisma.JobOpeningSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobOpening
+   */
+  omit?: Prisma.JobOpeningOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobOpeningInclude<ExtArgs> | null
+  where?: Prisma.JobOpeningWhereInput
+  orderBy?: Prisma.JobOpeningOrderByWithRelationInput | Prisma.JobOpeningOrderByWithRelationInput[]
+  cursor?: Prisma.JobOpeningWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobOpeningScalarFieldEnum | Prisma.JobOpeningScalarFieldEnum[]
 }
 
 /**

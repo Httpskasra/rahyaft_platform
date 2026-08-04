@@ -42,7 +42,8 @@ type GroupKey =
   | "تعمیرات"
   | "کاربران"
   | "مشتریان"
-  | "ترددهای روزانه";
+  | "ترددهای روزانه"
+  | "استخدام";
 
 function MenuGroupTitle({
   collapsed,
@@ -129,6 +130,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const canReadUsers = usePermission("read", "users");
   const canReadDepartments = usePermission("read", "departments");
   const canReadOrganizationChart = usePermission("read", "organization-chart");
+  const canReadRecruitment = usePermission("read", "recruitment-applications");
   // تعیین کدام dropdown باید باز باشد بر اساس pathname
   const getInitialOpenGroup = (): GroupKey => {
     if (
@@ -158,6 +160,21 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
         <MenuGroupTitle collapsed={collapsed} title={t.common.menu} />
 
         <ul className="mb-6 flex flex-col gap-4">
+          {canReadRecruitment && (
+            <li>
+              <Link
+                href="/dashboard/recruitment"
+                className={[
+                  "menu-item group",
+                  isActive("/dashboard/recruitment") ? "menu-item-active" : "menu-item-inactive",
+                ].join(" ")}
+              >
+                <IdCardLanyard size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>استخدام و جذب نیرو</span>
+              </Link>
+            </li>
+          )}
+
           {/* Dashboard dropdown */}
           {/* <li>
             <button

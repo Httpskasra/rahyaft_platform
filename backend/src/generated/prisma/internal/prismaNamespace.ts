@@ -412,7 +412,16 @@ export const ModelName = {
   CustomerContact: 'CustomerContact',
   SalesOpportunity: 'SalesOpportunity',
   CustomerActivity: 'CustomerActivity',
-  CustomerAiAnalysis: 'CustomerAiAnalysis'
+  CustomerAiAnalysis: 'CustomerAiAnalysis',
+  RecruitmentFormTemplate: 'RecruitmentFormTemplate',
+  RecruitmentFormVersion: 'RecruitmentFormVersion',
+  JobOpening: 'JobOpening',
+  RecruitmentApplicant: 'RecruitmentApplicant',
+  RecruitmentApplication: 'RecruitmentApplication',
+  RecruitmentFormSubmission: 'RecruitmentFormSubmission',
+  RecruitmentAssignment: 'RecruitmentAssignment',
+  RecruitmentTransition: 'RecruitmentTransition',
+  TechnicalInterviewEvaluation: 'TechnicalInterviewEvaluation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -428,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis"
+    modelProps: "department" | "departmentRelation" | "user" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2578,6 +2587,672 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RecruitmentFormTemplate: {
+      payload: Prisma.$RecruitmentFormTemplatePayload<ExtArgs>
+      fields: Prisma.RecruitmentFormTemplateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentFormTemplateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentFormTemplateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentFormTemplateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentFormTemplateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentFormTemplateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentFormTemplateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentFormTemplateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentFormTemplateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentFormTemplateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>
+        }
+        update: {
+          args: Prisma.RecruitmentFormTemplateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentFormTemplateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentFormTemplateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentFormTemplateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentFormTemplateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormTemplatePayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentFormTemplateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentFormTemplate>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentFormTemplateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentFormTemplateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentFormTemplateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentFormTemplateCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecruitmentFormVersion: {
+      payload: Prisma.$RecruitmentFormVersionPayload<ExtArgs>
+      fields: Prisma.RecruitmentFormVersionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentFormVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentFormVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentFormVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentFormVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentFormVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentFormVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentFormVersionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentFormVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentFormVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>
+        }
+        update: {
+          args: Prisma.RecruitmentFormVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentFormVersionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentFormVersionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentFormVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentFormVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormVersionPayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentFormVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentFormVersion>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentFormVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentFormVersionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentFormVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentFormVersionCountAggregateOutputType> | number
+        }
+      }
+    }
+    JobOpening: {
+      payload: Prisma.$JobOpeningPayload<ExtArgs>
+      fields: Prisma.JobOpeningFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobOpeningFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobOpeningFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>
+        }
+        findFirst: {
+          args: Prisma.JobOpeningFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobOpeningFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>
+        }
+        findMany: {
+          args: Prisma.JobOpeningFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>[]
+        }
+        create: {
+          args: Prisma.JobOpeningCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>
+        }
+        createMany: {
+          args: Prisma.JobOpeningCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobOpeningCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>[]
+        }
+        delete: {
+          args: Prisma.JobOpeningDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>
+        }
+        update: {
+          args: Prisma.JobOpeningUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobOpeningDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobOpeningUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobOpeningUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobOpeningUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobOpeningPayload>
+        }
+        aggregate: {
+          args: Prisma.JobOpeningAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobOpening>
+        }
+        groupBy: {
+          args: Prisma.JobOpeningGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobOpeningGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobOpeningCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobOpeningCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecruitmentApplicant: {
+      payload: Prisma.$RecruitmentApplicantPayload<ExtArgs>
+      fields: Prisma.RecruitmentApplicantFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentApplicantFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentApplicantFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentApplicantFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentApplicantFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentApplicantFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentApplicantCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentApplicantCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentApplicantCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentApplicantDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>
+        }
+        update: {
+          args: Prisma.RecruitmentApplicantUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentApplicantDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentApplicantUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentApplicantUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentApplicantUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicantPayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentApplicantAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentApplicant>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentApplicantGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentApplicantGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentApplicantCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentApplicantCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecruitmentApplication: {
+      payload: Prisma.$RecruitmentApplicationPayload<ExtArgs>
+      fields: Prisma.RecruitmentApplicationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentApplicationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentApplicationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentApplicationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentApplicationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentApplicationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentApplicationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentApplicationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentApplicationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentApplicationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>
+        }
+        update: {
+          args: Prisma.RecruitmentApplicationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentApplicationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentApplicationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentApplicationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentApplicationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentApplicationPayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentApplicationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentApplication>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentApplicationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentApplicationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentApplicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecruitmentFormSubmission: {
+      payload: Prisma.$RecruitmentFormSubmissionPayload<ExtArgs>
+      fields: Prisma.RecruitmentFormSubmissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentFormSubmissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentFormSubmissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentFormSubmissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentFormSubmissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentFormSubmissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentFormSubmissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentFormSubmissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentFormSubmissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentFormSubmissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>
+        }
+        update: {
+          args: Prisma.RecruitmentFormSubmissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentFormSubmissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentFormSubmissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentFormSubmissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentFormSubmissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentFormSubmissionPayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentFormSubmissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentFormSubmission>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentFormSubmissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentFormSubmissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentFormSubmissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentFormSubmissionCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecruitmentAssignment: {
+      payload: Prisma.$RecruitmentAssignmentPayload<ExtArgs>
+      fields: Prisma.RecruitmentAssignmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentAssignmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentAssignmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentAssignmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentAssignmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentAssignmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentAssignmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentAssignmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentAssignmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentAssignmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>
+        }
+        update: {
+          args: Prisma.RecruitmentAssignmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentAssignmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentAssignmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentAssignmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentAssignmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentAssignmentPayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentAssignmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentAssignment>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentAssignmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentAssignmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentAssignmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentAssignmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecruitmentTransition: {
+      payload: Prisma.$RecruitmentTransitionPayload<ExtArgs>
+      fields: Prisma.RecruitmentTransitionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecruitmentTransitionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecruitmentTransitionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>
+        }
+        findFirst: {
+          args: Prisma.RecruitmentTransitionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecruitmentTransitionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>
+        }
+        findMany: {
+          args: Prisma.RecruitmentTransitionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>[]
+        }
+        create: {
+          args: Prisma.RecruitmentTransitionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>
+        }
+        createMany: {
+          args: Prisma.RecruitmentTransitionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecruitmentTransitionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>[]
+        }
+        delete: {
+          args: Prisma.RecruitmentTransitionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>
+        }
+        update: {
+          args: Prisma.RecruitmentTransitionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecruitmentTransitionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecruitmentTransitionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecruitmentTransitionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecruitmentTransitionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecruitmentTransitionPayload>
+        }
+        aggregate: {
+          args: Prisma.RecruitmentTransitionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecruitmentTransition>
+        }
+        groupBy: {
+          args: Prisma.RecruitmentTransitionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentTransitionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecruitmentTransitionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecruitmentTransitionCountAggregateOutputType> | number
+        }
+      }
+    }
+    TechnicalInterviewEvaluation: {
+      payload: Prisma.$TechnicalInterviewEvaluationPayload<ExtArgs>
+      fields: Prisma.TechnicalInterviewEvaluationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TechnicalInterviewEvaluationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TechnicalInterviewEvaluationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>
+        }
+        findFirst: {
+          args: Prisma.TechnicalInterviewEvaluationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TechnicalInterviewEvaluationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>
+        }
+        findMany: {
+          args: Prisma.TechnicalInterviewEvaluationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>[]
+        }
+        create: {
+          args: Prisma.TechnicalInterviewEvaluationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>
+        }
+        createMany: {
+          args: Prisma.TechnicalInterviewEvaluationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TechnicalInterviewEvaluationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>[]
+        }
+        delete: {
+          args: Prisma.TechnicalInterviewEvaluationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>
+        }
+        update: {
+          args: Prisma.TechnicalInterviewEvaluationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>
+        }
+        deleteMany: {
+          args: Prisma.TechnicalInterviewEvaluationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TechnicalInterviewEvaluationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TechnicalInterviewEvaluationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>[]
+        }
+        upsert: {
+          args: Prisma.TechnicalInterviewEvaluationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TechnicalInterviewEvaluationPayload>
+        }
+        aggregate: {
+          args: Prisma.TechnicalInterviewEvaluationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTechnicalInterviewEvaluation>
+        }
+        groupBy: {
+          args: Prisma.TechnicalInterviewEvaluationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TechnicalInterviewEvaluationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TechnicalInterviewEvaluationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TechnicalInterviewEvaluationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3020,6 +3695,144 @@ export const CustomerAiAnalysisScalarFieldEnum = {
 export type CustomerAiAnalysisScalarFieldEnum = (typeof CustomerAiAnalysisScalarFieldEnum)[keyof typeof CustomerAiAnalysisScalarFieldEnum]
 
 
+export const RecruitmentFormTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecruitmentFormTemplateScalarFieldEnum = (typeof RecruitmentFormTemplateScalarFieldEnum)[keyof typeof RecruitmentFormTemplateScalarFieldEnum]
+
+
+export const RecruitmentFormVersionScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  version: 'version',
+  schema: 'schema',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type RecruitmentFormVersionScalarFieldEnum = (typeof RecruitmentFormVersionScalarFieldEnum)[keyof typeof RecruitmentFormVersionScalarFieldEnum]
+
+
+export const JobOpeningScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  departmentId: 'departmentId',
+  isActive: 'isActive',
+  preInterviewFormId: 'preInterviewFormId',
+  initialInterviewFormId: 'initialInterviewFormId',
+  technicalInterviewFormId: 'technicalInterviewFormId',
+  initialReviewerRoleId: 'initialReviewerRoleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobOpeningScalarFieldEnum = (typeof JobOpeningScalarFieldEnum)[keyof typeof JobOpeningScalarFieldEnum]
+
+
+export const RecruitmentApplicantScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  phoneNumber: 'phoneNumber',
+  normalizedPhone: 'normalizedPhone',
+  email: 'email',
+  nationalCode: 'nationalCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecruitmentApplicantScalarFieldEnum = (typeof RecruitmentApplicantScalarFieldEnum)[keyof typeof RecruitmentApplicantScalarFieldEnum]
+
+
+export const RecruitmentApplicationScalarFieldEnum = {
+  id: 'id',
+  trackingCode: 'trackingCode',
+  publicTokenHash: 'publicTokenHash',
+  applicantId: 'applicantId',
+  jobOpeningId: 'jobOpeningId',
+  status: 'status',
+  currentStage: 'currentStage',
+  finalUserId: 'finalUserId',
+  rejectionReasonInternal: 'rejectionReasonInternal',
+  rejectionMessagePublic: 'rejectionMessagePublic',
+  version: 'version',
+  submittedAt: 'submittedAt',
+  rejectedAt: 'rejectedAt',
+  hiredAt: 'hiredAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecruitmentApplicationScalarFieldEnum = (typeof RecruitmentApplicationScalarFieldEnum)[keyof typeof RecruitmentApplicationScalarFieldEnum]
+
+
+export const RecruitmentFormSubmissionScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  formVersionId: 'formVersionId',
+  stage: 'stage',
+  answers: 'answers',
+  submittedByType: 'submittedByType',
+  submittedByUserId: 'submittedByUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type RecruitmentFormSubmissionScalarFieldEnum = (typeof RecruitmentFormSubmissionScalarFieldEnum)[keyof typeof RecruitmentFormSubmissionScalarFieldEnum]
+
+
+export const RecruitmentAssignmentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  stage: 'stage',
+  assigneeUserId: 'assigneeUserId',
+  assignedByUserId: 'assignedByUserId',
+  assignedAt: 'assignedAt',
+  completedAt: 'completedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type RecruitmentAssignmentScalarFieldEnum = (typeof RecruitmentAssignmentScalarFieldEnum)[keyof typeof RecruitmentAssignmentScalarFieldEnum]
+
+
+export const RecruitmentTransitionScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  fromStage: 'fromStage',
+  toStage: 'toStage',
+  action: 'action',
+  actorType: 'actorType',
+  actorUserId: 'actorUserId',
+  reasonCode: 'reasonCode',
+  comment: 'comment',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type RecruitmentTransitionScalarFieldEnum = (typeof RecruitmentTransitionScalarFieldEnum)[keyof typeof RecruitmentTransitionScalarFieldEnum]
+
+
+export const TechnicalInterviewEvaluationScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  interviewerId: 'interviewerId',
+  overallScore: 'overallScore',
+  recommendation: 'recommendation',
+  internalSummary: 'internalSummary',
+  completedAt: 'completedAt'
+} as const
+
+export type TechnicalInterviewEvaluationScalarFieldEnum = (typeof TechnicalInterviewEvaluationScalarFieldEnum)[keyof typeof TechnicalInterviewEvaluationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3348,6 +4161,90 @@ export type ListEnumAiInsightLevelFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'RecruitmentFormType'
+ */
+export type EnumRecruitmentFormTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentFormType'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentFormType[]'
+ */
+export type ListEnumRecruitmentFormTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentFormType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentApplicationStatus'
+ */
+export type EnumRecruitmentApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentApplicationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentApplicationStatus[]'
+ */
+export type ListEnumRecruitmentApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentApplicationStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentStage'
+ */
+export type EnumRecruitmentStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentStage'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentStage[]'
+ */
+export type ListEnumRecruitmentStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentStage[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentActorType'
+ */
+export type EnumRecruitmentActorTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentActorType'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentActorType[]'
+ */
+export type ListEnumRecruitmentActorTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentActorType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentAction'
+ */
+export type EnumRecruitmentActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentAction'>
+    
+
+
+/**
+ * Reference to a field of type 'RecruitmentAction[]'
+ */
+export type ListEnumRecruitmentActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecruitmentAction[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InterviewRecommendation'
+ */
+export type EnumInterviewRecommendationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InterviewRecommendation'>
+    
+
+
+/**
+ * Reference to a field of type 'InterviewRecommendation[]'
+ */
+export type ListEnumInterviewRecommendationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InterviewRecommendation[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3499,6 +4396,15 @@ export type GlobalOmitConfig = {
   salesOpportunity?: Prisma.SalesOpportunityOmit
   customerActivity?: Prisma.CustomerActivityOmit
   customerAiAnalysis?: Prisma.CustomerAiAnalysisOmit
+  recruitmentFormTemplate?: Prisma.RecruitmentFormTemplateOmit
+  recruitmentFormVersion?: Prisma.RecruitmentFormVersionOmit
+  jobOpening?: Prisma.JobOpeningOmit
+  recruitmentApplicant?: Prisma.RecruitmentApplicantOmit
+  recruitmentApplication?: Prisma.RecruitmentApplicationOmit
+  recruitmentFormSubmission?: Prisma.RecruitmentFormSubmissionOmit
+  recruitmentAssignment?: Prisma.RecruitmentAssignmentOmit
+  recruitmentTransition?: Prisma.RecruitmentTransitionOmit
+  technicalInterviewEvaluation?: Prisma.TechnicalInterviewEvaluationOmit
 }
 
 /* Types for Logging */
