@@ -131,6 +131,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const canReadDepartments = usePermission("read", "departments");
   const canReadOrganizationChart = usePermission("read", "organization-chart");
   const canReadRecruitment = usePermission("read", "recruitment-applications");
+  const canManageRecruitment = usePermission("manage", "recruitment-settings");
   // تعیین کدام dropdown باید باز باشد بر اساس pathname
   const getInitialOpenGroup = (): GroupKey => {
     if (
@@ -160,18 +161,28 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
         <MenuGroupTitle collapsed={collapsed} title={t.common.menu} />
 
         <ul className="mb-6 flex flex-col gap-4">
-          {canReadRecruitment && (
+          {(canReadRecruitment || canManageRecruitment) && (
             <li>
-              <Link
-                href="/dashboard/recruitment"
+              <button
+                type="button"
+                onClick={() => setOpen((v) => (v === "استخدام" ? ("" as GroupKey) : "استخدام"))}
                 className={[
-                  "menu-item group",
-                  isActive("/dashboard/recruitment") ? "menu-item-active" : "menu-item-inactive",
+                  "menu-item group w-full text-right",
+                  pathname.startsWith("/dashboard/recruitment") ? "menu-item-active" : "menu-item-inactive",
                 ].join(" ")}
               >
                 <IdCardLanyard size={20} />
                 <span className={collapsed ? "lg:hidden" : ""}>استخدام و جذب نیرو</span>
-              </Link>
+                <span className={["menu-item-arrow", collapsed ? "lg:hidden" : ""].join(" ")}>
+                  <ChevronDown size={18} className={open === "استخدام" ? "rotate-180" : ""} />
+                </span>
+              </button>
+              <div className="translate transform overflow-hidden">
+                <ul className={["menu-dropdown", open === "استخدام" ? "open" : "closed", collapsed ? "lg:hidden" : ""].join(" ")}>
+                  {canReadRecruitment && <li><DropdownItem href="/dashboard/recruitment" label="پرونده‌های استخدام" active={pathname === "/dashboard/recruitment" || /^\/dashboard\/recruitment\/[^/]+$/.test(pathname)} /></li>}
+                  {canManageRecruitment && <li><DropdownItem href="/dashboard/recruitment/settings" label="فرم‌ها و فرصت‌های شغلی" active={isActive("/dashboard/recruitment/settings")} /></li>}
+                </ul>
+              </div>
             </li>
           )}
 

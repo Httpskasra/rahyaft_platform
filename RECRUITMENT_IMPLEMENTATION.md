@@ -40,3 +40,30 @@ npm run build
 
 ## Production notes
 قبل از انتشار عمومی، CAPTCHA/Turnstile، OTP متقاضی، object storage و malware scan برای فایل رزومه، Outbox event و retention policy اضافه شود. API فعلی توکن پیگیری تصادفی و hash‌شده دارد اما OTP عمومی هنوز به‌عنوان integration بعدی باقی مانده است.
+
+## پنل مدیریت Frontend
+
+مسیر جدید زیر برای کاربران دارای Permission `manage:recruitment-settings` اضافه شده است:
+
+```text
+/dashboard/recruitment/settings
+```
+
+امکانات:
+
+- ساخت فرم مستقل استخدام با Form Builder
+- افزودن بخش و فیلدهای text، textarea، number، email، tel، date، select، checkbox و rating
+- پیش‌نمایش فرم با SharedFormRenderer
+- ساخت نسخه جدید از فرم موجود
+- انتشار یک نسخه و غیرفعال‌شدن نسخه منتشرشده قبلی
+- ساخت و ویرایش فرصت شغلی
+- انتخاب دپارتمان، نقش بررسی‌کننده و فرم هر مرحله
+- فعال و غیرفعال‌کردن فرصت شغلی
+- بازکردن لینک عمومی `/careers/:slug`
+
+APIهای تکمیلی افزوده‌شده:
+
+```http
+POST  /api/v1/recruitment/admin/forms/:templateId/versions
+PATCH /api/v1/recruitment/admin/jobs/:id
+```

@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsEmail, IsEnum, IsInt, IsObject, IsOptional, IsPhoneNumber, IsString, IsUUID, Max, Min, MinLength, ValidateNested } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsObject, IsOptional, IsString, IsUUID, Max, Min, MinLength } from 'class-validator';
 import { InterviewRecommendation, RecruitmentFormType } from '../../generated/prisma/enums';
 
 export class CreateRecruitmentFormTemplateDto {
@@ -15,6 +15,17 @@ export class CreateJobOpeningDto {
   @IsOptional() @IsString() description?: string;
   @IsOptional() @IsUUID() departmentId?: string;
   @IsUUID() preInterviewFormId: string;
+  @IsOptional() @IsUUID() initialInterviewFormId?: string;
+  @IsOptional() @IsUUID() technicalInterviewFormId?: string;
+  @IsOptional() @IsUUID() initialReviewerRoleId?: string;
+}
+export class UpdateJobOpeningDto {
+  @IsOptional() @IsString() @MinLength(2) title?: string;
+  @IsOptional() @IsString() @MinLength(2) slug?: string;
+  @IsOptional() @IsString() description?: string;
+  @IsOptional() @IsUUID() departmentId?: string;
+  @IsOptional() @IsBoolean() isActive?: boolean;
+  @IsOptional() @IsUUID() preInterviewFormId?: string;
   @IsOptional() @IsUUID() initialInterviewFormId?: string;
   @IsOptional() @IsUUID() technicalInterviewFormId?: string;
   @IsOptional() @IsUUID() initialReviewerRoleId?: string;
