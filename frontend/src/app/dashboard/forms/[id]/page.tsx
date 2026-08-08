@@ -33,25 +33,12 @@ import {
   Loader2,
   CheckCircle,
   Brain,
-  Shield,
-  Activity,
   TrendingUp,
   TrendingDown,
-  AlertTriangle,
-  Zap,
-  Award,
-  Info,
   Target,
-  Users,
-  Hash,
   Clock,
-  BarChart2,
-  Eye,
   ChevronDown,
   ChevronUp,
-  Calendar,
-  Minus,
-  MessageSquare,
   Settings,
   CheckSquare,
   XCircle,
@@ -745,7 +732,7 @@ function NlpCorpusPanel({
             نمونه پاسخ مثبت
           </p>
           <p className="text-xs text-gray-700 dark:text-gray-300 italic">
-            "{nlp.sample_positive}"
+            &quot;{nlp.sample_positive}&quot;
           </p>
         </div>
       )}

@@ -143,7 +143,7 @@ function TimelineItem({
           <Icon size={15} />
         </div>
         {!isLast && (
-          <div className="w-px flex-1 bg-gradient-to-b from-gray-200 to-gray-100 dark:from-gray-700 dark:to-gray-800" style={{ minHeight: "24px" }} />
+          <div className="w-px flex-1 bg-gradient-to-b from-gray-200 to-gray-100 dark:bg-gray-700 dark:bg-none" style={{ minHeight: "24px" }} />
         )}
       </div>
 

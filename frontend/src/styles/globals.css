@@ -3,6 +3,107 @@
 @import "./partials/utilities.css";
 /* @import "./partials/vendor/third-party.css"; */
 @import "@xyflow/react/dist/style.css";
+
+/*
+ * Dark theme palette
+ *
+ * The original gray and brand scales had a strong blue cast.  In dark mode we
+ * intentionally remap UI neutrals and cool accents to a shadcn-like zinc
+ * palette. Semantic success, warning and error colors keep their meaning.
+ */
+.dark {
+  --color-neutral-25: #fafafa;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  --color-gray-25: #fafafa;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-300: #d4d4d8;
+  --color-gray-400: #a1a1aa;
+  --color-gray-500: #71717a;
+  --color-gray-600: #52525b;
+  --color-gray-700: #3f3f46;
+  --color-gray-800: #27272a;
+  --color-gray-900: #18181b;
+  --color-gray-950: #09090b;
+  --color-gray-dark: #09090b;
+
+  /* Primary actions stay high-contrast while losing the blue hue. */
+  --color-brand-25: #fafafa;
+  --color-brand-50: #18181b;
+  --color-brand-100: #27272a;
+  --color-brand-200: #3f3f46;
+  --color-brand-300: #71717a;
+  --color-brand-400: #d4d4d8;
+  --color-brand-500: #3f3f46;
+  --color-brand-600: #52525b;
+  --color-brand-700: #71717a;
+  --color-brand-800: #3f3f46;
+  --color-brand-900: #27272a;
+  --color-brand-950: #18181b;
+
+  /* Existing cool-color utilities become neutral only while dark is active. */
+  --color-blue-50: #18181b;
+  --color-blue-100: #27272a;
+  --color-blue-200: #3f3f46;
+  --color-blue-300: #a1a1aa;
+  --color-blue-400: #d4d4d8;
+  --color-blue-500: #71717a;
+  --color-blue-600: #52525b;
+  --color-blue-700: #3f3f46;
+  --color-blue-800: #27272a;
+  --color-blue-900: #18181b;
+  --color-blue-950: #09090b;
+
+  --color-indigo-50: #18181b;
+  --color-indigo-100: #27272a;
+  --color-indigo-200: #3f3f46;
+  --color-indigo-300: #d4d4d8;
+  --color-indigo-400: #a1a1aa;
+  --color-indigo-500: #71717a;
+  --color-indigo-600: #52525b;
+  --color-indigo-700: #3f3f46;
+  --color-indigo-800: #27272a;
+  --color-indigo-900: #18181b;
+  --color-indigo-950: #09090b;
+
+  --color-purple-50: #18181b;
+  --color-purple-100: #27272a;
+  --color-purple-200: #3f3f46;
+  --color-purple-300: #d4d4d8;
+  --color-purple-400: #a1a1aa;
+  --color-purple-500: #71717a;
+  --color-purple-600: #52525b;
+  --color-purple-700: #3f3f46;
+  --color-purple-800: #27272a;
+  --color-purple-900: #18181b;
+  --color-purple-950: #09090b;
+
+  --color-cyan-50: #18181b;
+  --color-cyan-100: #27272a;
+  --color-cyan-200: #3f3f46;
+  --color-cyan-300: #d4d4d8;
+  --color-cyan-400: #a1a1aa;
+  --color-cyan-500: #71717a;
+  --color-cyan-600: #52525b;
+  --color-cyan-700: #3f3f46;
+  --color-cyan-800: #27272a;
+  --color-cyan-900: #18181b;
+  --color-cyan-950: #09090b;
+
+  --shadow-focus-ring: 0 0 0 3px rgb(255 255 255 / 0.16);
+}
 /* React Flow organization chart fixes */
 
 .organization-chart-wrapper {

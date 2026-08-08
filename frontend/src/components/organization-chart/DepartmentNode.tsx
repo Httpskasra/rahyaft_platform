@@ -91,8 +91,8 @@ export function DepartmentNode({
           to-white
           p-4
           dark:border-gray-800
-          dark:from-brand-500/10
-          dark:to-gray-900
+          dark:bg-gray-900
+          dark:bg-none
         "
       >
         <div className="flex items-start justify-between gap-3">

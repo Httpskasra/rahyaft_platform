@@ -136,7 +136,7 @@ export default function DashboardPage() {
   return (
     <div dir="rtl" lang="fa" className="space-y-6">
       {/* Welcome banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-l from-brand-500 to-indigo-600 p-6 text-white shadow-lg">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-l from-brand-500 to-indigo-600 p-6 text-white shadow-lg dark:border dark:border-zinc-800 dark:bg-zinc-900 dark:bg-none">
         <div className="relative z-10">
           <p className="text-sm font-medium text-white/70">{greeting}،</p>
           <h1 className="mt-1 text-2xl font-bold">

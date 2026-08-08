@@ -189,11 +189,11 @@ export default function ProfilePage() {
       {/* Header card */}
       <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
         {/* gradient bar at top */}
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-l from-brand-500 to-indigo-500 rounded-t-2xl" />
+        <div className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-l from-brand-500 to-indigo-500 dark:bg-zinc-500 dark:bg-none" />
 
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
           {/* Avatar */}
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-indigo-500 text-2xl font-bold text-white shadow-lg">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-indigo-500 text-2xl font-bold text-white shadow-lg dark:bg-zinc-700 dark:bg-none">
             {loading ? "?" : initials}
           </div>
 

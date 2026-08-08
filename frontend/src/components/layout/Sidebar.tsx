@@ -25,7 +25,7 @@ export function Sidebar({
   return (
     <aside
       className={[
-        "sidebar fixed right-0 top-0 z-[9999] flex h-screen  w-[290px] flex-col overflow-y-hidden border-l border-indigo-200/50 bg-gradient-to-b from-white via-blue-50/80 to-indigo-50/60 backdrop-blur-2xl px-5 duration-300 ease-linear dark:border-gray-700/40 dark:bg-gradient-to-b dark:from-gray-900/50 dark:via-gray-800/40 dark:to-gray-900/50",
+        "sidebar fixed right-0 top-0 z-[9999] flex h-screen w-[290px] flex-col overflow-y-hidden border-l border-indigo-200/50 bg-gradient-to-b from-white via-blue-50/80 to-indigo-50/60 px-5 backdrop-blur-2xl duration-300 ease-linear dark:border-zinc-800 dark:bg-zinc-950 dark:bg-none",
         mobileTranslate,
         "lg:static lg:translate-x-0 lg:w-[290px] ",
       ].join(" ")}
@@ -48,7 +48,7 @@ export function Sidebar({
         {/* Mobile close */}
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-indigo-200 p-2 text-indigo-600 hover:bg-indigo-100 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-900/30 lg:hidden"
+          className="inline-flex items-center justify-center rounded-lg border border-indigo-200 p-2 text-indigo-600 hover:bg-indigo-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-white/10 lg:hidden"
           onClick={onMobileCloseAction}
           aria-label="بستن نوار کناری">
           <PanelLeftClose size={18} />
@@ -65,7 +65,7 @@ export function Sidebar({
         <div className="hidden lg:flex justify-center pb-6">
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-lg border border-indigo-200 p-2 text-indigo-600 hover:bg-indigo-100 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-900/30"
+            className="inline-flex items-center justify-center rounded-lg border border-indigo-200 p-2 text-indigo-600 hover:bg-indigo-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-white/10"
             onClick={onToggleCollapsedAction}
             aria-label="گسترش نوار کناری">
             <PanelLeftOpen size={18} />

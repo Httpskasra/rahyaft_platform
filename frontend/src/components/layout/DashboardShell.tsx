@@ -8,7 +8,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   return (
-    <div className="flex min-h-screen flex-col lg:flex-row bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:bg-gradient-to-br dark:from-[#0d0f1f] dark:via-[#0f1555] dark:to-[#1a1555]">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:bg-[#09090b] dark:bg-none lg:flex-row">
       {/* پوشش موبایل */}
       {mobileOpen && (
         <button

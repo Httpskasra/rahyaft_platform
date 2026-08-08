@@ -53,7 +53,7 @@ function MenuGroupTitle({
   title: string;
 }) {
   return (
-    <h3 className="mb-4 text-xs uppercase leading-[20px] text-indigo-400 dark:text-purple-300/70">
+    <h3 className="mb-4 text-xs uppercase leading-[20px] text-indigo-400 dark:text-zinc-500">
       <span className={collapsed ? "lg:hidden" : ""}>{title}</span>
       <span className={collapsed ? "hidden lg:block mx-auto" : "hidden"}>
         •••
