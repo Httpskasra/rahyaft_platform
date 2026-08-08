@@ -16,6 +16,7 @@ import {
   AttendanceDailySummary,
 } from "@/lib/api/attendance";
 import { cn } from "@/lib/cn";
+import { PersianDatePicker } from "@/components/ui/PersianDatePicker";
 
 
 
@@ -156,21 +157,21 @@ export default function AttendanceListPage() {
         </div>
         <div>
           <label className="mb-1 block text-xs text-gray-400">از تاریخ</label>
-          <input
-            type="date"
+          <PersianDatePicker
             value={from}
-            onChange={(e) => setFrom(e.target.value)}
-            dir="ltr"
+            valueMode="gregorian-date"
+            onChange={setFrom}
+            placeholder="انتخاب تاریخ شروع"
             className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 text-sm outline-none focus:border-brand-300 dark:border-gray-700 dark:bg-gray-800/30 dark:text-white"
           />
         </div>
         <div>
           <label className="mb-1 block text-xs text-gray-400">تا تاریخ</label>
-          <input
-            type="date"
+          <PersianDatePicker
             value={to}
-            onChange={(e) => setTo(e.target.value)}
-            dir="ltr"
+            valueMode="gregorian-date"
+            onChange={setTo}
+            placeholder="انتخاب تاریخ پایان"
             className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 text-sm outline-none focus:border-brand-300 dark:border-gray-700 dark:bg-gray-800/30 dark:text-white"
           />
         </div>

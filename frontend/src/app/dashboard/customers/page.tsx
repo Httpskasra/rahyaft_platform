@@ -37,6 +37,7 @@ import {
 } from "@/lib/api/customers";
 import { Modal } from "@/components/ui/Modal";
 import { Spinner } from "@/components/ui/Spinner";
+import { PersianDatePicker } from "@/components/ui/PersianDatePicker";
 
 const statusFa = {
   ACTIVE: "فعال",
@@ -44,6 +45,22 @@ const statusFa = {
   BLACKLISTED: "مسدود",
 } as const;
 const typeFa = { PERSON: "حقیقی", ORGANIZATION: "سازمانی" } as const;
+const occupationGroupOptions = [
+  ["HAIR_TRANSPLANT_TECHNICIAN", "تکنسین کاشت مو"],
+  ["NAIL_TECHNICIAN", "تکنسین کاشت ناخن"],
+  ["GENERAL_PRACTITIONER", "پزشک عمومی"],
+  ["PHYSICIAN", "پزشک"],
+  ["HAIR_BEAUTY_CLINIC", "کلینیک کاشت مو و زیبایی"],
+  ["HOME_DEVICE_CUSTOMER", "مشتری دستگاه خانگی"],
+  ["BARBER", "آرایشگر"],
+  ["DENTIST", "دندانپزشک"],
+  ["VETERINARIAN", "دامپزشک"],
+  ["COLLEAGUE", "همکار"],
+  ["EMPLOYEE", "کارمند"],
+  ["DERMATOLOGIST", "متخصص پوست و مو"],
+  ["GYNECOLOGIST", "متخصص زنان"],
+  ["OTHER", "سایر"],
+] as const;
 const oppStatusFa: Record<string, string> = {
   NEW: "جدید",
   CONTACTED: "تماس گرفته‌شده",
@@ -731,11 +748,25 @@ function CustomerModal({
               value={form.nationalCode}
               set={(v) => set("nationalCode", v)}
             />
-            <Input
-              label="تاریخ تولد (1370/01/01)"
-              value={form.birthDate}
-              set={(v) => set("birthDate", v)}
-            />
+            <Field label="تاریخ تولد">
+              <PersianDatePicker
+                value={form.birthDate}
+                valueMode="jalali"
+                onChange={(v) => set("birthDate", v)}
+                placeholder="انتخاب تاریخ تولد"
+                className={input}
+              />
+            </Field>
+            <Field label="جنسیت">
+              <select
+                value={form.gender || ""}
+                onChange={(e) => set("gender", e.target.value)}
+                className={input}>
+                <option value="">انتخاب کنید</option>
+                <option value="MALE">مرد</option>
+                <option value="FEMALE">زن</option>
+              </select>
+            </Field>
           </>
         : <>
             <Input
@@ -774,10 +805,21 @@ function CustomerModal({
         />
         <Input label="شهر" value={form.city} set={(v) => set("city", v)} />
         <Input
-          label="حوزه فعالیت"
+          label="عنوان شغل / حوزه فعالیت"
           value={form.occupation}
           set={(v) => set("occupation", v)}
         />
+        <Field label="گروه شغلی">
+          <select
+            value={form.occupationGroup || ""}
+            onChange={(e) => set("occupationGroup", e.target.value)}
+            className={input}>
+            <option value="">انتخاب کنید</option>
+            {occupationGroupOptions.map(([value, label]) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
+        </Field>
         <div className="md:col-span-2">
           <Input
             label="آدرس"
@@ -871,6 +913,32 @@ function OpportunityModal({
         value={f.title}
         set={(v) => setF({ ...f, title: v })}
       />
+      <Field label="وضعیت فرصت فروش">
+        <select
+          value={f.status || "NEW"}
+          onChange={(e) => setF({ ...f, status: e.target.value as OpportunityPayload["status"] })}
+          className={input}>
+          <option value="NEW">جدید</option>
+          <option value="CONTACTED">تماس گرفته‌شده</option>
+          <option value="NEEDS_QUOTE">نیازمند پیش‌فاکتور</option>
+          <option value="QUOTED">پیش‌فاکتور ارسال‌شده</option>
+          <option value="NEGOTIATION">مذاکره</option>
+          <option value="WON">موفق</option>
+          <option value="LOST">از دست رفته</option>
+          <option value="CANCELED">لغو شده</option>
+        </select>
+      </Field>
+      <Field label="اولویت">
+        <select
+          value={f.priority || "MEDIUM"}
+          onChange={(e) => setF({ ...f, priority: e.target.value as OpportunityPayload["priority"] })}
+          className={input}>
+          <option value="LOW">کم</option>
+          <option value="MEDIUM">متوسط</option>
+          <option value="HIGH">زیاد</option>
+          <option value="URGENT">فوری</option>
+        </select>
+      </Field>
       <Input
         label="مبلغ تخمینی"
         value={f.estimatedValue?.toString()}
@@ -881,17 +949,25 @@ function OpportunityModal({
         value={f.probability?.toString()}
         set={(v) => setF({ ...f, probability: Number(v) })}
       />
-      <Input
-        label="تاریخ پیگیری بعدی"
-        type="datetime-local"
-        value={f.nextFollowUpAt}
-        set={(v) =>
-          setF({
-            ...f,
-            nextFollowUpAt: v ? new Date(v).toISOString() : undefined,
-          })
-        }
-      />
+      <Field label="تاریخ احتمالی نهایی‌شدن فروش">
+        <PersianDatePicker
+          value={f.expectedCloseAt}
+          valueMode="iso"
+          onChange={(v) => setF({ ...f, expectedCloseAt: v || undefined })}
+          placeholder="انتخاب تاریخ نهایی‌شدن"
+          className={input}
+        />
+      </Field>
+      <Field label="تاریخ پیگیری بعدی">
+        <PersianDatePicker
+          value={f.nextFollowUpAt}
+          valueMode="iso"
+          withTime
+          onChange={(v) => setF({ ...f, nextFollowUpAt: v || undefined })}
+          placeholder="انتخاب تاریخ و ساعت پیگیری"
+          className={input}
+        />
+      </Field>
     </SimpleModal>
   );
 }

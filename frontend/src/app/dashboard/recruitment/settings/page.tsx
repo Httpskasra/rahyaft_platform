@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Plus,
@@ -453,7 +455,7 @@ export default function RecruitmentSettingsPage() {
                               }
                               placeholder="عنوان"
                             />
-                            <input
+                            {/* <input
                               className={input}
                               value={field.key}
                               onChange={(e) =>
@@ -462,7 +464,7 @@ export default function RecruitmentSettingsPage() {
                                 })
                               }
                               placeholder="کلید"
-                            />
+                            /> */}
                             <select
                               className={input}
                               value={field.type}
