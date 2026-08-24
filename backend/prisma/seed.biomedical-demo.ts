@@ -48,47 +48,56 @@ const daysFromNow = (days: number, hour = 9): Date => {
 const hashToken = (token: string): string =>
   createHash('sha256').update(token).digest('hex');
 
+/** Creates a stable, RFC 4122-compatible UUID for repeatable seed data. */
+const seedUuid = (seed: string): string => {
+  const hex = createHash('sha256').update(seed).digest('hex').slice(0, 32);
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-5${hex.slice(13, 16)}-${(
+    (Number.parseInt(hex[16], 16) & 0x3) |
+    0x8
+  ).toString(16)}${hex.slice(17, 20)}-${hex.slice(20)}`;
+};
+
 const json = (value: unknown): Prisma.InputJsonValue =>
   value as Prisma.InputJsonValue;
 
 const IDS = {
   departments: {
-    root: 'bio-dept-root',
-    executive: 'bio-dept-executive',
-    hr: 'bio-dept-hr',
-    sales: 'bio-dept-sales',
-    clinical: 'bio-dept-clinical-engineering',
-    service: 'bio-dept-service',
-    quality: 'bio-dept-quality',
-    warehouse: 'bio-dept-warehouse',
-    finance: 'bio-dept-finance',
-    it: 'bio-dept-it',
+    root: seedUuid('bio-dept-root'),
+    executive: seedUuid('bio-dept-executive'),
+    hr: seedUuid('bio-dept-hr'),
+    sales: seedUuid('bio-dept-sales'),
+    clinical: seedUuid('bio-dept-clinical-engineering'),
+    service: seedUuid('bio-dept-service'),
+    quality: seedUuid('bio-dept-quality'),
+    warehouse: seedUuid('bio-dept-warehouse'),
+    finance: seedUuid('bio-dept-finance'),
+    it: seedUuid('bio-dept-it'),
   },
   roles: {
-    hrManager: 'bio-role-hr-manager',
-    recruiter: 'bio-role-recruiter',
-    technicalInterviewer: 'bio-role-technical-interviewer',
-    serviceManager: 'bio-role-service-manager',
-    technician: 'bio-role-technician',
-    salesManager: 'bio-role-sales-manager',
-    salesExpert: 'bio-role-sales-expert',
-    quality: 'bio-role-quality',
+    hrManager: seedUuid('bio-role-hr-manager'),
+    recruiter: seedUuid('bio-role-recruiter'),
+    technicalInterviewer: seedUuid('bio-role-technical-interviewer'),
+    serviceManager: seedUuid('bio-role-service-manager'),
+    technician: seedUuid('bio-role-technician'),
+    salesManager: seedUuid('bio-role-sales-manager'),
+    salesExpert: seedUuid('bio-role-sales-expert'),
+    quality: seedUuid('bio-role-quality'),
   },
   users: {
-    ceo: 'bio-user-ceo',
-    hrManager: 'bio-user-hr-manager',
-    recruiter: 'bio-user-recruiter',
-    clinicalManager: 'bio-user-clinical-manager',
-    technicalInterviewer: 'bio-user-technical-interviewer',
-    serviceManager: 'bio-user-service-manager',
-    technician1: 'bio-user-technician-1',
-    technician2: 'bio-user-technician-2',
-    salesManager: 'bio-user-sales-manager',
-    sales1: 'bio-user-sales-1',
-    quality: 'bio-user-quality',
-    warehouse: 'bio-user-warehouse',
-    finance: 'bio-user-finance',
-    it: 'bio-user-it',
+    ceo: seedUuid('bio-user-ceo'),
+    hrManager: seedUuid('bio-user-hr-manager'),
+    recruiter: seedUuid('bio-user-recruiter'),
+    clinicalManager: seedUuid('bio-user-clinical-manager'),
+    technicalInterviewer: seedUuid('bio-user-technical-interviewer'),
+    serviceManager: seedUuid('bio-user-service-manager'),
+    technician1: seedUuid('bio-user-technician-1'),
+    technician2: seedUuid('bio-user-technician-2'),
+    salesManager: seedUuid('bio-user-sales-manager'),
+    sales1: seedUuid('bio-user-sales-1'),
+    quality: seedUuid('bio-user-quality'),
+    warehouse: seedUuid('bio-user-warehouse'),
+    finance: seedUuid('bio-user-finance'),
+    it: seedUuid('bio-user-it'),
   },
 };
 
@@ -103,7 +112,7 @@ async function upsertDepartment(id: string, name: string, parentId?: string) {
 async function upsertRole(id: string, name: string) {
   return prisma.role.upsert({
     where: { name },
-    update: {},
+    update: { id },
     create: { id, name },
   });
 }
@@ -119,6 +128,7 @@ async function upsertUser(data: {
   return prisma.user.upsert({
     where: { phoneNumber: data.phoneNumber },
     update: {
+      id: data.id,
       name: data.name,
       employeeCode: data.employeeCode,
       departmentId: data.departmentId,
@@ -424,37 +434,37 @@ async function seedCustomers(users: Awaited<ReturnType<typeof seedOrganization>>
 
   const customers = [
     {
-      id: 'bio-customer-hospital-mehr', type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
+      id: seedUuid('bio-customer-hospital-mehr'), type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
       organizationName: 'بیمارستان فوق تخصصی مهر', economicCode: 'BIO-ECO-1001', registrationNo: 'BIO-REG-1001', nationalId: '14001234001',
       mobile: '09122001001', phone: '02188771001', email: 'procurement@mehr-hospital.test', province: 'تهران', city: 'تهران',
       address: 'خیابان ولیعصر، بیمارستان مهر', postalCode: '1599911111', occupation: 'بیمارستان خصوصی', occupationGroup: OccupationGroup.OTHER,
     },
     {
-      id: 'bio-customer-clinic-novin', type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
+      id: seedUuid('bio-customer-clinic-novin'), type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
       organizationName: 'مرکز تصویربرداری نوین', economicCode: 'BIO-ECO-1002', registrationNo: 'BIO-REG-1002', nationalId: '14001234002',
       mobile: '09122001002', phone: '02144441002', email: 'info@novin-imaging.test', province: 'تهران', city: 'تهران',
       address: 'شهرک غرب، بلوار دریا', postalCode: '1466711111', occupation: 'مرکز تصویربرداری پزشکی', occupationGroup: OccupationGroup.OTHER,
     },
     {
-      id: 'bio-customer-lab-pars', type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
+      id: seedUuid('bio-customer-lab-pars'), type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
       organizationName: 'آزمایشگاه تشخیص طبی پارس', economicCode: 'BIO-ECO-1003', registrationNo: 'BIO-REG-1003', nationalId: '14001234003',
       mobile: '09122001003', phone: '07132221003', email: 'lab@pars-lab.test', province: 'فارس', city: 'شیراز',
       address: 'بلوار چمران، ساختمان پزشکان پارس', postalCode: '7184811111', occupation: 'آزمایشگاه تشخیص طبی', occupationGroup: OccupationGroup.OTHER,
     },
     {
-      id: 'bio-customer-clinic-ziba', type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
+      id: seedUuid('bio-customer-clinic-ziba'), type: CustomerType.ORGANIZATION, status: CustomerStatus.ACTIVE,
       organizationName: 'کلینیک پوست و زیبایی آریا', economicCode: 'BIO-ECO-1004', registrationNo: 'BIO-REG-1004', nationalId: '14001234004',
       mobile: '09122001004', phone: '02632221004', email: 'manager@aria-clinic.test', province: 'البرز', city: 'کرج',
       address: 'جهانشهر، بلوار مولانا', postalCode: '3149911111', occupation: 'کلینیک پوست و زیبایی', occupationGroup: OccupationGroup.HAIR_BEAUTY_CLINIC,
     },
     {
-      id: 'bio-customer-person-doctor', type: CustomerType.PERSON, status: CustomerStatus.ACTIVE,
+      id: seedUuid('bio-customer-person-doctor'), type: CustomerType.PERSON, status: CustomerStatus.ACTIVE,
       firstName: 'دکتر نیلوفر', lastName: 'کامرانی', nationalCode: '0012233445', birthDate: '1364/08/20', gender: Gender.FEMALE,
       mobile: '09122001005', phone: '02122991005', email: 'n.kamrani@example.test', province: 'تهران', city: 'تهران',
       address: 'پاسداران، مطب تخصصی پوست', postalCode: '1666611111', occupation: 'متخصص پوست و مو', occupationGroup: OccupationGroup.DERMATOLOGIST,
     },
     {
-      id: 'bio-customer-blacklisted', type: CustomerType.ORGANIZATION, status: CustomerStatus.BLACKLISTED,
+      id: seedUuid('bio-customer-blacklisted'), type: CustomerType.ORGANIZATION, status: CustomerStatus.BLACKLISTED,
       organizationName: 'شرکت تجهیزات درمانی سپهر', economicCode: 'BIO-ECO-1006', registrationNo: 'BIO-REG-1006', nationalId: '14001234006',
       mobile: '09122001006', phone: '02166551006', email: 'office@sepehr-med.test', province: 'تهران', city: 'تهران',
       address: 'کارگر شمالی', postalCode: '1417911111', occupation: 'توزیع‌کننده تجهیزات', occupationGroup: OccupationGroup.COLLEAGUE,
@@ -462,19 +472,22 @@ async function seedCustomers(users: Awaited<ReturnType<typeof seedOrganization>>
   ] as const;
 
   for (const customer of customers) {
+    const where: Prisma.CustomerWhereUniqueInput = 'economicCode' in customer
+      ? { economicCode: customer.economicCode }
+      : { nationalCode: customer.nationalCode };
     await prisma.customer.upsert({
-      where: { id: customer.id },
-      update: customer,
+      where,
+      update: { ...customer, id: customer.id },
       create: customer,
     });
   }
 
   const contacts = [
-    ['bio-contact-1', customers[0].id, 'خانم دکتر الهام محسنی', 'مدیر تجهیزات پزشکی', '09123001001', true],
-    ['bio-contact-2', customers[0].id, 'آقای سعید نوری', 'مسئول تدارکات', '09123001002', false],
-    ['bio-contact-3', customers[1].id, 'مهندس پیام نادری', 'مسئول فنی MRI', '09123001003', true],
-    ['bio-contact-4', customers[2].id, 'دکتر مهناز احمدی', 'مدیر آزمایشگاه', '09123001004', true],
-    ['bio-contact-5', customers[3].id, 'خانم فرشته رستمی', 'مدیر داخلی کلینیک', '09123001005', true],
+    [seedUuid('bio-contact-1'), customers[0].id, 'خانم دکتر الهام محسنی', 'مدیر تجهیزات پزشکی', '09123001001', true],
+    [seedUuid('bio-contact-2'), customers[0].id, 'آقای سعید نوری', 'مسئول تدارکات', '09123001002', false],
+    [seedUuid('bio-contact-3'), customers[1].id, 'مهندس پیام نادری', 'مسئول فنی MRI', '09123001003', true],
+    [seedUuid('bio-contact-4'), customers[2].id, 'دکتر مهناز احمدی', 'مدیر آزمایشگاه', '09123001004', true],
+    [seedUuid('bio-contact-5'), customers[3].id, 'خانم فرشته رستمی', 'مدیر داخلی کلینیک', '09123001005', true],
   ] as const;
   for (const [id, customerId, fullName, role, mobile, isPrimary] of contacts) {
     await prisma.customerContact.upsert({
@@ -485,12 +498,12 @@ async function seedCustomers(users: Awaited<ReturnType<typeof seedOrganization>>
   }
 
   const opportunities = [
-    ['bio-sale-1', customers[0].id, 'فروش دو دستگاه ونتیلاتور ICU', SalesOpportunityStatus.NEGOTIATION, SalesOpportunityPriority.URGENT, '3800000000', 75, 20],
-    ['bio-sale-2', customers[1].id, 'قرارداد سرویس سالانه MRI', SalesOpportunityStatus.QUOTED, SalesOpportunityPriority.HIGH, '1250000000', 60, 35],
-    ['bio-sale-3', customers[2].id, 'فروش آنالایزر بیوشیمی اتوماتیک', SalesOpportunityStatus.NEEDS_QUOTE, SalesOpportunityPriority.HIGH, '2750000000', 45, 45],
-    ['bio-sale-4', customers[3].id, 'ارتقای دستگاه لیزر دایود', SalesOpportunityStatus.CONTACTED, SalesOpportunityPriority.MEDIUM, '950000000', 30, 55],
-    ['bio-sale-5', customers[4].id, 'فروش دستگاه RF فرکشنال', SalesOpportunityStatus.WON, SalesOpportunityPriority.HIGH, '720000000', 100, -10],
-    ['bio-sale-6', customers[5].id, 'فروش پمپ انفوزیون', SalesOpportunityStatus.LOST, SalesOpportunityPriority.LOW, '480000000', 0, -20],
+    [seedUuid('bio-sale-1'), customers[0].id, 'فروش دو دستگاه ونتیلاتور ICU', SalesOpportunityStatus.NEGOTIATION, SalesOpportunityPriority.URGENT, '3800000000', 75, 20],
+    [seedUuid('bio-sale-2'), customers[1].id, 'قرارداد سرویس سالانه MRI', SalesOpportunityStatus.QUOTED, SalesOpportunityPriority.HIGH, '1250000000', 60, 35],
+    [seedUuid('bio-sale-3'), customers[2].id, 'فروش آنالایزر بیوشیمی اتوماتیک', SalesOpportunityStatus.NEEDS_QUOTE, SalesOpportunityPriority.HIGH, '2750000000', 45, 45],
+    [seedUuid('bio-sale-4'), customers[3].id, 'ارتقای دستگاه لیزر دایود', SalesOpportunityStatus.CONTACTED, SalesOpportunityPriority.MEDIUM, '950000000', 30, 55],
+    [seedUuid('bio-sale-5'), customers[4].id, 'فروش دستگاه RF فرکشنال', SalesOpportunityStatus.WON, SalesOpportunityPriority.HIGH, '720000000', 100, -10],
+    [seedUuid('bio-sale-6'), customers[5].id, 'فروش پمپ انفوزیون', SalesOpportunityStatus.LOST, SalesOpportunityPriority.LOW, '480000000', 0, -20],
   ] as const;
   for (const [id, customerId, title, status, priority, estimatedValue, probability, closeOffset] of opportunities) {
     await prisma.salesOpportunity.upsert({
@@ -507,11 +520,11 @@ async function seedCustomers(users: Awaited<ReturnType<typeof seedOrganization>>
   }
 
   const activities = [
-    ['bio-activity-1', customers[0].id, CustomerActivityType.CALL, 'تماس با مدیر تجهیزات پزشکی', 'نیاز فوری ICU و درخواست دمو تا پایان هفته', 'bio-sale-1'],
-    ['bio-activity-2', customers[0].id, CustomerActivityType.FOLLOW_UP, 'پیگیری تأیید بودجه ونتیلاتور', 'صورت‌جلسه کمیته خرید باید دریافت شود', 'bio-sale-1'],
-    ['bio-activity-3', customers[1].id, CustomerActivityType.VISIT, 'بازدید فنی از MRI', 'بررسی وضعیت چیلر، کویل و خطاهای دوره‌ای', 'bio-sale-2'],
-    ['bio-activity-4', customers[2].id, CustomerActivityType.NOTE, 'نیازسنجی آزمایشگاه', 'حجم روزانه حدود ۷۰۰ تست و نیاز به اتصال LIS', 'bio-sale-3'],
-    ['bio-activity-5', customers[3].id, CustomerActivityType.SMS, 'ارسال کاتالوگ لیزر', 'کاتالوگ و شرایط گارانتی ارسال شد', 'bio-sale-4'],
+    [seedUuid('bio-activity-1'), customers[0].id, CustomerActivityType.CALL, 'تماس با مدیر تجهیزات پزشکی', 'نیاز فوری ICU و درخواست دمو تا پایان هفته', seedUuid('bio-sale-1')],
+    [seedUuid('bio-activity-2'), customers[0].id, CustomerActivityType.FOLLOW_UP, 'پیگیری تأیید بودجه ونتیلاتور', 'صورت‌جلسه کمیته خرید باید دریافت شود', seedUuid('bio-sale-1')],
+    [seedUuid('bio-activity-3'), customers[1].id, CustomerActivityType.VISIT, 'بازدید فنی از MRI', 'بررسی وضعیت چیلر، کویل و خطاهای دوره‌ای', seedUuid('bio-sale-2')],
+    [seedUuid('bio-activity-4'), customers[2].id, CustomerActivityType.NOTE, 'نیازسنجی آزمایشگاه', 'حجم روزانه حدود ۷۰۰ تست و نیاز به اتصال LIS', seedUuid('bio-sale-3')],
+    [seedUuid('bio-activity-5'), customers[3].id, CustomerActivityType.SMS, 'ارسال کاتالوگ لیزر', 'کاتالوگ و شرایط گارانتی ارسال شد', seedUuid('bio-sale-4')],
   ] as const;
   for (const [id, customerId, type, title, body, relatedSalesOpportunityId] of activities) {
     await prisma.customerActivity.upsert({
@@ -526,10 +539,10 @@ async function seedCustomers(users: Awaited<ReturnType<typeof seedOrganization>>
   }
 
   const analyses = [
-    ['bio-ai-1', customers[0].id, 'بیمارستان مهر مشتری کلیدی با نیاز فوری تجهیزات ICU و ظرفیت خرید بالا است.', AiInsightLevel.LOW, AiInsightLevel.HIGH, 'هماهنگی دمو ونتیلاتور و دریافت مصوبه کمیته خرید'],
-    ['bio-ai-2', customers[1].id, 'مرکز تصویربرداری نوین برای قرارداد سرویس MRI آماده مذاکره نهایی است.', AiInsightLevel.MEDIUM, AiInsightLevel.HIGH, 'ارائه SLA دقیق و پیشنهاد قطعات مصرفی سالانه'],
-    ['bio-ai-3', customers[2].id, 'آزمایشگاه پارس نیاز فنی مشخص و حجم تست مناسبی دارد اما قیمت حساس است.', AiInsightLevel.MEDIUM, AiInsightLevel.HIGH, 'ارسال دو سناریوی قیمت نقدی و اقساطی'],
-    ['bio-ai-4', customers[5].id, 'به علت سابقه بد پرداخت و پرونده اختلافی، ادامه فروش بدون تضمین مالی پرریسک است.', AiInsightLevel.HIGH, AiInsightLevel.LOW, 'عدم ارائه اعتبار و ارجاع هر درخواست جدید به مدیریت مالی'],
+    [seedUuid('bio-ai-1'), customers[0].id, 'بیمارستان مهر مشتری کلیدی با نیاز فوری تجهیزات ICU و ظرفیت خرید بالا است.', AiInsightLevel.LOW, AiInsightLevel.HIGH, 'هماهنگی دمو ونتیلاتور و دریافت مصوبه کمیته خرید'],
+    [seedUuid('bio-ai-2'), customers[1].id, 'مرکز تصویربرداری نوین برای قرارداد سرویس MRI آماده مذاکره نهایی است.', AiInsightLevel.MEDIUM, AiInsightLevel.HIGH, 'ارائه SLA دقیق و پیشنهاد قطعات مصرفی سالانه'],
+    [seedUuid('bio-ai-3'), customers[2].id, 'آزمایشگاه پارس نیاز فنی مشخص و حجم تست مناسبی دارد اما قیمت حساس است.', AiInsightLevel.MEDIUM, AiInsightLevel.HIGH, 'ارسال دو سناریوی قیمت نقدی و اقساطی'],
+    [seedUuid('bio-ai-4'), customers[5].id, 'به علت سابقه بد پرداخت و پرونده اختلافی، ادامه فروش بدون تضمین مالی پرریسک است.', AiInsightLevel.HIGH, AiInsightLevel.LOW, 'عدم ارائه اعتبار و ارجاع هر درخواست جدید به مدیریت مالی'],
   ] as const;
   for (const [id, customerId, summary, riskLevel, salesPotential, nextBestAction] of analyses) {
     await prisma.customerAiAnalysis.upsert({
@@ -551,31 +564,31 @@ async function seedRepairs(users: Awaited<ReturnType<typeof seedOrganization>>, 
   console.log('4/9 Seeding repair cases...');
   const repairs = [
     {
-      id: 'bio-repair-1', caseNumber: 'BM-R-1405-0001', customerId: customers[0].id, type: RepairType.ON_SITE,
+      id: seedUuid('bio-repair-1'), caseNumber: 'BM-R-1405-0001', customerId: customers[0].id, type: RepairType.ON_SITE,
       status: RepairStatus.IN_REPAIR, technicianId: users.technician1.id, deviceTitle: 'ونتیلاتور Dräger Savina 300', serialNumber: 'DRG-SV300-84921',
       problemDescription: 'خطای کاهش فشار و ناپایداری اکسیژن خروجی', description: 'نیاز به بررسی شیر اکسیژن و کالیبراسیون سنسور فشار',
       needCostApproval: true, estimatedCost: '18500000', startedAt: daysFromNow(-2, 10),
     },
     {
-      id: 'bio-repair-2', caseNumber: 'BM-R-1405-0002', customerId: customers[1].id, type: RepairType.ON_SITE,
+      id: seedUuid('bio-repair-2'), caseNumber: 'BM-R-1405-0002', customerId: customers[1].id, type: RepairType.ON_SITE,
       status: RepairStatus.WAITING_COST_APPROVAL, technicianId: users.technician2.id, deviceTitle: 'MRI Siemens Magnetom Avanto', serialNumber: 'SMT-AVA-31008',
       problemDescription: 'خطای دمای چیلر و توقف اسکن پس از ۲۰ دقیقه', description: 'احتمال خرابی پمپ گردش آب و نیاز به قطعه وارداتی',
       needCostApproval: true, estimatedCost: '240000000', startedAt: daysFromNow(-3, 9),
     },
     {
-      id: 'bio-repair-3', caseNumber: 'BM-R-1405-0003', customerId: customers[2].id, type: RepairType.IN_HOUSE,
+      id: seedUuid('bio-repair-3'), caseNumber: 'BM-R-1405-0003', customerId: customers[2].id, type: RepairType.IN_HOUSE,
       status: RepairStatus.QC, technicianId: users.technician1.id, deviceTitle: 'آنالایزر بیوشیمی Mindray BS-480', serialNumber: 'MDR-BS480-77012',
       problemDescription: 'عدم تکرارپذیری نتیجه تست قند', description: 'تعویض لامپ و انجام کالیبراسیون؛ در انتظار QC نهایی',
       needCostApproval: false, estimatedCost: '7600000', startedAt: daysFromNow(-5, 11),
     },
     {
-      id: 'bio-repair-4', caseNumber: 'BM-R-1405-0004', customerId: customers[3].id, type: RepairType.IN_HOUSE,
+      id: seedUuid('bio-repair-4'), caseNumber: 'BM-R-1405-0004', customerId: customers[3].id, type: RepairType.IN_HOUSE,
       status: RepairStatus.READY_FOR_DELIVERY, technicianId: users.technician2.id, deviceTitle: 'لیزر دایود 808nm', serialNumber: 'LZR-808-99173',
       problemDescription: 'افت توان هندپیس', description: 'تعویض فیبر و تست خروجی انجام شد',
       needCostApproval: false, estimatedCost: '32500000', startedAt: daysFromNow(-7, 9), completedAt: daysFromNow(-1, 15),
     },
     {
-      id: 'bio-repair-5', caseNumber: 'BM-R-1405-0005', customerId: customers[0].id, type: RepairType.ON_SITE,
+      id: seedUuid('bio-repair-5'), caseNumber: 'BM-R-1405-0005', customerId: customers[0].id, type: RepairType.ON_SITE,
       status: RepairStatus.DELIVERED, technicianId: users.technician1.id, deviceTitle: 'الکتروشوک Zoll R Series', serialNumber: 'ZOLL-R-55019',
       problemDescription: 'باتری شارژ نگه نمی‌دارد', description: 'باتری تعویض و تست تخلیه کامل انجام شد',
       needCostApproval: false, estimatedCost: '14000000', startedAt: daysFromNow(-15, 9), completedAt: daysFromNow(-9, 14),
@@ -591,11 +604,11 @@ async function seedRepairs(users: Awaited<ReturnType<typeof seedOrganization>>, 
   }
 
   const items = [
-    ['bio-repair-item-1', repairs[0].id, 'سنسور فشار ونتیلاتور', 1, '12500000'],
-    ['bio-repair-item-2', repairs[0].id, 'کیت اورینگ مسیر هوا', 1, '2800000'],
-    ['bio-repair-item-3', repairs[1].id, 'پمپ گردش آب چیلر MRI', 1, '210000000'],
-    ['bio-repair-item-4', repairs[2].id, 'لامپ فتومتر BS-480', 1, '5100000'],
-    ['bio-repair-item-5', repairs[3].id, 'فیبر هندپیس لیزر', 1, '27500000'],
+    [seedUuid('bio-repair-item-1'), repairs[0].id, 'سنسور فشار ونتیلاتور', 1, '12500000'],
+    [seedUuid('bio-repair-item-2'), repairs[0].id, 'کیت اورینگ مسیر هوا', 1, '2800000'],
+    [seedUuid('bio-repair-item-3'), repairs[1].id, 'پمپ گردش آب چیلر MRI', 1, '210000000'],
+    [seedUuid('bio-repair-item-4'), repairs[2].id, 'لامپ فتومتر BS-480', 1, '5100000'],
+    [seedUuid('bio-repair-item-5'), repairs[3].id, 'فیبر هندپیس لیزر', 1, '27500000'],
   ] as const;
   for (const [id, repairCaseId, title, quantity, unitPrice] of items) {
     await prisma.repairItem.upsert({
@@ -606,9 +619,9 @@ async function seedRepairs(users: Awaited<ReturnType<typeof seedOrganization>>, 
   }
 
   const visits = [
-    ['bio-visit-1', repairs[0].id, users.technician1.id, -2, VisitResult.NEED_PART, 'عیب‌یابی انجام شد؛ سنسور فشار باید تعویض شود.'],
-    ['bio-visit-2', repairs[1].id, users.technician2.id, -3, VisitResult.NEED_PART, 'خرابی پمپ چیلر تأیید شد و پیش‌فاکتور لازم است.'],
-    ['bio-visit-3', repairs[4].id, users.technician1.id, -10, VisitResult.REPAIRED, 'باتری تعویض و دستگاه تحویل بخش اورژانس شد.'],
+    [seedUuid('bio-visit-1'), repairs[0].id, users.technician1.id, -2, VisitResult.NEED_PART, 'عیب‌یابی انجام شد؛ سنسور فشار باید تعویض شود.'],
+    [seedUuid('bio-visit-2'), repairs[1].id, users.technician2.id, -3, VisitResult.NEED_PART, 'خرابی پمپ چیلر تأیید شد و پیش‌فاکتور لازم است.'],
+    [seedUuid('bio-visit-3'), repairs[4].id, users.technician1.id, -10, VisitResult.REPAIRED, 'باتری تعویض و دستگاه تحویل بخش اورژانس شد.'],
   ] as const;
   for (const [id, repairCaseId, technicianId, offset, result, notes] of visits) {
     const scheduledAt = daysFromNow(offset, 10);
@@ -621,10 +634,10 @@ async function seedRepairs(users: Awaited<ReturnType<typeof seedOrganization>>, 
 
   for (const repair of repairs) {
     await prisma.repairStatusLog.upsert({
-      where: { id: `${repair.id}-status-current` },
+      where: { id: seedUuid(`${repair.id}-status-current`) },
       update: { newStatus: repair.status },
       create: {
-        id: `${repair.id}-status-current`, repairCaseId: repair.id, oldStatus: RepairStatus.REGISTERED,
+        id: seedUuid(`${repair.id}-status-current`), repairCaseId: repair.id, oldStatus: RepairStatus.REGISTERED,
         newStatus: repair.status, changedById: users.serviceManager.id, reason: 'ایجاد وضعیت آزمایشی در Seed مهندسی پزشکی',
       },
     });
@@ -679,9 +692,9 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
   console.log('5/9 Seeding recruitment forms, jobs and applications...');
 
   const templates = [
-    ['bio-recruitment-form-pre', 'فرم پیش از مصاحبه مهندسی پزشکی', RecruitmentFormType.PRE_INTERVIEW, preInterviewSchema],
-    ['bio-recruitment-form-initial', 'فرم مصاحبه اولیه منابع انسانی', RecruitmentFormType.INITIAL_INTERVIEW, initialInterviewSchema],
-    ['bio-recruitment-form-technical', 'فرم مصاحبه فنی مهندسی پزشکی', RecruitmentFormType.TECHNICAL_INTERVIEW, technicalInterviewSchema],
+    [seedUuid('bio-recruitment-form-pre'), 'فرم پیش از مصاحبه مهندسی پزشکی', RecruitmentFormType.PRE_INTERVIEW, preInterviewSchema],
+    [seedUuid('bio-recruitment-form-initial'), 'فرم مصاحبه اولیه منابع انسانی', RecruitmentFormType.INITIAL_INTERVIEW, initialInterviewSchema],
+    [seedUuid('bio-recruitment-form-technical'), 'فرم مصاحبه فنی مهندسی پزشکی', RecruitmentFormType.TECHNICAL_INTERVIEW, technicalInterviewSchema],
   ] as const;
 
   for (const [id, name, type] of templates) {
@@ -694,21 +707,30 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
   for (const [templateId, , , schema] of templates) {
     await prisma.recruitmentFormVersion.upsert({
       where: { templateId_version: { templateId, version: 1 } },
-      update: { schema, isPublished: true, publishedAt: daysFromNow(-20, 10) },
-      create: { id: `${templateId}-v1`, templateId, version: 1, schema, isPublished: true, publishedAt: daysFromNow(-20, 10) },
+      update: { id: seedUuid(`${templateId}-v1`), schema, isPublished: true, publishedAt: daysFromNow(-20, 10) },
+      create: { id: seedUuid(`${templateId}-v1`), templateId, version: 1, schema, isPublished: true, publishedAt: daysFromNow(-20, 10) },
     });
   }
 
   const hrRole = await prisma.role.findUniqueOrThrow({ where: { name: 'مدیر منابع انسانی' } });
   const jobs = [
-    ['bio-job-service-engineer', 'مهندس خدمات پس از فروش تجهیزات پزشکی', 'service-engineer-medical-equipment', IDS.departments.service],
-    ['bio-job-clinical-engineer', 'مهندس بالینی و کارشناس آموزش', 'clinical-engineer', IDS.departments.clinical],
-    ['bio-job-medical-sales', 'کارشناس فروش تجهیزات پزشکی', 'medical-equipment-sales', IDS.departments.sales],
+    [seedUuid('bio-job-service-engineer'), 'مهندس خدمات پس از فروش تجهیزات پزشکی', 'service-engineer-medical-equipment', IDS.departments.service],
+    [seedUuid('bio-job-clinical-engineer'), 'مهندس بالینی و کارشناس آموزش', 'clinical-engineer', IDS.departments.clinical],
+    [seedUuid('bio-job-medical-sales'), 'کارشناس فروش تجهیزات پزشکی', 'medical-equipment-sales', IDS.departments.sales],
   ] as const;
   for (const [id, title, slug, departmentId] of jobs) {
     await prisma.jobOpening.upsert({
       where: { slug },
-      update: { title, departmentId, isActive: true },
+      update: {
+        id,
+        title,
+        departmentId,
+        isActive: true,
+        preInterviewFormId: templates[0][0],
+        initialInterviewFormId: templates[1][0],
+        technicalInterviewFormId: templates[2][0],
+        initialReviewerRoleId: hrRole.id,
+      },
       create: {
         id, title, slug, departmentId, isActive: true,
         description: `${title}؛ آشنایی با تجهیزات بیمارستانی، مستندسازی و ارتباط حرفه‌ای با مراکز درمانی الزامی است.`,
@@ -719,11 +741,11 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
   }
 
   const applicants = [
-    ['bio-applicant-1', 'مهندس رضا تهرانی', '09124001001', 'reza.tehrani@example.test', '1010101010'],
-    ['bio-applicant-2', 'مهندس یلدا نوری', '09124001002', 'yalda.nouri@example.test', '2020202020'],
-    ['bio-applicant-3', 'مهندس پارسا محمودی', '09124001003', 'parsa.mahmoudi@example.test', '3030303030'],
-    ['bio-applicant-4', 'نگین امینی', '09124001004', 'negin.amini@example.test', '4040404040'],
-    ['bio-applicant-5', 'مهندس آرمان سعیدی', '09124001005', 'arman.saeidi@example.test', '5050505050'],
+    [seedUuid('bio-applicant-1'), 'مهندس رضا تهرانی', '09124001001', 'reza.tehrani@example.test', '1010101010'],
+    [seedUuid('bio-applicant-2'), 'مهندس یلدا نوری', '09124001002', 'yalda.nouri@example.test', '2020202020'],
+    [seedUuid('bio-applicant-3'), 'مهندس پارسا محمودی', '09124001003', 'parsa.mahmoudi@example.test', '3030303030'],
+    [seedUuid('bio-applicant-4'), 'نگین امینی', '09124001004', 'negin.amini@example.test', '4040404040'],
+    [seedUuid('bio-applicant-5'), 'مهندس آرمان سعیدی', '09124001005', 'arman.saeidi@example.test', '5050505050'],
   ] as const;
   for (const [id, fullName, phoneNumber, email, nationalCode] of applicants) {
     await prisma.recruitmentApplicant.upsert({
@@ -734,25 +756,29 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
   }
 
   const applications = [
-    { id: 'bio-application-initial-review', applicantId: applicants[0][0], jobOpeningId: jobs[0][0], stage: RecruitmentStage.INITIAL_REVIEW, status: RecruitmentApplicationStatus.IN_PROGRESS },
-    { id: 'bio-application-initial-interview', applicantId: applicants[1][0], jobOpeningId: jobs[1][0], stage: RecruitmentStage.INITIAL_INTERVIEW, status: RecruitmentApplicationStatus.IN_PROGRESS },
-    { id: 'bio-application-technical', applicantId: applicants[2][0], jobOpeningId: jobs[0][0], stage: RecruitmentStage.TECHNICAL_INTERVIEW, status: RecruitmentApplicationStatus.IN_PROGRESS },
-    { id: 'bio-application-final', applicantId: applicants[3][0], jobOpeningId: jobs[2][0], stage: RecruitmentStage.SUPERADMIN_APPROVAL, status: RecruitmentApplicationStatus.IN_PROGRESS },
-    { id: 'bio-application-rejected', applicantId: applicants[4][0], jobOpeningId: jobs[0][0], stage: RecruitmentStage.INITIAL_REVIEW, status: RecruitmentApplicationStatus.REJECTED },
+    { id: seedUuid('bio-application-initial-review'), applicantId: applicants[0][0], jobOpeningId: jobs[0][0], stage: RecruitmentStage.INITIAL_REVIEW, status: RecruitmentApplicationStatus.IN_PROGRESS },
+    { id: seedUuid('bio-application-initial-interview'), applicantId: applicants[1][0], jobOpeningId: jobs[1][0], stage: RecruitmentStage.INITIAL_INTERVIEW, status: RecruitmentApplicationStatus.IN_PROGRESS },
+    { id: seedUuid('bio-application-technical'), applicantId: applicants[2][0], jobOpeningId: jobs[0][0], stage: RecruitmentStage.TECHNICAL_INTERVIEW, status: RecruitmentApplicationStatus.IN_PROGRESS },
+    { id: seedUuid('bio-application-final'), applicantId: applicants[3][0], jobOpeningId: jobs[2][0], stage: RecruitmentStage.SUPERADMIN_APPROVAL, status: RecruitmentApplicationStatus.IN_PROGRESS },
+    { id: seedUuid('bio-application-rejected'), applicantId: applicants[4][0], jobOpeningId: jobs[0][0], stage: RecruitmentStage.INITIAL_REVIEW, status: RecruitmentApplicationStatus.REJECTED },
   ] as const;
 
   for (let i = 0; i < applications.length; i += 1) {
     const app = applications[i];
+    const trackingCode = `BMR-1405-${String(i + 1).padStart(4, '0')}`;
     await prisma.recruitmentApplication.upsert({
-      where: { id: app.id },
+      where: { trackingCode },
       update: {
+        id: app.id,
+        applicantId: app.applicantId,
+        jobOpeningId: app.jobOpeningId,
         status: app.status, currentStage: app.stage,
         rejectionReasonInternal: app.status === RecruitmentApplicationStatus.REJECTED ? 'عدم تطابق تجربه عملی با نیاز موقعیت' : null,
         rejectionMessagePublic: app.status === RecruitmentApplicationStatus.REJECTED ? 'در این مرحله امکان ادامه فرایند همکاری وجود ندارد.' : null,
       },
       create: {
         id: app.id,
-        trackingCode: `BMR-1405-${String(i + 1).padStart(4, '0')}`,
+        trackingCode,
         publicTokenHash: hashToken(`biomedical-demo-public-token-${i + 1}`),
         applicantId: app.applicantId,
         jobOpeningId: app.jobOpeningId,
@@ -767,9 +793,12 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
 
     await prisma.recruitmentFormSubmission.upsert({
       where: { applicationId_stage: { applicationId: app.id, stage: RecruitmentStage.PRE_INTERVIEW_FORM } },
-      update: {},
+      update: {
+        id: seedUuid(`${app.id}-pre-submission`),
+        formVersionId: seedUuid(`${templates[0][0]}-v1`),
+      },
       create: {
-        id: `${app.id}-pre-submission`, applicationId: app.id, formVersionId: `${templates[0][0]}-v1`, stage: RecruitmentStage.PRE_INTERVIEW_FORM,
+        id: seedUuid(`${app.id}-pre-submission`), applicationId: app.id, formVersionId: seedUuid(`${templates[0][0]}-v1`), stage: RecruitmentStage.PRE_INTERVIEW_FORM,
         answers: json({ degree: 'BME_BSC', specialization: i % 2 === 0 ? 'BIOELECTRIC' : 'MEDICAL_EQUIPMENT', experienceYears: 2 + i, medicalDevices: 'مانیتور علائم حیاتی، ونتیلاتور، الکتروشوک و پمپ انفوزیون', travelAvailability: true, startDate: '1405/06/01' }),
         submittedByType: RecruitmentActorType.APPLICANT,
       },
@@ -779,9 +808,12 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
   for (const app of applications.slice(1, 4)) {
     await prisma.recruitmentFormSubmission.upsert({
       where: { applicationId_stage: { applicationId: app.id, stage: RecruitmentStage.INITIAL_INTERVIEW } },
-      update: {},
+      update: {
+        id: seedUuid(`${app.id}-initial-submission`),
+        formVersionId: seedUuid(`${templates[1][0]}-v1`),
+      },
       create: {
-        id: `${app.id}-initial-submission`, applicationId: app.id, formVersionId: `${templates[1][0]}-v1`, stage: RecruitmentStage.INITIAL_INTERVIEW,
+        id: seedUuid(`${app.id}-initial-submission`), applicationId: app.id, formVersionId: seedUuid(`${templates[1][0]}-v1`), stage: RecruitmentStage.INITIAL_INTERVIEW,
         answers: json({ communication: 4, motivation: 5, salaryExpectation: 45000000, hrSummary: 'ارتباط مناسب، انگیزه بالا و آمادگی برای مأموریت.' }),
         submittedByType: RecruitmentActorType.USER, submittedByUserId: users.recruiter.id,
       },
@@ -790,10 +822,10 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
 
   for (const app of applications.slice(2, 4)) {
     await prisma.recruitmentAssignment.upsert({
-      where: { id: `${app.id}-technical-assignment` },
+      where: { id: seedUuid(`${app.id}-technical-assignment`) },
       update: { assigneeUserId: users.technicalInterviewer.id },
       create: {
-        id: `${app.id}-technical-assignment`, applicationId: app.id, stage: RecruitmentStage.TECHNICAL_INTERVIEW,
+        id: seedUuid(`${app.id}-technical-assignment`), applicationId: app.id, stage: RecruitmentStage.TECHNICAL_INTERVIEW,
         assigneeUserId: users.technicalInterviewer.id, assignedByUserId: users.hrManager.id,
         completedAt: app.stage === RecruitmentStage.SUPERADMIN_APPROVAL ? daysFromNow(-1, 14) : null,
       },
@@ -806,18 +838,21 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
     if (app.stage === RecruitmentStage.SUPERADMIN_APPROVAL) {
       await prisma.recruitmentFormSubmission.upsert({
         where: { applicationId_stage: { applicationId: app.id, stage: RecruitmentStage.TECHNICAL_INTERVIEW } },
-        update: {},
+        update: {
+          id: seedUuid(`${app.id}-technical-submission`),
+          formVersionId: seedUuid(`${templates[2][0]}-v1`),
+        },
         create: {
-          id: `${app.id}-technical-submission`, applicationId: app.id, formVersionId: `${templates[2][0]}-v1`, stage: RecruitmentStage.TECHNICAL_INTERVIEW,
+          id: seedUuid(`${app.id}-technical-submission`), applicationId: app.id, formVersionId: seedUuid(`${templates[2][0]}-v1`), stage: RecruitmentStage.TECHNICAL_INTERVIEW,
           answers: json({ electricalSafety: 4, troubleshooting: 4, calibration: 5, documentation: 4, technicalNotes: 'دانش فنی مناسب و تجربه کارگاهی قابل قبول دارد.' }),
           submittedByType: RecruitmentActorType.USER, submittedByUserId: users.technicalInterviewer.id,
         },
       });
       await prisma.technicalInterviewEvaluation.upsert({
         where: { applicationId: app.id },
-        update: {},
+        update: { id: seedUuid(`${app.id}-evaluation`) },
         create: {
-          id: `${app.id}-evaluation`, applicationId: app.id, interviewerId: users.technicalInterviewer.id,
+          id: seedUuid(`${app.id}-evaluation`), applicationId: app.id, interviewerId: users.technicalInterviewer.id,
           overallScore: 86, recommendation: InterviewRecommendation.HIRE,
           internalSummary: 'برای موقعیت فروش فنی مناسب است؛ آموزش محصول در ماه اول پیشنهاد می‌شود.',
         },
@@ -827,10 +862,10 @@ async function seedRecruitment(users: Awaited<ReturnType<typeof seedOrganization
 
   for (const app of applications) {
     await prisma.recruitmentTransition.upsert({
-      where: { id: `${app.id}-transition-submit` },
+      where: { id: seedUuid(`${app.id}-transition-submit`) },
       update: {},
       create: {
-        id: `${app.id}-transition-submit`, applicationId: app.id, fromStage: RecruitmentStage.PRE_INTERVIEW_FORM,
+        id: seedUuid(`${app.id}-transition-submit`), applicationId: app.id, fromStage: RecruitmentStage.PRE_INTERVIEW_FORM,
         toStage: RecruitmentStage.INITIAL_REVIEW, action: RecruitmentAction.SUBMIT_PRE_INTERVIEW,
         actorType: RecruitmentActorType.APPLICANT, comment: 'ثبت اولیه درخواست همکاری',
       },
@@ -842,7 +877,7 @@ async function seedInternalForms(users: Awaited<ReturnType<typeof seedOrganizati
   console.log('6/9 Seeding internal organization forms...');
   const forms = [
     {
-      id: 'bio-form-service-report', customId: 'MED-SERVICE-REPORT', name: 'گزارش سرویس دوره‌ای تجهیزات پزشکی',
+      id: seedUuid('bio-form-service-report'), customId: 'MED-SERVICE-REPORT', name: 'گزارش سرویس دوره‌ای تجهیزات پزشکی',
       description: 'ثبت چک‌لیست PM، ایمنی الکتریکی و نتیجه سرویس دوره‌ای',
       schema: json({ fields: [
         { id: 'device', type: 'text', label: 'نام دستگاه', required: true },
@@ -852,7 +887,7 @@ async function seedInternalForms(users: Awaited<ReturnType<typeof seedOrganizati
       ] }),
     },
     {
-      id: 'bio-form-product-training', customId: 'MED-TRAINING', name: 'گزارش آموزش کاربری تجهیزات',
+      id: seedUuid('bio-form-product-training'), customId: 'MED-TRAINING', name: 'گزارش آموزش کاربری تجهیزات',
       description: 'ثبت آموزش انجام‌شده برای کادر درمان',
       schema: json({ fields: [
         { id: 'center', type: 'text', label: 'مرکز درمانی', required: true },
@@ -862,7 +897,7 @@ async function seedInternalForms(users: Awaited<ReturnType<typeof seedOrganizati
       ] }),
     },
     {
-      id: 'bio-form-purchase-request', customId: 'MED-PURCHASE-REQUEST', name: 'درخواست خرید قطعه پزشکی',
+      id: seedUuid('bio-form-purchase-request'), customId: 'MED-PURCHASE-REQUEST', name: 'درخواست خرید قطعه پزشکی',
       description: 'درخواست خرید قطعات مصرفی و یدکی واحد فنی',
       schema: json({ fields: [
         { id: 'partName', type: 'text', label: 'نام قطعه', required: true },
@@ -874,25 +909,25 @@ async function seedInternalForms(users: Awaited<ReturnType<typeof seedOrganizati
 
   for (const form of forms) {
     await prisma.form.upsert({
-      where: { id: form.id },
-      update: { name: form.name, description: form.description, schema: form.schema, isActive: true },
+      where: { customId: form.customId },
+      update: { id: form.id, name: form.name, description: form.description, schema: form.schema, isActive: true },
       create: { ...form, ownerId: users.hrManager.id, version: 1, isActive: true },
     });
   }
 
   await prisma.formSubmission.upsert({
-    where: { id: 'bio-form-submission-service-1' },
+    where: { id: seedUuid('bio-form-submission-service-1') },
     update: {},
     create: {
-      id: 'bio-form-submission-service-1', formId: forms[0].id, formVersion: 1, userId: users.technician1.id,
+      id: seedUuid('bio-form-submission-service-1'), formId: forms[0].id, formVersion: 1, userId: users.technician1.id,
       data: json({ device: 'ونتیلاتور Dräger Savina 300', serial: 'DRG-SV300-84921', electricalSafety: 'PASS', notes: 'آزمون نشتی و ایمنی الکتریکی انجام شد.' }),
     },
   });
   await prisma.formSubmission.upsert({
-    where: { id: 'bio-form-submission-training-1' },
+    where: { id: seedUuid('bio-form-submission-training-1') },
     update: {},
     create: {
-      id: 'bio-form-submission-training-1', formId: forms[1].id, formVersion: 1, userId: users.technicalInterviewer.id,
+      id: seedUuid('bio-form-submission-training-1'), formId: forms[1].id, formVersion: 1, userId: users.technicalInterviewer.id,
       data: json({ center: 'بیمارستان مهر', device: 'ونتیلاتور ICU', participants: 12, trainerNotes: 'آموزش کاربری و هشدارهای دستگاه تکمیل شد.' }),
     },
   });
@@ -903,10 +938,10 @@ async function seedRepairActivities(repairs: Awaited<ReturnType<typeof seedRepai
   for (let i = 0; i < repairs.length; i += 1) {
     const repair = repairs[i];
     await prisma.customerActivity.upsert({
-      where: { id: `${repair.id}-customer-activity` },
+      where: { id: seedUuid(`${repair.id}-customer-activity`) },
       update: {},
       create: {
-        id: `${repair.id}-customer-activity`, customerId: repair.customerId, type: CustomerActivityType.REPAIR_CREATED,
+        id: seedUuid(`${repair.id}-customer-activity`), customerId: repair.customerId, type: CustomerActivityType.REPAIR_CREATED,
         title: `پرونده تعمیر ${repair.caseNumber}`, body: repair.problemDescription,
         relatedRepairId: repair.id, createdById: users.serviceManager.id,
       },
@@ -917,13 +952,13 @@ async function seedRepairActivities(repairs: Awaited<ReturnType<typeof seedRepai
 async function printSummary() {
   console.log('8/9 Collecting summary...');
   const [departments, users, customers, repairs, jobs, applications, forms] = await Promise.all([
-    prisma.department.count({ where: { id: { startsWith: 'bio-' } } }),
-    prisma.user.count({ where: { id: { startsWith: 'bio-' } } }),
-    prisma.customer.count({ where: { id: { startsWith: 'bio-' } } }),
-    prisma.repairCase.count({ where: { id: { startsWith: 'bio-' } } }),
-    prisma.jobOpening.count({ where: { id: { startsWith: 'bio-' } } }),
-    prisma.recruitmentApplication.count({ where: { id: { startsWith: 'bio-' } } }),
-    prisma.form.count({ where: { id: { startsWith: 'bio-' } } }),
+    prisma.department.count({ where: { id: { in: Object.values(IDS.departments) } } }),
+    prisma.user.count({ where: { id: { in: Object.values(IDS.users) } } }),
+    prisma.customer.count({ where: { economicCode: { startsWith: 'BIO-ECO-' } } }),
+    prisma.repairCase.count({ where: { caseNumber: { startsWith: 'BM-R-1405-' } } }),
+    prisma.jobOpening.count({ where: { slug: { in: ['service-engineer-medical-equipment', 'clinical-engineer', 'medical-equipment-sales'] } } }),
+    prisma.recruitmentApplication.count({ where: { trackingCode: { startsWith: 'BMR-1405-' } } }),
+    prisma.form.count({ where: { customId: { startsWith: 'MED-' } } }),
   ]);
   console.log({ departments, users, customers, repairs, jobs, applications, internalForms: forms });
 }

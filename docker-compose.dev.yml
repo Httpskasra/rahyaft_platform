@@ -1,6 +1,19 @@
 name: enterprise-dev
 
 services:
+  # nginx:
+  #   image: nginx:alpine
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - frontend
+  #     - backend
+  # cloudflared:
+  #  image: cloudflare/cloudflared
+  #  command:
+  #    tunnel --no-autoupdate --url http://nginx:80
+  #  depends_on:
+  #    - nginx
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
