@@ -23,10 +23,10 @@ import {
 export class CreateThreadDto {
   @IsString()
   @MinLength(2)
-  title: string;
+  title!: string;
 
   @IsEnum(ThreadType)
-  type: ThreadType;
+  type!: ThreadType;
 
   @IsOptional()
   @IsEnum(ThreadPriority)
@@ -93,6 +93,19 @@ export class QueryThreadsDto {
   pageSize = 30;
 }
 
+export class QueryMessagesDto {
+  @IsOptional()
+  @IsUUID()
+  cursor?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  limit = 30;
+}
+
 export class UpdateThreadDto {
   @IsOptional()
   @IsString()
@@ -115,12 +128,12 @@ export class UpdateThreadDto {
 export class CreateMessageDto {
   @IsString()
   @MinLength(1)
-  body: string;
+  body!: string;
 }
 
 export class AddParticipantDto {
   @IsUUID()
-  userId: string;
+  userId!: string;
 
   @IsOptional()
   @IsEnum(ThreadParticipantRole)
@@ -129,5 +142,5 @@ export class AddParticipantDto {
 
 export class AssignThreadDto {
   @IsUUID()
-  userId: string;
+  userId!: string;
 }

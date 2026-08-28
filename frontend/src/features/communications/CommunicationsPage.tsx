@@ -29,6 +29,7 @@ import {
   type ThreadType,
 } from "@/lib/api/communication";
 import { Spinner } from "@/components/ui/Spinner";
+import { ThreadTimeline } from "./components/ThreadTimeline";
 
 const statusLabels: Record<ThreadStatus, string> = {
   OPEN: "باز",
@@ -293,6 +294,7 @@ function ThreadPanel({ thread, people, currentUserId, composer, setComposer, sen
   toast: (kind: "ok" | "error", text: string) => void;
 }) {
   const [personId, setPersonId] = useState("");
+  const [loadingOlder, setLoadingOlder] = useState(false);
   const availablePeople = useMemo(() => people.filter((person) => !thread.participants.some((p) => p.userId === person.id)), [people, thread.participants]);
   const addPerson = async (asAssignee: boolean) => {
     if (!personId) return;
@@ -302,6 +304,26 @@ function ThreadPanel({ thread, people, currentUserId, composer, setComposer, sen
       setPersonId("");
     } catch { toast("error", "افزودن کاربر ناموفق بود"); }
   };
+
+  const loadOlder = async () => {
+    if (!thread.messagePage?.hasMore || !thread.messagePage.nextCursor || loadingOlder) return;
+    setLoadingOlder(true);
+    try {
+      const response = await communicationApi.messages(thread.id, thread.messagePage.nextCursor);
+      const known = new Set(thread.messages.map((message) => message.id));
+      const older = response.data.items.filter((message) => !known.has(message.id));
+      onChanged({
+        ...thread,
+        messages: [...older, ...thread.messages],
+        messagePage: response.data.pageInfo,
+      });
+    } catch {
+      toast("error", "دریافت پیام‌های قدیمی‌تر ناموفق بود");
+    } finally {
+      setLoadingOlder(false);
+    }
+  };
+
   return (
     <>
       <div className="border-b border-gray-100 p-4 dark:border-gray-800">
@@ -342,21 +364,12 @@ function ThreadPanel({ thread, people, currentUserId, composer, setComposer, sen
           </div>
         )}
       </div>
-      <div className="flex-1 space-y-3 overflow-y-auto bg-gray-50/70 p-4 dark:bg-gray-950/40">
-        {thread.messages.length === 0 && <p className="py-10 text-center text-sm text-gray-400">هنوز پیامی ارسال نشده است.</p>}
-        {thread.messages.map((message) => {
-          const mine = message.senderId === currentUserId;
-          return (
-            <div key={message.id} className={`flex ${mine ? "justify-start" : "justify-end"}`}>
-              <div className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm shadow-sm ${mine ? "rounded-tr-sm bg-indigo-600 text-white" : "rounded-tl-sm bg-white dark:bg-gray-800"}`}>
-                <div className={`mb-1 text-[11px] font-medium ${mine ? "text-indigo-100" : "text-indigo-600"}`}>{message.sender.name}</div>
-                <p className="whitespace-pre-wrap leading-6">{message.body}</p>
-                <div className={`mt-1 text-left text-[10px] ${mine ? "text-indigo-200" : "text-gray-400"}`}>{new Date(message.createdAt).toLocaleString("fa-IR")}</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <ThreadTimeline
+        thread={thread}
+        currentUserId={currentUserId}
+        loadingOlder={loadingOlder}
+        onLoadOlder={loadOlder}
+      />
       <form onSubmit={sendMessage} className="flex gap-2 border-t border-gray-100 p-3 dark:border-gray-800">
         <textarea value={composer} onChange={(e) => setComposer(e.target.value)} rows={2} placeholder="پیام خود را بنویسید..." className={`${input} resize-none`} />
         <button disabled={!composer.trim()} className="self-stretch rounded-xl bg-indigo-600 px-4 text-white disabled:opacity-40"><Send size={19} /></button>

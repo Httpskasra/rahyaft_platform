@@ -89,19 +89,23 @@ export class PermissionGuard implements CanActivate {
     user: AuthenticatedUser,
     required: RequiredPermission,
   ) {
-    for (const role of user.roles) {
-      for (const perm of role.permissions) {
-        if (
-          perm.action === required.action &&
-          perm.resource === required.resource
-        ) {
-          // If a specific scope is required, check it matches
-          if (required.scope && perm.scope !== required.scope) continue;
-          return perm;
-        }
-      }
-    }
-    return null;
+    const rank: Record<ScopeType, number> = {
+      [ScopeType.SELF]: 1,
+      [ScopeType.TEAM]: 2,
+      [ScopeType.DEPARTMENT]: 3,
+      [ScopeType.RELATED_DEPARTMENTS]: 4,
+      [ScopeType.DEPARTMENT_SUBTREE]: 5,
+      [ScopeType.ORG_WIDE]: 6,
+    };
+
+    const matches = user.roles.flatMap((role) => role.permissions).filter((perm) => {
+      if (perm.action !== required.action || perm.resource !== required.resource) return false;
+      if (required.scope && perm.scope !== required.scope) return false;
+      return true;
+    });
+
+    if (!matches.length) return null;
+    return matches.sort((a, b) => rank[b.scope] - rank[a.scope])[0];
   }
 
   /**

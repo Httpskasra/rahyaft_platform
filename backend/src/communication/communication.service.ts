@@ -4,8 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AuthenticatedUser } from '../common/interfaces/auth.interface';
+import type {
+  AuthenticatedUser,
+  PermissionEntry,
+} from '../common/interfaces/auth.interface';
 import {
+  DepartmentRelationType,
+  ScopeType,
   ThreadActivityType,
   ThreadParticipantRole,
   ThreadStatus,
@@ -15,6 +20,7 @@ import {
   AssignThreadDto,
   CreateMessageDto,
   CreateThreadDto,
+  QueryMessagesDto,
   QueryThreadsDto,
   UpdateThreadDto,
 } from './dto/communication.dto';
@@ -24,6 +30,8 @@ const userSummary = {
   name: true,
   departmentId: true,
 } as const;
+
+const detailMessageLimit = 30;
 
 @Injectable()
 export class CommunicationService {
@@ -64,7 +72,7 @@ export class CommunicationService {
           title: dto.title.trim(),
           type: dto.type,
           priority: dto.priority,
-          departmentId: dto.departmentId,
+          departmentId: dto.departmentId ?? user.departmentId ?? undefined,
           dueAt: dto.dueAt ? new Date(dto.dueAt) : undefined,
           creatorId: user.id,
           participants: {
@@ -121,11 +129,13 @@ export class CommunicationService {
     return this.getThreadInternal(threadId);
   }
 
-  async listThreads(query: QueryThreadsDto, user: AuthenticatedUser) {
-    const access = {
-      participants: { some: { userId: user.id, leftAt: null } },
-    };
-    const where: Record<string, unknown> = { ...access };
+  async listThreads(
+    query: QueryThreadsDto,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    const access = await this.buildThreadScopeWhere(user, permission);
+    const where: Record<string, unknown> = { AND: [access] };
     if (query.status) where.status = query.status;
     if (query.priority) where.priority = query.priority;
     if (query.type) where.type = query.type;
@@ -155,11 +165,11 @@ export class CommunicationService {
         where,
         skip,
         take: query.pageSize,
-        orderBy: { updatedAt: 'desc' },
+        orderBy: [{ updatedAt: 'desc' }, { id: 'desc' }],
         include: {
           creator: { select: userSummary },
           participants: {
-            where: { userId: user.id },
+            where: { userId: user.id, leftAt: null },
             select: { lastReadAt: true },
           },
           assignments: {
@@ -168,7 +178,7 @@ export class CommunicationService {
           },
           messages: {
             where: { deletedAt: null },
-            orderBy: { createdAt: 'desc' },
+            orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
             take: 1,
             include: { sender: { select: userSummary } },
           },
@@ -180,11 +190,13 @@ export class CommunicationService {
 
     const items = rows.map((thread) => {
       const lastMessage = thread.messages[0] ?? null;
-      const lastReadAt = thread.participants[0]?.lastReadAt ?? null;
+      const membership = thread.participants[0] ?? null;
+      const lastReadAt = membership?.lastReadAt ?? null;
       return {
         ...thread,
         lastMessage,
         unread:
+          !!membership &&
           !!lastMessage &&
           lastMessage.senderId !== user.id &&
           (!lastReadAt || lastMessage.createdAt > lastReadAt),
@@ -203,24 +215,25 @@ export class CommunicationService {
     };
   }
 
-  async getInbox(user: AuthenticatedUser) {
+  async getInbox(user: AuthenticatedUser, permission: PermissionEntry) {
+    const access = await this.buildThreadScopeWhere(user, permission);
     const membership = { participants: { some: { userId: user.id, leftAt: null } } };
     const [assigned, waiting, resolved, total, rows] = await Promise.all([
       this.prisma.thread.count({
-        where: { ...membership, assignments: { some: { userId: user.id, completedAt: null } } },
+        where: { AND: [access, membership], assignments: { some: { userId: user.id, completedAt: null } } },
       }),
-      this.prisma.thread.count({ where: { ...membership, status: ThreadStatus.WAITING } }),
+      this.prisma.thread.count({ where: { AND: [access, membership], status: ThreadStatus.WAITING } }),
       this.prisma.thread.count({
-        where: { ...membership, status: { in: [ThreadStatus.RESOLVED, ThreadStatus.CLOSED] } },
+        where: { AND: [access, membership], status: { in: [ThreadStatus.RESOLVED, ThreadStatus.CLOSED] } },
       }),
-      this.prisma.thread.count({ where: membership }),
+      this.prisma.thread.count({ where: { AND: [access, membership] } }),
       this.prisma.thread.findMany({
-        where: membership,
+        where: { AND: [access, membership] },
         select: {
-          participants: { where: { userId: user.id }, select: { lastReadAt: true } },
+          participants: { where: { userId: user.id, leftAt: null }, select: { lastReadAt: true } },
           messages: {
             where: { deletedAt: null },
-            orderBy: { createdAt: 'desc' },
+            orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
             take: 1,
             select: { createdAt: true, senderId: true },
           },
@@ -235,13 +248,43 @@ export class CommunicationService {
     return { total, assigned, waiting, resolved, unread };
   }
 
-  async getThread(id: string, user: AuthenticatedUser) {
-    await this.assertAccess(id, user.id);
+  async getThread(id: string, user: AuthenticatedUser, permission: PermissionEntry) {
+    await this.assertAccess(id, user, permission);
     return this.getThreadInternal(id);
   }
 
-  async updateThread(id: string, dto: UpdateThreadDto, user: AuthenticatedUser) {
-    const before = await this.assertAccess(id, user.id);
+  async listMessages(
+    id: string,
+    query: QueryMessagesDto,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    await this.assertAccess(id, user, permission);
+    const rows = await this.prisma.threadMessage.findMany({
+      where: { threadId: id, deletedAt: null },
+      take: query.limit + 1,
+      ...(query.cursor ? { cursor: { id: query.cursor }, skip: 1 } : {}),
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      include: { sender: { select: userSummary } },
+    });
+    const hasMore = rows.length > query.limit;
+    const pageRows = hasMore ? rows.slice(0, query.limit) : rows;
+    return {
+      items: [...pageRows].reverse(),
+      pageInfo: {
+        hasMore,
+        nextCursor: hasMore ? pageRows[pageRows.length - 1]?.id ?? null : null,
+      },
+    };
+  }
+
+  async updateThread(
+    id: string,
+    dto: UpdateThreadDto,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    const before = await this.assertAccess(id, user, permission);
     const data = {
       title: dto.title?.trim(),
       status: dto.status,
@@ -273,16 +316,21 @@ export class CommunicationService {
     return this.getThreadInternal(id);
   }
 
-  async addMessage(id: string, dto: CreateMessageDto, user: AuthenticatedUser) {
-    await this.assertAccess(id, user.id);
+  async addMessage(
+    id: string,
+    dto: CreateMessageDto,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    await this.assertAccess(id, user, permission, true);
     return this.prisma.$transaction(async (tx) => {
       const message = await tx.threadMessage.create({
         data: { threadId: id, senderId: user.id, body: dto.body.trim() },
         include: { sender: { select: userSummary } },
       });
       await tx.thread.update({ where: { id }, data: { updatedAt: new Date() } });
-      await tx.threadParticipant.update({
-        where: { threadId_userId: { threadId: id, userId: user.id } },
+      await tx.threadParticipant.updateMany({
+        where: { threadId: id, userId: user.id, leftAt: null },
         data: { lastReadAt: new Date() },
       });
       await tx.threadActivity.create({
@@ -292,13 +340,18 @@ export class CommunicationService {
     });
   }
 
-  async addParticipant(id: string, dto: AddParticipantDto, user: AuthenticatedUser) {
-    await this.assertAccess(id, user.id);
+  async addParticipant(
+    id: string,
+    dto: AddParticipantDto,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    await this.assertAccess(id, user, permission);
     await this.assertUsersExist([dto.userId]);
     await this.prisma.$transaction(async (tx) => {
       await tx.threadParticipant.upsert({
         where: { threadId_userId: { threadId: id, userId: dto.userId } },
-        update: { leftAt: null, role: dto.role ?? ThreadParticipantRole.PARTICIPANT },
+        update: { leftAt: null, role: dto.role ?? ThreadParticipantRole.PARTICIPANT, joinedAt: new Date() },
         create: { threadId: id, userId: dto.userId, role: dto.role },
       });
       await tx.threadActivity.create({
@@ -313,11 +366,21 @@ export class CommunicationService {
     return this.getThreadInternal(id);
   }
 
-  async removeParticipant(id: string, participantId: string, user: AuthenticatedUser) {
-    const thread = await this.assertAccess(id, user.id);
+  async removeParticipant(
+    id: string,
+    participantId: string,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    const thread = await this.assertAccess(id, user, permission);
     if (participantId === thread.creatorId) {
       throw new ForbiddenException('Thread owner cannot be removed');
     }
+    const participant = await this.prisma.threadParticipant.findUnique({
+      where: { threadId_userId: { threadId: id, userId: participantId } },
+      select: { leftAt: true },
+    });
+    if (!participant || participant.leftAt) throw new NotFoundException('Active participant not found');
     await this.prisma.$transaction(async (tx) => {
       await tx.threadParticipant.update({
         where: { threadId_userId: { threadId: id, userId: participantId } },
@@ -334,19 +397,28 @@ export class CommunicationService {
     return this.getThreadInternal(id);
   }
 
-  async assign(id: string, dto: AssignThreadDto, user: AuthenticatedUser) {
-    await this.assertAccess(id, user.id);
+  async assign(
+    id: string,
+    dto: AssignThreadDto,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    await this.assertAccess(id, user, permission);
     await this.assertUsersExist([dto.userId]);
+    const active = await this.prisma.threadAssignment.findFirst({
+      where: { threadId: id, userId: dto.userId, completedAt: null },
+      select: { id: true },
+    });
+    if (active) return this.getThreadInternal(id);
+
     await this.prisma.$transaction(async (tx) => {
       await tx.threadParticipant.upsert({
         where: { threadId_userId: { threadId: id, userId: dto.userId } },
-        update: { leftAt: null, role: ThreadParticipantRole.ASSIGNEE },
+        update: { leftAt: null, role: ThreadParticipantRole.ASSIGNEE, joinedAt: new Date() },
         create: { threadId: id, userId: dto.userId, role: ThreadParticipantRole.ASSIGNEE },
       });
-      await tx.threadAssignment.upsert({
-        where: { threadId_userId: { threadId: id, userId: dto.userId } },
-        update: { completedAt: null, assignedAt: new Date(), assignedById: user.id },
-        create: { threadId: id, userId: dto.userId, assignedById: user.id },
+      await tx.threadAssignment.create({
+        data: { threadId: id, userId: dto.userId, assignedById: user.id },
       });
       await tx.threadActivity.create({
         data: { threadId: id, actorId: user.id, type: ThreadActivityType.ASSIGNEE_ADDED, metadata: { userId: dto.userId } },
@@ -355,11 +427,21 @@ export class CommunicationService {
     return this.getThreadInternal(id);
   }
 
-  async unassign(id: string, assigneeId: string, user: AuthenticatedUser) {
-    await this.assertAccess(id, user.id);
+  async unassign(
+    id: string,
+    assigneeId: string,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    await this.assertAccess(id, user, permission);
+    const active = await this.prisma.threadAssignment.findFirst({
+      where: { threadId: id, userId: assigneeId, completedAt: null },
+      select: { id: true },
+    });
+    if (!active) throw new NotFoundException('Active assignment not found');
     await this.prisma.$transaction(async (tx) => {
       await tx.threadAssignment.update({
-        where: { threadId_userId: { threadId: id, userId: assigneeId } },
+        where: { id: active.id },
         data: { completedAt: new Date() },
       });
       await tx.threadParticipant.updateMany({
@@ -373,14 +455,25 @@ export class CommunicationService {
     return this.getThreadInternal(id);
   }
 
-  async markRead(id: string, user: AuthenticatedUser) {
-    await this.assertAccess(id, user.id);
-    const participant = await this.prisma.threadParticipant.update({
+  async markRead(
+    id: string,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+  ) {
+    await this.assertAccess(id, user, permission);
+    const participant = await this.prisma.threadParticipant.findUnique({
+      where: { threadId_userId: { threadId: id, userId: user.id } },
+      select: { id: true, leftAt: true },
+    });
+    if (!participant || participant.leftAt) {
+      return { lastReadAt: null, tracked: false };
+    }
+    const updated = await this.prisma.threadParticipant.update({
       where: { threadId_userId: { threadId: id, userId: user.id } },
       data: { lastReadAt: new Date() },
       select: { lastReadAt: true },
     });
-    return participant;
+    return { ...updated, tracked: true };
   }
 
   private async assertUsersExist(ids: string[]) {
@@ -389,24 +482,111 @@ export class CommunicationService {
     if (count !== ids.length) throw new NotFoundException('One or more users were not found');
   }
 
-  private async assertAccess(threadId: string, userId: string) {
-    const thread = await this.prisma.thread.findUnique({
-      where: { id: threadId },
+  private async assertAccess(
+    threadId: string,
+    user: AuthenticatedUser,
+    permission: PermissionEntry,
+    requireMembership = false,
+  ) {
+    const scopeWhere = requireMembership
+      ? { participants: { some: { userId: user.id, leftAt: null } } }
+      : await this.buildThreadScopeWhere(user, permission);
+    const thread = await this.prisma.thread.findFirst({
+      where: { id: threadId, AND: [scopeWhere] },
       select: {
         id: true,
         creatorId: true,
         status: true,
         priority: true,
-        participants: { where: { userId, leftAt: null }, select: { id: true } },
+        departmentId: true,
       },
     });
-    if (!thread) throw new NotFoundException('Thread not found');
-    if (!thread.participants.length) throw new ForbiddenException('You are not a member of this thread');
+    if (!thread) {
+      const exists = await this.prisma.thread.findUnique({ where: { id: threadId }, select: { id: true } });
+      if (!exists) throw new NotFoundException('Thread not found');
+      throw new ForbiddenException(
+        requireMembership
+          ? 'Only active thread participants can send messages'
+          : 'Permission scope does not cover this thread',
+      );
+    }
     return thread;
   }
 
+  private async buildThreadScopeWhere(user: AuthenticatedUser, permission: PermissionEntry) {
+    const membership = { participants: { some: { userId: user.id, leftAt: null } } };
+    switch (permission.scope) {
+      case ScopeType.ORG_WIDE:
+        return {};
+      case ScopeType.SELF:
+        return membership;
+      case ScopeType.TEAM:
+        return { OR: [membership, { creator: { managerId: user.id } }] };
+      case ScopeType.DEPARTMENT:
+        return {
+          OR: [
+            membership,
+            { departmentId: user.departmentId },
+            { departmentId: null, creator: { departmentId: user.departmentId } },
+          ],
+        };
+      case ScopeType.DEPARTMENT_SUBTREE: {
+        const ids = [...(await this.getDepartmentSubtree(user.departmentId))];
+        return {
+          OR: [
+            membership,
+            { departmentId: { in: ids } },
+            { departmentId: null, creator: { departmentId: { in: ids } } },
+          ],
+        };
+      }
+      case ScopeType.RELATED_DEPARTMENTS: {
+        const ids = [...(await this.getRelatedDepartments(user.departmentId, permission.relationType))];
+        return {
+          OR: [
+            membership,
+            { departmentId: { in: ids } },
+            { departmentId: null, creator: { departmentId: { in: ids } } },
+          ],
+        };
+      }
+      default:
+        return membership;
+    }
+  }
+
+  private async getDepartmentSubtree(departmentId: string) {
+    const ids = new Set<string>();
+    const queue = [departmentId];
+    while (queue.length) {
+      const current = queue.shift()!;
+      if (ids.has(current)) continue;
+      ids.add(current);
+      const children = await this.prisma.department.findMany({
+        where: { parentId: current },
+        select: { id: true },
+      });
+      queue.push(...children.map((child) => child.id));
+    }
+    return ids;
+  }
+
+  private async getRelatedDepartments(
+    departmentId: string,
+    relationType: DepartmentRelationType | null,
+  ) {
+    const relations = await this.prisma.departmentRelation.findMany({
+      where: {
+        fromDepartmentId: departmentId,
+        ...(relationType ? { type: relationType } : {}),
+      },
+      select: { toDepartmentId: true },
+    });
+    return new Set(relations.map((item) => item.toDepartmentId));
+  }
+
   private async getThreadInternal(id: string) {
-    return this.prisma.thread.findUniqueOrThrow({
+    const thread = await this.prisma.thread.findUniqueOrThrow({
       where: { id },
       include: {
         creator: { select: userSummary },
@@ -422,11 +602,13 @@ export class CommunicationService {
             assignee: { select: userSummary },
             assignedBy: { select: userSummary },
           },
+          orderBy: { assignedAt: 'asc' },
         },
         messages: {
           where: { deletedAt: null },
           include: { sender: { select: userSummary } },
-          orderBy: { createdAt: 'asc' },
+          orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+          take: detailMessageLimit + 1,
         },
         activities: {
           include: { actor: { select: userSummary } },
@@ -434,5 +616,17 @@ export class CommunicationService {
         },
       },
     });
+    const hasMoreMessages = thread.messages.length > detailMessageLimit;
+    const pageMessages = hasMoreMessages
+      ? thread.messages.slice(0, detailMessageLimit)
+      : thread.messages;
+    return {
+      ...thread,
+      messages: [...pageMessages].reverse(),
+      messagePage: {
+        hasMore: hasMoreMessages,
+        nextCursor: hasMoreMessages ? pageMessages[pageMessages.length - 1]?.id ?? null : null,
+      },
+    };
   }
 }

@@ -191,7 +191,7 @@ model ThreadAssignment {
   assignee   User   @relation("ThreadAssignee", fields: [userId], references: [id])
   assignedBy User   @relation("ThreadAssignedBy", fields: [assignedById], references: [id])
 
-  @@unique([threadId, userId])
+  @@index([threadId, userId, completedAt])
   @@index([userId, completedAt])
 }
 

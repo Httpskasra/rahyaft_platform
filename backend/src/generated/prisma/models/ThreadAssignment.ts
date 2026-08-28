@@ -209,7 +209,6 @@ export type ThreadAssignmentOrderByWithRelationInput = {
 
 export type ThreadAssignmentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  threadId_userId?: Prisma.ThreadAssignmentThreadIdUserIdCompoundUniqueInput
   AND?: Prisma.ThreadAssignmentWhereInput | Prisma.ThreadAssignmentWhereInput[]
   OR?: Prisma.ThreadAssignmentWhereInput[]
   NOT?: Prisma.ThreadAssignmentWhereInput | Prisma.ThreadAssignmentWhereInput[]
@@ -221,7 +220,7 @@ export type ThreadAssignmentWhereUniqueInput = Prisma.AtLeast<{
   thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   assignee?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   assignedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "threadId_userId">
+}, "id">
 
 export type ThreadAssignmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -315,11 +314,6 @@ export type ThreadAssignmentListRelationFilter = {
 
 export type ThreadAssignmentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type ThreadAssignmentThreadIdUserIdCompoundUniqueInput = {
-  threadId: string
-  userId: string
 }
 
 export type ThreadAssignmentCountOrderByAggregateInput = {

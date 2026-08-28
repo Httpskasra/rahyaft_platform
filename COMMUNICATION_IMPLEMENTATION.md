@@ -2,13 +2,23 @@
 
 This file keeps the agreed implementation phases and their acceptance state.
 
-## Phase 1 — Core (implemented; awaiting user acceptance)
+## Phase 1 — Core (implemented)
 
 - Thread, message, participant and assignment data models
 - Status, priority, due date and activity timeline
 - Personal inbox views and unread tracking through `ThreadParticipant.lastReadAt`
-- Membership-based authorization plus `communication` RBAC permissions
+- Scope-aware authorization plus `communication` RBAC permissions
 - NestJS APIs and the `/dashboard/communications` user interface
+
+## Phase 1.5 — Core Hardening (implemented; awaiting user acceptance)
+
+- Scope-aware Thread access (`SELF`, `TEAM`, `DEPARTMENT`, `DEPARTMENT_SUBTREE`, `RELATED_DEPARTMENTS`, `ORG_WIDE`)
+- Durable assignment history
+- Cursor pagination for messages
+- Activity Timeline UI extraction
+- Access/scope tests and edge-case hardening
+
+See `COMMUNICATION_PHASE_1_5.md` for acceptance tests.
 
 ## Phase 2 — UX + real-time (pending)
 

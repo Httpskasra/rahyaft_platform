@@ -40,6 +40,7 @@ export interface ThreadDetail extends Omit<ThreadListItem, "lastMessage" | "unre
   messages: ThreadMessage[];
   participants: { id: string; userId: string; role: ParticipantRole; user: Person }[];
   activities: { id: string; type: string; createdAt: string; actor: Person | null; metadata?: Record<string, unknown> }[];
+  messagePage: { hasMore: boolean; nextCursor: string | null };
   department?: { id: string; name: string } | null;
 }
 
@@ -67,6 +68,8 @@ export const communicationApi = {
   inbox: () => apiClient.get<InboxStats>("/communication/inbox"),
   people: () => apiClient.get<Person[]>("/communication/people"),
   get: (id: string) => apiClient.get<ThreadDetail>(`/communication/threads/${id}`),
+  messages: (id: string, cursor?: string | null, limit = 30) =>
+    apiClient.get<{ items: ThreadMessage[]; pageInfo: { hasMore: boolean; nextCursor: string | null } }>(`/communication/threads/${id}/messages`, { params: { cursor: cursor || undefined, limit } }),
   create: (body: CreateThreadInput) => apiClient.post<ThreadDetail>("/communication/threads", body),
   update: (id: string, body: Partial<Pick<ThreadDetail, "title" | "status" | "priority">> & { dueAt?: string }) =>
     apiClient.patch<ThreadDetail>(`/communication/threads/${id}`, body),
