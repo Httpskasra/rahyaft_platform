@@ -54,6 +54,11 @@ export const ModelName = {
   Department: 'Department',
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
+  Thread: 'Thread',
+  ThreadParticipant: 'ThreadParticipant',
+  ThreadAssignment: 'ThreadAssignment',
+  ThreadMessage: 'ThreadMessage',
+  ThreadActivity: 'ThreadActivity',
   Attendance: 'Attendance',
   Role: 'Role',
   Permission: 'Permission',
@@ -140,6 +145,72 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ThreadScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  type: 'type',
+  status: 'status',
+  priority: 'priority',
+  creatorId: 'creatorId',
+  departmentId: 'departmentId',
+  dueAt: 'dueAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ThreadScalarFieldEnum = (typeof ThreadScalarFieldEnum)[keyof typeof ThreadScalarFieldEnum]
+
+
+export const ThreadParticipantScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  userId: 'userId',
+  role: 'role',
+  joinedAt: 'joinedAt',
+  leftAt: 'leftAt',
+  lastReadAt: 'lastReadAt'
+} as const
+
+export type ThreadParticipantScalarFieldEnum = (typeof ThreadParticipantScalarFieldEnum)[keyof typeof ThreadParticipantScalarFieldEnum]
+
+
+export const ThreadAssignmentScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  userId: 'userId',
+  assignedById: 'assignedById',
+  assignedAt: 'assignedAt',
+  completedAt: 'completedAt'
+} as const
+
+export type ThreadAssignmentScalarFieldEnum = (typeof ThreadAssignmentScalarFieldEnum)[keyof typeof ThreadAssignmentScalarFieldEnum]
+
+
+export const ThreadMessageScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  senderId: 'senderId',
+  body: 'body',
+  editedAt: 'editedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadMessageScalarFieldEnum = (typeof ThreadMessageScalarFieldEnum)[keyof typeof ThreadMessageScalarFieldEnum]
+
+
+export const ThreadActivityScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  actorId: 'actorId',
+  type: 'type',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadActivityScalarFieldEnum = (typeof ThreadActivityScalarFieldEnum)[keyof typeof ThreadActivityScalarFieldEnum]
 
 
 export const AttendanceScalarFieldEnum = {

@@ -20,6 +20,7 @@ import {
   FileText as FileTextIcon,
   Building2,
   LucideCalendarClock,
+  MessageSquare,
   // PieChart,
 } from "lucide-react";
 import { usePermission } from "@/hooks/usePermission";
@@ -132,6 +133,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const canReadOrganizationChart = usePermission("read", "organization-chart");
   const canReadRecruitment = usePermission("read", "recruitment-applications");
   const canManageRecruitment = usePermission("manage", "recruitment-settings");
+  const canReadCommunication = usePermission("read", "communication");
   // تعیین کدام dropdown باید باز باشد بر اساس pathname
   const getInitialOpenGroup = (): GroupKey => {
     if (
@@ -161,6 +163,20 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
         <MenuGroupTitle collapsed={collapsed} title={t.common.menu} />
 
         <ul className="mb-6 flex flex-col gap-4">
+          {canReadCommunication && (
+            <li>
+              <Link
+                href="/dashboard/communications"
+                className={[
+                  "menu-item group",
+                  isActive("/dashboard/communications") ? "menu-item-active" : "menu-item-inactive",
+                ].join(" ")}
+              >
+                <MessageSquare size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>ارتباطات سازمانی</span>
+              </Link>
+            </li>
+          )}
           {(canReadRecruitment || canManageRecruitment) && (
             <li>
               <button

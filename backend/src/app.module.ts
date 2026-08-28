@@ -28,6 +28,7 @@ import { CustomerModule } from './customer/customer.module';
 // import { PermissionsGuard } from './auth/permissions.guard';
 import { EventsModule } from './events/events.module';
 import { RecruitmentModule } from './recruitment/recruitment.module';
+import { CommunicationModule } from './communication/communication.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { RecruitmentModule } from './recruitment/recruitment.module';
     CustomerModule,
     EventsModule,
     RecruitmentModule,
+    CommunicationModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

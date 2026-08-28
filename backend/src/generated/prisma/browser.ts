@@ -33,6 +33,31 @@ export type DepartmentRelation = Prisma.DepartmentRelationModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model Thread
+ * 
+ */
+export type Thread = Prisma.ThreadModel
+/**
+ * Model ThreadParticipant
+ * 
+ */
+export type ThreadParticipant = Prisma.ThreadParticipantModel
+/**
+ * Model ThreadAssignment
+ * 
+ */
+export type ThreadAssignment = Prisma.ThreadAssignmentModel
+/**
+ * Model ThreadMessage
+ * 
+ */
+export type ThreadMessage = Prisma.ThreadMessageModel
+/**
+ * Model ThreadActivity
+ * 
+ */
+export type ThreadActivity = Prisma.ThreadActivityModel
+/**
  * Model Attendance
  * 
  */

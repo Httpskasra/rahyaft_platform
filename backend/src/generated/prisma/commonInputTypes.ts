@@ -127,18 +127,104 @@ export type EnumDepartmentRelationTypeWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumDepartmentRelationTypeFilter<$PrismaModel>
 }
 
-export type EnumScopeTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.ScopeType | Prisma.EnumScopeTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumScopeTypeFilter<$PrismaModel> | $Enums.ScopeType
+export type EnumThreadTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadType | Prisma.EnumThreadTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadTypeFilter<$PrismaModel> | $Enums.ThreadType
 }
 
-export type EnumDepartmentRelationTypeNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.DepartmentRelationType | Prisma.EnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel> | $Enums.DepartmentRelationType | null
+export type EnumThreadStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadStatus | Prisma.EnumThreadStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadStatusFilter<$PrismaModel> | $Enums.ThreadStatus
+}
+
+export type EnumThreadPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadPriority | Prisma.EnumThreadPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadPriorityFilter<$PrismaModel> | $Enums.ThreadPriority
+}
+
+export type DateTimeNullableFilter<$PrismaModel = never> = {
+  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
+  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+}
+
+export type EnumThreadTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadType | Prisma.EnumThreadTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadTypeWithAggregatesFilter<$PrismaModel> | $Enums.ThreadType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadTypeFilter<$PrismaModel>
+}
+
+export type EnumThreadStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadStatus | Prisma.EnumThreadStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadStatusWithAggregatesFilter<$PrismaModel> | $Enums.ThreadStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadStatusFilter<$PrismaModel>
+}
+
+export type EnumThreadPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadPriority | Prisma.EnumThreadPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadPriorityWithAggregatesFilter<$PrismaModel> | $Enums.ThreadPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadPriorityFilter<$PrismaModel>
+}
+
+export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
+  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type EnumThreadParticipantRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadParticipantRole | Prisma.EnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadParticipantRoleFilter<$PrismaModel> | $Enums.ThreadParticipantRole
+}
+
+export type EnumThreadParticipantRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadParticipantRole | Prisma.EnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadParticipantRoleWithAggregatesFilter<$PrismaModel> | $Enums.ThreadParticipantRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadParticipantRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadParticipantRoleFilter<$PrismaModel>
+}
+
+export type EnumThreadActivityTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadActivityType | Prisma.EnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadActivityTypeFilter<$PrismaModel> | $Enums.ThreadActivityType
 }
 
 export type JsonNullableFilter<$PrismaModel = never> =
@@ -165,24 +251,14 @@ export type JsonNullableFilterBase<$PrismaModel = never> = {
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
 }
 
-export type EnumScopeTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ScopeType | Prisma.EnumScopeTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumScopeTypeWithAggregatesFilter<$PrismaModel> | $Enums.ScopeType
+export type EnumThreadActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadActivityType | Prisma.EnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadActivityTypeWithAggregatesFilter<$PrismaModel> | $Enums.ThreadActivityType
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumScopeTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumScopeTypeFilter<$PrismaModel>
-}
-
-export type EnumDepartmentRelationTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.DepartmentRelationType | Prisma.EnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumDepartmentRelationTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.DepartmentRelationType | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadActivityTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadActivityTypeFilter<$PrismaModel>
 }
 
 export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
@@ -210,6 +286,40 @@ export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedJsonNullableFilter<$PrismaModel>
   _max?: Prisma.NestedJsonNullableFilter<$PrismaModel>
+}
+
+export type EnumScopeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ScopeType | Prisma.EnumScopeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumScopeTypeFilter<$PrismaModel> | $Enums.ScopeType
+}
+
+export type EnumDepartmentRelationTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.DepartmentRelationType | Prisma.EnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel> | $Enums.DepartmentRelationType | null
+}
+
+export type EnumScopeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ScopeType | Prisma.EnumScopeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumScopeTypeWithAggregatesFilter<$PrismaModel> | $Enums.ScopeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumScopeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumScopeTypeFilter<$PrismaModel>
+}
+
+export type EnumDepartmentRelationTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DepartmentRelationType | Prisma.EnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DepartmentRelationType[] | Prisma.ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDepartmentRelationTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.DepartmentRelationType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel>
 }
 
 export type JsonFilter<$PrismaModel = never> =
@@ -372,17 +482,6 @@ export type DecimalNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDecimalNullableFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
-export type DateTimeNullableFilter<$PrismaModel = never> = {
-  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
-  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-}
-
 export type EnumRepairTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.RepairType | Prisma.EnumRepairTypeFieldRefInput<$PrismaModel>
   in?: $Enums.RepairType[] | Prisma.ListEnumRepairTypeFieldRefInput<$PrismaModel>
@@ -417,20 +516,6 @@ export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
-}
-
-export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
-  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
 export type DecimalFilter<$PrismaModel = never> = {
@@ -875,6 +960,140 @@ export type NestedEnumDepartmentRelationTypeWithAggregatesFilter<$PrismaModel = 
   _max?: Prisma.NestedEnumDepartmentRelationTypeFilter<$PrismaModel>
 }
 
+export type NestedEnumThreadTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadType | Prisma.EnumThreadTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadTypeFilter<$PrismaModel> | $Enums.ThreadType
+}
+
+export type NestedEnumThreadStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadStatus | Prisma.EnumThreadStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadStatusFilter<$PrismaModel> | $Enums.ThreadStatus
+}
+
+export type NestedEnumThreadPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadPriority | Prisma.EnumThreadPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadPriorityFilter<$PrismaModel> | $Enums.ThreadPriority
+}
+
+export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
+  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+}
+
+export type NestedEnumThreadTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadType | Prisma.EnumThreadTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadType[] | Prisma.ListEnumThreadTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadTypeWithAggregatesFilter<$PrismaModel> | $Enums.ThreadType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumThreadStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadStatus | Prisma.EnumThreadStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadStatus[] | Prisma.ListEnumThreadStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadStatusWithAggregatesFilter<$PrismaModel> | $Enums.ThreadStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumThreadPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadPriority | Prisma.EnumThreadPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadPriority[] | Prisma.ListEnumThreadPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadPriorityWithAggregatesFilter<$PrismaModel> | $Enums.ThreadPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadPriorityFilter<$PrismaModel>
+}
+
+export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
+  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
+  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumThreadParticipantRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadParticipantRole | Prisma.EnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadParticipantRoleFilter<$PrismaModel> | $Enums.ThreadParticipantRole
+}
+
+export type NestedEnumThreadParticipantRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadParticipantRole | Prisma.EnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadParticipantRole[] | Prisma.ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadParticipantRoleWithAggregatesFilter<$PrismaModel> | $Enums.ThreadParticipantRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadParticipantRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadParticipantRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumThreadActivityTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadActivityType | Prisma.EnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadActivityTypeFilter<$PrismaModel> | $Enums.ThreadActivityType
+}
+
+export type NestedEnumThreadActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadActivityType | Prisma.EnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadActivityType[] | Prisma.ListEnumThreadActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadActivityTypeWithAggregatesFilter<$PrismaModel> | $Enums.ThreadActivityType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadActivityTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadActivityTypeFilter<$PrismaModel>
+}
+
+export type NestedJsonNullableFilter<$PrismaModel = never> =
+| Prisma.PatchUndefined<
+    Prisma.Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+    Required<NestedJsonNullableFilterBase<$PrismaModel>>
+  >
+| Prisma.OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+  equals?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+  path?: string[]
+  mode?: Prisma.QueryMode | Prisma.EnumQueryModeFieldRefInput<$PrismaModel>
+  string_contains?: string | Prisma.StringFieldRefInput<$PrismaModel>
+  string_starts_with?: string | Prisma.StringFieldRefInput<$PrismaModel>
+  string_ends_with?: string | Prisma.StringFieldRefInput<$PrismaModel>
+  array_starts_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null
+  array_ends_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null
+  array_contains?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null
+  lt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
+  lte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
+  gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
+  gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
+  not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
 export type NestedEnumScopeTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.ScopeType | Prisma.EnumScopeTypeFieldRefInput<$PrismaModel>
   in?: $Enums.ScopeType[] | Prisma.ListEnumScopeTypeFieldRefInput<$PrismaModel>
@@ -907,30 +1126,6 @@ export type NestedEnumDepartmentRelationTypeNullableWithAggregatesFilter<$Prisma
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDepartmentRelationTypeNullableFilter<$PrismaModel>
-}
-
-export type NestedJsonNullableFilter<$PrismaModel = never> =
-| Prisma.PatchUndefined<
-    Prisma.Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-    Required<NestedJsonNullableFilterBase<$PrismaModel>>
-  >
-| Prisma.OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-  equals?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
-  path?: string[]
-  mode?: Prisma.QueryMode | Prisma.EnumQueryModeFieldRefInput<$PrismaModel>
-  string_contains?: string | Prisma.StringFieldRefInput<$PrismaModel>
-  string_starts_with?: string | Prisma.StringFieldRefInput<$PrismaModel>
-  string_ends_with?: string | Prisma.StringFieldRefInput<$PrismaModel>
-  array_starts_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null
-  array_ends_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null
-  array_contains?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null
-  lt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
-  lte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
-  gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
-  gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
-  not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
 }
 
 export type NestedBoolFilter<$PrismaModel = never> = {
@@ -1066,17 +1261,6 @@ export type NestedDecimalNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDecimalNullableFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
-export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
-  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-}
-
 export type NestedEnumRepairTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.RepairType | Prisma.EnumRepairTypeFieldRefInput<$PrismaModel>
   in?: $Enums.RepairType[] | Prisma.ListEnumRepairTypeFieldRefInput<$PrismaModel>
@@ -1111,20 +1295,6 @@ export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
-}
-
-export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
-  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
-  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
 export type NestedDecimalFilter<$PrismaModel = never> = {

@@ -230,6 +230,12 @@ export type UserWhereInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionListRelationFilter
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionListRelationFilter
   recruitmentFinalized?: Prisma.RecruitmentApplicationListRelationFilter
+  createdThreads?: Prisma.ThreadListRelationFilter
+  threadParticipants?: Prisma.ThreadParticipantListRelationFilter
+  sentThreadMessages?: Prisma.ThreadMessageListRelationFilter
+  threadAssignments?: Prisma.ThreadAssignmentListRelationFilter
+  assignedThreads?: Prisma.ThreadAssignmentListRelationFilter
+  threadActivities?: Prisma.ThreadActivityListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -258,6 +264,12 @@ export type UserOrderByWithRelationInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionOrderByRelationAggregateInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionOrderByRelationAggregateInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationOrderByRelationAggregateInput
+  createdThreads?: Prisma.ThreadOrderByRelationAggregateInput
+  threadParticipants?: Prisma.ThreadParticipantOrderByRelationAggregateInput
+  sentThreadMessages?: Prisma.ThreadMessageOrderByRelationAggregateInput
+  threadAssignments?: Prisma.ThreadAssignmentOrderByRelationAggregateInput
+  assignedThreads?: Prisma.ThreadAssignmentOrderByRelationAggregateInput
+  threadActivities?: Prisma.ThreadActivityOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +301,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   recruitmentTransitions?: Prisma.RecruitmentTransitionListRelationFilter
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionListRelationFilter
   recruitmentFinalized?: Prisma.RecruitmentApplicationListRelationFilter
+  createdThreads?: Prisma.ThreadListRelationFilter
+  threadParticipants?: Prisma.ThreadParticipantListRelationFilter
+  sentThreadMessages?: Prisma.ThreadMessageListRelationFilter
+  threadAssignments?: Prisma.ThreadAssignmentListRelationFilter
+  assignedThreads?: Prisma.ThreadAssignmentListRelationFilter
+  threadActivities?: Prisma.ThreadActivityListRelationFilter
 }, "id" | "phoneNumber" | "employeeCode">
 
 export type UserOrderByWithAggregationInput = {
@@ -345,6 +363,12 @@ export type UserCreateInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -371,6 +395,12 @@ export type UserUncheckedCreateInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserUpdateInput = {
@@ -397,6 +427,12 @@ export type UserUpdateInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -423,6 +459,12 @@ export type UserUncheckedUpdateInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -613,6 +655,92 @@ export type UserUncheckedUpdateManyWithoutManagerNestedInput = {
   update?: Prisma.UserUpdateWithWhereUniqueWithoutManagerInput | Prisma.UserUpdateWithWhereUniqueWithoutManagerInput[]
   updateMany?: Prisma.UserUpdateManyWithWhereWithoutManagerInput | Prisma.UserUpdateManyWithWhereWithoutManagerInput[]
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserCreateNestedOneWithoutCreatedThreadsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedThreadsInput, Prisma.UserUncheckedCreateWithoutCreatedThreadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedThreadsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedThreadsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedThreadsInput, Prisma.UserUncheckedCreateWithoutCreatedThreadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedThreadsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedThreadsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedThreadsInput, Prisma.UserUpdateWithoutCreatedThreadsInput>, Prisma.UserUncheckedUpdateWithoutCreatedThreadsInput>
+}
+
+export type UserCreateNestedOneWithoutThreadParticipantsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadParticipantsInput, Prisma.UserUncheckedCreateWithoutThreadParticipantsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadParticipantsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutThreadParticipantsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadParticipantsInput, Prisma.UserUncheckedCreateWithoutThreadParticipantsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadParticipantsInput
+  upsert?: Prisma.UserUpsertWithoutThreadParticipantsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutThreadParticipantsInput, Prisma.UserUpdateWithoutThreadParticipantsInput>, Prisma.UserUncheckedUpdateWithoutThreadParticipantsInput>
+}
+
+export type UserCreateNestedOneWithoutThreadAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadAssignmentsInput, Prisma.UserUncheckedCreateWithoutThreadAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedThreadsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedThreadsInput, Prisma.UserUncheckedCreateWithoutAssignedThreadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedThreadsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutThreadAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadAssignmentsInput, Prisma.UserUncheckedCreateWithoutThreadAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutThreadAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutThreadAssignmentsInput, Prisma.UserUpdateWithoutThreadAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutThreadAssignmentsInput>
+}
+
+export type UserUpdateOneRequiredWithoutAssignedThreadsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedThreadsInput, Prisma.UserUncheckedCreateWithoutAssignedThreadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedThreadsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedThreadsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedThreadsInput, Prisma.UserUpdateWithoutAssignedThreadsInput>, Prisma.UserUncheckedUpdateWithoutAssignedThreadsInput>
+}
+
+export type UserCreateNestedOneWithoutSentThreadMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentThreadMessagesInput, Prisma.UserUncheckedCreateWithoutSentThreadMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentThreadMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentThreadMessagesInput, Prisma.UserUncheckedCreateWithoutSentThreadMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentThreadMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSentThreadMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentThreadMessagesInput, Prisma.UserUpdateWithoutSentThreadMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentThreadMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutThreadActivitiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadActivitiesInput, Prisma.UserUncheckedCreateWithoutThreadActivitiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadActivitiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutThreadActivitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadActivitiesInput, Prisma.UserUncheckedCreateWithoutThreadActivitiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadActivitiesInput
+  upsert?: Prisma.UserUpsertWithoutThreadActivitiesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutThreadActivitiesInput, Prisma.UserUpdateWithoutThreadActivitiesInput>, Prisma.UserUncheckedUpdateWithoutThreadActivitiesInput>
 }
 
 export type UserCreateNestedOneWithoutAttendancesInput = {
@@ -830,6 +958,12 @@ export type UserCreateWithoutDepartmentInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -855,6 +989,12 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -921,6 +1061,12 @@ export type UserCreateWithoutSubordinatesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSubordinatesInput = {
@@ -946,6 +1092,12 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSubordinatesInput = {
@@ -976,6 +1128,12 @@ export type UserCreateWithoutManagerInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutManagerInput = {
@@ -1001,6 +1159,12 @@ export type UserUncheckedCreateWithoutManagerInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutManagerInput = {
@@ -1047,6 +1211,12 @@ export type UserUpdateWithoutSubordinatesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubordinatesInput = {
@@ -1072,6 +1242,12 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutManagerInput = {
@@ -1088,6 +1264,846 @@ export type UserUpdateWithWhereUniqueWithoutManagerInput = {
 export type UserUpdateManyWithWhereWithoutManagerInput = {
   where: Prisma.UserScalarWhereInput
   data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutManagerInput>
+}
+
+export type UserCreateWithoutCreatedThreadsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutCreatedThreadsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutCreatedThreadsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedThreadsInput, Prisma.UserUncheckedCreateWithoutCreatedThreadsInput>
+}
+
+export type UserUpsertWithoutCreatedThreadsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedThreadsInput, Prisma.UserUncheckedUpdateWithoutCreatedThreadsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedThreadsInput, Prisma.UserUncheckedCreateWithoutCreatedThreadsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedThreadsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedThreadsInput, Prisma.UserUncheckedUpdateWithoutCreatedThreadsInput>
+}
+
+export type UserUpdateWithoutCreatedThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutThreadParticipantsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutThreadParticipantsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutThreadParticipantsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadParticipantsInput, Prisma.UserUncheckedCreateWithoutThreadParticipantsInput>
+}
+
+export type UserUpsertWithoutThreadParticipantsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutThreadParticipantsInput, Prisma.UserUncheckedUpdateWithoutThreadParticipantsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadParticipantsInput, Prisma.UserUncheckedCreateWithoutThreadParticipantsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutThreadParticipantsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutThreadParticipantsInput, Prisma.UserUncheckedUpdateWithoutThreadParticipantsInput>
+}
+
+export type UserUpdateWithoutThreadParticipantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutThreadAssignmentsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutThreadAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadAssignmentsInput, Prisma.UserUncheckedCreateWithoutThreadAssignmentsInput>
+}
+
+export type UserCreateWithoutAssignedThreadsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAssignedThreadsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAssignedThreadsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedThreadsInput, Prisma.UserUncheckedCreateWithoutAssignedThreadsInput>
+}
+
+export type UserUpsertWithoutThreadAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutThreadAssignmentsInput, Prisma.UserUncheckedUpdateWithoutThreadAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadAssignmentsInput, Prisma.UserUncheckedCreateWithoutThreadAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutThreadAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutThreadAssignmentsInput, Prisma.UserUncheckedUpdateWithoutThreadAssignmentsInput>
+}
+
+export type UserUpdateWithoutThreadAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserUpsertWithoutAssignedThreadsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedThreadsInput, Prisma.UserUncheckedUpdateWithoutAssignedThreadsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedThreadsInput, Prisma.UserUncheckedCreateWithoutAssignedThreadsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedThreadsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedThreadsInput, Prisma.UserUncheckedUpdateWithoutAssignedThreadsInput>
+}
+
+export type UserUpdateWithoutAssignedThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutSentThreadMessagesInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutSentThreadMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentThreadMessagesInput, Prisma.UserUncheckedCreateWithoutSentThreadMessagesInput>
+}
+
+export type UserUpsertWithoutSentThreadMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentThreadMessagesInput, Prisma.UserUncheckedUpdateWithoutSentThreadMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentThreadMessagesInput, Prisma.UserUncheckedCreateWithoutSentThreadMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentThreadMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentThreadMessagesInput, Prisma.UserUncheckedUpdateWithoutSentThreadMessagesInput>
+}
+
+export type UserUpdateWithoutSentThreadMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutThreadActivitiesInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserUncheckedCreateWithoutThreadActivitiesInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserCreateOrConnectWithoutThreadActivitiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadActivitiesInput, Prisma.UserUncheckedCreateWithoutThreadActivitiesInput>
+}
+
+export type UserUpsertWithoutThreadActivitiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutThreadActivitiesInput, Prisma.UserUncheckedUpdateWithoutThreadActivitiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadActivitiesInput, Prisma.UserUncheckedCreateWithoutThreadActivitiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutThreadActivitiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutThreadActivitiesInput, Prisma.UserUncheckedUpdateWithoutThreadActivitiesInput>
+}
+
+export type UserUpdateWithoutThreadActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
 }
 
 export type UserCreateWithoutAttendancesInput = {
@@ -1113,6 +2129,12 @@ export type UserCreateWithoutAttendancesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -1138,6 +2160,12 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -1179,6 +2207,12 @@ export type UserUpdateWithoutAttendancesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
@@ -1204,6 +2238,12 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -1229,6 +2269,12 @@ export type UserCreateWithoutRolesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -1254,6 +2300,12 @@ export type UserUncheckedCreateWithoutRolesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -1295,6 +2347,12 @@ export type UserUpdateWithoutRolesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -1320,6 +2378,12 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutSubmissionsInput = {
@@ -1345,6 +2409,12 @@ export type UserCreateWithoutSubmissionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -1370,6 +2440,12 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -1411,6 +2487,12 @@ export type UserUpdateWithoutSubmissionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -1436,6 +2518,12 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutApprovalActionsInput = {
@@ -1461,6 +2549,12 @@ export type UserCreateWithoutApprovalActionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutApprovalActionsInput = {
@@ -1486,6 +2580,12 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutApprovalActionsInput = {
@@ -1527,6 +2627,12 @@ export type UserUpdateWithoutApprovalActionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovalActionsInput = {
@@ -1552,6 +2658,12 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutUserInfoInput = {
@@ -1577,6 +2689,12 @@ export type UserCreateWithoutUserInfoInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutUserInfoInput = {
@@ -1602,6 +2720,12 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutUserInfoInput = {
@@ -1643,6 +2767,12 @@ export type UserUpdateWithoutUserInfoInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserInfoInput = {
@@ -1668,6 +2798,12 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAssignedRepairsInput = {
@@ -1693,6 +2829,12 @@ export type UserCreateWithoutAssignedRepairsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedRepairsInput = {
@@ -1718,6 +2860,12 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedRepairsInput = {
@@ -1759,6 +2907,12 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
@@ -1784,6 +2938,12 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRepairVisitsInput = {
@@ -1809,6 +2969,12 @@ export type UserCreateWithoutRepairVisitsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRepairVisitsInput = {
@@ -1834,6 +3000,12 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRepairVisitsInput = {
@@ -1875,6 +3047,12 @@ export type UserUpdateWithoutRepairVisitsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepairVisitsInput = {
@@ -1900,6 +3078,12 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutStatusLogsInput = {
@@ -1925,6 +3109,12 @@ export type UserCreateWithoutStatusLogsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutStatusLogsInput = {
@@ -1950,6 +3140,12 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutStatusLogsInput = {
@@ -1991,6 +3187,12 @@ export type UserUpdateWithoutStatusLogsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatusLogsInput = {
@@ -2016,6 +3218,12 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRecruitmentFinalizedInput = {
@@ -2041,6 +3249,12 @@ export type UserCreateWithoutRecruitmentFinalizedInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
@@ -2066,6 +3280,12 @@ export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentFinalizedInput = {
@@ -2107,6 +3327,12 @@ export type UserUpdateWithoutRecruitmentFinalizedInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
@@ -2132,6 +3358,12 @@ export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRecruitmentSubmissionsInput = {
@@ -2157,6 +3389,12 @@ export type UserCreateWithoutRecruitmentSubmissionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
@@ -2182,6 +3420,12 @@ export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentSubmissionsInput = {
@@ -2223,6 +3467,12 @@ export type UserUpdateWithoutRecruitmentSubmissionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
@@ -2248,6 +3498,12 @@ export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRecruitmentAssignmentsInput = {
@@ -2273,6 +3529,12 @@ export type UserCreateWithoutRecruitmentAssignmentsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
@@ -2298,6 +3560,12 @@ export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentAssignmentsInput = {
@@ -2328,6 +3596,12 @@ export type UserCreateWithoutRecruitmentAssignedByInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
@@ -2353,6 +3627,12 @@ export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentAssignedByInput = {
@@ -2394,6 +3674,12 @@ export type UserUpdateWithoutRecruitmentAssignmentsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
@@ -2419,6 +3705,12 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutRecruitmentAssignedByInput = {
@@ -2455,6 +3747,12 @@ export type UserUpdateWithoutRecruitmentAssignedByInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
@@ -2480,6 +3778,12 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRecruitmentTransitionsInput = {
@@ -2505,6 +3809,12 @@ export type UserCreateWithoutRecruitmentTransitionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
@@ -2530,6 +3840,12 @@ export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentTransitionsInput = {
@@ -2571,6 +3887,12 @@ export type UserUpdateWithoutRecruitmentTransitionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
@@ -2596,6 +3918,12 @@ export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
   recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -2632,6 +3960,12 @@ export type UserUpdateWithoutDepartmentInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -2657,6 +3991,12 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -2704,6 +4044,12 @@ export type UserUpdateWithoutManagerInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagerInput = {
@@ -2729,6 +4075,12 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
   recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
   recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagerInput = {
@@ -2761,6 +4113,12 @@ export type UserCountOutputType = {
   recruitmentTransitions: number
   recruitmentSubmissions: number
   recruitmentFinalized: number
+  createdThreads: number
+  threadParticipants: number
+  sentThreadMessages: number
+  threadAssignments: number
+  assignedThreads: number
+  threadActivities: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2777,6 +4135,12 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   recruitmentTransitions?: boolean | UserCountOutputTypeCountRecruitmentTransitionsArgs
   recruitmentSubmissions?: boolean | UserCountOutputTypeCountRecruitmentSubmissionsArgs
   recruitmentFinalized?: boolean | UserCountOutputTypeCountRecruitmentFinalizedArgs
+  createdThreads?: boolean | UserCountOutputTypeCountCreatedThreadsArgs
+  threadParticipants?: boolean | UserCountOutputTypeCountThreadParticipantsArgs
+  sentThreadMessages?: boolean | UserCountOutputTypeCountSentThreadMessagesArgs
+  threadAssignments?: boolean | UserCountOutputTypeCountThreadAssignmentsArgs
+  assignedThreads?: boolean | UserCountOutputTypeCountAssignedThreadsArgs
+  threadActivities?: boolean | UserCountOutputTypeCountThreadActivitiesArgs
 }
 
 /**
@@ -2880,6 +4244,48 @@ export type UserCountOutputTypeCountRecruitmentFinalizedArgs<ExtArgs extends run
   where?: Prisma.RecruitmentApplicationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountThreadParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadParticipantWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentThreadMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountThreadAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountThreadActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadActivityWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2907,6 +4313,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   recruitmentTransitions?: boolean | Prisma.User$recruitmentTransitionsArgs<ExtArgs>
   recruitmentSubmissions?: boolean | Prisma.User$recruitmentSubmissionsArgs<ExtArgs>
   recruitmentFinalized?: boolean | Prisma.User$recruitmentFinalizedArgs<ExtArgs>
+  createdThreads?: boolean | Prisma.User$createdThreadsArgs<ExtArgs>
+  threadParticipants?: boolean | Prisma.User$threadParticipantsArgs<ExtArgs>
+  sentThreadMessages?: boolean | Prisma.User$sentThreadMessagesArgs<ExtArgs>
+  threadAssignments?: boolean | Prisma.User$threadAssignmentsArgs<ExtArgs>
+  assignedThreads?: boolean | Prisma.User$assignedThreadsArgs<ExtArgs>
+  threadActivities?: boolean | Prisma.User$threadActivitiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2968,6 +4380,12 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   recruitmentTransitions?: boolean | Prisma.User$recruitmentTransitionsArgs<ExtArgs>
   recruitmentSubmissions?: boolean | Prisma.User$recruitmentSubmissionsArgs<ExtArgs>
   recruitmentFinalized?: boolean | Prisma.User$recruitmentFinalizedArgs<ExtArgs>
+  createdThreads?: boolean | Prisma.User$createdThreadsArgs<ExtArgs>
+  threadParticipants?: boolean | Prisma.User$threadParticipantsArgs<ExtArgs>
+  sentThreadMessages?: boolean | Prisma.User$sentThreadMessagesArgs<ExtArgs>
+  threadAssignments?: boolean | Prisma.User$threadAssignmentsArgs<ExtArgs>
+  assignedThreads?: boolean | Prisma.User$assignedThreadsArgs<ExtArgs>
+  threadActivities?: boolean | Prisma.User$threadActivitiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2998,6 +4416,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     recruitmentTransitions: Prisma.$RecruitmentTransitionPayload<ExtArgs>[]
     recruitmentSubmissions: Prisma.$RecruitmentFormSubmissionPayload<ExtArgs>[]
     recruitmentFinalized: Prisma.$RecruitmentApplicationPayload<ExtArgs>[]
+    createdThreads: Prisma.$ThreadPayload<ExtArgs>[]
+    threadParticipants: Prisma.$ThreadParticipantPayload<ExtArgs>[]
+    sentThreadMessages: Prisma.$ThreadMessagePayload<ExtArgs>[]
+    threadAssignments: Prisma.$ThreadAssignmentPayload<ExtArgs>[]
+    assignedThreads: Prisma.$ThreadAssignmentPayload<ExtArgs>[]
+    threadActivities: Prisma.$ThreadActivityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3419,6 +4843,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   recruitmentTransitions<T extends Prisma.User$recruitmentTransitionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentTransitionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentTransitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recruitmentSubmissions<T extends Prisma.User$recruitmentSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentFormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recruitmentFinalized<T extends Prisma.User$recruitmentFinalizedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recruitmentFinalizedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecruitmentApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdThreads<T extends Prisma.User$createdThreadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  threadParticipants<T extends Prisma.User$threadParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentThreadMessages<T extends Prisma.User$sentThreadMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentThreadMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  threadAssignments<T extends Prisma.User$threadAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedThreads<T extends Prisma.User$assignedThreadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  threadActivities<T extends Prisma.User$threadActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4205,6 +5635,150 @@ export type User$recruitmentFinalizedArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.RecruitmentApplicationScalarFieldEnum | Prisma.RecruitmentApplicationScalarFieldEnum[]
+}
+
+/**
+ * User.createdThreads
+ */
+export type User$createdThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Thread
+   */
+  select?: Prisma.ThreadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Thread
+   */
+  omit?: Prisma.ThreadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadInclude<ExtArgs> | null
+  where?: Prisma.ThreadWhereInput
+  orderBy?: Prisma.ThreadOrderByWithRelationInput | Prisma.ThreadOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadScalarFieldEnum | Prisma.ThreadScalarFieldEnum[]
+}
+
+/**
+ * User.threadParticipants
+ */
+export type User$threadParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadParticipant
+   */
+  select?: Prisma.ThreadParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadParticipant
+   */
+  omit?: Prisma.ThreadParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadParticipantInclude<ExtArgs> | null
+  where?: Prisma.ThreadParticipantWhereInput
+  orderBy?: Prisma.ThreadParticipantOrderByWithRelationInput | Prisma.ThreadParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadParticipantScalarFieldEnum | Prisma.ThreadParticipantScalarFieldEnum[]
+}
+
+/**
+ * User.sentThreadMessages
+ */
+export type User$sentThreadMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadMessage
+   */
+  select?: Prisma.ThreadMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadMessage
+   */
+  omit?: Prisma.ThreadMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadMessageInclude<ExtArgs> | null
+  where?: Prisma.ThreadMessageWhereInput
+  orderBy?: Prisma.ThreadMessageOrderByWithRelationInput | Prisma.ThreadMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadMessageScalarFieldEnum | Prisma.ThreadMessageScalarFieldEnum[]
+}
+
+/**
+ * User.threadAssignments
+ */
+export type User$threadAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadAssignment
+   */
+  select?: Prisma.ThreadAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadAssignment
+   */
+  omit?: Prisma.ThreadAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ThreadAssignmentWhereInput
+  orderBy?: Prisma.ThreadAssignmentOrderByWithRelationInput | Prisma.ThreadAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadAssignmentScalarFieldEnum | Prisma.ThreadAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.assignedThreads
+ */
+export type User$assignedThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadAssignment
+   */
+  select?: Prisma.ThreadAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadAssignment
+   */
+  omit?: Prisma.ThreadAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ThreadAssignmentWhereInput
+  orderBy?: Prisma.ThreadAssignmentOrderByWithRelationInput | Prisma.ThreadAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadAssignmentScalarFieldEnum | Prisma.ThreadAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.threadActivities
+ */
+export type User$threadActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadActivity
+   */
+  select?: Prisma.ThreadActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadActivity
+   */
+  omit?: Prisma.ThreadActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadActivityInclude<ExtArgs> | null
+  where?: Prisma.ThreadActivityWhereInput
+  orderBy?: Prisma.ThreadActivityOrderByWithRelationInput | Prisma.ThreadActivityOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadActivityScalarFieldEnum | Prisma.ThreadActivityScalarFieldEnum[]
 }
 
 /**

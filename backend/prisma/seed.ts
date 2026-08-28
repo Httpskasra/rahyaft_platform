@@ -51,6 +51,7 @@ async function main() {
     'attendance',
     'repairs',
     'organization-chart',
+    'communication',
   ];
 
   for (const action of actions) {
@@ -113,6 +114,25 @@ async function main() {
     update: {},
     create: { name: 'user' },
   });
+
+  for (const action of ['create', 'read', 'update']) {
+    const perm = await prisma.permission.upsert({
+      where: { action_resource: { action, resource: 'communication' } },
+      update: {},
+      create: { action, resource: 'communication' },
+    });
+    await prisma.rolePermission.upsert({
+      where: {
+        roleId_permissionId: { roleId: userRole.id, permissionId: perm.id },
+      },
+      update: { scope: 'SELF' },
+      create: {
+        roleId: userRole.id,
+        permissionId: perm.id,
+        scope: 'SELF',
+      },
+    });
+  }
 
   for (const action of actions) {
     const perm = await prisma.permission.upsert({

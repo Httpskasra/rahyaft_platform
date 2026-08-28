@@ -31,6 +31,66 @@ export const DepartmentRelationType = {
 export type DepartmentRelationType = (typeof DepartmentRelationType)[keyof typeof DepartmentRelationType]
 
 
+export const ThreadType = {
+  CONVERSATION: 'CONVERSATION',
+  REQUEST: 'REQUEST',
+  TASK: 'TASK',
+  REFERRAL: 'REFERRAL',
+  ANNOUNCEMENT: 'ANNOUNCEMENT',
+  CASE: 'CASE'
+} as const
+
+export type ThreadType = (typeof ThreadType)[keyof typeof ThreadType]
+
+
+export const ThreadStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  WAITING: 'WAITING',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ThreadStatus = (typeof ThreadStatus)[keyof typeof ThreadStatus]
+
+
+export const ThreadPriority = {
+  LOW: 'LOW',
+  NORMAL: 'NORMAL',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type ThreadPriority = (typeof ThreadPriority)[keyof typeof ThreadPriority]
+
+
+export const ThreadParticipantRole = {
+  OWNER: 'OWNER',
+  ASSIGNEE: 'ASSIGNEE',
+  PARTICIPANT: 'PARTICIPANT',
+  WATCHER: 'WATCHER'
+} as const
+
+export type ThreadParticipantRole = (typeof ThreadParticipantRole)[keyof typeof ThreadParticipantRole]
+
+
+export const ThreadActivityType = {
+  THREAD_CREATED: 'THREAD_CREATED',
+  MESSAGE_SENT: 'MESSAGE_SENT',
+  USER_ADDED: 'USER_ADDED',
+  USER_REMOVED: 'USER_REMOVED',
+  ASSIGNEE_ADDED: 'ASSIGNEE_ADDED',
+  ASSIGNEE_REMOVED: 'ASSIGNEE_REMOVED',
+  STATUS_CHANGED: 'STATUS_CHANGED',
+  PRIORITY_CHANGED: 'PRIORITY_CHANGED',
+  DUE_DATE_CHANGED: 'DUE_DATE_CHANGED',
+  THREAD_UPDATED: 'THREAD_UPDATED'
+} as const
+
+export type ThreadActivityType = (typeof ThreadActivityType)[keyof typeof ThreadActivityType]
+
+
 export const ApprovalStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',

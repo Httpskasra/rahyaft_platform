@@ -19,7 +19,7 @@ log = logging.getLogger("customer_ai_service")
 class CustomerAiService:
     def __init__(self) -> None:
         self.llm = OllamaClient()
-        self.model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:3b")
+        self.model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:7b-instruct")
 
     def _pick_string(
         self,
