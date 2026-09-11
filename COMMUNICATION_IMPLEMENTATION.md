@@ -20,13 +20,19 @@ This file keeps the agreed implementation phases and their acceptance state.
 
 See `COMMUNICATION_PHASE_1_5.md` for acceptance tests.
 
-## Phase 2 — UX + real-time (pending)
+## Phase 2 — UX + real-time (implemented)
 
-- WebSocket, mention, notification, attachment, reply, search, filters and optimistic UI
+- Phase 2A: WebSocket realtime, reply, optimistic UI, retry/idempotency
+- Phase 2B: mention, notification center, attachment and advanced filters
 
-## Phase 3 — Integration (pending)
+## Phase 3 — Integration (implemented; awaiting user acceptance)
 
-- Link threads to customers, repairs, forms, sales opportunities, users and departments
+- Generic `ThreadEntityLink` integration for customers, repairs, forms, form submissions, sales opportunities, users and departments
+- Contextual creation and related-conversation panels on business pages
+- Parent-context auto links: Repair → Customer, Sales Opportunity → Customer, Form Submission → Form
+- Entity-level permission checks for protected modules
+
+See `COMMUNICATION_PHASE_3.md` for acceptance tests.
 
 ## Phase 4 — AI (pending)
 
@@ -38,3 +44,18 @@ See `COMMUNICATION_PHASE_1_5.md` for acceptance tests.
 - Response and resolution time, open/overdue threads, department workload, common topics and AI-detected risks
 
 No later phase starts until the current phase is accepted.
+
+---
+
+## Phase 2A — Realtime Core
+
+Phase 2A adds a standard WebSocket channel, realtime message/thread/inbox synchronization, optimistic sending with safe retry/idempotency, and persistent reply-to-message support. See `COMMUNICATION_PHASE_2A.md` for exact test scenarios.
+
+## Phase 2B — completed
+
+- Persistent mentions (`ThreadMention`)
+- Communication notification center (`CommunicationNotification`)
+- Attachments with persisted metadata and production Docker volume (`ThreadAttachment`)
+- Realtime notification/attachment events
+- Advanced filters: type, creator, assignee, participant, attachment presence
+- Mention target membership validation

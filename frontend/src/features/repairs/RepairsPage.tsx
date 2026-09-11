@@ -72,8 +72,9 @@ export default function RepairsPage() {
       ]);
       setRepairs(repairsRes.data);
       setTechnicians(usersRes.data);
-      if (repairsRes.data.length > 0 && !activeId)
-        setActiveId(repairsRes.data[0].id);
+      const targetId = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("repairId") : null;
+      if (targetId && repairsRes.data.some((r) => r.id === targetId)) setActiveId(targetId);
+      else if (repairsRes.data.length > 0 && !activeId) setActiveId(repairsRes.data[0].id);
     } catch {
       setError("خطا در دریافت اطلاعات");
     } finally {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { CheckCircle, ChevronDown, Clock, FileText, Loader2, XCircle } from "lucide-react";
+import { CheckCircle, ChevronDown, Clock, FileText, Loader2, XCircle, MessageCircle } from "lucide-react";
 import type { Submission } from "@/lib/api/forms";
 import { approvalsApi, type ApprovalInstanceStatus } from "@/lib/api/approvals";
 import { exportSubmissionToPDF } from "../exportSubmissionToPdf";
@@ -79,6 +79,7 @@ export function SubmissionsTable({
                 {f.label}
               </th>
             ))}
+            <th className="pb-2 font-medium text-center">ارتباط</th>
             <th className="pb-2 font-medium text-center">PDF</th>
           </tr>
         </thead>
@@ -124,6 +125,9 @@ export function SubmissionsTable({
                   </td>
                 );
               })}
+              <td className="py-2 text-center">
+                <a href={`/dashboard/communications?entityType=FORM_SUBMISSION&entityId=${sub.id}&new=1`} className="inline-flex text-indigo-500 hover:text-indigo-700" title="گفتگوی مرتبط"><MessageCircle size={14}/></a>
+              </td>
               <td className="py-2 text-center">
                 <button
                   onClick={() => exportSubmissionToPDF(sub, formName, fields)}

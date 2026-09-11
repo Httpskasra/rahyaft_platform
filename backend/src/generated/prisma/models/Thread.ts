@@ -228,6 +228,9 @@ export type ThreadWhereInput = {
   messages?: Prisma.ThreadMessageListRelationFilter
   assignments?: Prisma.ThreadAssignmentListRelationFilter
   activities?: Prisma.ThreadActivityListRelationFilter
+  attachments?: Prisma.ThreadAttachmentListRelationFilter
+  notifications?: Prisma.CommunicationNotificationListRelationFilter
+  entityLinks?: Prisma.ThreadEntityLinkListRelationFilter
 }
 
 export type ThreadOrderByWithRelationInput = {
@@ -247,6 +250,9 @@ export type ThreadOrderByWithRelationInput = {
   messages?: Prisma.ThreadMessageOrderByRelationAggregateInput
   assignments?: Prisma.ThreadAssignmentOrderByRelationAggregateInput
   activities?: Prisma.ThreadActivityOrderByRelationAggregateInput
+  attachments?: Prisma.ThreadAttachmentOrderByRelationAggregateInput
+  notifications?: Prisma.CommunicationNotificationOrderByRelationAggregateInput
+  entityLinks?: Prisma.ThreadEntityLinkOrderByRelationAggregateInput
 }
 
 export type ThreadWhereUniqueInput = Prisma.AtLeast<{
@@ -269,6 +275,9 @@ export type ThreadWhereUniqueInput = Prisma.AtLeast<{
   messages?: Prisma.ThreadMessageListRelationFilter
   assignments?: Prisma.ThreadAssignmentListRelationFilter
   activities?: Prisma.ThreadActivityListRelationFilter
+  attachments?: Prisma.ThreadAttachmentListRelationFilter
+  notifications?: Prisma.CommunicationNotificationListRelationFilter
+  entityLinks?: Prisma.ThreadEntityLinkListRelationFilter
 }, "id">
 
 export type ThreadOrderByWithAggregationInput = {
@@ -318,6 +327,9 @@ export type ThreadCreateInput = {
   messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateInput = {
@@ -335,6 +347,9 @@ export type ThreadUncheckedCreateInput = {
   messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUpdateInput = {
@@ -352,6 +367,9 @@ export type ThreadUpdateInput = {
   messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateInput = {
@@ -369,6 +387,9 @@ export type ThreadUncheckedUpdateInput = {
   messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateManyInput = {
@@ -562,6 +583,20 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type ThreadCreateNestedOneWithoutEntityLinksInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutEntityLinksInput, Prisma.ThreadUncheckedCreateWithoutEntityLinksInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutEntityLinksInput
+  connect?: Prisma.ThreadWhereUniqueInput
+}
+
+export type ThreadUpdateOneRequiredWithoutEntityLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutEntityLinksInput, Prisma.ThreadUncheckedCreateWithoutEntityLinksInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutEntityLinksInput
+  upsert?: Prisma.ThreadUpsertWithoutEntityLinksInput
+  connect?: Prisma.ThreadWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadUpdateToOneWithWhereWithoutEntityLinksInput, Prisma.ThreadUpdateWithoutEntityLinksInput>, Prisma.ThreadUncheckedUpdateWithoutEntityLinksInput>
+}
+
 export type ThreadCreateNestedOneWithoutParticipantsInput = {
   create?: Prisma.XOR<Prisma.ThreadCreateWithoutParticipantsInput, Prisma.ThreadUncheckedCreateWithoutParticipantsInput>
   connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutParticipantsInput
@@ -604,6 +639,34 @@ export type ThreadUpdateOneRequiredWithoutMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadUpdateToOneWithWhereWithoutMessagesInput, Prisma.ThreadUpdateWithoutMessagesInput>, Prisma.ThreadUncheckedUpdateWithoutMessagesInput>
 }
 
+export type ThreadCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutAttachmentsInput, Prisma.ThreadUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.ThreadWhereUniqueInput
+}
+
+export type ThreadUpdateOneRequiredWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutAttachmentsInput, Prisma.ThreadUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.ThreadUpsertWithoutAttachmentsInput
+  connect?: Prisma.ThreadWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.ThreadUpdateWithoutAttachmentsInput>, Prisma.ThreadUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type ThreadCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutNotificationsInput, Prisma.ThreadUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.ThreadWhereUniqueInput
+}
+
+export type ThreadUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutNotificationsInput, Prisma.ThreadUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.ThreadUpsertWithoutNotificationsInput
+  connect?: Prisma.ThreadWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadUpdateToOneWithWhereWithoutNotificationsInput, Prisma.ThreadUpdateWithoutNotificationsInput>, Prisma.ThreadUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type ThreadCreateNestedOneWithoutActivitiesInput = {
   create?: Prisma.XOR<Prisma.ThreadCreateWithoutActivitiesInput, Prisma.ThreadUncheckedCreateWithoutActivitiesInput>
   connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutActivitiesInput
@@ -632,6 +695,9 @@ export type ThreadCreateWithoutDepartmentInput = {
   messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutDepartmentInput = {
@@ -648,6 +714,9 @@ export type ThreadUncheckedCreateWithoutDepartmentInput = {
   messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutDepartmentInput = {
@@ -706,6 +775,9 @@ export type ThreadCreateWithoutCreatorInput = {
   messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutCreatorInput = {
@@ -722,6 +794,9 @@ export type ThreadUncheckedCreateWithoutCreatorInput = {
   messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutCreatorInput = {
@@ -750,6 +825,98 @@ export type ThreadUpdateManyWithWhereWithoutCreatorInput = {
   data: Prisma.XOR<Prisma.ThreadUpdateManyMutationInput, Prisma.ThreadUncheckedUpdateManyWithoutCreatorInput>
 }
 
+export type ThreadCreateWithoutEntityLinksInput = {
+  id?: string
+  title: string
+  type: $Enums.ThreadType
+  status?: $Enums.ThreadStatus
+  priority?: $Enums.ThreadPriority
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutCreatedThreadsInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutCommunicationThreadsInput
+  participants?: Prisma.ThreadParticipantCreateNestedManyWithoutThreadInput
+  messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
+  assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
+  activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadUncheckedCreateWithoutEntityLinksInput = {
+  id?: string
+  title: string
+  type: $Enums.ThreadType
+  status?: $Enums.ThreadStatus
+  priority?: $Enums.ThreadPriority
+  creatorId: string
+  departmentId?: string | null
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutThreadInput
+  messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
+  assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
+  activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadCreateOrConnectWithoutEntityLinksInput = {
+  where: Prisma.ThreadWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutEntityLinksInput, Prisma.ThreadUncheckedCreateWithoutEntityLinksInput>
+}
+
+export type ThreadUpsertWithoutEntityLinksInput = {
+  update: Prisma.XOR<Prisma.ThreadUpdateWithoutEntityLinksInput, Prisma.ThreadUncheckedUpdateWithoutEntityLinksInput>
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutEntityLinksInput, Prisma.ThreadUncheckedCreateWithoutEntityLinksInput>
+  where?: Prisma.ThreadWhereInput
+}
+
+export type ThreadUpdateToOneWithWhereWithoutEntityLinksInput = {
+  where?: Prisma.ThreadWhereInput
+  data: Prisma.XOR<Prisma.ThreadUpdateWithoutEntityLinksInput, Prisma.ThreadUncheckedUpdateWithoutEntityLinksInput>
+}
+
+export type ThreadUpdateWithoutEntityLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumThreadTypeFieldUpdateOperationsInput | $Enums.ThreadType
+  status?: Prisma.EnumThreadStatusFieldUpdateOperationsInput | $Enums.ThreadStatus
+  priority?: Prisma.EnumThreadPriorityFieldUpdateOperationsInput | $Enums.ThreadPriority
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedThreadsNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutCommunicationThreadsNestedInput
+  participants?: Prisma.ThreadParticipantUpdateManyWithoutThreadNestedInput
+  messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
+  assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
+  activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+}
+
+export type ThreadUncheckedUpdateWithoutEntityLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumThreadTypeFieldUpdateOperationsInput | $Enums.ThreadType
+  status?: Prisma.EnumThreadStatusFieldUpdateOperationsInput | $Enums.ThreadStatus
+  priority?: Prisma.EnumThreadPriorityFieldUpdateOperationsInput | $Enums.ThreadPriority
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutThreadNestedInput
+  messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
+  assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
+  activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+}
+
 export type ThreadCreateWithoutParticipantsInput = {
   id?: string
   title: string
@@ -764,6 +931,9 @@ export type ThreadCreateWithoutParticipantsInput = {
   messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutParticipantsInput = {
@@ -780,6 +950,9 @@ export type ThreadUncheckedCreateWithoutParticipantsInput = {
   messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutParticipantsInput = {
@@ -812,6 +985,9 @@ export type ThreadUpdateWithoutParticipantsInput = {
   messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutParticipantsInput = {
@@ -828,6 +1004,9 @@ export type ThreadUncheckedUpdateWithoutParticipantsInput = {
   messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateWithoutAssignmentsInput = {
@@ -844,6 +1023,9 @@ export type ThreadCreateWithoutAssignmentsInput = {
   participants?: Prisma.ThreadParticipantCreateNestedManyWithoutThreadInput
   messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutAssignmentsInput = {
@@ -860,6 +1042,9 @@ export type ThreadUncheckedCreateWithoutAssignmentsInput = {
   participants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutThreadInput
   messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutAssignmentsInput = {
@@ -892,6 +1077,9 @@ export type ThreadUpdateWithoutAssignmentsInput = {
   participants?: Prisma.ThreadParticipantUpdateManyWithoutThreadNestedInput
   messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutAssignmentsInput = {
@@ -908,6 +1096,9 @@ export type ThreadUncheckedUpdateWithoutAssignmentsInput = {
   participants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutThreadNestedInput
   messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateWithoutMessagesInput = {
@@ -924,6 +1115,9 @@ export type ThreadCreateWithoutMessagesInput = {
   participants?: Prisma.ThreadParticipantCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutMessagesInput = {
@@ -940,6 +1134,9 @@ export type ThreadUncheckedCreateWithoutMessagesInput = {
   participants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
   activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutMessagesInput = {
@@ -972,6 +1169,9 @@ export type ThreadUpdateWithoutMessagesInput = {
   participants?: Prisma.ThreadParticipantUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutMessagesInput = {
@@ -988,6 +1188,193 @@ export type ThreadUncheckedUpdateWithoutMessagesInput = {
   participants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
+}
+
+export type ThreadCreateWithoutAttachmentsInput = {
+  id?: string
+  title: string
+  type: $Enums.ThreadType
+  status?: $Enums.ThreadStatus
+  priority?: $Enums.ThreadPriority
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutCreatedThreadsInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutCommunicationThreadsInput
+  participants?: Prisma.ThreadParticipantCreateNestedManyWithoutThreadInput
+  messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
+  assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
+  activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  title: string
+  type: $Enums.ThreadType
+  status?: $Enums.ThreadStatus
+  priority?: $Enums.ThreadPriority
+  creatorId: string
+  departmentId?: string | null
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutThreadInput
+  messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
+  assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
+  activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.ThreadWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutAttachmentsInput, Prisma.ThreadUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type ThreadUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.ThreadUpdateWithoutAttachmentsInput, Prisma.ThreadUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutAttachmentsInput, Prisma.ThreadUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.ThreadWhereInput
+}
+
+export type ThreadUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.ThreadWhereInput
+  data: Prisma.XOR<Prisma.ThreadUpdateWithoutAttachmentsInput, Prisma.ThreadUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type ThreadUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumThreadTypeFieldUpdateOperationsInput | $Enums.ThreadType
+  status?: Prisma.EnumThreadStatusFieldUpdateOperationsInput | $Enums.ThreadStatus
+  priority?: Prisma.EnumThreadPriorityFieldUpdateOperationsInput | $Enums.ThreadPriority
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedThreadsNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutCommunicationThreadsNestedInput
+  participants?: Prisma.ThreadParticipantUpdateManyWithoutThreadNestedInput
+  messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
+  assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
+  activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
+}
+
+export type ThreadUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumThreadTypeFieldUpdateOperationsInput | $Enums.ThreadType
+  status?: Prisma.EnumThreadStatusFieldUpdateOperationsInput | $Enums.ThreadStatus
+  priority?: Prisma.EnumThreadPriorityFieldUpdateOperationsInput | $Enums.ThreadPriority
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutThreadNestedInput
+  messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
+  assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
+  activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
+}
+
+export type ThreadCreateWithoutNotificationsInput = {
+  id?: string
+  title: string
+  type: $Enums.ThreadType
+  status?: $Enums.ThreadStatus
+  priority?: $Enums.ThreadPriority
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutCreatedThreadsInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutCommunicationThreadsInput
+  participants?: Prisma.ThreadParticipantCreateNestedManyWithoutThreadInput
+  messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
+  assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
+  activities?: Prisma.ThreadActivityCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  title: string
+  type: $Enums.ThreadType
+  status?: $Enums.ThreadStatus
+  priority?: $Enums.ThreadPriority
+  creatorId: string
+  departmentId?: string | null
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutThreadInput
+  messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
+  assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
+  activities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.ThreadWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutNotificationsInput, Prisma.ThreadUncheckedCreateWithoutNotificationsInput>
+}
+
+export type ThreadUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.ThreadUpdateWithoutNotificationsInput, Prisma.ThreadUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutNotificationsInput, Prisma.ThreadUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.ThreadWhereInput
+}
+
+export type ThreadUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.ThreadWhereInput
+  data: Prisma.XOR<Prisma.ThreadUpdateWithoutNotificationsInput, Prisma.ThreadUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type ThreadUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumThreadTypeFieldUpdateOperationsInput | $Enums.ThreadType
+  status?: Prisma.EnumThreadStatusFieldUpdateOperationsInput | $Enums.ThreadStatus
+  priority?: Prisma.EnumThreadPriorityFieldUpdateOperationsInput | $Enums.ThreadPriority
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedThreadsNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutCommunicationThreadsNestedInput
+  participants?: Prisma.ThreadParticipantUpdateManyWithoutThreadNestedInput
+  messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
+  assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
+  activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
+}
+
+export type ThreadUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumThreadTypeFieldUpdateOperationsInput | $Enums.ThreadType
+  status?: Prisma.EnumThreadStatusFieldUpdateOperationsInput | $Enums.ThreadStatus
+  priority?: Prisma.EnumThreadPriorityFieldUpdateOperationsInput | $Enums.ThreadPriority
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutThreadNestedInput
+  messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
+  assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
+  activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateWithoutActivitiesInput = {
@@ -1004,6 +1391,9 @@ export type ThreadCreateWithoutActivitiesInput = {
   participants?: Prisma.ThreadParticipantCreateNestedManyWithoutThreadInput
   messages?: Prisma.ThreadMessageCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutActivitiesInput = {
@@ -1020,6 +1410,9 @@ export type ThreadUncheckedCreateWithoutActivitiesInput = {
   participants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutThreadInput
   messages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutThreadInput
   assignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutThreadInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutThreadInput
+  notifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutThreadInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutActivitiesInput = {
@@ -1052,6 +1445,9 @@ export type ThreadUpdateWithoutActivitiesInput = {
   participants?: Prisma.ThreadParticipantUpdateManyWithoutThreadNestedInput
   messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutActivitiesInput = {
@@ -1068,6 +1464,9 @@ export type ThreadUncheckedUpdateWithoutActivitiesInput = {
   participants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutThreadNestedInput
   messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateManyDepartmentInput = {
@@ -1096,6 +1495,9 @@ export type ThreadUpdateWithoutDepartmentInput = {
   messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutDepartmentInput = {
@@ -1112,6 +1514,9 @@ export type ThreadUncheckedUpdateWithoutDepartmentInput = {
   messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1152,6 +1557,9 @@ export type ThreadUpdateWithoutCreatorInput = {
   messages?: Prisma.ThreadMessageUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutCreatorInput = {
@@ -1168,6 +1576,9 @@ export type ThreadUncheckedUpdateWithoutCreatorInput = {
   messages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput
   assignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutThreadNestedInput
   activities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutThreadNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutThreadNestedInput
+  notifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutThreadNestedInput
+  entityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateManyWithoutCreatorInput = {
@@ -1192,6 +1603,9 @@ export type ThreadCountOutputType = {
   messages: number
   assignments: number
   activities: number
+  attachments: number
+  notifications: number
+  entityLinks: number
 }
 
 export type ThreadCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1199,6 +1613,9 @@ export type ThreadCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   messages?: boolean | ThreadCountOutputTypeCountMessagesArgs
   assignments?: boolean | ThreadCountOutputTypeCountAssignmentsArgs
   activities?: boolean | ThreadCountOutputTypeCountActivitiesArgs
+  attachments?: boolean | ThreadCountOutputTypeCountAttachmentsArgs
+  notifications?: boolean | ThreadCountOutputTypeCountNotificationsArgs
+  entityLinks?: boolean | ThreadCountOutputTypeCountEntityLinksArgs
 }
 
 /**
@@ -1239,6 +1656,27 @@ export type ThreadCountOutputTypeCountActivitiesArgs<ExtArgs extends runtime.Typ
   where?: Prisma.ThreadActivityWhereInput
 }
 
+/**
+ * ThreadCountOutputType without action
+ */
+export type ThreadCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadAttachmentWhereInput
+}
+
+/**
+ * ThreadCountOutputType without action
+ */
+export type ThreadCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommunicationNotificationWhereInput
+}
+
+/**
+ * ThreadCountOutputType without action
+ */
+export type ThreadCountOutputTypeCountEntityLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadEntityLinkWhereInput
+}
+
 
 export type ThreadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1257,6 +1695,9 @@ export type ThreadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   messages?: boolean | Prisma.Thread$messagesArgs<ExtArgs>
   assignments?: boolean | Prisma.Thread$assignmentsArgs<ExtArgs>
   activities?: boolean | Prisma.Thread$activitiesArgs<ExtArgs>
+  attachments?: boolean | Prisma.Thread$attachmentsArgs<ExtArgs>
+  notifications?: boolean | Prisma.Thread$notificationsArgs<ExtArgs>
+  entityLinks?: boolean | Prisma.Thread$entityLinksArgs<ExtArgs>
   _count?: boolean | Prisma.ThreadCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["thread"]>
 
@@ -1311,6 +1752,9 @@ export type ThreadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   messages?: boolean | Prisma.Thread$messagesArgs<ExtArgs>
   assignments?: boolean | Prisma.Thread$assignmentsArgs<ExtArgs>
   activities?: boolean | Prisma.Thread$activitiesArgs<ExtArgs>
+  attachments?: boolean | Prisma.Thread$attachmentsArgs<ExtArgs>
+  notifications?: boolean | Prisma.Thread$notificationsArgs<ExtArgs>
+  entityLinks?: boolean | Prisma.Thread$entityLinksArgs<ExtArgs>
   _count?: boolean | Prisma.ThreadCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ThreadIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1331,6 +1775,9 @@ export type $ThreadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     messages: Prisma.$ThreadMessagePayload<ExtArgs>[]
     assignments: Prisma.$ThreadAssignmentPayload<ExtArgs>[]
     activities: Prisma.$ThreadActivityPayload<ExtArgs>[]
+    attachments: Prisma.$ThreadAttachmentPayload<ExtArgs>[]
+    notifications: Prisma.$CommunicationNotificationPayload<ExtArgs>[]
+    entityLinks: Prisma.$ThreadEntityLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1743,6 +2190,9 @@ export interface Prisma__ThreadClient<T, Null = never, ExtArgs extends runtime.T
   messages<T extends Prisma.Thread$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignments<T extends Prisma.Thread$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.Thread$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.Thread$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.Thread$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommunicationNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  entityLinks<T extends Prisma.Thread$entityLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$entityLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadEntityLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2295,6 +2745,78 @@ export type Thread$activitiesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ThreadActivityScalarFieldEnum | Prisma.ThreadActivityScalarFieldEnum[]
+}
+
+/**
+ * Thread.attachments
+ */
+export type Thread$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadAttachment
+   */
+  select?: Prisma.ThreadAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadAttachment
+   */
+  omit?: Prisma.ThreadAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadAttachmentInclude<ExtArgs> | null
+  where?: Prisma.ThreadAttachmentWhereInput
+  orderBy?: Prisma.ThreadAttachmentOrderByWithRelationInput | Prisma.ThreadAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadAttachmentScalarFieldEnum | Prisma.ThreadAttachmentScalarFieldEnum[]
+}
+
+/**
+ * Thread.notifications
+ */
+export type Thread$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CommunicationNotification
+   */
+  select?: Prisma.CommunicationNotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CommunicationNotification
+   */
+  omit?: Prisma.CommunicationNotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommunicationNotificationInclude<ExtArgs> | null
+  where?: Prisma.CommunicationNotificationWhereInput
+  orderBy?: Prisma.CommunicationNotificationOrderByWithRelationInput | Prisma.CommunicationNotificationOrderByWithRelationInput[]
+  cursor?: Prisma.CommunicationNotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommunicationNotificationScalarFieldEnum | Prisma.CommunicationNotificationScalarFieldEnum[]
+}
+
+/**
+ * Thread.entityLinks
+ */
+export type Thread$entityLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadEntityLink
+   */
+  select?: Prisma.ThreadEntityLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadEntityLink
+   */
+  omit?: Prisma.ThreadEntityLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadEntityLinkInclude<ExtArgs> | null
+  where?: Prisma.ThreadEntityLinkWhereInput
+  orderBy?: Prisma.ThreadEntityLinkOrderByWithRelationInput | Prisma.ThreadEntityLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadEntityLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadEntityLinkScalarFieldEnum | Prisma.ThreadEntityLinkScalarFieldEnum[]
 }
 
 /**

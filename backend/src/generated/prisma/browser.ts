@@ -38,6 +38,11 @@ export type User = Prisma.UserModel
  */
 export type Thread = Prisma.ThreadModel
 /**
+ * Model ThreadEntityLink
+ * 
+ */
+export type ThreadEntityLink = Prisma.ThreadEntityLinkModel
+/**
  * Model ThreadParticipant
  * 
  */
@@ -52,6 +57,21 @@ export type ThreadAssignment = Prisma.ThreadAssignmentModel
  * 
  */
 export type ThreadMessage = Prisma.ThreadMessageModel
+/**
+ * Model ThreadMention
+ * 
+ */
+export type ThreadMention = Prisma.ThreadMentionModel
+/**
+ * Model ThreadAttachment
+ * 
+ */
+export type ThreadAttachment = Prisma.ThreadAttachmentModel
+/**
+ * Model CommunicationNotification
+ * 
+ */
+export type CommunicationNotification = Prisma.CommunicationNotificationModel
 /**
  * Model ThreadActivity
  * 

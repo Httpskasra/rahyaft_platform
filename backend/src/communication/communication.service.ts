@@ -1,9 +1,14 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { extname, join } from 'node:path';
+import { randomUUID } from 'node:crypto';
 import {
   ForbiddenException,
+  BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { CommunicationRealtimeService } from './communication.realtime.service';
 import type {
   AuthenticatedUser,
   PermissionEntry,
@@ -12,14 +17,17 @@ import {
   DepartmentRelationType,
   ScopeType,
   ThreadActivityType,
+  ThreadEntityType,
   ThreadParticipantRole,
   ThreadStatus,
 } from '../generated/prisma/enums';
 import {
+  AddEntityLinkDto,
   AddParticipantDto,
   AssignThreadDto,
   CreateMessageDto,
   CreateThreadDto,
+  QueryEntitySearchDto,
   QueryMessagesDto,
   QueryThreadsDto,
   UpdateThreadDto,
@@ -35,7 +43,7 @@ const detailMessageLimit = 30;
 
 @Injectable()
 export class CommunicationService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly realtime: CommunicationRealtimeService) {}
 
   listPeople() {
     return this.prisma.user.findMany({
@@ -48,6 +56,17 @@ export class CommunicationService {
       orderBy: { name: 'asc' },
     });
   }
+
+  async loadAuthenticatedUser(userId: string): Promise<AuthenticatedUser> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, phoneNumber: true, name: true, departmentId: true, managerId: true, roles: { select: { role: { select: { id: true, name: true, permissions: { select: { scope: true, relationType: true, constraints: true, permission: { select: { action: true, resource: true } } } } } } } } },
+    });
+    if (!user) throw new NotFoundException('User not found');
+    return { id: user.id, phoneNumber: user.phoneNumber, name: user.name, departmentId: user.departmentId, managerId: user.managerId, roles: user.roles.map((entry) => ({ id: entry.role.id, name: entry.role.name, permissions: entry.role.permissions.map((rp) => ({ action: rp.permission.action, resource: rp.permission.resource, scope: rp.scope, relationType: rp.relationType, constraints: rp.constraints })) })) };
+  }
+
+  async assertRealtimeAccess(threadId: string, user: AuthenticatedUser, permission: PermissionEntry) { return this.assertAccess(threadId, user, permission); }
 
   async createThread(dto: CreateThreadDto, user: AuthenticatedUser) {
     const participantIds = [...new Set(dto.participantIds ?? [])].filter(
@@ -101,6 +120,18 @@ export class CommunicationService {
         },
       });
 
+      for (const input of dto.entityLinks ?? []) {
+        this.assertEntityModuleAccess(input.entityType, user);
+        const contextLinks = await this.resolveEntityContext(input.entityType, input.entityId, tx);
+        for (const link of contextLinks) {
+          await tx.threadEntityLink.upsert({
+            where: { threadId_entityType_entityId: { threadId: thread.id, entityType: link.entityType, entityId: link.entityId } },
+            update: { label: link.label, subtitle: link.subtitle, href: link.href },
+            create: { threadId: thread.id, entityType: link.entityType, entityId: link.entityId, label: link.label, subtitle: link.subtitle, href: link.href, createdById: user.id },
+          });
+        }
+      }
+
       await tx.threadActivity.create({
         data: {
           threadId: thread.id,
@@ -126,7 +157,9 @@ export class CommunicationService {
       }
       return thread.id;
     });
-    return this.getThreadInternal(threadId);
+    const detail = await this.getThreadInternal(threadId);
+    await this.broadcastThreadChanged(threadId, 'communication:thread.created', detail);
+    return detail;
   }
 
   async listThreads(
@@ -139,6 +172,14 @@ export class CommunicationService {
     if (query.status) where.status = query.status;
     if (query.priority) where.priority = query.priority;
     if (query.type) where.type = query.type;
+    if (query.creatorId) where.creatorId = query.creatorId;
+    if (query.participantId) where.participants = { some: { userId: query.participantId, leftAt: null } };
+    if (query.assigneeId) where.assignments = { some: { userId: query.assigneeId, completedAt: null } };
+    if (query.hasAttachment === 'true') where.attachments = { some: {} };
+    if (query.hasAttachment === 'false') where.attachments = { none: {} };
+    if (query.entityType && query.entityId) where.entityLinks = { some: { entityType: query.entityType, entityId: query.entityId } };
+    else if (query.entityType) where.entityLinks = { some: { entityType: query.entityType } };
+    else if (query.entityId) where.entityLinks = { some: { entityId: query.entityId } };
     if (query.search) {
       where.OR = [
         { title: { contains: query.search, mode: 'insensitive' } },
@@ -180,8 +221,9 @@ export class CommunicationService {
             where: { deletedAt: null },
             orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
             take: 1,
-            include: { sender: { select: userSummary } },
+            include: { sender: { select: userSummary }, replyTo: { select: { id: true, body: true, senderId: true, sender: { select: userSummary } } }, mentions: { include: { user: { select: userSummary } } }, attachments: true },
           },
+          entityLinks: { orderBy: { createdAt: 'asc' } },
           _count: { select: { messages: true, participants: true } },
         },
       }),
@@ -265,7 +307,7 @@ export class CommunicationService {
       take: query.limit + 1,
       ...(query.cursor ? { cursor: { id: query.cursor }, skip: 1 } : {}),
       orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
-      include: { sender: { select: userSummary } },
+      include: { sender: { select: userSummary }, replyTo: { select: { id: true, body: true, senderId: true, sender: { select: userSummary } } }, mentions: { include: { user: { select: userSummary } } }, attachments: true },
     });
     const hasMore = rows.length > query.limit;
     const pageRows = hasMore ? rows.slice(0, query.limit) : rows;
@@ -313,31 +355,54 @@ export class CommunicationService {
         });
       }
     });
-    return this.getThreadInternal(id);
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
   }
 
-  async addMessage(
-    id: string,
-    dto: CreateMessageDto,
-    user: AuthenticatedUser,
-    permission: PermissionEntry,
-  ) {
+  async addMessage(id: string, dto: CreateMessageDto, user: AuthenticatedUser, permission: PermissionEntry) {
     await this.assertAccess(id, user, permission, true);
-    return this.prisma.$transaction(async (tx) => {
-      const message = await tx.threadMessage.create({
-        data: { threadId: id, senderId: user.id, body: dto.body.trim() },
-        include: { sender: { select: userSummary } },
+    if (dto.clientId) {
+      const existing = await this.prisma.threadMessage.findUnique({
+        where: { senderId_clientId: { senderId: user.id, clientId: dto.clientId } },
+        include: { sender: { select: userSummary }, replyTo: { select: { id: true, body: true, senderId: true, sender: { select: userSummary } } }, mentions: { include: { user: { select: userSummary } } }, attachments: true },
+      });
+      if (existing) {
+        if (existing.threadId !== id) throw new ForbiddenException('Message idempotency key belongs to another thread');
+        return existing;
+      }
+    }
+    if (dto.replyToId) {
+      const target = await this.prisma.threadMessage.findFirst({ where: { id: dto.replyToId, threadId: id, deletedAt: null }, select: { id: true } });
+      if (!target) throw new NotFoundException('Reply target message not found in this thread');
+    }
+    const message = await this.prisma.$transaction(async (tx) => {
+      const mentionIds = [...new Set(dto.mentionUserIds ?? [])].filter((mentionedId) => mentionedId !== user.id);
+      if (mentionIds.length) {
+        await this.assertUsersExist(mentionIds);
+        const activeMentionTargets = await tx.threadParticipant.count({ where: { threadId: id, userId: { in: mentionIds }, leftAt: null } });
+        if (activeMentionTargets !== mentionIds.length) throw new BadRequestException('Mention targets must be active thread participants');
+      }
+      const created = await tx.threadMessage.create({
+        data: {
+          threadId: id, senderId: user.id, clientId: dto.clientId, body: dto.body.trim(), replyToId: dto.replyToId,
+          mentions: { create: mentionIds.map((userId) => ({ userId })) },
+        },
+        include: { sender: { select: userSummary }, replyTo: { select: { id: true, body: true, senderId: true, sender: { select: userSummary } } }, mentions: { include: { user: { select: userSummary } } }, attachments: true },
       });
       await tx.thread.update({ where: { id }, data: { updatedAt: new Date() } });
-      await tx.threadParticipant.updateMany({
-        where: { threadId: id, userId: user.id, leftAt: null },
-        data: { lastReadAt: new Date() },
-      });
-      await tx.threadActivity.create({
-        data: { threadId: id, actorId: user.id, type: ThreadActivityType.MESSAGE_SENT },
-      });
-      return message;
+      await tx.threadParticipant.updateMany({ where: { threadId: id, userId: user.id, leftAt: null }, data: { lastReadAt: new Date() } });
+      await tx.threadActivity.create({ data: { threadId: id, actorId: user.id, type: ThreadActivityType.MESSAGE_SENT } });
+      return created;
     });
+    const payload = message;
+    const mentionedIds = message.mentions?.map((mention: any) => mention.userId) ?? [];
+    if (mentionedIds.length) await this.createNotifications(mentionedIds, id, 'MENTION', `${user.name} شما را منشن کرد`, dto.body.trim());
+    const recipients = (await this.activeParticipantIds(id)).filter((participantId) => participantId !== user.id && !mentionedIds.includes(participantId));
+    if (recipients.length) await this.createNotifications(recipients, id, 'MESSAGE', `پیام جدید از ${user.name}`, dto.body.trim());
+    this.realtime.emitToThread(id, 'communication:message.created', { threadId: id, message: payload });
+    await this.broadcastInboxChanged(id);
+    return payload;
   }
 
   async addParticipant(
@@ -363,7 +428,9 @@ export class CommunicationService {
         },
       });
     });
-    return this.getThreadInternal(id);
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
   }
 
   async removeParticipant(
@@ -394,7 +461,9 @@ export class CommunicationService {
         data: { threadId: id, actorId: user.id, type: ThreadActivityType.USER_REMOVED, metadata: { userId: participantId } },
       });
     });
-    return this.getThreadInternal(id);
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
   }
 
   async assign(
@@ -424,7 +493,10 @@ export class CommunicationService {
         data: { threadId: id, actorId: user.id, type: ThreadActivityType.ASSIGNEE_ADDED, metadata: { userId: dto.userId } },
       });
     });
-    return this.getThreadInternal(id);
+    await this.createNotifications([dto.userId], id, 'ASSIGNMENT', 'یک گفتگو به شما ارجاع شد', undefined);
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
   }
 
   async unassign(
@@ -452,7 +524,9 @@ export class CommunicationService {
         data: { threadId: id, actorId: user.id, type: ThreadActivityType.ASSIGNEE_REMOVED, metadata: { userId: assigneeId } },
       });
     });
-    return this.getThreadInternal(id);
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
   }
 
   async markRead(
@@ -473,13 +547,197 @@ export class CommunicationService {
       data: { lastReadAt: new Date() },
       select: { lastReadAt: true },
     });
-    return { ...updated, tracked: true };
+    const result = { ...updated, tracked: true };
+    this.realtime.emitToUser(user.id, 'communication:thread.read', { threadId: id, ...result });
+    this.realtime.emitToUser(user.id, 'communication:inbox.changed', { threadId: id });
+    return result;
+  }
+
+  async listNotifications(user: AuthenticatedUser) {
+    const items = await this.prisma.communicationNotification.findMany({ where: { userId: user.id }, orderBy: { createdAt: 'desc' }, take: 50 });
+    const unread = await this.prisma.communicationNotification.count({ where: { userId: user.id, readAt: null } });
+    return { items, unread };
+  }
+
+  async markNotificationRead(id: string, user: AuthenticatedUser) {
+    const item = await this.prisma.communicationNotification.findFirst({ where: { id, userId: user.id } });
+    if (!item) throw new NotFoundException('Notification not found');
+    const updated = await this.prisma.communicationNotification.update({ where: { id }, data: { readAt: new Date() } });
+    this.realtime.emitToUser(user.id, 'communication:notification.changed', { unreadDelta: item.readAt ? 0 : -1 });
+    return updated;
+  }
+
+  async markAllNotificationsRead(user: AuthenticatedUser) {
+    await this.prisma.communicationNotification.updateMany({ where: { userId: user.id, readAt: null }, data: { readAt: new Date() } });
+    this.realtime.emitToUser(user.id, 'communication:notification.changed', { unread: 0 });
+    return { ok: true };
+  }
+
+  private async createNotifications(userIds: string[], threadId: string, type: string, title: string, body?: string) {
+    const unique = [...new Set(userIds)]; if (!unique.length) return;
+    await this.prisma.communicationNotification.createMany({ data: unique.map((userId) => ({ userId, threadId, type, title, body: body?.slice(0, 240) })) });
+    this.realtime.emitToUsers(unique, 'communication:notification.created', { threadId, type, title });
+  }
+
+  async uploadAttachment(id: string, file: any, user: AuthenticatedUser, permission: PermissionEntry) {
+    await this.assertAccess(id, user, permission, true);
+    if (!file) throw new BadRequestException('File is required');
+    const allowed = new Set(['application/pdf','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/png','image/jpeg','image/webp','text/plain']);
+    if (!allowed.has(file.mimetype)) throw new BadRequestException('Unsupported attachment type');
+    const dir = join(process.cwd(), 'uploads', 'communication'); await mkdir(dir, { recursive: true });
+    const key = `${randomUUID()}${extname(file.originalname).toLowerCase()}`; await writeFile(join(dir, key), file.buffer);
+    const attachment = await this.prisma.threadAttachment.create({ data: { threadId: id, uploaderId: user.id, fileName: file.originalname, mimeType: file.mimetype, size: file.size, storageKey: key } });
+    const recipients = (await this.activeParticipantIds(id)).filter((participantId) => participantId !== user.id);
+    if (recipients.length) await this.createNotifications(recipients, id, 'ATTACHMENT', `${user.name} یک فایل اضافه کرد`, file.originalname);
+    this.realtime.emitToThread(id, 'communication:attachment.created', { threadId: id, attachment });
+    await this.broadcastInboxChanged(id);
+    return attachment;
+  }
+
+  async getAttachment(id: string, user: AuthenticatedUser, permission: PermissionEntry) {
+    const attachment = await this.prisma.threadAttachment.findUnique({ where: { id } });
+    if (!attachment) throw new NotFoundException('Attachment not found');
+    await this.assertAccess(attachment.threadId, user, permission);
+    const data = await readFile(join(process.cwd(), 'uploads', 'communication', attachment.storageKey));
+    return { ...attachment, data: data.toString('base64') };
   }
 
   private async assertUsersExist(ids: string[]) {
     if (!ids.length) return;
     const count = await this.prisma.user.count({ where: { id: { in: ids } } });
     if (count !== ids.length) throw new NotFoundException('One or more users were not found');
+  }
+
+  async addEntityLink(id: string, dto: AddEntityLinkDto, user: AuthenticatedUser, permission: PermissionEntry) {
+    await this.assertAccess(id, user, permission);
+    this.assertEntityModuleAccess(dto.entityType, user);
+    const contextLinks = await this.resolveEntityContext(dto.entityType, dto.entityId, this.prisma);
+    await this.prisma.$transaction(async (tx) => {
+      for (const link of contextLinks) {
+        await tx.threadEntityLink.upsert({
+          where: { threadId_entityType_entityId: { threadId: id, entityType: link.entityType, entityId: link.entityId } },
+          update: { label: link.label, subtitle: link.subtitle, href: link.href },
+          create: { threadId: id, entityType: link.entityType, entityId: link.entityId, label: link.label, subtitle: link.subtitle, href: link.href, createdById: user.id },
+        });
+      }
+      const primary = contextLinks[0];
+      await tx.threadActivity.create({ data: { threadId: id, actorId: user.id, type: ThreadActivityType.ENTITY_LINKED, metadata: { entityType: dto.entityType, entityId: dto.entityId, label: primary?.label, autoLinked: contextLinks.slice(1).map((item) => ({ entityType: item.entityType, entityId: item.entityId })) } } });
+    });
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
+  }
+
+  async removeEntityLink(id: string, entityType: ThreadEntityType, entityId: string, user: AuthenticatedUser, permission: PermissionEntry) {
+    await this.assertAccess(id, user, permission);
+    const link = await this.prisma.threadEntityLink.findUnique({ where: { threadId_entityType_entityId: { threadId: id, entityType, entityId } } });
+    if (!link) throw new NotFoundException('Entity link not found');
+    await this.prisma.$transaction(async (tx) => {
+      await tx.threadEntityLink.delete({ where: { id: link.id } });
+      await tx.threadActivity.create({ data: { threadId: id, actorId: user.id, type: ThreadActivityType.ENTITY_UNLINKED, metadata: { entityType, entityId, label: link.label } } });
+    });
+    const detail = await this.getThreadInternal(id);
+    await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
+    return detail;
+  }
+
+  async listEntityThreads(entityType: ThreadEntityType, entityId: string, user: AuthenticatedUser, permission: PermissionEntry) {
+    this.assertEntityModuleAccess(entityType, user);
+    const scope = await this.buildThreadScopeWhere(user, permission);
+    const items = await this.prisma.thread.findMany({
+      where: { AND: [scope], entityLinks: { some: { entityType, entityId } } },
+      orderBy: [{ updatedAt: 'desc' }, { id: 'desc' }],
+      take: 50,
+      include: { creator: { select: userSummary }, assignments: { where: { completedAt: null }, include: { assignee: { select: userSummary } } }, entityLinks: true, messages: { where: { deletedAt: null }, orderBy: [{ createdAt: 'desc' }, { id: 'desc' }], take: 1, include: { sender: { select: userSummary } } }, _count: { select: { messages: true, participants: true } } },
+    });
+    return { items: items.map((t) => ({ ...t, lastMessage: t.messages[0] ?? null, messages: undefined })) };
+  }
+
+  async searchEntities(query: QueryEntitySearchDto, user?: AuthenticatedUser) {
+    if (user) this.assertEntityModuleAccess(query.type, user);
+    const search = query.search?.trim() ?? '';
+    const take = 20;
+    switch (query.type) {
+      case ThreadEntityType.CUSTOMER: {
+        const rows = await this.prisma.customer.findMany({ where: search ? { OR: [{ firstName: { contains: search, mode: 'insensitive' } }, { lastName: { contains: search, mode: 'insensitive' } }, { organizationName: { contains: search, mode: 'insensitive' } }, { mobile: { contains: search } }] } : {}, take, orderBy: { updatedAt: 'desc' } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: r.organizationName || [r.firstName, r.lastName].filter(Boolean).join(' ') || r.mobile || 'مشتری', subtitle: r.mobile || r.city || null, href: `/dashboard/customers?customerId=${r.id}` }));
+      }
+      case ThreadEntityType.REPAIR: {
+        const rows = await this.prisma.repairCase.findMany({ where: search ? { OR: [{ caseNumber: { contains: search, mode: 'insensitive' } }, { deviceTitle: { contains: search, mode: 'insensitive' } }, { serialNumber: { contains: search, mode: 'insensitive' } }] } : {}, take, orderBy: { updatedAt: 'desc' } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: `${r.caseNumber} — ${r.deviceTitle}`, subtitle: r.serialNumber || r.status, href: `/dashboard/repairs?repairId=${r.id}` }));
+      }
+      case ThreadEntityType.FORM: {
+        const rows = await this.prisma.form.findMany({ where: search ? { OR: [{ name: { contains: search, mode: 'insensitive' } }, { customId: { contains: search, mode: 'insensitive' } }] } : {}, take, orderBy: { updatedAt: 'desc' } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: r.name, subtitle: r.customId || null, href: `/dashboard/forms/${r.id}` }));
+      }
+      case ThreadEntityType.FORM_SUBMISSION: {
+        const rows = await this.prisma.formSubmission.findMany({ where: search ? { form: { name: { contains: search, mode: 'insensitive' } } } : {}, take, orderBy: { createdAt: 'desc' }, include: { form: { select: { name: true } } } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: `ارسال فرم: ${r.form.name}`, subtitle: r.id.slice(0, 8), href: `/dashboard/forms/${r.formId}` }));
+      }
+      case ThreadEntityType.SALES_OPPORTUNITY: {
+        const rows = await this.prisma.salesOpportunity.findMany({ where: search ? { title: { contains: search, mode: 'insensitive' } } : {}, take, orderBy: { updatedAt: 'desc' }, include: { customer: { select: { firstName: true, lastName: true, organizationName: true } } } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: r.title, subtitle: r.customer.organizationName || [r.customer.firstName, r.customer.lastName].filter(Boolean).join(' ') || null, href: `/dashboard/customers?customerId=${r.customerId}` }));
+      }
+      case ThreadEntityType.USER: {
+        const rows = await this.prisma.user.findMany({ where: search ? { name: { contains: search, mode: 'insensitive' } } : {}, take, orderBy: { name: 'asc' }, include: { department: { select: { name: true } } } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: r.name, subtitle: r.department.name, href: `/dashboard/users?userId=${r.id}` }));
+      }
+      case ThreadEntityType.DEPARTMENT: {
+        const rows = await this.prisma.department.findMany({ where: search ? { name: { contains: search, mode: 'insensitive' } } : {}, take, orderBy: { name: 'asc' } });
+        return rows.map((r) => ({ entityType: query.type, entityId: r.id, label: r.name, subtitle: 'واحد سازمانی', href: `/dashboard/departments?departmentId=${r.id}` }));
+      }
+      default: return [];
+    }
+  }
+
+  private assertEntityModuleAccess(entityType: ThreadEntityType, user: AuthenticatedUser) {
+    const protectedResource: Partial<Record<ThreadEntityType, string>> = {
+      [ThreadEntityType.REPAIR]: 'repairs',
+      [ThreadEntityType.FORM]: 'forms',
+      [ThreadEntityType.FORM_SUBMISSION]: 'form-submissions',
+    };
+    const resource = protectedResource[entityType];
+    if (!resource) return;
+    const allowed = user.roles.some((role) => role.permissions.some((permission) => permission.action === 'read' && permission.resource === resource));
+    if (!allowed) throw new ForbiddenException(`Missing permission to link ${entityType}`);
+  }
+
+  private async resolveEntityContext(entityType: ThreadEntityType, entityId: string, db: any) {
+    const primary = await this.resolveEntity(entityType, entityId, db);
+    const links: Array<{ entityType: ThreadEntityType; entityId: string; label: string; subtitle?: string | null; href?: string | null }> = [
+      { entityType, entityId, ...primary },
+    ];
+
+    if (entityType === ThreadEntityType.REPAIR) {
+      const repair = await db.repairCase.findUnique({ where: { id: entityId }, select: { customerId: true } });
+      if (repair?.customerId) links.push({ entityType: ThreadEntityType.CUSTOMER, entityId: repair.customerId, ...(await this.resolveEntity(ThreadEntityType.CUSTOMER, repair.customerId, db)) });
+    }
+    if (entityType === ThreadEntityType.SALES_OPPORTUNITY) {
+      const opportunity = await db.salesOpportunity.findUnique({ where: { id: entityId }, select: { customerId: true } });
+      if (opportunity?.customerId) links.push({ entityType: ThreadEntityType.CUSTOMER, entityId: opportunity.customerId, ...(await this.resolveEntity(ThreadEntityType.CUSTOMER, opportunity.customerId, db)) });
+    }
+    if (entityType === ThreadEntityType.FORM_SUBMISSION) {
+      const submission = await db.formSubmission.findUnique({ where: { id: entityId }, select: { formId: true } });
+      if (submission?.formId) links.push({ entityType: ThreadEntityType.FORM, entityId: submission.formId, ...(await this.resolveEntity(ThreadEntityType.FORM, submission.formId, db)) });
+    }
+    return links;
+  }
+
+  private async resolveEntity(entityType: ThreadEntityType, entityId: string, db: any) {
+    const found = (await this.searchEntityById(entityType, entityId, db));
+    if (!found) throw new NotFoundException('Linked entity not found');
+    return found;
+  }
+
+  private async searchEntityById(type: ThreadEntityType, id: string, db: any): Promise<{label:string; subtitle?:string|null; href?:string|null}|null> {
+    if (type === ThreadEntityType.CUSTOMER) { const r=await db.customer.findUnique({where:{id}}); return r ? { label: r.organizationName || [r.firstName,r.lastName].filter(Boolean).join(' ') || r.mobile || 'مشتری', subtitle:r.mobile||r.city||null, href:`/dashboard/customers?customerId=${id}` } : null; }
+    if (type === ThreadEntityType.REPAIR) { const r=await db.repairCase.findUnique({where:{id}}); return r ? { label:`${r.caseNumber} — ${r.deviceTitle}`, subtitle:r.serialNumber||r.status, href:`/dashboard/repairs?repairId=${id}` } : null; }
+    if (type === ThreadEntityType.FORM) { const r=await db.form.findUnique({where:{id}}); return r ? { label:r.name, subtitle:r.customId||null, href:`/dashboard/forms/${id}` } : null; }
+    if (type === ThreadEntityType.FORM_SUBMISSION) { const r=await db.formSubmission.findUnique({where:{id},include:{form:true}}); return r ? { label:`ارسال فرم: ${r.form.name}`, subtitle:r.id.slice(0,8), href:`/dashboard/forms/${r.formId}` } : null; }
+    if (type === ThreadEntityType.SALES_OPPORTUNITY) { const r=await db.salesOpportunity.findUnique({where:{id},include:{customer:true}}); return r ? { label:r.title, subtitle:r.customer.organizationName || [r.customer.firstName,r.customer.lastName].filter(Boolean).join(' ') || null, href:`/dashboard/customers?customerId=${r.customerId}` } : null; }
+    if (type === ThreadEntityType.USER) { const r=await db.user.findUnique({where:{id},include:{department:true}}); return r ? {label:r.name,subtitle:r.department.name,href:`/dashboard/users?userId=${id}`}:null; }
+    if (type === ThreadEntityType.DEPARTMENT) { const r=await db.department.findUnique({where:{id}}); return r ? {label:r.name,subtitle:'واحد سازمانی',href:`/dashboard/departments?departmentId=${id}`}:null; }
+    return null;
   }
 
   private async assertAccess(
@@ -585,6 +843,10 @@ export class CommunicationService {
     return new Set(relations.map((item) => item.toDepartmentId));
   }
 
+  private async activeParticipantIds(threadId: string) { const rows = await this.prisma.threadParticipant.findMany({ where: { threadId, leftAt: null }, select: { userId: true } }); return rows.map((r) => r.userId); }
+  private async broadcastInboxChanged(threadId: string) { const ids = await this.activeParticipantIds(threadId); this.realtime.emitToUsers(ids, 'communication:inbox.changed', { threadId }); }
+  private async broadcastThreadChanged(threadId: string, event: string, detail: unknown) { this.realtime.emitToThread(threadId, event, { threadId, thread: detail }); const ids = await this.activeParticipantIds(threadId); this.realtime.emitToUsers(ids, event, { threadId, thread: detail }); this.realtime.emitToUsers(ids, 'communication:inbox.changed', { threadId }); }
+
   private async getThreadInternal(id: string) {
     const thread = await this.prisma.thread.findUniqueOrThrow({
       where: { id },
@@ -606,10 +868,12 @@ export class CommunicationService {
         },
         messages: {
           where: { deletedAt: null },
-          include: { sender: { select: userSummary } },
+          include: { sender: { select: userSummary }, replyTo: { select: { id: true, body: true, senderId: true, sender: { select: userSummary } } }, mentions: { include: { user: { select: userSummary } } }, attachments: true },
           orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
           take: detailMessageLimit + 1,
         },
+        attachments: { orderBy: { createdAt: 'desc' } },
+        entityLinks: { orderBy: { createdAt: 'asc' } },
         activities: {
           include: { actor: { select: userSummary } },
           orderBy: { createdAt: 'asc' },

@@ -91,6 +91,10 @@ model User {
   threadAssignments  ThreadAssignment[]  @relation("ThreadAssignee")
   assignedThreads    ThreadAssignment[]  @relation("ThreadAssignedBy")
   threadActivities   ThreadActivity[]
+  threadMentions     ThreadMention[]
+  threadNotifications CommunicationNotification[]
+  threadAttachments  ThreadAttachment[]
+  threadEntityLinks  ThreadEntityLink[]
 }
 
 enum ThreadType {
@@ -125,6 +129,16 @@ enum ThreadParticipantRole {
   WATCHER
 }
 
+enum ThreadEntityType {
+  CUSTOMER
+  REPAIR
+  FORM
+  FORM_SUBMISSION
+  SALES_OPPORTUNITY
+  USER
+  DEPARTMENT
+}
+
 enum ThreadActivityType {
   THREAD_CREATED
   MESSAGE_SENT
@@ -136,6 +150,8 @@ enum ThreadActivityType {
   PRIORITY_CHANGED
   DUE_DATE_CHANGED
   THREAD_UPDATED
+  ENTITY_LINKED
+  ENTITY_UNLINKED
 }
 
 model Thread {
@@ -156,11 +172,34 @@ model Thread {
   messages     ThreadMessage[]
   assignments  ThreadAssignment[]
   activities   ThreadActivity[]
+  attachments  ThreadAttachment[]
+  notifications CommunicationNotification[]
+  entityLinks   ThreadEntityLink[]
 
   @@index([status])
   @@index([creatorId])
   @@index([departmentId])
   @@index([updatedAt])
+}
+
+
+model ThreadEntityLink {
+  id         String           @id @default(uuid())
+  threadId   String
+  entityType ThreadEntityType
+  entityId   String
+  label      String
+  subtitle   String?
+  href       String?
+  createdById String?
+  createdAt  DateTime         @default(now())
+
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  createdBy User? @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@unique([threadId, entityType, entityId])
+  @@index([entityType, entityId])
+  @@index([threadId, createdAt])
 }
 
 model ThreadParticipant {
@@ -199,14 +238,71 @@ model ThreadMessage {
   id        String    @id @default(uuid())
   threadId  String
   senderId  String
+  clientId  String?
+  replyToId String?
   body      String
   editedAt  DateTime?
   deletedAt DateTime?
   createdAt DateTime  @default(now())
 
-  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
-  sender User   @relation(fields: [senderId], references: [id])
+  thread  Thread          @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  sender  User            @relation(fields: [senderId], references: [id])
+  replyTo ThreadMessage?  @relation("ThreadMessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies ThreadMessage[] @relation("ThreadMessageReplies")
+  mentions ThreadMention[]
+  attachments ThreadAttachment[]
 
+  @@index([threadId, createdAt])
+  @@index([replyToId])
+  @@unique([senderId, clientId])
+}
+
+model ThreadMention {
+  id        String   @id @default(uuid())
+  messageId String
+  userId    String
+  createdAt DateTime @default(now())
+
+  message ThreadMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@index([userId, createdAt])
+}
+
+model ThreadAttachment {
+  id         String   @id @default(uuid())
+  threadId   String
+  messageId  String?
+  uploaderId String
+  fileName   String
+  mimeType   String
+  size       Int
+  storageKey String   @unique
+  createdAt  DateTime @default(now())
+
+  thread   Thread         @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  message  ThreadMessage? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  uploader User           @relation(fields: [uploaderId], references: [id])
+
+  @@index([threadId, createdAt])
+  @@index([messageId])
+}
+
+model CommunicationNotification {
+  id        String   @id @default(uuid())
+  userId    String
+  threadId  String
+  type      String
+  title     String
+  body      String?
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt, createdAt])
   @@index([threadId, createdAt])
 }
 

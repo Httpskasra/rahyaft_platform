@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowRight, Calendar, Check, Hash, Phone, User, Wrench } from "lucide-react";
+import { ArrowRight, Calendar, Check, Hash, Phone, User, Wrench, MessageCircle } from "lucide-react";
 import {
   repairsApi, type RepairCase, type RepairCaseDetail, type RepairStatus,
 } from "@/lib/api/repairs";
@@ -12,6 +12,7 @@ import { Spinner } from "@/components/ui/Spinner";
 import { StatusTimeline } from "@/components/repairs/StatusTimeline";
 import type { ToastType } from "@/hooks/useToast";
 import { cn } from "@/lib/cn";
+import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
 import {
   STATUS_COLORS, STATUS_FA, STATUS_FLOW, TYPE_FA, formatDate,
 } from "./repairConfig";
@@ -104,6 +105,8 @@ export function RepairDetail({
             </p>
           </div>
         </div>
+        <div className="flex items-center gap-2">
+          <a href={`/dashboard/communications?entityType=REPAIR&entityId=${initialRepair.id}&new=1`} className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-200 px-3 py-1.5 text-xs font-medium text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"><MessageCircle size={14}/> گفتگو</a>
         <span
           className={cn(
             "inline-flex items-center rounded-xl px-3 py-1 text-xs font-medium",
@@ -111,6 +114,7 @@ export function RepairDetail({
           )}>
           {STATUS_FA[initialRepair.status]}
         </span>
+        </div>
       </div>
 
       {/* Tabs */}
@@ -174,6 +178,8 @@ export function RepairDetail({
                 />
               )}
             </div>
+
+            <RelatedCommunications entityType="REPAIR" entityId={initialRepair.id} />
 
             <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-4 dark:border-gray-800 dark:bg-gray-800/30">
               <p className="mb-1 text-xs text-gray-400 dark:text-gray-500">

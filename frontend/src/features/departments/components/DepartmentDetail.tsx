@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, GitBranch, Link2, Link2Off, Plus } from "lucide-react";
+import { Building2, GitBranch, Link2, Link2Off, Plus, MessageCircle } from "lucide-react";
 import type { DepartmentRelationType } from "@/lib/api/departments";
 import { Spinner } from "@/components/ui/Spinner";
 import {
@@ -11,6 +11,7 @@ import {
   formatDate,
 } from "./relations";
 import type { Department } from "./types";
+import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
 
 export function DeptDetail({
   dept,
@@ -51,6 +52,8 @@ export function DeptDetail({
 
   return (
     <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between"><div className="flex items-center gap-2"><Building2 size={18} className="text-indigo-500"/><strong>{dept.name}</strong></div><a href={`/dashboard/communications?entityType=DEPARTMENT&entityId=${dept.id}&new=1`} className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3 py-2 text-xs text-white hover:bg-indigo-700"><MessageCircle size={13}/> گفتگو</a></div>
+      <RelatedCommunications entityType="DEPARTMENT" entityId={dept.id} />
       {/* Meta info */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/40">

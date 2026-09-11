@@ -68,7 +68,14 @@ export default function CustomersPage() {
       });
       setItems(r.data.items);
       setPages(r.data.meta.totalPages || 1);
-      if (!selected && r.data.items[0]) open(r.data.items[0].id);
+      const targetId =
+        typeof window !== "undefined"
+          ? new URLSearchParams(window.location.search).get("customerId")
+          : null;
+      if (!selected) {
+        if (targetId) open(targetId);
+        else if (r.data.items[0]) open(r.data.items[0].id);
+      }
     } catch {
       toast("err", "دریافت لیست مشتریان ناموفق بود");
     } finally {

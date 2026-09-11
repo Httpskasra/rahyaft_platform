@@ -388,9 +388,13 @@ export const ModelName = {
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
   Thread: 'Thread',
+  ThreadEntityLink: 'ThreadEntityLink',
   ThreadParticipant: 'ThreadParticipant',
   ThreadAssignment: 'ThreadAssignment',
   ThreadMessage: 'ThreadMessage',
+  ThreadMention: 'ThreadMention',
+  ThreadAttachment: 'ThreadAttachment',
+  CommunicationNotification: 'CommunicationNotification',
   ThreadActivity: 'ThreadActivity',
   Attendance: 'Attendance',
   Role: 'Role',
@@ -442,7 +446,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "thread" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
+    modelProps: "department" | "departmentRelation" | "user" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -742,6 +746,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ThreadEntityLink: {
+      payload: Prisma.$ThreadEntityLinkPayload<ExtArgs>
+      fields: Prisma.ThreadEntityLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ThreadEntityLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ThreadEntityLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.ThreadEntityLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ThreadEntityLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>
+        }
+        findMany: {
+          args: Prisma.ThreadEntityLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>[]
+        }
+        create: {
+          args: Prisma.ThreadEntityLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>
+        }
+        createMany: {
+          args: Prisma.ThreadEntityLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ThreadEntityLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.ThreadEntityLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>
+        }
+        update: {
+          args: Prisma.ThreadEntityLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.ThreadEntityLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ThreadEntityLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ThreadEntityLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.ThreadEntityLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadEntityLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.ThreadEntityLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateThreadEntityLink>
+        }
+        groupBy: {
+          args: Prisma.ThreadEntityLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadEntityLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ThreadEntityLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadEntityLinkCountAggregateOutputType> | number
+        }
+      }
+    }
     ThreadParticipant: {
       payload: Prisma.$ThreadParticipantPayload<ExtArgs>
       fields: Prisma.ThreadParticipantFieldRefs
@@ -961,6 +1039,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ThreadMessageCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ThreadMessageCountAggregateOutputType> | number
+        }
+      }
+    }
+    ThreadMention: {
+      payload: Prisma.$ThreadMentionPayload<ExtArgs>
+      fields: Prisma.ThreadMentionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ThreadMentionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ThreadMentionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>
+        }
+        findFirst: {
+          args: Prisma.ThreadMentionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ThreadMentionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>
+        }
+        findMany: {
+          args: Prisma.ThreadMentionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>[]
+        }
+        create: {
+          args: Prisma.ThreadMentionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>
+        }
+        createMany: {
+          args: Prisma.ThreadMentionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ThreadMentionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>[]
+        }
+        delete: {
+          args: Prisma.ThreadMentionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>
+        }
+        update: {
+          args: Prisma.ThreadMentionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ThreadMentionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ThreadMentionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ThreadMentionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ThreadMentionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadMentionPayload>
+        }
+        aggregate: {
+          args: Prisma.ThreadMentionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateThreadMention>
+        }
+        groupBy: {
+          args: Prisma.ThreadMentionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadMentionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ThreadMentionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadMentionCountAggregateOutputType> | number
+        }
+      }
+    }
+    ThreadAttachment: {
+      payload: Prisma.$ThreadAttachmentPayload<ExtArgs>
+      fields: Prisma.ThreadAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ThreadAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ThreadAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.ThreadAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ThreadAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.ThreadAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.ThreadAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.ThreadAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ThreadAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.ThreadAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>
+        }
+        update: {
+          args: Prisma.ThreadAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ThreadAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ThreadAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ThreadAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ThreadAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.ThreadAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateThreadAttachment>
+        }
+        groupBy: {
+          args: Prisma.ThreadAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ThreadAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadAttachmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    CommunicationNotification: {
+      payload: Prisma.$CommunicationNotificationPayload<ExtArgs>
+      fields: Prisma.CommunicationNotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CommunicationNotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CommunicationNotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.CommunicationNotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CommunicationNotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>
+        }
+        findMany: {
+          args: Prisma.CommunicationNotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>[]
+        }
+        create: {
+          args: Prisma.CommunicationNotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>
+        }
+        createMany: {
+          args: Prisma.CommunicationNotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CommunicationNotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.CommunicationNotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>
+        }
+        update: {
+          args: Prisma.CommunicationNotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CommunicationNotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CommunicationNotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CommunicationNotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CommunicationNotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommunicationNotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.CommunicationNotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCommunicationNotification>
+        }
+        groupBy: {
+          args: Prisma.CommunicationNotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CommunicationNotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CommunicationNotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CommunicationNotificationCountAggregateOutputType> | number
         }
       }
     }
@@ -3718,6 +4018,21 @@ export const ThreadScalarFieldEnum = {
 export type ThreadScalarFieldEnum = (typeof ThreadScalarFieldEnum)[keyof typeof ThreadScalarFieldEnum]
 
 
+export const ThreadEntityLinkScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  label: 'label',
+  subtitle: 'subtitle',
+  href: 'href',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadEntityLinkScalarFieldEnum = (typeof ThreadEntityLinkScalarFieldEnum)[keyof typeof ThreadEntityLinkScalarFieldEnum]
+
+
 export const ThreadParticipantScalarFieldEnum = {
   id: 'id',
   threadId: 'threadId',
@@ -3747,6 +4062,8 @@ export const ThreadMessageScalarFieldEnum = {
   id: 'id',
   threadId: 'threadId',
   senderId: 'senderId',
+  clientId: 'clientId',
+  replyToId: 'replyToId',
   body: 'body',
   editedAt: 'editedAt',
   deletedAt: 'deletedAt',
@@ -3754,6 +4071,45 @@ export const ThreadMessageScalarFieldEnum = {
 } as const
 
 export type ThreadMessageScalarFieldEnum = (typeof ThreadMessageScalarFieldEnum)[keyof typeof ThreadMessageScalarFieldEnum]
+
+
+export const ThreadMentionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadMentionScalarFieldEnum = (typeof ThreadMentionScalarFieldEnum)[keyof typeof ThreadMentionScalarFieldEnum]
+
+
+export const ThreadAttachmentScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  messageId: 'messageId',
+  uploaderId: 'uploaderId',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  size: 'size',
+  storageKey: 'storageKey',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadAttachmentScalarFieldEnum = (typeof ThreadAttachmentScalarFieldEnum)[keyof typeof ThreadAttachmentScalarFieldEnum]
+
+
+export const CommunicationNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  threadId: 'threadId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CommunicationNotificationScalarFieldEnum = (typeof CommunicationNotificationScalarFieldEnum)[keyof typeof CommunicationNotificationScalarFieldEnum]
 
 
 export const ThreadActivityScalarFieldEnum = {
@@ -4413,6 +4769,20 @@ export type ListEnumThreadPriorityFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'ThreadEntityType'
+ */
+export type EnumThreadEntityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadEntityType'>
+    
+
+
+/**
+ * Reference to a field of type 'ThreadEntityType[]'
+ */
+export type ListEnumThreadEntityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadEntityType[]'>
+    
+
+
+/**
  * Reference to a field of type 'ThreadParticipantRole'
  */
 export type EnumThreadParticipantRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadParticipantRole'>
@@ -4423,6 +4793,20 @@ export type EnumThreadParticipantRoleFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'ThreadParticipantRole[]'
  */
 export type ListEnumThreadParticipantRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadParticipantRole[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -4465,20 +4849,6 @@ export type EnumScopeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'ScopeType[]'
  */
 export type ListEnumScopeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScopeType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -4882,9 +5252,13 @@ export type GlobalOmitConfig = {
   departmentRelation?: Prisma.DepartmentRelationOmit
   user?: Prisma.UserOmit
   thread?: Prisma.ThreadOmit
+  threadEntityLink?: Prisma.ThreadEntityLinkOmit
   threadParticipant?: Prisma.ThreadParticipantOmit
   threadAssignment?: Prisma.ThreadAssignmentOmit
   threadMessage?: Prisma.ThreadMessageOmit
+  threadMention?: Prisma.ThreadMentionOmit
+  threadAttachment?: Prisma.ThreadAttachmentOmit
+  communicationNotification?: Prisma.CommunicationNotificationOmit
   threadActivity?: Prisma.ThreadActivityOmit
   attendance?: Prisma.AttendanceOmit
   role?: Prisma.RoleOmit

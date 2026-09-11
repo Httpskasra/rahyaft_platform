@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { setupSwagger } from './config/swagger/swagger.config';
+import { CommunicationWebSocketServer } from './communication/communication.websocket';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -34,6 +35,8 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   setupSwagger(app);
+
+  app.get(CommunicationWebSocketServer).bindHttpServer(app.getHttpServer());
 
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
   console.log(`Application running on: ${await app.getUrl()}`);

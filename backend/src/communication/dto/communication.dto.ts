@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayMaxSize,
   ArrayUnique,
   IsArray,
   IsDateString,
@@ -12,21 +13,32 @@ import {
   Max,
   Min,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import {
+  ThreadEntityType,
   ThreadParticipantRole,
   ThreadPriority,
   ThreadStatus,
   ThreadType,
 } from '../../generated/prisma/enums';
 
+
+export class ThreadEntityLinkInputDto {
+  @IsEnum(ThreadEntityType)
+  entityType: ThreadEntityType;
+
+  @IsUUID()
+  entityId: string;
+}
+
 export class CreateThreadDto {
   @IsString()
   @MinLength(2)
-  title!: string;
+  title: string;
 
   @IsEnum(ThreadType)
-  type!: ThreadType;
+  type: ThreadType;
 
   @IsOptional()
   @IsEnum(ThreadPriority)
@@ -56,6 +68,14 @@ export class CreateThreadDto {
   @IsString()
   @MinLength(1)
   initialMessage?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(10)
+  @ArrayUnique((link: ThreadEntityLinkInputDto) => `${link.entityType}:${link.entityId}`)
+  @ValidateNested({ each: true })
+  @Type(() => ThreadEntityLinkInputDto)
+  entityLinks?: ThreadEntityLinkInputDto[];
 }
 
 export class QueryThreadsDto {
@@ -80,6 +100,30 @@ export class QueryThreadsDto {
   search?: string;
 
   @IsOptional()
+  @IsUUID()
+  participantId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  assigneeId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  creatorId?: string;
+
+  @IsOptional()
+  @IsIn(['true', 'false'])
+  hasAttachment?: 'true' | 'false';
+
+  @IsOptional()
+  @IsEnum(ThreadEntityType)
+  entityType?: ThreadEntityType;
+
+  @IsOptional()
+  @IsUUID()
+  entityId?: string;
+
+  @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
@@ -92,6 +136,7 @@ export class QueryThreadsDto {
   @Max(100)
   pageSize = 30;
 }
+
 
 export class QueryMessagesDto {
   @IsOptional()
@@ -128,12 +173,26 @@ export class UpdateThreadDto {
 export class CreateMessageDto {
   @IsString()
   @MinLength(1)
-  body!: string;
+  body: string;
+
+  @IsOptional()
+  @IsUUID()
+  replyToId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  clientId?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayUnique()
+  @IsUUID('all', { each: true })
+  mentionUserIds?: string[];
 }
 
 export class AddParticipantDto {
   @IsUUID()
-  userId!: string;
+  userId: string;
 
   @IsOptional()
   @IsEnum(ThreadParticipantRole)
@@ -142,5 +201,17 @@ export class AddParticipantDto {
 
 export class AssignThreadDto {
   @IsUUID()
-  userId!: string;
+  userId: string;
+}
+
+
+export class AddEntityLinkDto extends ThreadEntityLinkInputDto {}
+
+export class QueryEntitySearchDto {
+  @IsEnum(ThreadEntityType)
+  type: ThreadEntityType;
+
+  @IsOptional()
+  @IsString()
+  search?: string;
 }

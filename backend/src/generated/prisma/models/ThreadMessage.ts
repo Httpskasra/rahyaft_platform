@@ -28,6 +28,8 @@ export type ThreadMessageMinAggregateOutputType = {
   id: string | null
   threadId: string | null
   senderId: string | null
+  clientId: string | null
+  replyToId: string | null
   body: string | null
   editedAt: Date | null
   deletedAt: Date | null
@@ -38,6 +40,8 @@ export type ThreadMessageMaxAggregateOutputType = {
   id: string | null
   threadId: string | null
   senderId: string | null
+  clientId: string | null
+  replyToId: string | null
   body: string | null
   editedAt: Date | null
   deletedAt: Date | null
@@ -48,6 +52,8 @@ export type ThreadMessageCountAggregateOutputType = {
   id: number
   threadId: number
   senderId: number
+  clientId: number
+  replyToId: number
   body: number
   editedAt: number
   deletedAt: number
@@ -60,6 +66,8 @@ export type ThreadMessageMinAggregateInputType = {
   id?: true
   threadId?: true
   senderId?: true
+  clientId?: true
+  replyToId?: true
   body?: true
   editedAt?: true
   deletedAt?: true
@@ -70,6 +78,8 @@ export type ThreadMessageMaxAggregateInputType = {
   id?: true
   threadId?: true
   senderId?: true
+  clientId?: true
+  replyToId?: true
   body?: true
   editedAt?: true
   deletedAt?: true
@@ -80,6 +90,8 @@ export type ThreadMessageCountAggregateInputType = {
   id?: true
   threadId?: true
   senderId?: true
+  clientId?: true
+  replyToId?: true
   body?: true
   editedAt?: true
   deletedAt?: true
@@ -163,6 +175,8 @@ export type ThreadMessageGroupByOutputType = {
   id: string
   threadId: string
   senderId: string
+  clientId: string | null
+  replyToId: string | null
   body: string
   editedAt: Date | null
   deletedAt: Date | null
@@ -194,45 +208,66 @@ export type ThreadMessageWhereInput = {
   id?: Prisma.StringFilter<"ThreadMessage"> | string
   threadId?: Prisma.StringFilter<"ThreadMessage"> | string
   senderId?: Prisma.StringFilter<"ThreadMessage"> | string
+  clientId?: Prisma.StringNullableFilter<"ThreadMessage"> | string | null
+  replyToId?: Prisma.StringNullableFilter<"ThreadMessage"> | string | null
   body?: Prisma.StringFilter<"ThreadMessage"> | string
   editedAt?: Prisma.DateTimeNullableFilter<"ThreadMessage"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"ThreadMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ThreadMessage"> | Date | string
   thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  replyTo?: Prisma.XOR<Prisma.ThreadMessageNullableScalarRelationFilter, Prisma.ThreadMessageWhereInput> | null
+  replies?: Prisma.ThreadMessageListRelationFilter
+  mentions?: Prisma.ThreadMentionListRelationFilter
+  attachments?: Prisma.ThreadAttachmentListRelationFilter
 }
 
 export type ThreadMessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
+  replyToId?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   thread?: Prisma.ThreadOrderByWithRelationInput
   sender?: Prisma.UserOrderByWithRelationInput
+  replyTo?: Prisma.ThreadMessageOrderByWithRelationInput
+  replies?: Prisma.ThreadMessageOrderByRelationAggregateInput
+  mentions?: Prisma.ThreadMentionOrderByRelationAggregateInput
+  attachments?: Prisma.ThreadAttachmentOrderByRelationAggregateInput
 }
 
 export type ThreadMessageWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  senderId_clientId?: Prisma.ThreadMessageSenderIdClientIdCompoundUniqueInput
   AND?: Prisma.ThreadMessageWhereInput | Prisma.ThreadMessageWhereInput[]
   OR?: Prisma.ThreadMessageWhereInput[]
   NOT?: Prisma.ThreadMessageWhereInput | Prisma.ThreadMessageWhereInput[]
   threadId?: Prisma.StringFilter<"ThreadMessage"> | string
   senderId?: Prisma.StringFilter<"ThreadMessage"> | string
+  clientId?: Prisma.StringNullableFilter<"ThreadMessage"> | string | null
+  replyToId?: Prisma.StringNullableFilter<"ThreadMessage"> | string | null
   body?: Prisma.StringFilter<"ThreadMessage"> | string
   editedAt?: Prisma.DateTimeNullableFilter<"ThreadMessage"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"ThreadMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ThreadMessage"> | Date | string
   thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+  replyTo?: Prisma.XOR<Prisma.ThreadMessageNullableScalarRelationFilter, Prisma.ThreadMessageWhereInput> | null
+  replies?: Prisma.ThreadMessageListRelationFilter
+  mentions?: Prisma.ThreadMentionListRelationFilter
+  attachments?: Prisma.ThreadAttachmentListRelationFilter
+}, "id" | "senderId_clientId">
 
 export type ThreadMessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
+  replyToId?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -249,6 +284,8 @@ export type ThreadMessageScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ThreadMessage"> | string
   threadId?: Prisma.StringWithAggregatesFilter<"ThreadMessage"> | string
   senderId?: Prisma.StringWithAggregatesFilter<"ThreadMessage"> | string
+  clientId?: Prisma.StringNullableWithAggregatesFilter<"ThreadMessage"> | string | null
+  replyToId?: Prisma.StringNullableWithAggregatesFilter<"ThreadMessage"> | string | null
   body?: Prisma.StringWithAggregatesFilter<"ThreadMessage"> | string
   editedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ThreadMessage"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ThreadMessage"> | Date | string | null
@@ -257,48 +294,70 @@ export type ThreadMessageScalarWhereWithAggregatesInput = {
 
 export type ThreadMessageCreateInput = {
   id?: string
+  clientId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   thread: Prisma.ThreadCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentThreadMessagesInput
+  replyTo?: Prisma.ThreadMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ThreadMessageCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type ThreadMessageUncheckedCreateInput = {
   id?: string
   threadId: string
   senderId: string
+  clientId?: string | null
+  replyToId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
+  replies?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type ThreadMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   thread?: Prisma.ThreadUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput
+  replyTo?: Prisma.ThreadMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ThreadMessageUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type ThreadMessageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type ThreadMessageCreateManyInput = {
   id?: string
   threadId: string
   senderId: string
+  clientId?: string | null
+  replyToId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -307,6 +366,7 @@ export type ThreadMessageCreateManyInput = {
 
 export type ThreadMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -317,6 +377,8 @@ export type ThreadMessageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -333,10 +395,22 @@ export type ThreadMessageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ThreadMessageNullableScalarRelationFilter = {
+  is?: Prisma.ThreadMessageWhereInput | null
+  isNot?: Prisma.ThreadMessageWhereInput | null
+}
+
+export type ThreadMessageSenderIdClientIdCompoundUniqueInput = {
+  senderId: string
+  clientId: string
+}
+
 export type ThreadMessageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  replyToId?: Prisma.SortOrder
   body?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -347,6 +421,8 @@ export type ThreadMessageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  replyToId?: Prisma.SortOrder
   body?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -357,10 +433,17 @@ export type ThreadMessageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  replyToId?: Prisma.SortOrder
   body?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type ThreadMessageScalarRelationFilter = {
+  is?: Prisma.ThreadMessageWhereInput
+  isNot?: Prisma.ThreadMessageWhereInput
 }
 
 export type ThreadMessageCreateNestedManyWithoutSenderInput = {
@@ -447,22 +530,120 @@ export type ThreadMessageUncheckedUpdateManyWithoutThreadNestedInput = {
   deleteMany?: Prisma.ThreadMessageScalarWhereInput | Prisma.ThreadMessageScalarWhereInput[]
 }
 
+export type ThreadMessageCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutRepliesInput, Prisma.ThreadMessageUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.ThreadMessageWhereUniqueInput
+}
+
+export type ThreadMessageCreateNestedManyWithoutReplyToInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutReplyToInput, Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput> | Prisma.ThreadMessageCreateWithoutReplyToInput[] | Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput | Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput[]
+  createMany?: Prisma.ThreadMessageCreateManyReplyToInputEnvelope
+  connect?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+}
+
+export type ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutReplyToInput, Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput> | Prisma.ThreadMessageCreateWithoutReplyToInput[] | Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput | Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput[]
+  createMany?: Prisma.ThreadMessageCreateManyReplyToInputEnvelope
+  connect?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+}
+
+export type ThreadMessageUpdateOneWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutRepliesInput, Prisma.ThreadMessageUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.ThreadMessageUpsertWithoutRepliesInput
+  disconnect?: Prisma.ThreadMessageWhereInput | boolean
+  delete?: Prisma.ThreadMessageWhereInput | boolean
+  connect?: Prisma.ThreadMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadMessageUpdateToOneWithWhereWithoutRepliesInput, Prisma.ThreadMessageUpdateWithoutRepliesInput>, Prisma.ThreadMessageUncheckedUpdateWithoutRepliesInput>
+}
+
+export type ThreadMessageUpdateManyWithoutReplyToNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutReplyToInput, Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput> | Prisma.ThreadMessageCreateWithoutReplyToInput[] | Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput | Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput[]
+  upsert?: Prisma.ThreadMessageUpsertWithWhereUniqueWithoutReplyToInput | Prisma.ThreadMessageUpsertWithWhereUniqueWithoutReplyToInput[]
+  createMany?: Prisma.ThreadMessageCreateManyReplyToInputEnvelope
+  set?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  disconnect?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  delete?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  connect?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  update?: Prisma.ThreadMessageUpdateWithWhereUniqueWithoutReplyToInput | Prisma.ThreadMessageUpdateWithWhereUniqueWithoutReplyToInput[]
+  updateMany?: Prisma.ThreadMessageUpdateManyWithWhereWithoutReplyToInput | Prisma.ThreadMessageUpdateManyWithWhereWithoutReplyToInput[]
+  deleteMany?: Prisma.ThreadMessageScalarWhereInput | Prisma.ThreadMessageScalarWhereInput[]
+}
+
+export type ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutReplyToInput, Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput> | Prisma.ThreadMessageCreateWithoutReplyToInput[] | Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput | Prisma.ThreadMessageCreateOrConnectWithoutReplyToInput[]
+  upsert?: Prisma.ThreadMessageUpsertWithWhereUniqueWithoutReplyToInput | Prisma.ThreadMessageUpsertWithWhereUniqueWithoutReplyToInput[]
+  createMany?: Prisma.ThreadMessageCreateManyReplyToInputEnvelope
+  set?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  disconnect?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  delete?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  connect?: Prisma.ThreadMessageWhereUniqueInput | Prisma.ThreadMessageWhereUniqueInput[]
+  update?: Prisma.ThreadMessageUpdateWithWhereUniqueWithoutReplyToInput | Prisma.ThreadMessageUpdateWithWhereUniqueWithoutReplyToInput[]
+  updateMany?: Prisma.ThreadMessageUpdateManyWithWhereWithoutReplyToInput | Prisma.ThreadMessageUpdateManyWithWhereWithoutReplyToInput[]
+  deleteMany?: Prisma.ThreadMessageScalarWhereInput | Prisma.ThreadMessageScalarWhereInput[]
+}
+
+export type ThreadMessageCreateNestedOneWithoutMentionsInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutMentionsInput, Prisma.ThreadMessageUncheckedCreateWithoutMentionsInput>
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutMentionsInput
+  connect?: Prisma.ThreadMessageWhereUniqueInput
+}
+
+export type ThreadMessageUpdateOneRequiredWithoutMentionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutMentionsInput, Prisma.ThreadMessageUncheckedCreateWithoutMentionsInput>
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutMentionsInput
+  upsert?: Prisma.ThreadMessageUpsertWithoutMentionsInput
+  connect?: Prisma.ThreadMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadMessageUpdateToOneWithWhereWithoutMentionsInput, Prisma.ThreadMessageUpdateWithoutMentionsInput>, Prisma.ThreadMessageUncheckedUpdateWithoutMentionsInput>
+}
+
+export type ThreadMessageCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutAttachmentsInput, Prisma.ThreadMessageUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.ThreadMessageWhereUniqueInput
+}
+
+export type ThreadMessageUpdateOneWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadMessageCreateWithoutAttachmentsInput, Prisma.ThreadMessageUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ThreadMessageCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.ThreadMessageUpsertWithoutAttachmentsInput
+  disconnect?: Prisma.ThreadMessageWhereInput | boolean
+  delete?: Prisma.ThreadMessageWhereInput | boolean
+  connect?: Prisma.ThreadMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadMessageUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.ThreadMessageUpdateWithoutAttachmentsInput>, Prisma.ThreadMessageUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type ThreadMessageCreateWithoutSenderInput = {
   id?: string
+  clientId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   thread: Prisma.ThreadCreateNestedOneWithoutMessagesInput
+  replyTo?: Prisma.ThreadMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ThreadMessageCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type ThreadMessageUncheckedCreateWithoutSenderInput = {
   id?: string
   threadId: string
+  clientId?: string | null
+  replyToId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
+  replies?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type ThreadMessageCreateOrConnectWithoutSenderInput = {
@@ -498,6 +679,8 @@ export type ThreadMessageScalarWhereInput = {
   id?: Prisma.StringFilter<"ThreadMessage"> | string
   threadId?: Prisma.StringFilter<"ThreadMessage"> | string
   senderId?: Prisma.StringFilter<"ThreadMessage"> | string
+  clientId?: Prisma.StringNullableFilter<"ThreadMessage"> | string | null
+  replyToId?: Prisma.StringNullableFilter<"ThreadMessage"> | string | null
   body?: Prisma.StringFilter<"ThreadMessage"> | string
   editedAt?: Prisma.DateTimeNullableFilter<"ThreadMessage"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"ThreadMessage"> | Date | string | null
@@ -506,20 +689,30 @@ export type ThreadMessageScalarWhereInput = {
 
 export type ThreadMessageCreateWithoutThreadInput = {
   id?: string
+  clientId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   sender: Prisma.UserCreateNestedOneWithoutSentThreadMessagesInput
+  replyTo?: Prisma.ThreadMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ThreadMessageCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type ThreadMessageUncheckedCreateWithoutThreadInput = {
   id?: string
   senderId: string
+  clientId?: string | null
+  replyToId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
+  replies?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type ThreadMessageCreateOrConnectWithoutThreadInput = {
@@ -548,9 +741,281 @@ export type ThreadMessageUpdateManyWithWhereWithoutThreadInput = {
   data: Prisma.XOR<Prisma.ThreadMessageUpdateManyMutationInput, Prisma.ThreadMessageUncheckedUpdateManyWithoutThreadInput>
 }
 
+export type ThreadMessageCreateWithoutRepliesInput = {
+  id?: string
+  clientId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  thread: Prisma.ThreadCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentThreadMessagesInput
+  replyTo?: Prisma.ThreadMessageCreateNestedOneWithoutRepliesInput
+  mentions?: Prisma.ThreadMentionCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageUncheckedCreateWithoutRepliesInput = {
+  id?: string
+  threadId: string
+  senderId: string
+  clientId?: string | null
+  replyToId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  mentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageCreateOrConnectWithoutRepliesInput = {
+  where: Prisma.ThreadMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutRepliesInput, Prisma.ThreadMessageUncheckedCreateWithoutRepliesInput>
+}
+
+export type ThreadMessageCreateWithoutReplyToInput = {
+  id?: string
+  clientId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  thread: Prisma.ThreadCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentThreadMessagesInput
+  replies?: Prisma.ThreadMessageCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageUncheckedCreateWithoutReplyToInput = {
+  id?: string
+  threadId: string
+  senderId: string
+  clientId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  replies?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutMessageInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageCreateOrConnectWithoutReplyToInput = {
+  where: Prisma.ThreadMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutReplyToInput, Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput>
+}
+
+export type ThreadMessageCreateManyReplyToInputEnvelope = {
+  data: Prisma.ThreadMessageCreateManyReplyToInput | Prisma.ThreadMessageCreateManyReplyToInput[]
+  skipDuplicates?: boolean
+}
+
+export type ThreadMessageUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutRepliesInput, Prisma.ThreadMessageUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutRepliesInput, Prisma.ThreadMessageUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.ThreadMessageWhereInput
+}
+
+export type ThreadMessageUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.ThreadMessageWhereInput
+  data: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutRepliesInput, Prisma.ThreadMessageUncheckedUpdateWithoutRepliesInput>
+}
+
+export type ThreadMessageUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput
+  replyTo?: Prisma.ThreadMessageUpdateOneWithoutRepliesNestedInput
+  mentions?: Prisma.ThreadMentionUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageUpsertWithWhereUniqueWithoutReplyToInput = {
+  where: Prisma.ThreadMessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutReplyToInput, Prisma.ThreadMessageUncheckedUpdateWithoutReplyToInput>
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutReplyToInput, Prisma.ThreadMessageUncheckedCreateWithoutReplyToInput>
+}
+
+export type ThreadMessageUpdateWithWhereUniqueWithoutReplyToInput = {
+  where: Prisma.ThreadMessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutReplyToInput, Prisma.ThreadMessageUncheckedUpdateWithoutReplyToInput>
+}
+
+export type ThreadMessageUpdateManyWithWhereWithoutReplyToInput = {
+  where: Prisma.ThreadMessageScalarWhereInput
+  data: Prisma.XOR<Prisma.ThreadMessageUpdateManyMutationInput, Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToInput>
+}
+
+export type ThreadMessageCreateWithoutMentionsInput = {
+  id?: string
+  clientId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  thread: Prisma.ThreadCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentThreadMessagesInput
+  replyTo?: Prisma.ThreadMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ThreadMessageCreateNestedManyWithoutReplyToInput
+  attachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageUncheckedCreateWithoutMentionsInput = {
+  id?: string
+  threadId: string
+  senderId: string
+  clientId?: string | null
+  replyToId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  replies?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput
+  attachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageCreateOrConnectWithoutMentionsInput = {
+  where: Prisma.ThreadMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutMentionsInput, Prisma.ThreadMessageUncheckedCreateWithoutMentionsInput>
+}
+
+export type ThreadMessageUpsertWithoutMentionsInput = {
+  update: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutMentionsInput, Prisma.ThreadMessageUncheckedUpdateWithoutMentionsInput>
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutMentionsInput, Prisma.ThreadMessageUncheckedCreateWithoutMentionsInput>
+  where?: Prisma.ThreadMessageWhereInput
+}
+
+export type ThreadMessageUpdateToOneWithWhereWithoutMentionsInput = {
+  where?: Prisma.ThreadMessageWhereInput
+  data: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutMentionsInput, Prisma.ThreadMessageUncheckedUpdateWithoutMentionsInput>
+}
+
+export type ThreadMessageUpdateWithoutMentionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput
+  replyTo?: Prisma.ThreadMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ThreadMessageUpdateManyWithoutReplyToNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageUncheckedUpdateWithoutMentionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageCreateWithoutAttachmentsInput = {
+  id?: string
+  clientId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  thread: Prisma.ThreadCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentThreadMessagesInput
+  replyTo?: Prisma.ThreadMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ThreadMessageCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  threadId: string
+  senderId: string
+  clientId?: string | null
+  replyToId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  replies?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutReplyToInput
+  mentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type ThreadMessageCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.ThreadMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutAttachmentsInput, Prisma.ThreadMessageUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type ThreadMessageUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutAttachmentsInput, Prisma.ThreadMessageUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.ThreadMessageCreateWithoutAttachmentsInput, Prisma.ThreadMessageUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.ThreadMessageWhereInput
+}
+
+export type ThreadMessageUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.ThreadMessageWhereInput
+  data: Prisma.XOR<Prisma.ThreadMessageUpdateWithoutAttachmentsInput, Prisma.ThreadMessageUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type ThreadMessageUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput
+  replyTo?: Prisma.ThreadMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ThreadMessageUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutMessageNestedInput
+}
+
 export type ThreadMessageCreateManySenderInput = {
   id?: string
   threadId: string
+  clientId?: string | null
+  replyToId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -559,25 +1024,37 @@ export type ThreadMessageCreateManySenderInput = {
 
 export type ThreadMessageUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   thread?: Prisma.ThreadUpdateOneRequiredWithoutMessagesNestedInput
+  replyTo?: Prisma.ThreadMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ThreadMessageUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type ThreadMessageUncheckedUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type ThreadMessageUncheckedUpdateManyWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -587,6 +1064,8 @@ export type ThreadMessageUncheckedUpdateManyWithoutSenderInput = {
 export type ThreadMessageCreateManyThreadInput = {
   id?: string
   senderId: string
+  clientId?: string | null
+  replyToId?: string | null
   body: string
   editedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -595,91 +1074,222 @@ export type ThreadMessageCreateManyThreadInput = {
 
 export type ThreadMessageUpdateWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sender?: Prisma.UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput
+  replyTo?: Prisma.ThreadMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ThreadMessageUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type ThreadMessageUncheckedUpdateWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type ThreadMessageUncheckedUpdateManyWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ThreadMessageCreateManyReplyToInput = {
+  id?: string
+  threadId: string
+  senderId: string
+  clientId?: string | null
+  body: string
+  editedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type ThreadMessageUpdateWithoutReplyToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentThreadMessagesNestedInput
+  replies?: Prisma.ThreadMessageUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageUncheckedUpdateWithoutReplyToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  mentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutMessageNestedInput
+  attachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type ThreadMessageUncheckedUpdateManyWithoutReplyToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type ThreadMessageCountOutputType
+ */
+
+export type ThreadMessageCountOutputType = {
+  replies: number
+  mentions: number
+  attachments: number
+}
+
+export type ThreadMessageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replies?: boolean | ThreadMessageCountOutputTypeCountRepliesArgs
+  mentions?: boolean | ThreadMessageCountOutputTypeCountMentionsArgs
+  attachments?: boolean | ThreadMessageCountOutputTypeCountAttachmentsArgs
+}
+
+/**
+ * ThreadMessageCountOutputType without action
+ */
+export type ThreadMessageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadMessageCountOutputType
+   */
+  select?: Prisma.ThreadMessageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ThreadMessageCountOutputType without action
+ */
+export type ThreadMessageCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadMessageWhereInput
+}
+
+/**
+ * ThreadMessageCountOutputType without action
+ */
+export type ThreadMessageCountOutputTypeCountMentionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadMentionWhereInput
+}
+
+/**
+ * ThreadMessageCountOutputType without action
+ */
+export type ThreadMessageCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadAttachmentWhereInput
+}
 
 
 export type ThreadMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   threadId?: boolean
   senderId?: boolean
+  clientId?: boolean
+  replyToId?: boolean
   body?: boolean
   editedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  replyTo?: boolean | Prisma.ThreadMessage$replyToArgs<ExtArgs>
+  replies?: boolean | Prisma.ThreadMessage$repliesArgs<ExtArgs>
+  mentions?: boolean | Prisma.ThreadMessage$mentionsArgs<ExtArgs>
+  attachments?: boolean | Prisma.ThreadMessage$attachmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.ThreadMessageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["threadMessage"]>
 
 export type ThreadMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   threadId?: boolean
   senderId?: boolean
+  clientId?: boolean
+  replyToId?: boolean
   body?: boolean
   editedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  replyTo?: boolean | Prisma.ThreadMessage$replyToArgs<ExtArgs>
 }, ExtArgs["result"]["threadMessage"]>
 
 export type ThreadMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   threadId?: boolean
   senderId?: boolean
+  clientId?: boolean
+  replyToId?: boolean
   body?: boolean
   editedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  replyTo?: boolean | Prisma.ThreadMessage$replyToArgs<ExtArgs>
 }, ExtArgs["result"]["threadMessage"]>
 
 export type ThreadMessageSelectScalar = {
   id?: boolean
   threadId?: boolean
   senderId?: boolean
+  clientId?: boolean
+  replyToId?: boolean
   body?: boolean
   editedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
 }
 
-export type ThreadMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "threadId" | "senderId" | "body" | "editedAt" | "deletedAt" | "createdAt", ExtArgs["result"]["threadMessage"]>
+export type ThreadMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "threadId" | "senderId" | "clientId" | "replyToId" | "body" | "editedAt" | "deletedAt" | "createdAt", ExtArgs["result"]["threadMessage"]>
 export type ThreadMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  replyTo?: boolean | Prisma.ThreadMessage$replyToArgs<ExtArgs>
+  replies?: boolean | Prisma.ThreadMessage$repliesArgs<ExtArgs>
+  mentions?: boolean | Prisma.ThreadMessage$mentionsArgs<ExtArgs>
+  attachments?: boolean | Prisma.ThreadMessage$attachmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.ThreadMessageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ThreadMessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  replyTo?: boolean | Prisma.ThreadMessage$replyToArgs<ExtArgs>
 }
 export type ThreadMessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  replyTo?: boolean | Prisma.ThreadMessage$replyToArgs<ExtArgs>
 }
 
 export type $ThreadMessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -687,11 +1297,17 @@ export type $ThreadMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     thread: Prisma.$ThreadPayload<ExtArgs>
     sender: Prisma.$UserPayload<ExtArgs>
+    replyTo: Prisma.$ThreadMessagePayload<ExtArgs> | null
+    replies: Prisma.$ThreadMessagePayload<ExtArgs>[]
+    mentions: Prisma.$ThreadMentionPayload<ExtArgs>[]
+    attachments: Prisma.$ThreadAttachmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     threadId: string
     senderId: string
+    clientId: string | null
+    replyToId: string | null
     body: string
     editedAt: Date | null
     deletedAt: Date | null
@@ -1092,6 +1708,10 @@ export interface Prisma__ThreadMessageClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   thread<T extends Prisma.ThreadDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ThreadDefaultArgs<ExtArgs>>): Prisma.Prisma__ThreadClient<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sender<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  replyTo<T extends Prisma.ThreadMessage$replyToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ThreadMessage$replyToArgs<ExtArgs>>): Prisma.Prisma__ThreadMessageClient<runtime.Types.Result.GetResult<Prisma.$ThreadMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  replies<T extends Prisma.ThreadMessage$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ThreadMessage$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mentions<T extends Prisma.ThreadMessage$mentionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ThreadMessage$mentionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadMentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.ThreadMessage$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ThreadMessage$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1124,6 +1744,8 @@ export interface ThreadMessageFieldRefs {
   readonly id: Prisma.FieldRef<"ThreadMessage", 'String'>
   readonly threadId: Prisma.FieldRef<"ThreadMessage", 'String'>
   readonly senderId: Prisma.FieldRef<"ThreadMessage", 'String'>
+  readonly clientId: Prisma.FieldRef<"ThreadMessage", 'String'>
+  readonly replyToId: Prisma.FieldRef<"ThreadMessage", 'String'>
   readonly body: Prisma.FieldRef<"ThreadMessage", 'String'>
   readonly editedAt: Prisma.FieldRef<"ThreadMessage", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"ThreadMessage", 'DateTime'>
@@ -1526,6 +2148,97 @@ export type ThreadMessageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many ThreadMessages to delete.
    */
   limit?: number
+}
+
+/**
+ * ThreadMessage.replyTo
+ */
+export type ThreadMessage$replyToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadMessage
+   */
+  select?: Prisma.ThreadMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadMessage
+   */
+  omit?: Prisma.ThreadMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadMessageInclude<ExtArgs> | null
+  where?: Prisma.ThreadMessageWhereInput
+}
+
+/**
+ * ThreadMessage.replies
+ */
+export type ThreadMessage$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadMessage
+   */
+  select?: Prisma.ThreadMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadMessage
+   */
+  omit?: Prisma.ThreadMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadMessageInclude<ExtArgs> | null
+  where?: Prisma.ThreadMessageWhereInput
+  orderBy?: Prisma.ThreadMessageOrderByWithRelationInput | Prisma.ThreadMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadMessageScalarFieldEnum | Prisma.ThreadMessageScalarFieldEnum[]
+}
+
+/**
+ * ThreadMessage.mentions
+ */
+export type ThreadMessage$mentionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadMention
+   */
+  select?: Prisma.ThreadMentionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadMention
+   */
+  omit?: Prisma.ThreadMentionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadMentionInclude<ExtArgs> | null
+  where?: Prisma.ThreadMentionWhereInput
+  orderBy?: Prisma.ThreadMentionOrderByWithRelationInput | Prisma.ThreadMentionOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadMentionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadMentionScalarFieldEnum | Prisma.ThreadMentionScalarFieldEnum[]
+}
+
+/**
+ * ThreadMessage.attachments
+ */
+export type ThreadMessage$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadAttachment
+   */
+  select?: Prisma.ThreadAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadAttachment
+   */
+  omit?: Prisma.ThreadAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadAttachmentInclude<ExtArgs> | null
+  where?: Prisma.ThreadAttachmentWhereInput
+  orderBy?: Prisma.ThreadAttachmentOrderByWithRelationInput | Prisma.ThreadAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadAttachmentScalarFieldEnum | Prisma.ThreadAttachmentScalarFieldEnum[]
 }
 
 /**

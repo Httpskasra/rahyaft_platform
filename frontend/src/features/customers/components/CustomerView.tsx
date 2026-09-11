@@ -1,8 +1,9 @@
 import {
   Building2, CalendarClock, Edit3, Mail, MapPin, Phone, Plus, RefreshCw,
-  Sparkles, Trash2, UserRound, Users, WalletCards, Wrench,
+  Sparkles, Trash2, UserRound, Users, WalletCards, Wrench, MessageCircle,
 } from "lucide-react";
 import type { CustomerDetail } from "@/lib/api/customers";
+import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
 import {
   activityFa, card, dateFa, money, nameOf, oppStatusFa, statusFa, typeFa,
 } from "../constants";
@@ -50,6 +51,7 @@ export function CustomerView({
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
+            <a href={`/dashboard/communications?entityType=CUSTOMER&entityId=${customer.id}&new=1`} className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-3 py-2 text-sm text-white hover:bg-indigo-700"><MessageCircle size={16}/> گفتگوی مرتبط</a>
             <button onClick={refresh} className="rounded-xl border p-2.5">
               <RefreshCw size={17} />
             </button>
@@ -88,6 +90,7 @@ export function CustomerView({
           ))}
         </div>
       </section>
+      <RelatedCommunications entityType="CUSTOMER" entityId={customer.id} />
       <section className="grid gap-5 lg:grid-cols-3">
         <div className={`${card} p-5 lg:col-span-2`}>
           <div className="mb-4 flex items-center justify-between">
@@ -199,6 +202,7 @@ export function CustomerView({
                   <span>{money(o.estimatedValue)}</span>
                   <span>احتمال {o.probability || 0}٪</span>
                   <span>پیگیری: {dateFa(o.nextFollowUpAt)}</span>
+                  <a href={`/dashboard/communications?entityType=SALES_OPPORTUNITY&entityId=${o.id}&new=1`} className="mr-auto inline-flex items-center gap-1 text-indigo-600 hover:underline"><MessageCircle size={12}/> گفتگو</a>
                 </div>
               </div>
             ))
@@ -244,9 +248,10 @@ export function CustomerView({
                   <b>{r.deviceTitle}</b>
                   <span className="text-xs text-gray-500">{r.caseNumber}</span>
                 </div>
-                <p className="mt-2 text-xs text-gray-500">
-                  {r.type} • {r.status} • {dateFa(r.createdAt)}
-                </p>
+                <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
+                  <span>{r.type} • {r.status} • {dateFa(r.createdAt)}</span>
+                  <a href={`/dashboard/communications?entityType=REPAIR&entityId=${r.id}&new=1`} className="mr-auto inline-flex items-center gap-1 text-indigo-600 hover:underline"><MessageCircle size={12}/> گفتگو</a>
+                </div>
               </div>
             ))
           : <Empty text="پرونده تعمیری ثبت نشده" />}

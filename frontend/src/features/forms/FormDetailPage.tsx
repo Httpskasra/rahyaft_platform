@@ -16,6 +16,7 @@ import {
   RefreshCw,
   Send,
   Settings,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { SchemaField } from "@/features/forms/detail/types";
@@ -25,6 +26,7 @@ import {
   ApprovalStatusModal,
 } from "@/features/forms/detail/approval";
 import { SubmitFormPanel } from "@/features/forms/detail/submission";
+import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
 
 function Card({
   title,
@@ -137,12 +139,17 @@ export default function FormDetailPage({
             </p>
           )}
         </div>
-        <button
-          onClick={load}
-          className="flex items-center gap-1.5 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-          <RefreshCw size={13} /> بروزرسانی
-        </button>
+        <div className="flex items-center gap-2">
+          <Link href={`/dashboard/communications?entityType=FORM&entityId=${id}&new=1`} className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3 py-2 text-xs text-white hover:bg-indigo-700"><MessageCircle size={13}/> گفتگو</Link>
+          <button
+            onClick={load}
+            className="flex items-center gap-1.5 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+            <RefreshCw size={13} /> بروزرسانی
+          </button>
+        </div>
       </div>
+
+      <RelatedCommunications entityType="FORM" entityId={id} />
 
       {/* Tabs */}
       <div className="flex gap-1 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 p-1 w-fit">

@@ -75,6 +75,19 @@ export const ThreadParticipantRole = {
 export type ThreadParticipantRole = (typeof ThreadParticipantRole)[keyof typeof ThreadParticipantRole]
 
 
+export const ThreadEntityType = {
+  CUSTOMER: 'CUSTOMER',
+  REPAIR: 'REPAIR',
+  FORM: 'FORM',
+  FORM_SUBMISSION: 'FORM_SUBMISSION',
+  SALES_OPPORTUNITY: 'SALES_OPPORTUNITY',
+  USER: 'USER',
+  DEPARTMENT: 'DEPARTMENT'
+} as const
+
+export type ThreadEntityType = (typeof ThreadEntityType)[keyof typeof ThreadEntityType]
+
+
 export const ThreadActivityType = {
   THREAD_CREATED: 'THREAD_CREATED',
   MESSAGE_SENT: 'MESSAGE_SENT',
@@ -85,7 +98,9 @@ export const ThreadActivityType = {
   STATUS_CHANGED: 'STATUS_CHANGED',
   PRIORITY_CHANGED: 'PRIORITY_CHANGED',
   DUE_DATE_CHANGED: 'DUE_DATE_CHANGED',
-  THREAD_UPDATED: 'THREAD_UPDATED'
+  THREAD_UPDATED: 'THREAD_UPDATED',
+  ENTITY_LINKED: 'ENTITY_LINKED',
+  ENTITY_UNLINKED: 'ENTITY_UNLINKED'
 } as const
 
 export type ThreadActivityType = (typeof ThreadActivityType)[keyof typeof ThreadActivityType]

@@ -64,9 +64,9 @@ export default function UsersPage() {
       setRoles(
         (rolesRes.data as any[]).map((r: any) => ({ id: r.id, name: r.name })),
       );
-      if (usersRes.data.length > 0 && !activeId) {
-        setActiveId(usersRes.data[0].id);
-      }
+      const targetId = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("userId") : null;
+      if (targetId && usersRes.data.some((u) => u.id === targetId)) setActiveId(targetId);
+      else if (usersRes.data.length > 0 && !activeId) setActiveId(usersRes.data[0].id);
     } catch (e) {
       setError(e instanceof Error ? e.message : "خطا در دریافت اطلاعات");
     } finally {

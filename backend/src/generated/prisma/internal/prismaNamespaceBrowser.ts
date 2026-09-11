@@ -55,9 +55,13 @@ export const ModelName = {
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
   Thread: 'Thread',
+  ThreadEntityLink: 'ThreadEntityLink',
   ThreadParticipant: 'ThreadParticipant',
   ThreadAssignment: 'ThreadAssignment',
   ThreadMessage: 'ThreadMessage',
+  ThreadMention: 'ThreadMention',
+  ThreadAttachment: 'ThreadAttachment',
+  CommunicationNotification: 'CommunicationNotification',
   ThreadActivity: 'ThreadActivity',
   Attendance: 'Attendance',
   Role: 'Role',
@@ -163,6 +167,21 @@ export const ThreadScalarFieldEnum = {
 export type ThreadScalarFieldEnum = (typeof ThreadScalarFieldEnum)[keyof typeof ThreadScalarFieldEnum]
 
 
+export const ThreadEntityLinkScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  label: 'label',
+  subtitle: 'subtitle',
+  href: 'href',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadEntityLinkScalarFieldEnum = (typeof ThreadEntityLinkScalarFieldEnum)[keyof typeof ThreadEntityLinkScalarFieldEnum]
+
+
 export const ThreadParticipantScalarFieldEnum = {
   id: 'id',
   threadId: 'threadId',
@@ -192,6 +211,8 @@ export const ThreadMessageScalarFieldEnum = {
   id: 'id',
   threadId: 'threadId',
   senderId: 'senderId',
+  clientId: 'clientId',
+  replyToId: 'replyToId',
   body: 'body',
   editedAt: 'editedAt',
   deletedAt: 'deletedAt',
@@ -199,6 +220,45 @@ export const ThreadMessageScalarFieldEnum = {
 } as const
 
 export type ThreadMessageScalarFieldEnum = (typeof ThreadMessageScalarFieldEnum)[keyof typeof ThreadMessageScalarFieldEnum]
+
+
+export const ThreadMentionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadMentionScalarFieldEnum = (typeof ThreadMentionScalarFieldEnum)[keyof typeof ThreadMentionScalarFieldEnum]
+
+
+export const ThreadAttachmentScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  messageId: 'messageId',
+  uploaderId: 'uploaderId',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  size: 'size',
+  storageKey: 'storageKey',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadAttachmentScalarFieldEnum = (typeof ThreadAttachmentScalarFieldEnum)[keyof typeof ThreadAttachmentScalarFieldEnum]
+
+
+export const CommunicationNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  threadId: 'threadId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CommunicationNotificationScalarFieldEnum = (typeof CommunicationNotificationScalarFieldEnum)[keyof typeof CommunicationNotificationScalarFieldEnum]
 
 
 export const ThreadActivityScalarFieldEnum = {

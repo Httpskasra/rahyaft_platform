@@ -68,7 +68,9 @@ export default function DepartmentsPage() {
     try {
       const { data } = await departmentsApi.findAll();
       setDepartments(data);
-      if (data.length > 0 && !activeId) setActiveId(data[0].id);
+      const targetId = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("departmentId") : null;
+      if (targetId && data.some((d) => d.id === targetId)) setActiveId(targetId);
+      else if (data.length > 0 && !activeId) setActiveId(data[0].id);
     } catch (e: unknown) {
       const msg = (e as any)?.response?.data?.message ?? "خطا در دریافت دپارتمان‌ها";
       setFetchError(msg);

@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   Building2, Check, IdCard, Calendar, Hash, MessageSquareOff, Pencil, Phone,
-  Plus, ShieldCheck, User, X,
+  Plus, ShieldCheck, User, X, MessageCircle,
 } from "lucide-react";
 import { usersApi, type UserData } from "@/lib/api/users";
 import { rolesApi } from "@/lib/api/roles";
@@ -15,6 +15,7 @@ import {
 import { Spinner } from "@/components/ui/Spinner";
 import type { ToastType } from "@/hooks/useToast";
 import { cn } from "@/lib/cn";
+import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
 import { IR_PHONE_REGEX } from "@/features/users/components/constants";
 import type { Department, Role } from "@/features/users/components/types";
 
@@ -201,6 +202,7 @@ export function UserDetail({
         </div>
 
         <div className="flex items-center gap-2">
+          <a href={`/dashboard/communications?entityType=USER&entityId=${user.id}&new=1`} className="flex h-8 items-center gap-1.5 rounded-xl bg-indigo-600 px-3 text-xs font-medium text-white hover:bg-indigo-700"><MessageCircle size={12}/> گفتگو</a>
           <button
             type="button"
             onClick={handleResetBaleChat}
@@ -244,7 +246,9 @@ export function UserDetail({
       {/* Tab content */}
       <div className="p-6">
         {activeTab === "info" && !editing && (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-4">
+            <RelatedCommunications entityType="USER" entityId={user.id} />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <InfoRow
               icon={<IdCard size={15} className="text-blue-500" />}
               label="نام کامل"
@@ -279,6 +283,7 @@ export function UserDetail({
               label="تاریخ عضویت"
               value={formatDate(user.createdAt)}
             />
+            </div>
           </div>
         )}
 
