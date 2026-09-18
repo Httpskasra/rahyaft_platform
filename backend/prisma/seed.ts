@@ -52,6 +52,8 @@ async function main() {
     'repairs',
     'organization-chart',
     'communication',
+    'production-flows',
+    'production-runs',
   ];
 
   for (const action of actions) {
@@ -151,6 +153,25 @@ async function main() {
         permissionId: perm.id,
         scope: 'SELF',
       },
+    });
+  }
+
+
+  // Production pipeline access for regular employees: view flows and work on assigned runs.
+  for (const [action, resource] of [
+    ['read', 'production-flows'],
+    ['read', 'production-runs'],
+    ['update', 'production-runs'],
+  ] as const) {
+    const perm = await prisma.permission.upsert({
+      where: { action_resource: { action, resource } },
+      update: {},
+      create: { action, resource },
+    });
+    await prisma.rolePermission.upsert({
+      where: { roleId_permissionId: { roleId: userRole.id, permissionId: perm.id } },
+      update: { scope: 'SELF' },
+      create: { roleId: userRole.id, permissionId: perm.id, scope: 'SELF' },
     });
   }
 

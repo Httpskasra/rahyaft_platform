@@ -29,6 +29,7 @@ import { CustomerModule } from './customer/customer.module';
 import { EventsModule } from './events/events.module';
 import { RecruitmentModule } from './recruitment/recruitment.module';
 import { CommunicationModule } from './communication/communication.module';
+import { ProductionModule } from './production/production.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { CommunicationModule } from './communication/communication.module';
     EventsModule,
     RecruitmentModule,
     CommunicationModule,
+    ProductionModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

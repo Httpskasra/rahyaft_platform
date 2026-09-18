@@ -21,6 +21,7 @@ import {
   Building2,
   LucideCalendarClock,
   MessageSquare,
+  Factory,
   // PieChart,
 } from "lucide-react";
 import { usePermission } from "@/hooks/usePermission";
@@ -134,6 +135,9 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const canReadRecruitment = usePermission("read", "recruitment-applications");
   const canManageRecruitment = usePermission("manage", "recruitment-settings");
   const canReadCommunication = usePermission("read", "communication");
+  const canReadProductionRuns = usePermission("read", "production-runs");
+  const canReadProductionFlows = usePermission("read", "production-flows");
+  const canReadProduction = canReadProductionRuns || canReadProductionFlows;
   // تعیین کدام dropdown باید باز باشد بر اساس pathname
   const getInitialOpenGroup = (): GroupKey => {
     if (
@@ -163,6 +167,20 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
         <MenuGroupTitle collapsed={collapsed} title={t.common.menu} />
 
         <ul className="mb-6 flex flex-col gap-4">
+          {canReadProduction && (
+            <li>
+              <Link
+                href="/dashboard/production"
+                className={[
+                  "menu-item group",
+                  isActive("/dashboard/production") ? "menu-item-active" : "menu-item-inactive",
+                ].join(" ")}
+              >
+                <Factory size={20} />
+                <span className={collapsed ? "lg:hidden" : ""}>تولید</span>
+              </Link>
+            </li>
+          )}
           {canReadCommunication && (
             <li>
               <Link

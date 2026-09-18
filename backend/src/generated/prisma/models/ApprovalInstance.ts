@@ -441,14 +441,6 @@ export type EnumApprovalStatusFieldUpdateOperationsInput = {
   set?: $Enums.ApprovalStatus
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ApprovalInstanceCreateNestedOneWithoutActionsInput = {
   create?: Prisma.XOR<Prisma.ApprovalInstanceCreateWithoutActionsInput, Prisma.ApprovalInstanceUncheckedCreateWithoutActionsInput>
   connectOrCreate?: Prisma.ApprovalInstanceCreateOrConnectWithoutActionsInput

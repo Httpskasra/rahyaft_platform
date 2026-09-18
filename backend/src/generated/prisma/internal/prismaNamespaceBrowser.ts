@@ -72,6 +72,11 @@ export const ModelName = {
   FormSubmission: 'FormSubmission',
   FormStat: 'FormStat',
   FormAnalysis: 'FormAnalysis',
+  ProductionFlow: 'ProductionFlow',
+  ProductionFlowStep: 'ProductionFlowStep',
+  ProductionRun: 'ProductionRun',
+  ProductionRunStep: 'ProductionRunStep',
+  ProductionStepReview: 'ProductionStepReview',
   ApprovalPolicy: 'ApprovalPolicy',
   ApprovalStep: 'ApprovalStep',
   ApprovalInstance: 'ApprovalInstance',
@@ -374,6 +379,94 @@ export const FormAnalysisScalarFieldEnum = {
 } as const
 
 export type FormAnalysisScalarFieldEnum = (typeof FormAnalysisScalarFieldEnum)[keyof typeof FormAnalysisScalarFieldEnum]
+
+
+export const ProductionFlowScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  isActive: 'isActive',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductionFlowScalarFieldEnum = (typeof ProductionFlowScalarFieldEnum)[keyof typeof ProductionFlowScalarFieldEnum]
+
+
+export const ProductionFlowStepScalarFieldEnum = {
+  id: 'id',
+  flowId: 'flowId',
+  stepOrder: 'stepOrder',
+  name: 'name',
+  description: 'description',
+  formId: 'formId',
+  assigneeUserId: 'assigneeUserId',
+  supervisorUserId: 'supervisorUserId',
+  approverUserId: 'approverUserId',
+  estimatedMinutes: 'estimatedMinutes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductionFlowStepScalarFieldEnum = (typeof ProductionFlowStepScalarFieldEnum)[keyof typeof ProductionFlowStepScalarFieldEnum]
+
+
+export const ProductionRunScalarFieldEnum = {
+  id: 'id',
+  flowId: 'flowId',
+  title: 'title',
+  referenceNo: 'referenceNo',
+  status: 'status',
+  currentStepOrder: 'currentStepOrder',
+  startedById: 'startedById',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductionRunScalarFieldEnum = (typeof ProductionRunScalarFieldEnum)[keyof typeof ProductionRunScalarFieldEnum]
+
+
+export const ProductionRunStepScalarFieldEnum = {
+  id: 'id',
+  runId: 'runId',
+  flowStepId: 'flowStepId',
+  stepOrder: 'stepOrder',
+  name: 'name',
+  description: 'description',
+  formId: 'formId',
+  assigneeUserId: 'assigneeUserId',
+  supervisorUserId: 'supervisorUserId',
+  approverUserId: 'approverUserId',
+  status: 'status',
+  submissionId: 'submissionId',
+  attempt: 'attempt',
+  startedAt: 'startedAt',
+  submittedAt: 'submittedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductionRunStepScalarFieldEnum = (typeof ProductionRunStepScalarFieldEnum)[keyof typeof ProductionRunStepScalarFieldEnum]
+
+
+export const ProductionStepReviewScalarFieldEnum = {
+  id: 'id',
+  runStepId: 'runStepId',
+  reviewerId: 'reviewerId',
+  type: 'type',
+  action: 'action',
+  comment: 'comment',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductionStepReviewScalarFieldEnum = (typeof ProductionStepReviewScalarFieldEnum)[keyof typeof ProductionStepReviewScalarFieldEnum]
 
 
 export const ApprovalPolicyScalarFieldEnum = {

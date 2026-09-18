@@ -145,6 +145,31 @@ export type FormStat = Prisma.FormStatModel
  */
 export type FormAnalysis = Prisma.FormAnalysisModel
 /**
+ * Model ProductionFlow
+ * 
+ */
+export type ProductionFlow = Prisma.ProductionFlowModel
+/**
+ * Model ProductionFlowStep
+ * 
+ */
+export type ProductionFlowStep = Prisma.ProductionFlowStepModel
+/**
+ * Model ProductionRun
+ * 
+ */
+export type ProductionRun = Prisma.ProductionRunModel
+/**
+ * Model ProductionRunStep
+ * 
+ */
+export type ProductionRunStep = Prisma.ProductionRunStepModel
+/**
+ * Model ProductionStepReview
+ * 
+ */
+export type ProductionStepReview = Prisma.ProductionStepReviewModel
+/**
  * Model ApprovalPolicy
  * 
  */

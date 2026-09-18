@@ -223,6 +223,7 @@ export type FormSubmissionWhereInput = {
   form?: Prisma.XOR<Prisma.FormScalarRelationFilter, Prisma.FormWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvalInstances?: Prisma.ApprovalInstanceListRelationFilter
+  productionRunStep?: Prisma.XOR<Prisma.ProductionRunStepNullableScalarRelationFilter, Prisma.ProductionRunStepWhereInput> | null
 }
 
 export type FormSubmissionOrderByWithRelationInput = {
@@ -235,6 +236,7 @@ export type FormSubmissionOrderByWithRelationInput = {
   form?: Prisma.FormOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   approvalInstances?: Prisma.ApprovalInstanceOrderByRelationAggregateInput
+  productionRunStep?: Prisma.ProductionRunStepOrderByWithRelationInput
 }
 
 export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -250,6 +252,7 @@ export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
   form?: Prisma.XOR<Prisma.FormScalarRelationFilter, Prisma.FormWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvalInstances?: Prisma.ApprovalInstanceListRelationFilter
+  productionRunStep?: Prisma.XOR<Prisma.ProductionRunStepNullableScalarRelationFilter, Prisma.ProductionRunStepWhereInput> | null
 }, "id">
 
 export type FormSubmissionOrderByWithAggregationInput = {
@@ -286,6 +289,7 @@ export type FormSubmissionCreateInput = {
   form: Prisma.FormCreateNestedOneWithoutSubmissionsInput
   user?: Prisma.UserCreateNestedOneWithoutSubmissionsInput
   approvalInstances?: Prisma.ApprovalInstanceCreateNestedManyWithoutSubmissionInput
+  productionRunStep?: Prisma.ProductionRunStepCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionUncheckedCreateInput = {
@@ -296,6 +300,7 @@ export type FormSubmissionUncheckedCreateInput = {
   data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   approvalInstances?: Prisma.ApprovalInstanceUncheckedCreateNestedManyWithoutSubmissionInput
+  productionRunStep?: Prisma.ProductionRunStepUncheckedCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionUpdateInput = {
@@ -306,6 +311,7 @@ export type FormSubmissionUpdateInput = {
   form?: Prisma.FormUpdateOneRequiredWithoutSubmissionsNestedInput
   user?: Prisma.UserUpdateOneWithoutSubmissionsNestedInput
   approvalInstances?: Prisma.ApprovalInstanceUpdateManyWithoutSubmissionNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionUncheckedUpdateInput = {
@@ -316,6 +322,7 @@ export type FormSubmissionUncheckedUpdateInput = {
   data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvalInstances?: Prisma.ApprovalInstanceUncheckedUpdateManyWithoutSubmissionNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUncheckedUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionCreateManyInput = {
@@ -384,6 +391,11 @@ export type FormSubmissionMinOrderByAggregateInput = {
 
 export type FormSubmissionSumOrderByAggregateInput = {
   formVersion?: Prisma.SortOrder
+}
+
+export type FormSubmissionNullableScalarRelationFilter = {
+  is?: Prisma.FormSubmissionWhereInput | null
+  isNot?: Prisma.FormSubmissionWhereInput | null
 }
 
 export type FormSubmissionScalarRelationFilter = {
@@ -475,6 +487,22 @@ export type FormSubmissionUncheckedUpdateManyWithoutFormNestedInput = {
   deleteMany?: Prisma.FormSubmissionScalarWhereInput | Prisma.FormSubmissionScalarWhereInput[]
 }
 
+export type FormSubmissionCreateNestedOneWithoutProductionRunStepInput = {
+  create?: Prisma.XOR<Prisma.FormSubmissionCreateWithoutProductionRunStepInput, Prisma.FormSubmissionUncheckedCreateWithoutProductionRunStepInput>
+  connectOrCreate?: Prisma.FormSubmissionCreateOrConnectWithoutProductionRunStepInput
+  connect?: Prisma.FormSubmissionWhereUniqueInput
+}
+
+export type FormSubmissionUpdateOneWithoutProductionRunStepNestedInput = {
+  create?: Prisma.XOR<Prisma.FormSubmissionCreateWithoutProductionRunStepInput, Prisma.FormSubmissionUncheckedCreateWithoutProductionRunStepInput>
+  connectOrCreate?: Prisma.FormSubmissionCreateOrConnectWithoutProductionRunStepInput
+  upsert?: Prisma.FormSubmissionUpsertWithoutProductionRunStepInput
+  disconnect?: Prisma.FormSubmissionWhereInput | boolean
+  delete?: Prisma.FormSubmissionWhereInput | boolean
+  connect?: Prisma.FormSubmissionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FormSubmissionUpdateToOneWithWhereWithoutProductionRunStepInput, Prisma.FormSubmissionUpdateWithoutProductionRunStepInput>, Prisma.FormSubmissionUncheckedUpdateWithoutProductionRunStepInput>
+}
+
 export type FormSubmissionCreateNestedOneWithoutApprovalInstancesInput = {
   create?: Prisma.XOR<Prisma.FormSubmissionCreateWithoutApprovalInstancesInput, Prisma.FormSubmissionUncheckedCreateWithoutApprovalInstancesInput>
   connectOrCreate?: Prisma.FormSubmissionCreateOrConnectWithoutApprovalInstancesInput
@@ -496,6 +524,7 @@ export type FormSubmissionCreateWithoutUserInput = {
   createdAt?: Date | string
   form: Prisma.FormCreateNestedOneWithoutSubmissionsInput
   approvalInstances?: Prisma.ApprovalInstanceCreateNestedManyWithoutSubmissionInput
+  productionRunStep?: Prisma.ProductionRunStepCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionUncheckedCreateWithoutUserInput = {
@@ -505,6 +534,7 @@ export type FormSubmissionUncheckedCreateWithoutUserInput = {
   data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   approvalInstances?: Prisma.ApprovalInstanceUncheckedCreateNestedManyWithoutSubmissionInput
+  productionRunStep?: Prisma.ProductionRunStepUncheckedCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionCreateOrConnectWithoutUserInput = {
@@ -552,6 +582,7 @@ export type FormSubmissionCreateWithoutFormInput = {
   createdAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutSubmissionsInput
   approvalInstances?: Prisma.ApprovalInstanceCreateNestedManyWithoutSubmissionInput
+  productionRunStep?: Prisma.ProductionRunStepCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionUncheckedCreateWithoutFormInput = {
@@ -561,6 +592,7 @@ export type FormSubmissionUncheckedCreateWithoutFormInput = {
   data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   approvalInstances?: Prisma.ApprovalInstanceUncheckedCreateNestedManyWithoutSubmissionInput
+  productionRunStep?: Prisma.ProductionRunStepUncheckedCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionCreateOrConnectWithoutFormInput = {
@@ -589,6 +621,62 @@ export type FormSubmissionUpdateManyWithWhereWithoutFormInput = {
   data: Prisma.XOR<Prisma.FormSubmissionUpdateManyMutationInput, Prisma.FormSubmissionUncheckedUpdateManyWithoutFormInput>
 }
 
+export type FormSubmissionCreateWithoutProductionRunStepInput = {
+  id?: string
+  formVersion: number
+  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  form: Prisma.FormCreateNestedOneWithoutSubmissionsInput
+  user?: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  approvalInstances?: Prisma.ApprovalInstanceCreateNestedManyWithoutSubmissionInput
+}
+
+export type FormSubmissionUncheckedCreateWithoutProductionRunStepInput = {
+  id?: string
+  formId: string
+  formVersion: number
+  userId?: string | null
+  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  approvalInstances?: Prisma.ApprovalInstanceUncheckedCreateNestedManyWithoutSubmissionInput
+}
+
+export type FormSubmissionCreateOrConnectWithoutProductionRunStepInput = {
+  where: Prisma.FormSubmissionWhereUniqueInput
+  create: Prisma.XOR<Prisma.FormSubmissionCreateWithoutProductionRunStepInput, Prisma.FormSubmissionUncheckedCreateWithoutProductionRunStepInput>
+}
+
+export type FormSubmissionUpsertWithoutProductionRunStepInput = {
+  update: Prisma.XOR<Prisma.FormSubmissionUpdateWithoutProductionRunStepInput, Prisma.FormSubmissionUncheckedUpdateWithoutProductionRunStepInput>
+  create: Prisma.XOR<Prisma.FormSubmissionCreateWithoutProductionRunStepInput, Prisma.FormSubmissionUncheckedCreateWithoutProductionRunStepInput>
+  where?: Prisma.FormSubmissionWhereInput
+}
+
+export type FormSubmissionUpdateToOneWithWhereWithoutProductionRunStepInput = {
+  where?: Prisma.FormSubmissionWhereInput
+  data: Prisma.XOR<Prisma.FormSubmissionUpdateWithoutProductionRunStepInput, Prisma.FormSubmissionUncheckedUpdateWithoutProductionRunStepInput>
+}
+
+export type FormSubmissionUpdateWithoutProductionRunStepInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  formVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  form?: Prisma.FormUpdateOneRequiredWithoutSubmissionsNestedInput
+  user?: Prisma.UserUpdateOneWithoutSubmissionsNestedInput
+  approvalInstances?: Prisma.ApprovalInstanceUpdateManyWithoutSubmissionNestedInput
+}
+
+export type FormSubmissionUncheckedUpdateWithoutProductionRunStepInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  formId?: Prisma.StringFieldUpdateOperationsInput | string
+  formVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalInstances?: Prisma.ApprovalInstanceUncheckedUpdateManyWithoutSubmissionNestedInput
+}
+
 export type FormSubmissionCreateWithoutApprovalInstancesInput = {
   id?: string
   formVersion: number
@@ -596,6 +684,7 @@ export type FormSubmissionCreateWithoutApprovalInstancesInput = {
   createdAt?: Date | string
   form: Prisma.FormCreateNestedOneWithoutSubmissionsInput
   user?: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  productionRunStep?: Prisma.ProductionRunStepCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionUncheckedCreateWithoutApprovalInstancesInput = {
@@ -605,6 +694,7 @@ export type FormSubmissionUncheckedCreateWithoutApprovalInstancesInput = {
   userId?: string | null
   data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  productionRunStep?: Prisma.ProductionRunStepUncheckedCreateNestedOneWithoutSubmissionInput
 }
 
 export type FormSubmissionCreateOrConnectWithoutApprovalInstancesInput = {
@@ -630,6 +720,7 @@ export type FormSubmissionUpdateWithoutApprovalInstancesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   form?: Prisma.FormUpdateOneRequiredWithoutSubmissionsNestedInput
   user?: Prisma.UserUpdateOneWithoutSubmissionsNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionUncheckedUpdateWithoutApprovalInstancesInput = {
@@ -639,6 +730,7 @@ export type FormSubmissionUncheckedUpdateWithoutApprovalInstancesInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productionRunStep?: Prisma.ProductionRunStepUncheckedUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionCreateManyUserInput = {
@@ -656,6 +748,7 @@ export type FormSubmissionUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   form?: Prisma.FormUpdateOneRequiredWithoutSubmissionsNestedInput
   approvalInstances?: Prisma.ApprovalInstanceUpdateManyWithoutSubmissionNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionUncheckedUpdateWithoutUserInput = {
@@ -665,6 +758,7 @@ export type FormSubmissionUncheckedUpdateWithoutUserInput = {
   data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvalInstances?: Prisma.ApprovalInstanceUncheckedUpdateManyWithoutSubmissionNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUncheckedUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionUncheckedUpdateManyWithoutUserInput = {
@@ -690,6 +784,7 @@ export type FormSubmissionUpdateWithoutFormInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutSubmissionsNestedInput
   approvalInstances?: Prisma.ApprovalInstanceUpdateManyWithoutSubmissionNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionUncheckedUpdateWithoutFormInput = {
@@ -699,6 +794,7 @@ export type FormSubmissionUncheckedUpdateWithoutFormInput = {
   data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvalInstances?: Prisma.ApprovalInstanceUncheckedUpdateManyWithoutSubmissionNestedInput
+  productionRunStep?: Prisma.ProductionRunStepUncheckedUpdateOneWithoutSubmissionNestedInput
 }
 
 export type FormSubmissionUncheckedUpdateManyWithoutFormInput = {
@@ -750,6 +846,7 @@ export type FormSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FormSubmission$userArgs<ExtArgs>
   approvalInstances?: boolean | Prisma.FormSubmission$approvalInstancesArgs<ExtArgs>
+  productionRunStep?: boolean | Prisma.FormSubmission$productionRunStepArgs<ExtArgs>
   _count?: boolean | Prisma.FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["formSubmission"]>
 
@@ -789,6 +886,7 @@ export type FormSubmissionInclude<ExtArgs extends runtime.Types.Extensions.Inter
   form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FormSubmission$userArgs<ExtArgs>
   approvalInstances?: boolean | Prisma.FormSubmission$approvalInstancesArgs<ExtArgs>
+  productionRunStep?: boolean | Prisma.FormSubmission$productionRunStepArgs<ExtArgs>
   _count?: boolean | Prisma.FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FormSubmissionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -806,6 +904,7 @@ export type $FormSubmissionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     form: Prisma.$FormPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs> | null
     approvalInstances: Prisma.$ApprovalInstancePayload<ExtArgs>[]
+    productionRunStep: Prisma.$ProductionRunStepPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1211,6 +1310,7 @@ export interface Prisma__FormSubmissionClient<T, Null = never, ExtArgs extends r
   form<T extends Prisma.FormDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormDefaultArgs<ExtArgs>>): Prisma.Prisma__FormClient<runtime.Types.Result.GetResult<Prisma.$FormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.FormSubmission$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormSubmission$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approvalInstances<T extends Prisma.FormSubmission$approvalInstancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormSubmission$approvalInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productionRunStep<T extends Prisma.FormSubmission$productionRunStepArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormSubmission$productionRunStepArgs<ExtArgs>>): Prisma.Prisma__ProductionRunStepClient<runtime.Types.Result.GetResult<Prisma.$ProductionRunStepPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1687,6 +1787,25 @@ export type FormSubmission$approvalInstancesArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.ApprovalInstanceScalarFieldEnum | Prisma.ApprovalInstanceScalarFieldEnum[]
+}
+
+/**
+ * FormSubmission.productionRunStep
+ */
+export type FormSubmission$productionRunStepArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductionRunStep
+   */
+  select?: Prisma.ProductionRunStepSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductionRunStep
+   */
+  omit?: Prisma.ProductionRunStepOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductionRunStepInclude<ExtArgs> | null
+  where?: Prisma.ProductionRunStepWhereInput
 }
 
 /**

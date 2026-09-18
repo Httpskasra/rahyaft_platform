@@ -106,6 +106,46 @@ export const ThreadActivityType = {
 export type ThreadActivityType = (typeof ThreadActivityType)[keyof typeof ThreadActivityType]
 
 
+export const ProductionRunStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ProductionRunStatus = (typeof ProductionRunStatus)[keyof typeof ProductionRunStatus]
+
+
+export const ProductionRunStepStatus = {
+  LOCKED: 'LOCKED',
+  READY: 'READY',
+  IN_PROGRESS: 'IN_PROGRESS',
+  WAITING_SUPERVISOR: 'WAITING_SUPERVISOR',
+  WAITING_APPROVAL: 'WAITING_APPROVAL',
+  NEEDS_REVISION: 'NEEDS_REVISION',
+  COMPLETED: 'COMPLETED',
+  SKIPPED: 'SKIPPED'
+} as const
+
+export type ProductionRunStepStatus = (typeof ProductionRunStepStatus)[keyof typeof ProductionRunStepStatus]
+
+
+export const ProductionReviewType = {
+  SUPERVISOR: 'SUPERVISOR',
+  APPROVER: 'APPROVER'
+} as const
+
+export type ProductionReviewType = (typeof ProductionReviewType)[keyof typeof ProductionReviewType]
+
+
+export const ProductionReviewAction = {
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ProductionReviewAction = (typeof ProductionReviewAction)[keyof typeof ProductionReviewAction]
+
+
 export const ApprovalStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',

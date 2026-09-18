@@ -85,16 +85,25 @@ model User {
   recruitmentSubmissions RecruitmentFormSubmission[]
   recruitmentFinalized   RecruitmentApplication[]    @relation("RecruitmentFinalUser")
 
-  createdThreads     Thread[]            @relation("ThreadCreator")
-  threadParticipants ThreadParticipant[]
-  sentThreadMessages ThreadMessage[]
-  threadAssignments  ThreadAssignment[]  @relation("ThreadAssignee")
-  assignedThreads    ThreadAssignment[]  @relation("ThreadAssignedBy")
-  threadActivities   ThreadActivity[]
-  threadMentions     ThreadMention[]
-  threadNotifications CommunicationNotification[]
-  threadAttachments  ThreadAttachment[]
-  threadEntityLinks  ThreadEntityLink[]
+  createdThreads                Thread[]                    @relation("ThreadCreator")
+  threadParticipants            ThreadParticipant[]
+  sentThreadMessages            ThreadMessage[]
+  threadAssignments             ThreadAssignment[]          @relation("ThreadAssignee")
+  assignedThreads               ThreadAssignment[]          @relation("ThreadAssignedBy")
+  threadActivities              ThreadActivity[]
+  threadMentions                ThreadMention[]
+  threadNotifications           CommunicationNotification[]
+  threadAttachments             ThreadAttachment[]
+  threadEntityLinks             ThreadEntityLink[]
+  productionFlowsCreated        ProductionFlow[]            @relation("ProductionFlowCreator")
+  productionRunsStarted         ProductionRun[]             @relation("ProductionRunStarter")
+  productionFlowStepsAssigned   ProductionFlowStep[]        @relation("ProductionFlowStepAssignee")
+  productionFlowStepsSupervised ProductionFlowStep[]        @relation("ProductionFlowStepSupervisor")
+  productionFlowStepsApproved   ProductionFlowStep[]        @relation("ProductionFlowStepApprover")
+  productionStepsAssigned       ProductionRunStep[]         @relation("ProductionRunStepAssignee")
+  productionStepsSupervised     ProductionRunStep[]         @relation("ProductionRunStepSupervisor")
+  productionStepsApproved       ProductionRunStep[]         @relation("ProductionRunStepApprover")
+  productionReviews             ProductionStepReview[]      @relation("ProductionStepReviewer")
 }
 
 enum ThreadType {
@@ -166,13 +175,13 @@ model Thread {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
-  creator      User                @relation("ThreadCreator", fields: [creatorId], references: [id])
-  department   Department?         @relation(fields: [departmentId], references: [id])
-  participants ThreadParticipant[]
-  messages     ThreadMessage[]
-  assignments  ThreadAssignment[]
-  activities   ThreadActivity[]
-  attachments  ThreadAttachment[]
+  creator       User                        @relation("ThreadCreator", fields: [creatorId], references: [id])
+  department    Department?                 @relation(fields: [departmentId], references: [id])
+  participants  ThreadParticipant[]
+  messages      ThreadMessage[]
+  assignments   ThreadAssignment[]
+  activities    ThreadActivity[]
+  attachments   ThreadAttachment[]
   notifications CommunicationNotification[]
   entityLinks   ThreadEntityLink[]
 
@@ -182,20 +191,19 @@ model Thread {
   @@index([updatedAt])
 }
 
-
 model ThreadEntityLink {
-  id         String           @id @default(uuid())
-  threadId   String
-  entityType ThreadEntityType
-  entityId   String
-  label      String
-  subtitle   String?
-  href       String?
+  id          String           @id @default(uuid())
+  threadId    String
+  entityType  ThreadEntityType
+  entityId    String
+  label       String
+  subtitle    String?
+  href        String?
   createdById String?
-  createdAt  DateTime         @default(now())
+  createdAt   DateTime         @default(now())
 
-  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
-  createdBy User? @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  thread    Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  createdBy User?  @relation(fields: [createdById], references: [id], onDelete: SetNull)
 
   @@unique([threadId, entityType, entityId])
   @@index([entityType, entityId])
@@ -245,16 +253,16 @@ model ThreadMessage {
   deletedAt DateTime?
   createdAt DateTime  @default(now())
 
-  thread  Thread          @relation(fields: [threadId], references: [id], onDelete: Cascade)
-  sender  User            @relation(fields: [senderId], references: [id])
-  replyTo ThreadMessage?  @relation("ThreadMessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
-  replies ThreadMessage[] @relation("ThreadMessageReplies")
-  mentions ThreadMention[]
+  thread      Thread             @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  sender      User               @relation(fields: [senderId], references: [id])
+  replyTo     ThreadMessage?     @relation("ThreadMessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies     ThreadMessage[]    @relation("ThreadMessageReplies")
+  mentions    ThreadMention[]
   attachments ThreadAttachment[]
 
+  @@unique([senderId, clientId])
   @@index([threadId, createdAt])
   @@index([replyToId])
-  @@unique([senderId, clientId])
 }
 
 model ThreadMention {
@@ -290,14 +298,14 @@ model ThreadAttachment {
 }
 
 model CommunicationNotification {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   userId    String
   threadId  String
   type      String
   title     String
   body      String?
   readAt    DateTime?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
@@ -400,6 +408,7 @@ model Form {
   updatedAt DateTime @updatedAt
 
   approvalPolicies ApprovalPolicy[]
+  productionSteps  ProductionFlowStep[]
 }
 
 model FormSubmission {
@@ -415,6 +424,7 @@ model FormSubmission {
   createdAt DateTime @default(now())
 
   approvalInstances ApprovalInstance[]
+  productionRunStep ProductionRunStep?
 }
 
 model FormStat {
@@ -446,6 +456,154 @@ model FormAnalysis {
 
   @@unique([formId, fieldId, metric])
   @@index([formId])
+}
+
+// ─── Production Flow / Pipeline ──────────────────────────────────
+
+enum ProductionRunStatus {
+  IN_PROGRESS
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum ProductionRunStepStatus {
+  LOCKED
+  READY
+  IN_PROGRESS
+  WAITING_SUPERVISOR
+  WAITING_APPROVAL
+  NEEDS_REVISION
+  COMPLETED
+  SKIPPED
+}
+
+enum ProductionReviewType {
+  SUPERVISOR
+  APPROVER
+}
+
+enum ProductionReviewAction {
+  APPROVED
+  REJECTED
+}
+
+model ProductionFlow {
+  id          String   @id @default(uuid())
+  name        String
+  code        String?  @unique
+  description String?
+  isActive    Boolean  @default(true)
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy User                 @relation("ProductionFlowCreator", fields: [createdById], references: [id])
+  steps     ProductionFlowStep[]
+  runs      ProductionRun[]
+
+  @@index([createdById])
+  @@index([isActive])
+}
+
+model ProductionFlowStep {
+  id               String   @id @default(uuid())
+  flowId           String
+  stepOrder        Int
+  name             String
+  description      String?
+  formId           String
+  assigneeUserId   String
+  supervisorUserId String?
+  approverUserId   String?
+  estimatedMinutes Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  flow       ProductionFlow      @relation(fields: [flowId], references: [id], onDelete: Cascade)
+  form       Form                @relation(fields: [formId], references: [id])
+  assignee   User                @relation("ProductionFlowStepAssignee", fields: [assigneeUserId], references: [id])
+  supervisor User?               @relation("ProductionFlowStepSupervisor", fields: [supervisorUserId], references: [id])
+  approver   User?               @relation("ProductionFlowStepApprover", fields: [approverUserId], references: [id])
+  runSteps   ProductionRunStep[]
+
+  @@unique([flowId, stepOrder])
+  @@index([formId])
+  @@index([assigneeUserId])
+}
+
+model ProductionRun {
+  id               String              @id @default(uuid())
+  flowId           String
+  title            String
+  referenceNo      String              @unique
+  status           ProductionRunStatus @default(IN_PROGRESS)
+  currentStepOrder Int?
+  startedById      String
+  startedAt        DateTime            @default(now())
+  completedAt      DateTime?
+  cancelledAt      DateTime?
+  metadata         Json?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  flow      ProductionFlow      @relation(fields: [flowId], references: [id])
+  startedBy User                @relation("ProductionRunStarter", fields: [startedById], references: [id])
+  steps     ProductionRunStep[]
+
+  @@index([flowId, status])
+  @@index([startedById])
+  @@index([updatedAt])
+}
+
+model ProductionRunStep {
+  id               String                  @id @default(uuid())
+  runId            String
+  flowStepId       String
+  stepOrder        Int
+  name             String
+  description      String?
+  formId           String
+  assigneeUserId   String
+  supervisorUserId String?
+  approverUserId   String?
+  status           ProductionRunStepStatus @default(LOCKED)
+  submissionId     String?                 @unique
+  attempt          Int                     @default(0)
+  startedAt        DateTime?
+  submittedAt      DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+
+  run        ProductionRun          @relation(fields: [runId], references: [id], onDelete: Cascade)
+  flowStep   ProductionFlowStep     @relation(fields: [flowStepId], references: [id])
+  assignee   User                   @relation("ProductionRunStepAssignee", fields: [assigneeUserId], references: [id])
+  supervisor User?                  @relation("ProductionRunStepSupervisor", fields: [supervisorUserId], references: [id])
+  approver   User?                  @relation("ProductionRunStepApprover", fields: [approverUserId], references: [id])
+  submission FormSubmission?        @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+  reviews    ProductionStepReview[]
+
+  @@unique([runId, stepOrder])
+  @@index([assigneeUserId, status])
+  @@index([supervisorUserId, status])
+  @@index([approverUserId, status])
+}
+
+model ProductionStepReview {
+  id         String                 @id @default(uuid())
+  runStepId  String
+  reviewerId String
+  type       ProductionReviewType
+  action     ProductionReviewAction
+  comment    String?
+  createdAt  DateTime               @default(now())
+
+  runStep  ProductionRunStep @relation(fields: [runStepId], references: [id], onDelete: Cascade)
+  reviewer User              @relation("ProductionStepReviewer", fields: [reviewerId], references: [id])
+
+  @@index([runStepId, createdAt])
+  @@index([reviewerId])
 }
 
 // ─── Approval Workflow ────────────────────────────────────────
