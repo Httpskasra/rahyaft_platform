@@ -720,7 +720,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                     />
                     <DropdownItem
                       href="/dashboard/attendance/list"
-                      label="لیست ترددهای روزانه"
+                      label="گزارش و تحلیل تردد"
                       active={isActive("/dashboard/attendance/list")}
                     />
                   </li>

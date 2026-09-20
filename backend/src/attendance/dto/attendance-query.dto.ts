@@ -5,6 +5,10 @@ export class AttendanceQueryDto {
   @IsOptional()
   userId?: string;
 
+  @IsUUID()
+  @IsOptional()
+  departmentId?: string;
+
   @IsString()
   @IsOptional()
   search?: string;

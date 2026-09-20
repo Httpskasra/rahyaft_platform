@@ -77,6 +77,13 @@ export class AttendanceController {
     return this.attendanceService.findAll(query);
   }
 
+  /** GET /attendance/report — گزارش تحلیلی حضور و غیاب */
+  @Get('report')
+  @RequirePermission({ action: 'read', resource: 'attendance' })
+  getReport(@Query() query: AttendanceQueryDto) {
+    return this.attendanceService.getReport(query);
+  }
+
   /** GET /attendance/daily-summary — اولین/آخرین تردد هر کاربر در هر روز */
   @Get('daily-summary')
   @RequirePermission({ action: 'read', resource: 'attendance' })
