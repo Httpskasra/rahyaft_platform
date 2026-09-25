@@ -61,6 +61,8 @@ model User {
   departmentId String
   managerId    String?
   refreshToken String?
+  signatureStorageKey String?
+  signatureMimeType   String?
 
   department   Department       @relation(fields: [departmentId], references: [id])
   manager      User?            @relation("UserHierarchy", fields: [managerId], references: [id])
@@ -658,8 +660,10 @@ model ApprovalAction {
   approverId String
   approver   User             @relation(fields: [approverId], references: [id])
   action     ApprovalStatus
-  comments   String?
-  createdAt  DateTime         @default(now())
+  comments            String?
+  signatureStorageKey String?
+  signatureMimeType   String?
+  createdAt           DateTime         @default(now())
 }
 
 // ─── User Info & Relatives ────────────────────────────────────────mehrak

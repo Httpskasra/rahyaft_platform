@@ -12,11 +12,15 @@ export function SubmissionsTable({
   fields,
   onViewApproval,
   formName,
+  formCustomId,
+  formDescription,
 }: {
   submissions: Submission[];
   fields: SchemaField[];
   onViewApproval: (submissionId: string) => void;
   formName: string;
+  formCustomId?: string;
+  formDescription?: string;
 }) {
   const cols = fields.slice(0, 3);
   const [statusCache, setStatusCache] = useState<
@@ -130,7 +134,7 @@ export function SubmissionsTable({
               </td>
               <td className="py-2 text-center">
                 <button
-                  onClick={() => exportSubmissionToPDF(sub, formName, fields)}
+                  onClick={() => exportSubmissionToPDF(sub, formName, fields, { customId: formCustomId, description: formDescription })}
                   className="text-blue-500 hover:text-blue-700 transition-colors"
                   title="خروجی PDF">
                   <FileText size={14} />

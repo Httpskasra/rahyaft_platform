@@ -44,6 +44,12 @@ export const usersApi = {
   create: (body: CreateUserDto) =>
     apiClient.post<UserData>("/users", body),
 
+  getMySignature: () =>
+    apiClient.get<{ hasSignature: boolean; signatureDataUrl: string | null }>("/users/me/signature"),
+
+  saveMySignature: (signatureDataUrl: string) =>
+    apiClient.post<{ hasSignature: boolean; signatureDataUrl: string }>("/users/me/signature", { signatureDataUrl }),
+
   update: (id: string, body: UpdateUserDto) =>
     apiClient.patch<UserData>(`/users/${id}`, body),
 

@@ -179,6 +179,16 @@ export function ApprovalStatusModal({
                           </div>
                         )}
                       </div>
+                      {isCompleted && action.signatureDataUrl && (
+                        <div className="mt-3 rounded-lg border border-dashed border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
+                          <p className="mb-1 text-[10px] text-gray-400">امضای ثبت‌شده در زمان اقدام</p>
+                          <img
+                            src={action.signatureDataUrl}
+                            alt={`امضای ${action.approver.name}`}
+                            className="h-14 max-w-[180px] object-contain"
+                          />
+                        </div>
+                      )}
                       {isCompleted && action.comments && (
                         <p className="mt-2 text-xs text-gray-500 border-r-2 border-gray-200 pr-2">
                           &quot;{action.comments}&quot;

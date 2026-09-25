@@ -3,6 +3,7 @@ import {
   NotFoundException,
   ForbiddenException,
   ConflictException,
+  BadRequestException,
 } from '@nestjs/common';
 
 import { PrismaService } from '../prisma/prisma.service';
@@ -10,6 +11,9 @@ import { AuthenticatedUser } from '../common/interfaces/auth.interface';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Prisma } from 'src/generated/prisma/client';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { randomUUID } from 'node:crypto';
 
 const USER_SELECT = {
   id: true,
@@ -79,6 +83,78 @@ export class UsersService {
       },
       select: USER_SELECT,
     });
+  }
+
+
+  async getMySignature(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { signatureStorageKey: true, signatureMimeType: true },
+    });
+
+    if (!user) throw new NotFoundException('User not found');
+    if (!user.signatureStorageKey || !user.signatureMimeType) {
+      return { hasSignature: false, signatureDataUrl: null };
+    }
+
+    const filePath = join(
+      process.cwd(),
+      'uploads',
+      'signatures',
+      'users',
+      user.signatureStorageKey,
+    );
+    const buffer = await readFile(filePath);
+    return {
+      hasSignature: true,
+      signatureDataUrl: `data:${user.signatureMimeType};base64,${buffer.toString('base64')}`,
+    };
+  }
+
+  async saveDrawnSignature(userId: string, signatureDataUrl: string) {
+    await this.findOne(userId);
+
+    const prefix = 'data:image/png;base64,';
+    if (!signatureDataUrl.startsWith(prefix)) {
+      throw new BadRequestException('Signature must be a PNG data URL');
+    }
+
+    let buffer: Buffer;
+    try {
+      buffer = Buffer.from(signatureDataUrl.slice(prefix.length), 'base64');
+    } catch {
+      throw new BadRequestException('Invalid signature data');
+    }
+
+    if (buffer.length < 100) {
+      throw new BadRequestException('Signature is empty or invalid');
+    }
+    if (buffer.length > 2 * 1024 * 1024) {
+      throw new BadRequestException('Signature is too large');
+    }
+    // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
+    const pngMagic = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+    if (buffer.length < 8 || !buffer.subarray(0, 8).equals(pngMagic)) {
+      throw new BadRequestException('Invalid PNG signature');
+    }
+
+    const dir = join(process.cwd(), 'uploads', 'signatures', 'users');
+    await mkdir(dir, { recursive: true });
+    const storageKey = `${randomUUID()}.png`;
+    await writeFile(join(dir, storageKey), buffer);
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        signatureStorageKey: storageKey,
+        signatureMimeType: 'image/png',
+      },
+    });
+
+    return {
+      hasSignature: true,
+      signatureDataUrl: `${prefix}${buffer.toString('base64')}`,
+    };
   }
 
   async update(userId: string, dto: UpdateUserDto) {

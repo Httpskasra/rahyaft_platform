@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   User,
   Phone,
@@ -13,9 +13,14 @@ import {
   ChevronUp,
   Copy,
   Check,
+  PenLine,
+  Eraser,
+  Save,
+  Loader2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/cn";
+import { usersApi } from "@/lib/api/users";
 
 
 // ─── Copy button ─────────────────────────────────────────────
@@ -164,6 +169,185 @@ function Skeleton({ className }: { className?: string }) {
   return <div className={cn("animate-pulse rounded-xl bg-gray-100 dark:bg-gray-800", className)} />;
 }
 
+
+// ─── Signature pad ────────────────────────────────────────────
+function SignatureSection() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const drawingRef = useRef(false);
+  const [hasStroke, setHasStroke] = useState(false);
+  const [savedSignature, setSavedSignature] = useState<string | null>(null);
+  const [loadingSignature, setLoadingSignature] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    usersApi.getMySignature()
+      .then(({ data }) => {
+        if (mounted) setSavedSignature(data.signatureDataUrl);
+      })
+      .catch(() => {
+        if (mounted) setMessage({ type: "error", text: "دریافت امضای فعلی ناموفق بود." });
+      })
+      .finally(() => {
+        if (mounted) setLoadingSignature(false);
+      });
+    return () => { mounted = false; };
+  }, []);
+
+  const point = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current!;
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: (e.clientX - rect.left) * (canvas.width / rect.width),
+      y: (e.clientY - rect.top) * (canvas.height / rect.height),
+    };
+  };
+
+  const startDrawing = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    drawingRef.current = true;
+    canvas.setPointerCapture(e.pointerId);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const p = point(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  };
+
+  const draw = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!drawingRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const p = point(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = "#111827";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+    setHasStroke(true);
+  };
+
+  const stopDrawing = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    drawingRef.current = false;
+    const canvas = canvasRef.current;
+    if (canvas?.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
+  };
+
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    ctx?.clearRect(0, 0, canvas.width, canvas.height);
+    setHasStroke(false);
+    setMessage(null);
+  };
+
+  const saveSignature = async () => {
+    const canvas = canvasRef.current;
+    if (!canvas || !hasStroke) {
+      setMessage({ type: "error", text: "ابتدا امضای خود را داخل کادر بکشید." });
+      return;
+    }
+    setSaving(true);
+    setMessage(null);
+    try {
+      const signatureDataUrl = canvas.toDataURL("image/png");
+      const { data } = await usersApi.saveMySignature(signatureDataUrl);
+      setSavedSignature(data.signatureDataUrl);
+      clearCanvas();
+      setMessage({ type: "success", text: "امضای شما با موفقیت ذخیره شد و از این پس در تأیید فرم‌ها استفاده می‌شود." });
+    } catch {
+      setMessage({ type: "error", text: "ذخیره امضا ناموفق بود. دوباره تلاش کنید." });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <section className="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <PenLine size={17} className="text-brand-500" />
+            <h2 className="text-sm font-semibold text-gray-800 dark:text-white/90">امضای دیجیتال من</h2>
+          </div>
+          <p className="mt-1 text-xs leading-6 text-gray-500 dark:text-gray-400">
+            امضای خود را با موس، قلم یا لمس داخل کادر بکشید. هنگام تأیید فرم، یک نسخه ثابت از همین امضا داخل سابقه تأیید و PDF ذخیره می‌شود.
+          </p>
+        </div>
+        <span className={cn(
+          "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium",
+          savedSignature ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400" : "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
+        )}>
+          {loadingSignature ? "در حال بررسی..." : savedSignature ? "امضا ثبت شده" : "امضا ثبت نشده"}
+        </span>
+      </div>
+
+      {savedSignature && (
+        <div className="mb-4 rounded-xl border border-emerald-100 bg-emerald-50/40 p-3 dark:border-emerald-900/60 dark:bg-emerald-500/5">
+          <p className="mb-2 text-xs font-medium text-gray-600 dark:text-gray-300">امضای فعلی</p>
+          <div className="flex min-h-24 items-center justify-center rounded-lg bg-white p-3 dark:bg-white">
+            <img src={savedSignature} alt="امضای فعلی" className="max-h-20 max-w-full object-contain" />
+          </div>
+        </div>
+      )}
+
+      <div className="overflow-hidden rounded-2xl border border-dashed border-gray-300 bg-white dark:border-gray-700">
+        <canvas
+          ref={canvasRef}
+          width={900}
+          height={280}
+          onPointerDown={startDrawing}
+          onPointerMove={draw}
+          onPointerUp={stopDrawing}
+          onPointerCancel={stopDrawing}
+          onPointerLeave={(e) => drawingRef.current && stopDrawing(e)}
+          className="h-56 w-full touch-none cursor-crosshair bg-white"
+          aria-label="کادر رسم امضا"
+        />
+      </div>
+
+      <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[11px] text-gray-400">برای تغییر امضای قبلی، امضای جدید را بکشید و ذخیره کنید.</p>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={clearCanvas}
+            disabled={saving}
+            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+          >
+            <Eraser size={14} />
+            پاک کردن کادر
+          </button>
+          <button
+            type="button"
+            onClick={saveSignature}
+            disabled={saving || !hasStroke}
+            className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2 text-xs font-medium text-white hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
+            ذخیره امضا
+          </button>
+        </div>
+      </div>
+
+      {message && (
+        <div className={cn(
+          "mt-3 rounded-xl px-3 py-2 text-xs",
+          message.type === "success" ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400" : "bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400"
+        )}>
+          {message.text}
+        </div>
+      )}
+    </section>
+  );
+}
+
 // ─── Main Profile Page ────────────────────────────────────────
 export default function ProfilePage() {
   const { user, loading } = useAuth();
@@ -281,6 +465,8 @@ export default function ProfilePage() {
           </>
         )}
       </div>
+
+      <SignatureSection />
 
       {/* Roles & permissions */}
       <div>

@@ -19,6 +19,7 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import type { AuthenticatedUser } from 'src/common/interfaces/auth.interface';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SaveSignatureDto } from './dto/save-signature.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth('access-token')
@@ -31,6 +32,21 @@ export class UsersController {
   @RequirePermission({ action: 'read', resource: 'users' })
   findAll() {
     return this.usersService.findAll();
+  }
+
+  /** GET /users/me/signature — current user's saved signature */
+  @Get('me/signature')
+  getMySignature(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.getMySignature(user.id);
+  }
+
+  /** POST /users/me/signature — save a signature drawn in the profile canvas */
+  @Post('me/signature')
+  saveMySignature(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: SaveSignatureDto,
+  ) {
+    return this.usersService.saveDrawnSignature(user.id, dto.signatureDataUrl);
   }
 
   /** GET /users/:userId */

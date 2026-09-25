@@ -151,6 +151,7 @@ services:
       - "0.0.0.0:${BACKEND_PORT:-3000}:3000"
     volumes:
       - communication_uploads:/app/uploads/communication
+      - signature_uploads:/app/uploads/signatures
     networks: [internal, public]
     security_opt:
       - no-new-privileges:true
@@ -360,6 +361,7 @@ networks:
 
 volumes:
   communication_uploads:
+  signature_uploads:
   postgres_prod_data:
   redis_prod_data:
   rabbitmq_prod_data:

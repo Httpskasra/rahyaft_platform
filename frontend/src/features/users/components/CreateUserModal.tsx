@@ -68,6 +68,10 @@ export function CreateUserModal({
       showToast("error", "شماره موبایل معتبر نیست (مثال: 09121234567)");
       return;
     }
+    if (!form.departmentId) {
+      showToast("error", "انتخاب دپارتمان الزامی است");
+      return;
+    }
     setCreating(true);
     try {
       const { data: newUser } = await usersApi.create({

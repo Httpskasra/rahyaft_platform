@@ -57,6 +57,8 @@ export function AnalyticsDashboardWithApproval({
           fields={fields}
           onViewApproval={onViewApproval}
           formName={data.form.name}
+          formCustomId={data.form.customId}
+          formDescription={data.form.description}
         />
       </div>
     </div>

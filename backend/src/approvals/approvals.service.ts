@@ -15,6 +15,9 @@ import { ApprovalStatus } from '../generated/prisma/enums';
 import { CreateApprovalPolicyDto } from './dto/create-approval-policy.dto';
 import { ApproveStepDto } from './dto/approve-step.dto';
 import { AuthenticatedUser } from '../common/interfaces/auth.interface';
+import { copyFile, mkdir, readFile } from 'node:fs/promises';
+import { extname, join } from 'node:path';
+import { randomUUID } from 'node:crypto';
 
 @Injectable()
 export class ApprovalsService {
@@ -79,6 +82,7 @@ export class ApprovalsService {
     const instance = await this.prisma.approvalInstance.findUnique({
       where: { submissionId },
       include: {
+        submission: { select: { formId: true } },
         actions: {
           include: {
             step: { include: { role: true } },
@@ -93,9 +97,19 @@ export class ApprovalsService {
       throw new NotFoundException('No approval workflow for this submission');
     }
 
+    const actions = await Promise.all(
+      instance.actions.map(async (action) => ({
+        ...action,
+        signatureDataUrl: await this.readSignatureDataUrl(
+          action.signatureStorageKey,
+          action.signatureMimeType,
+        ),
+      })),
+    );
+
     // Get total steps count
-    const policy = await this.prisma.approvalPolicy.findFirst({
-      where: { steps: { some: {} } },
+    const policy = await this.prisma.approvalPolicy.findUnique({
+      where: { formId: instance.submission.formId },
       include: { steps: true },
     });
     const totalSteps = policy?.steps.length ?? 0;
@@ -105,7 +119,7 @@ export class ApprovalsService {
       status: instance.status,
       currentStepOrder: instance.currentStepOrder,
       totalSteps,
-      actions: instance.actions,
+      actions,
       isCompleted:
         instance.status === 'APPROVED' || instance.status === 'REJECTED',
     };
@@ -164,6 +178,8 @@ export class ApprovalsService {
       throw new BadRequestException('This step has already been processed');
     }
 
+    const signature = await this.snapshotUserSignature(user.id);
+
     // Create approval action
     const action = await this.prisma.approvalAction.create({
       data: {
@@ -172,6 +188,8 @@ export class ApprovalsService {
         approverId: user.id,
         action: dto.action,
         comments: dto.comments,
+        signatureStorageKey: signature.storageKey,
+        signatureMimeType: signature.mimeType,
       },
     });
 
@@ -211,6 +229,48 @@ export class ApprovalsService {
       message: `Step ${dto.stepOrder} approved, now at step ${nextStep.stepOrder}`,
       action,
     };
+  }
+
+  private async snapshotUserSignature(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { signatureStorageKey: true, signatureMimeType: true },
+    });
+
+    if (!user?.signatureStorageKey || !user.signatureMimeType) {
+      throw new BadRequestException(
+        'You must upload a signature before approving or rejecting forms',
+      );
+    }
+
+    const source = join(
+      process.cwd(),
+      'uploads',
+      'signatures',
+      'users',
+      user.signatureStorageKey,
+    );
+    const dir = join(process.cwd(), 'uploads', 'signatures', 'approvals');
+    await mkdir(dir, { recursive: true });
+    const storageKey = `${randomUUID()}${extname(user.signatureStorageKey)}`;
+    await copyFile(source, join(dir, storageKey));
+
+    return { storageKey, mimeType: user.signatureMimeType };
+  }
+
+  private async readSignatureDataUrl(
+    storageKey?: string | null,
+    mimeType?: string | null,
+  ): Promise<string | null> {
+    if (!storageKey || !mimeType) return null;
+    try {
+      const buffer = await readFile(
+        join(process.cwd(), 'uploads', 'signatures', 'approvals', storageKey),
+      );
+      return `data:${mimeType};base64,${buffer.toString('base64')}`;
+    } catch {
+      return null;
+    }
   }
 
   // Internal method called after submission creation

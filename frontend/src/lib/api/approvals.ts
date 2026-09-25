@@ -21,6 +21,7 @@ export interface ApprovalAction {
   approver: { id: string; name: string; phoneNumber: string };
   action: "APPROVED" | "REJECTED";
   comments: string | null;
+  signatureDataUrl?: string | null;
   createdAt: string;
 }
 
