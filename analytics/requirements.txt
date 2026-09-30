@@ -4,3 +4,4 @@ pandas==2.2.3
 aiohttp==3.9.5
 python-dotenv==1.0.1
 watchfiles==0.24.0
+openai==1.109.1

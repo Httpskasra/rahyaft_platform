@@ -1,1 +1,1 @@
-export { default } from "@/features/forms/FormsPage";
+export { default } from "@/features/forms/portal/FormCenterPage";

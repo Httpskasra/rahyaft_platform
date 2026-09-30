@@ -4369,6 +4369,8 @@ export const UserScalarFieldEnum = {
   departmentId: 'departmentId',
   managerId: 'managerId',
   refreshToken: 'refreshToken',
+  signatureStorageKey: 'signatureStorageKey',
+  signatureMimeType: 'signatureMimeType',
   baleChatId: 'baleChatId',
   createdAt: 'createdAt',
   employeeCode: 'employeeCode'
@@ -4730,6 +4732,8 @@ export const ApprovalActionScalarFieldEnum = {
   approverId: 'approverId',
   action: 'action',
   comments: 'comments',
+  signatureStorageKey: 'signatureStorageKey',
+  signatureMimeType: 'signatureMimeType',
   createdAt: 'createdAt'
 } as const
 

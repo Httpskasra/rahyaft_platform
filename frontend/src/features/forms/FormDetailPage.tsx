@@ -14,7 +14,6 @@ import {
   Brain,
   Loader2,
   RefreshCw,
-  Send,
   Settings,
   MessageCircle,
 } from "lucide-react";
@@ -25,7 +24,6 @@ import {
   ApprovalPolicyEditor,
   ApprovalStatusModal,
 } from "@/features/forms/detail/approval";
-import { SubmitFormPanel } from "@/features/forms/detail/submission";
 import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
 
 function Card({
@@ -61,9 +59,7 @@ export default function FormDetailPage({
   const { id } = use(params);
   const [data, setData] = useState<DeepAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"analytics" | "submit" | "approval">(
-    "analytics",
-  );
+  const [tab, setTab] = useState<"analytics" | "approval">("analytics");
   const [selectedSubmissionId, setSelectedSubmissionId] = useState<
     string | null
   >(null);
@@ -96,7 +92,7 @@ export default function FormDetailPage({
       <div className="text-center py-24 text-gray-500">
         <p>فرم یافت نشد یا خطایی رخ داد</p>
         <Link
-          href="/dashboard/forms"
+          href="/dashboard/forms/manage"
           className="text-blue-600 text-sm mt-2 inline-block hover:underline">
           بازگشت به لیست
         </Link>
@@ -117,7 +113,7 @@ export default function FormDetailPage({
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
         <Link
-          href="/dashboard/forms"
+          href="/dashboard/forms/manage"
           className="hover:text-gray-700 dark:hover:text-gray-200 flex items-center gap-1">
           <ArrowRight size={14} /> فرم‌ها
         </Link>
@@ -153,7 +149,7 @@ export default function FormDetailPage({
 
       {/* Tabs */}
       <div className="flex gap-1 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 p-1 w-fit">
-        {(["analytics", "submit", "approval"] as const).map((t) => (
+        {(["analytics", "approval"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -164,7 +160,6 @@ export default function FormDetailPage({
               : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white",
             )}>
             {t === "analytics" && "📊 تحلیل هوشمند"}
-            {t === "submit" && "📝 ارسال پاسخ"}
             {t === "approval" && "⚙️ تنظیمات تأیید"}
           </button>
         ))}
@@ -184,23 +179,16 @@ export default function FormDetailPage({
             <p className="text-xs text-gray-400 mb-4">
               پس از اولین ارسال، تمام تحلیل‌ها اینجا نمایش داده می‌شوند
             </p>
-            <button
-              onClick={() => setTab("submit")}
+            <Link
+              href={`/dashboard/forms/fill/${id}`}
               className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">
-              <Send size={14} /> ارسال اولین پاسخ
-            </button>
+              تکمیل این فرم
+            </Link>
           </div>
         : <AnalyticsDashboardWithApproval
             data={data}
             onViewApproval={setSelectedSubmissionId}
           />)}
-      {tab === "submit" && (
-        <SubmitFormPanel
-          formId={data.form.id}
-          fields={fields}
-          onSubmit={load}
-        />
-      )}
       {tab === "approval" && (
         <Card
           title="خط مشی تأیید فرم"

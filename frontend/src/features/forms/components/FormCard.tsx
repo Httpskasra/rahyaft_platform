@@ -62,12 +62,12 @@ export function FormCard({
 
       <div className="flex gap-2 pt-1 border-t border-gray-100 dark:border-gray-800">
         <Link
-          href={`/dashboard/forms/${form.id}`}
+          href={`/dashboard/forms/manage/${form.id}`}
           className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-3 py-2 text-xs font-semibold hover:opacity-90">
           مشاهده و تحلیل <ChevronRight size={13} />
         </Link>
         <Link
-          href={`/dashboard/forms/${form.id}`}
+          href={`/dashboard/forms/manage/${form.id}`}
           className="flex items-center gap-1 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">
           <BarChart2 size={13} /> آمار
         </Link>
