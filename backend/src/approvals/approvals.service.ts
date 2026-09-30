@@ -78,6 +78,235 @@ export class ApprovalsService {
   // Approval Instance & Actions
   // ─────────────────────────────────────────────
 
+  async getInbox(user: AuthenticatedUser) {
+    const roleIds = user.roles.map((role) => role.id);
+
+    const [signatureUser, pendingCandidates, historyActions] = await Promise.all([
+      this.prisma.user.findUnique({
+        where: { id: user.id },
+        select: { signatureStorageKey: true, signatureMimeType: true },
+      }),
+      this.prisma.approvalInstance.findMany({
+        where: { status: 'PENDING' },
+        orderBy: { updatedAt: 'desc' },
+        include: {
+          submission: {
+            include: {
+              user: { select: { id: true, name: true, phoneNumber: true } },
+              form: {
+                select: {
+                  id: true,
+                  name: true,
+                  customId: true,
+                  description: true,
+                  schema: true,
+                  approvalPolicies: {
+                    select: {
+                      steps: {
+                        select: {
+                          id: true,
+                          stepOrder: true,
+                          roleId: true,
+                          role: { select: { id: true, name: true } },
+                        },
+                        orderBy: { stepOrder: 'asc' },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          actions: {
+            orderBy: { createdAt: 'asc' },
+            include: {
+              step: { include: { role: { select: { id: true, name: true } } } },
+              approver: { select: { id: true, name: true, phoneNumber: true } },
+            },
+          },
+        },
+      }),
+      this.prisma.approvalAction.findMany({
+        where: { approverId: user.id },
+        orderBy: { createdAt: 'desc' },
+        take: 200,
+        include: {
+          step: { include: { role: { select: { id: true, name: true } } } },
+          instance: {
+            include: {
+              submission: {
+                include: {
+                  user: { select: { id: true, name: true, phoneNumber: true } },
+                  form: { select: { id: true, name: true, customId: true, description: true } },
+                },
+              },
+            },
+          },
+        },
+      }),
+    ]);
+
+    const pending = pendingCandidates
+      .map((instance) => {
+        const steps = instance.submission.form.approvalPolicies[0]?.steps ?? [];
+        const currentStep = steps.find(
+          (step) => step.stepOrder === instance.currentStepOrder,
+        );
+        if (!currentStep || !roleIds.includes(currentStep.roleId)) return null;
+        return {
+          id: instance.id,
+          submissionId: instance.submissionId,
+          status: instance.status,
+          currentStepOrder: instance.currentStepOrder,
+          totalSteps: steps.length,
+          updatedAt: instance.updatedAt,
+          createdAt: instance.createdAt,
+          form: {
+            id: instance.submission.form.id,
+            name: instance.submission.form.name,
+            customId: instance.submission.form.customId,
+            description: instance.submission.form.description,
+          },
+          submitter: instance.submission.user,
+          submissionCreatedAt: instance.submission.createdAt,
+          currentRole: currentStep.role,
+          previousActions: instance.actions.map((action) => ({
+            id: action.id,
+            action: action.action,
+            comments: action.comments,
+            createdAt: action.createdAt,
+            approver: action.approver,
+            step: { stepOrder: action.step.stepOrder, role: action.step.role },
+          })),
+        };
+      })
+      .filter(Boolean);
+
+    const history = historyActions.map((action) => ({
+      id: action.id,
+      submissionId: action.instance.submissionId,
+      action: action.action,
+      comments: action.comments,
+      createdAt: action.createdAt,
+      step: { stepOrder: action.step.stepOrder, role: action.step.role },
+      workflowStatus: action.instance.status,
+      form: action.instance.submission.form,
+      submitter: action.instance.submission.user,
+      submissionCreatedAt: action.instance.submission.createdAt,
+    }));
+
+    return {
+      signatureConfigured: Boolean(
+        signatureUser?.signatureStorageKey && signatureUser.signatureMimeType,
+      ),
+      stats: {
+        pending: pending.length,
+        approved: history.filter((item) => item.action === 'APPROVED').length,
+        rejected: history.filter((item) => item.action === 'REJECTED').length,
+        processed: history.length,
+      },
+      pending,
+      history,
+    };
+  }
+
+  async getInboxDetail(submissionId: string, user: AuthenticatedUser) {
+    const instance = await this.prisma.approvalInstance.findUnique({
+      where: { submissionId },
+      include: {
+        submission: {
+          include: {
+            user: { select: { id: true, name: true, phoneNumber: true } },
+            form: {
+              select: {
+                id: true,
+                name: true,
+                customId: true,
+                description: true,
+                schema: true,
+                approvalPolicies: {
+                  select: {
+                    steps: {
+                      orderBy: { stepOrder: 'asc' },
+                      include: { role: { select: { id: true, name: true } } },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        actions: {
+          orderBy: { createdAt: 'asc' },
+          include: {
+            step: { include: { role: { select: { id: true, name: true } } } },
+            approver: { select: { id: true, name: true, phoneNumber: true } },
+          },
+        },
+      },
+    });
+
+    if (!instance) throw new NotFoundException('No approval workflow found');
+
+    const steps = instance.submission.form.approvalPolicies[0]?.steps ?? [];
+    const currentStep = steps.find(
+      (step) => step.stepOrder === instance.currentStepOrder,
+    );
+    const roleIds = user.roles.map((role) => role.id);
+    const hasActed = instance.actions.some((action) => action.approverId === user.id);
+    const canAct =
+      instance.status === 'PENDING' &&
+      Boolean(currentStep && roleIds.includes(currentStep.roleId));
+
+    if (!canAct && !hasActed) {
+      throw new ForbiddenException('This approval is not assigned to you');
+    }
+
+    const actions = await Promise.all(
+      instance.actions.map(async (action) => ({
+        id: action.id,
+        action: action.action,
+        comments: action.comments,
+        createdAt: action.createdAt,
+        approver: action.approver,
+        step: { stepOrder: action.step.stepOrder, role: action.step.role },
+        signatureDataUrl: await this.readSignatureDataUrl(
+          action.signatureStorageKey,
+          action.signatureMimeType,
+        ),
+      })),
+    );
+
+    return {
+      submissionId: instance.submissionId,
+      status: instance.status,
+      currentStepOrder: instance.currentStepOrder,
+      totalSteps: steps.length,
+      canAct,
+      currentRole: currentStep?.role ?? null,
+      form: {
+        id: instance.submission.form.id,
+        name: instance.submission.form.name,
+        customId: instance.submission.form.customId,
+        description: instance.submission.form.description,
+        schema: instance.submission.form.schema,
+      },
+      submission: {
+        id: instance.submission.id,
+        formVersion: instance.submission.formVersion,
+        data: instance.submission.data,
+        createdAt: instance.submission.createdAt,
+        user: instance.submission.user,
+      },
+      steps: steps.map((step) => ({
+        id: step.id,
+        stepOrder: step.stepOrder,
+        role: step.role,
+      })),
+      actions,
+    };
+  }
+
   async getApprovalStatus(submissionId: string) {
     const instance = await this.prisma.approvalInstance.findUnique({
       where: { submissionId },
@@ -194,6 +423,10 @@ export class ApprovalsService {
     });
 
     // Handle rejection
+    if (dto.action === 'REJECTED' && !dto.comments?.trim()) {
+      throw new BadRequestException('Rejection reason is required');
+    }
+
     if (dto.action === 'REJECTED') {
       await this.prisma.approvalInstance.update({
         where: { id: instance.id },

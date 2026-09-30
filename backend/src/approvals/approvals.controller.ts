@@ -47,6 +47,21 @@ export class ApprovalsController {
     await this.approvalsService.createOrUpdatePolicy(formId, { steps: [] });
   }
 
+  @Get('inbox')
+  @RequirePermission({ action: 'approve', resource: 'approvals' })
+  getInbox(@CurrentUser() user: AuthenticatedUser) {
+    return this.approvalsService.getInbox(user);
+  }
+
+  @Get('inbox/:submissionId')
+  @RequirePermission({ action: 'approve', resource: 'approvals' })
+  getInboxDetail(
+    @Param('submissionId', ParseUUIDPipe) submissionId: string,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.approvalsService.getInboxDetail(submissionId, user);
+  }
+
   // Approval status & actions
   @Get('submissions/:submissionId/status')
   @RequirePermission({ action: 'read', resource: 'form-submissions' })

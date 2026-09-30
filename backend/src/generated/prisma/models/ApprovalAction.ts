@@ -31,8 +31,6 @@ export type ApprovalActionMinAggregateOutputType = {
   approverId: string | null
   action: $Enums.ApprovalStatus | null
   comments: string | null
-  signatureStorageKey: string | null
-  signatureMimeType: string | null
   createdAt: Date | null
 }
 
@@ -43,8 +41,6 @@ export type ApprovalActionMaxAggregateOutputType = {
   approverId: string | null
   action: $Enums.ApprovalStatus | null
   comments: string | null
-  signatureStorageKey: string | null
-  signatureMimeType: string | null
   createdAt: Date | null
 }
 
@@ -55,8 +51,6 @@ export type ApprovalActionCountAggregateOutputType = {
   approverId: number
   action: number
   comments: number
-  signatureStorageKey: number
-  signatureMimeType: number
   createdAt: number
   _all: number
 }
@@ -69,8 +63,6 @@ export type ApprovalActionMinAggregateInputType = {
   approverId?: true
   action?: true
   comments?: true
-  signatureStorageKey?: true
-  signatureMimeType?: true
   createdAt?: true
 }
 
@@ -81,8 +73,6 @@ export type ApprovalActionMaxAggregateInputType = {
   approverId?: true
   action?: true
   comments?: true
-  signatureStorageKey?: true
-  signatureMimeType?: true
   createdAt?: true
 }
 
@@ -93,8 +83,6 @@ export type ApprovalActionCountAggregateInputType = {
   approverId?: true
   action?: true
   comments?: true
-  signatureStorageKey?: true
-  signatureMimeType?: true
   createdAt?: true
   _all?: true
 }
@@ -178,8 +166,6 @@ export type ApprovalActionGroupByOutputType = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments: string | null
-  signatureStorageKey: string | null
-  signatureMimeType: string | null
   createdAt: Date
   _count: ApprovalActionCountAggregateOutputType | null
   _min: ApprovalActionMinAggregateOutputType | null
@@ -211,8 +197,6 @@ export type ApprovalActionWhereInput = {
   approverId?: Prisma.StringFilter<"ApprovalAction"> | string
   action?: Prisma.EnumApprovalStatusFilter<"ApprovalAction"> | $Enums.ApprovalStatus
   comments?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
-  signatureStorageKey?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
-  signatureMimeType?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ApprovalAction"> | Date | string
   instance?: Prisma.XOR<Prisma.ApprovalInstanceScalarRelationFilter, Prisma.ApprovalInstanceWhereInput>
   step?: Prisma.XOR<Prisma.ApprovalStepScalarRelationFilter, Prisma.ApprovalStepWhereInput>
@@ -226,8 +210,6 @@ export type ApprovalActionOrderByWithRelationInput = {
   approverId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   comments?: Prisma.SortOrderInput | Prisma.SortOrder
-  signatureStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
-  signatureMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   instance?: Prisma.ApprovalInstanceOrderByWithRelationInput
   step?: Prisma.ApprovalStepOrderByWithRelationInput
@@ -244,8 +226,6 @@ export type ApprovalActionWhereUniqueInput = Prisma.AtLeast<{
   approverId?: Prisma.StringFilter<"ApprovalAction"> | string
   action?: Prisma.EnumApprovalStatusFilter<"ApprovalAction"> | $Enums.ApprovalStatus
   comments?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
-  signatureStorageKey?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
-  signatureMimeType?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ApprovalAction"> | Date | string
   instance?: Prisma.XOR<Prisma.ApprovalInstanceScalarRelationFilter, Prisma.ApprovalInstanceWhereInput>
   step?: Prisma.XOR<Prisma.ApprovalStepScalarRelationFilter, Prisma.ApprovalStepWhereInput>
@@ -259,8 +239,6 @@ export type ApprovalActionOrderByWithAggregationInput = {
   approverId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   comments?: Prisma.SortOrderInput | Prisma.SortOrder
-  signatureStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
-  signatureMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ApprovalActionCountOrderByAggregateInput
   _max?: Prisma.ApprovalActionMaxOrderByAggregateInput
@@ -277,8 +255,6 @@ export type ApprovalActionScalarWhereWithAggregatesInput = {
   approverId?: Prisma.StringWithAggregatesFilter<"ApprovalAction"> | string
   action?: Prisma.EnumApprovalStatusWithAggregatesFilter<"ApprovalAction"> | $Enums.ApprovalStatus
   comments?: Prisma.StringNullableWithAggregatesFilter<"ApprovalAction"> | string | null
-  signatureStorageKey?: Prisma.StringNullableWithAggregatesFilter<"ApprovalAction"> | string | null
-  signatureMimeType?: Prisma.StringNullableWithAggregatesFilter<"ApprovalAction"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ApprovalAction"> | Date | string
 }
 
@@ -286,8 +262,6 @@ export type ApprovalActionCreateInput = {
   id?: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
   instance: Prisma.ApprovalInstanceCreateNestedOneWithoutActionsInput
   step: Prisma.ApprovalStepCreateNestedOneWithoutApprovalActionsInput
@@ -301,8 +275,6 @@ export type ApprovalActionUncheckedCreateInput = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -310,8 +282,6 @@ export type ApprovalActionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   instance?: Prisma.ApprovalInstanceUpdateOneRequiredWithoutActionsNestedInput
   step?: Prisma.ApprovalStepUpdateOneRequiredWithoutApprovalActionsNestedInput
@@ -325,8 +295,6 @@ export type ApprovalActionUncheckedUpdateInput = {
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -337,8 +305,6 @@ export type ApprovalActionCreateManyInput = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -346,8 +312,6 @@ export type ApprovalActionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -358,8 +322,6 @@ export type ApprovalActionUncheckedUpdateManyInput = {
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -380,8 +342,6 @@ export type ApprovalActionCountOrderByAggregateInput = {
   approverId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   comments?: Prisma.SortOrder
-  signatureStorageKey?: Prisma.SortOrder
-  signatureMimeType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -392,8 +352,6 @@ export type ApprovalActionMaxOrderByAggregateInput = {
   approverId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   comments?: Prisma.SortOrder
-  signatureStorageKey?: Prisma.SortOrder
-  signatureMimeType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -404,8 +362,6 @@ export type ApprovalActionMinOrderByAggregateInput = {
   approverId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   comments?: Prisma.SortOrder
-  signatureStorageKey?: Prisma.SortOrder
-  signatureMimeType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -539,8 +495,6 @@ export type ApprovalActionCreateWithoutApproverInput = {
   id?: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
   instance: Prisma.ApprovalInstanceCreateNestedOneWithoutActionsInput
   step: Prisma.ApprovalStepCreateNestedOneWithoutApprovalActionsInput
@@ -552,8 +506,6 @@ export type ApprovalActionUncheckedCreateWithoutApproverInput = {
   stepId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -593,8 +545,6 @@ export type ApprovalActionScalarWhereInput = {
   approverId?: Prisma.StringFilter<"ApprovalAction"> | string
   action?: Prisma.EnumApprovalStatusFilter<"ApprovalAction"> | $Enums.ApprovalStatus
   comments?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
-  signatureStorageKey?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
-  signatureMimeType?: Prisma.StringNullableFilter<"ApprovalAction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ApprovalAction"> | Date | string
 }
 
@@ -602,8 +552,6 @@ export type ApprovalActionCreateWithoutStepInput = {
   id?: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
   instance: Prisma.ApprovalInstanceCreateNestedOneWithoutActionsInput
   approver: Prisma.UserCreateNestedOneWithoutApprovalActionsInput
@@ -615,8 +563,6 @@ export type ApprovalActionUncheckedCreateWithoutStepInput = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -650,8 +596,6 @@ export type ApprovalActionCreateWithoutInstanceInput = {
   id?: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
   step: Prisma.ApprovalStepCreateNestedOneWithoutApprovalActionsInput
   approver: Prisma.UserCreateNestedOneWithoutApprovalActionsInput
@@ -663,8 +607,6 @@ export type ApprovalActionUncheckedCreateWithoutInstanceInput = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -700,8 +642,6 @@ export type ApprovalActionCreateManyApproverInput = {
   stepId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -709,8 +649,6 @@ export type ApprovalActionUpdateWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   instance?: Prisma.ApprovalInstanceUpdateOneRequiredWithoutActionsNestedInput
   step?: Prisma.ApprovalStepUpdateOneRequiredWithoutApprovalActionsNestedInput
@@ -722,8 +660,6 @@ export type ApprovalActionUncheckedUpdateWithoutApproverInput = {
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -733,8 +669,6 @@ export type ApprovalActionUncheckedUpdateManyWithoutApproverInput = {
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -744,8 +678,6 @@ export type ApprovalActionCreateManyStepInput = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -753,8 +685,6 @@ export type ApprovalActionUpdateWithoutStepInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   instance?: Prisma.ApprovalInstanceUpdateOneRequiredWithoutActionsNestedInput
   approver?: Prisma.UserUpdateOneRequiredWithoutApprovalActionsNestedInput
@@ -766,8 +696,6 @@ export type ApprovalActionUncheckedUpdateWithoutStepInput = {
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -777,8 +705,6 @@ export type ApprovalActionUncheckedUpdateManyWithoutStepInput = {
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -788,8 +714,6 @@ export type ApprovalActionCreateManyInstanceInput = {
   approverId: string
   action: $Enums.ApprovalStatus
   comments?: string | null
-  signatureStorageKey?: string | null
-  signatureMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -797,8 +721,6 @@ export type ApprovalActionUpdateWithoutInstanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   step?: Prisma.ApprovalStepUpdateOneRequiredWithoutApprovalActionsNestedInput
   approver?: Prisma.UserUpdateOneRequiredWithoutApprovalActionsNestedInput
@@ -810,8 +732,6 @@ export type ApprovalActionUncheckedUpdateWithoutInstanceInput = {
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -821,8 +741,6 @@ export type ApprovalActionUncheckedUpdateManyWithoutInstanceInput = {
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -835,8 +753,6 @@ export type ApprovalActionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   approverId?: boolean
   action?: boolean
   comments?: boolean
-  signatureStorageKey?: boolean
-  signatureMimeType?: boolean
   createdAt?: boolean
   instance?: boolean | Prisma.ApprovalInstanceDefaultArgs<ExtArgs>
   step?: boolean | Prisma.ApprovalStepDefaultArgs<ExtArgs>
@@ -850,8 +766,6 @@ export type ApprovalActionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   approverId?: boolean
   action?: boolean
   comments?: boolean
-  signatureStorageKey?: boolean
-  signatureMimeType?: boolean
   createdAt?: boolean
   instance?: boolean | Prisma.ApprovalInstanceDefaultArgs<ExtArgs>
   step?: boolean | Prisma.ApprovalStepDefaultArgs<ExtArgs>
@@ -865,8 +779,6 @@ export type ApprovalActionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   approverId?: boolean
   action?: boolean
   comments?: boolean
-  signatureStorageKey?: boolean
-  signatureMimeType?: boolean
   createdAt?: boolean
   instance?: boolean | Prisma.ApprovalInstanceDefaultArgs<ExtArgs>
   step?: boolean | Prisma.ApprovalStepDefaultArgs<ExtArgs>
@@ -880,12 +792,10 @@ export type ApprovalActionSelectScalar = {
   approverId?: boolean
   action?: boolean
   comments?: boolean
-  signatureStorageKey?: boolean
-  signatureMimeType?: boolean
   createdAt?: boolean
 }
 
-export type ApprovalActionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "instanceId" | "stepId" | "approverId" | "action" | "comments" | "signatureStorageKey" | "signatureMimeType" | "createdAt", ExtArgs["result"]["approvalAction"]>
+export type ApprovalActionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "instanceId" | "stepId" | "approverId" | "action" | "comments" | "createdAt", ExtArgs["result"]["approvalAction"]>
 export type ApprovalActionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   instance?: boolean | Prisma.ApprovalInstanceDefaultArgs<ExtArgs>
   step?: boolean | Prisma.ApprovalStepDefaultArgs<ExtArgs>
@@ -916,8 +826,6 @@ export type $ApprovalActionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     approverId: string
     action: $Enums.ApprovalStatus
     comments: string | null
-    signatureStorageKey: string | null
-    signatureMimeType: string | null
     createdAt: Date
   }, ExtArgs["result"]["approvalAction"]>
   composites: {}
@@ -1351,8 +1259,6 @@ export interface ApprovalActionFieldRefs {
   readonly approverId: Prisma.FieldRef<"ApprovalAction", 'String'>
   readonly action: Prisma.FieldRef<"ApprovalAction", 'ApprovalStatus'>
   readonly comments: Prisma.FieldRef<"ApprovalAction", 'String'>
-  readonly signatureStorageKey: Prisma.FieldRef<"ApprovalAction", 'String'>
-  readonly signatureMimeType: Prisma.FieldRef<"ApprovalAction", 'String'>
   readonly createdAt: Prisma.FieldRef<"ApprovalAction", 'DateTime'>
 }
     
