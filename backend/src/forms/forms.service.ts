@@ -32,6 +32,14 @@ export class FormsService {
     });
   }
 
+  async findManaged(ownerId: string) {
+    return this.prisma.form.findMany({
+      where: { ownerId },
+      orderBy: { updatedAt: 'desc' },
+      include: { _count: { select: { submissions: true } } },
+    });
+  }
+
   async findById(id: string) {
     const form = await this.prisma.form.findUnique({
       where: { id },
@@ -120,6 +128,7 @@ export class FormsService {
     return {
       form: {
         id: form.id,
+        customId: form.customId,
         name: form.name,
         description: form.description,
         schema: form.schema,

@@ -1,0 +1,8 @@
+"use client";
+import { use, useCallback, useEffect, useState } from "react";
+import { Brain, Loader2 } from "lucide-react";
+import { formsApi, type DeepAnalysis } from "@/lib/api/forms";
+import { AnalyticsDashboardWithApproval } from "@/features/forms/detail/analytics";
+import { ApprovalStatusModal } from "@/features/forms/detail/approval";
+import { FormManagerHeader } from "./FormManagerHeader";
+export default function FormAnalyticsPage({params}:{params:Promise<{id:string}>}){const{id}=use(params);const[data,setData]=useState<DeepAnalysis|null>(null);const[loading,setLoading]=useState(true);const[selected,setSelected]=useState<string|null>(null);const load=useCallback(async()=>{setLoading(true);try{const r=await formsApi.getDeepAnalysis(id);setData(r.data)}catch{setData(null)}finally{setLoading(false)}},[id]);useEffect(()=>{load()},[load]);if(loading)return <div className="flex justify-center py-24"><Loader2 className="animate-spin text-blue-500"/></div>;if(!data)return <div className="py-20 text-center text-gray-500">فرم یافت نشد.</div>;return <div className="space-y-5" dir="rtl">{selected&&<ApprovalStatusModal submissionId={selected} onClose={()=>setSelected(null)}/>}<FormManagerHeader form={{...data.form,_count:{submissions:data.submissionCount}} as any}/>{data.submissionCount===0?<div className="rounded-2xl border border-dashed border-gray-200 p-12 text-center dark:border-gray-700"><Brain className="mx-auto mb-3 text-gray-300" size={36}/><p className="text-sm text-gray-500">هنوز داده‌ای برای تحلیل وجود ندارد.</p></div>:<AnalyticsDashboardWithApproval data={data} onViewApproval={setSelected}/>}</div>}

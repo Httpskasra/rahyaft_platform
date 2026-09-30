@@ -232,6 +232,7 @@ export interface DeepAnalysis {
 
 export const formsApi = {
   findAll: () => apiClient.get<Form[]>("/forms"),
+  findManaged: () => apiClient.get<Form[]>("/forms/manage/all"),
   findById: (id: string) => apiClient.get<Form>(`/forms/${id}`),
   getStats: (id: string) => apiClient.get<FormStats>(`/forms/${id}/stats`),
   getDeepAnalysis: (id: string) => apiClient.get<DeepAnalysis>(`/forms/${id}/deep-analysis`),

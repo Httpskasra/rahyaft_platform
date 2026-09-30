@@ -1,0 +1,7 @@
+"use client";
+import { use, useCallback, useEffect, useState } from "react";
+import { Loader2, Workflow } from "lucide-react";
+import { formsApi, type Form } from "@/lib/api/forms";
+import { ApprovalPolicyEditor } from "@/features/forms/detail/approval";
+import { FormManagerHeader } from "./FormManagerHeader";
+export default function FormApprovalPage({params}:{params:Promise<{id:string}>}){const{id}=use(params);const[form,setForm]=useState<Form|null>(null);const[loading,setLoading]=useState(true);const load=useCallback(async()=>{setLoading(true);try{const r=await formsApi.findById(id);setForm(r.data)}catch{setForm(null)}finally{setLoading(false)}},[id]);useEffect(()=>{load()},[load]);if(loading)return <div className="flex justify-center py-24"><Loader2 className="animate-spin text-blue-500"/></div>;if(!form)return <div className="py-20 text-center text-gray-500">فرم یافت نشد.</div>;return <div className="space-y-5" dir="rtl"><FormManagerHeader form={form}/><div className="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-800 dark:bg-gray-900"><div className="mb-5 flex items-start gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-500/10"><Workflow size={19}/></div><div><h2 className="font-bold text-gray-900 dark:text-white">گردش تأیید فرم</h2><p className="mt-1 text-xs leading-6 text-gray-500">ترتیب نقش‌هایی که باید هر پاسخ را بررسی کنند مشخص کنید. مراحل به ترتیب اجرا می‌شوند.</p></div></div><ApprovalPolicyEditor formId={id} onPolicyChange={load}/></div></div>}

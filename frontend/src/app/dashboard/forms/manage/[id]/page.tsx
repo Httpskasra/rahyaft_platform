@@ -1,1 +1,1 @@
-export { default } from "@/features/forms/FormDetailPage";
+export { default } from "@/features/forms/manager/FormOverviewPage";

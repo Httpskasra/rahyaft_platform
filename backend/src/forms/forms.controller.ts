@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import {
@@ -36,6 +35,12 @@ export class FormsController {
   @RequirePermission({ action: 'read', resource: 'forms' })
   findAll(@CurrentUser() user: AuthenticatedUser) {
     return this.formsService.findAll(user.id);
+  }
+
+  @Get('manage/all')
+  @RequirePermission({ action: 'read', resource: 'forms' })
+  findManaged(@CurrentUser() user: AuthenticatedUser) {
+    return this.formsService.findManaged(user.id);
   }
 
   @Get(':id')
