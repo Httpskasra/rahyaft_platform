@@ -93,7 +93,19 @@ export class FormSubmissionsService {
       where: { userId },
       orderBy: { createdAt: 'desc' },
       include: {
-        form: { select: { id: true, name: true } },
+        form: { select: { id: true, name: true, customId: true, description: true } },
+        approvalInstances: {
+          select: {
+            status: true,
+            currentStepOrder: true,
+            updatedAt: true,
+            actions: {
+              orderBy: { createdAt: 'desc' },
+              take: 1,
+              select: { comments: true, createdAt: true, action: true },
+            },
+          },
+        },
       },
     });
   }

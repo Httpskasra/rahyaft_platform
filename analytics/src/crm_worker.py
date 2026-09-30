@@ -9,7 +9,7 @@ import aio_pika
 import asyncpg
 from dotenv import load_dotenv
 
-from crm.customer_ai_service_avalai import CustomerAiService
+from crm.customer_ai_service import CustomerAiService
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(ROOT_DIR / ".env")

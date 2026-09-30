@@ -43,12 +43,12 @@ export function SubmitFormPanel({
       <div className="flex items-center gap-2 mb-5">
         <Send size={16} className="text-blue-500" />
         <h3 className="font-semibold text-gray-800 dark:text-white text-sm">
-          ارسال پاسخ آزمایشی
+          تکمیل و ارسال فرم
         </h3>
       </div>
       {success ?
         <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 py-4">
-          <CheckCircle size={20} /> پاسخ ارسال شد! در حال تحلیل…
+          <CheckCircle size={20} /> فرم با موفقیت ارسال شد. در حال انتقال به پاسخ‌های من…
         </div>
       : <div className="space-y-5" dir="rtl">
           {fields.map((f) => (
