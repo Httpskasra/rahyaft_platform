@@ -29,7 +29,9 @@ FROM node:22-alpine AS prod
 WORKDIR /usr/src/app
 ENV NODE_ENV=production \
     PORT=3000
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache dumb-init \
+    && mkdir -p /usr/src/app/uploads/communication /usr/src/app/uploads/signatures \
+    && chown -R node:node /usr/src/app/uploads
 COPY --from=prod-dependencies /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/prisma ./prisma
