@@ -28,10 +28,12 @@ export type AggregateForm = {
 
 export type FormAvgAggregateOutputType = {
   version: number | null
+  slaHours: number | null
 }
 
 export type FormSumAggregateOutputType = {
   version: number | null
+  slaHours: number | null
 }
 
 export type FormMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type FormMinAggregateOutputType = {
   description: string | null
   version: number | null
   isActive: boolean | null
+  slaHours: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +57,7 @@ export type FormMaxAggregateOutputType = {
   description: string | null
   version: number | null
   isActive: boolean | null
+  slaHours: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,6 +71,7 @@ export type FormCountAggregateOutputType = {
   schema: number
   version: number
   isActive: number
+  slaHours: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -75,10 +80,12 @@ export type FormCountAggregateOutputType = {
 
 export type FormAvgAggregateInputType = {
   version?: true
+  slaHours?: true
 }
 
 export type FormSumAggregateInputType = {
   version?: true
+  slaHours?: true
 }
 
 export type FormMinAggregateInputType = {
@@ -89,6 +96,7 @@ export type FormMinAggregateInputType = {
   description?: true
   version?: true
   isActive?: true
+  slaHours?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -101,6 +109,7 @@ export type FormMaxAggregateInputType = {
   description?: true
   version?: true
   isActive?: true
+  slaHours?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -114,6 +123,7 @@ export type FormCountAggregateInputType = {
   schema?: true
   version?: true
   isActive?: true
+  slaHours?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -214,6 +224,7 @@ export type FormGroupByOutputType = {
   schema: runtime.JsonValue
   version: number
   isActive: boolean
+  slaHours: number | null
   createdAt: Date
   updatedAt: Date
   _count: FormCountAggregateOutputType | null
@@ -250,6 +261,7 @@ export type FormWhereInput = {
   schema?: Prisma.JsonFilter<"Form">
   version?: Prisma.IntFilter<"Form"> | number
   isActive?: Prisma.BoolFilter<"Form"> | boolean
+  slaHours?: Prisma.IntNullableFilter<"Form"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   submissions?: Prisma.FormSubmissionListRelationFilter
@@ -268,6 +280,7 @@ export type FormOrderByWithRelationInput = {
   schema?: Prisma.SortOrder
   version?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   submissions?: Prisma.FormSubmissionOrderByRelationAggregateInput
@@ -289,6 +302,7 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
   schema?: Prisma.JsonFilter<"Form">
   version?: Prisma.IntFilter<"Form"> | number
   isActive?: Prisma.BoolFilter<"Form"> | boolean
+  slaHours?: Prisma.IntNullableFilter<"Form"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   submissions?: Prisma.FormSubmissionListRelationFilter
@@ -307,6 +321,7 @@ export type FormOrderByWithAggregationInput = {
   schema?: Prisma.SortOrder
   version?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.FormCountOrderByAggregateInput
@@ -328,6 +343,7 @@ export type FormScalarWhereWithAggregatesInput = {
   schema?: Prisma.JsonWithAggregatesFilter<"Form">
   version?: Prisma.IntWithAggregatesFilter<"Form"> | number
   isActive?: Prisma.BoolWithAggregatesFilter<"Form"> | boolean
+  slaHours?: Prisma.IntNullableWithAggregatesFilter<"Form"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Form"> | Date | string
 }
@@ -341,6 +357,7 @@ export type FormCreateInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
@@ -359,6 +376,7 @@ export type FormUncheckedCreateInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
@@ -377,6 +395,7 @@ export type FormUpdateInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
@@ -395,6 +414,7 @@ export type FormUncheckedUpdateInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
@@ -413,6 +433,7 @@ export type FormCreateManyInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -426,6 +447,7 @@ export type FormUpdateManyMutationInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -439,6 +461,7 @@ export type FormUncheckedUpdateManyInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -452,12 +475,14 @@ export type FormCountOrderByAggregateInput = {
   schema?: Prisma.SortOrder
   version?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type FormAvgOrderByAggregateInput = {
   version?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type FormMaxOrderByAggregateInput = {
@@ -468,6 +493,7 @@ export type FormMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   version?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -480,12 +506,14 @@ export type FormMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   version?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type FormSumOrderByAggregateInput = {
   version?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type FormScalarRelationFilter = {
@@ -495,6 +523,14 @@ export type FormScalarRelationFilter = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type FormCreateNestedOneWithoutSubmissionsInput = {
@@ -576,6 +612,7 @@ export type FormCreateWithoutSubmissionsInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   stats?: Prisma.FormStatCreateNestedManyWithoutFormInput
@@ -593,6 +630,7 @@ export type FormUncheckedCreateWithoutSubmissionsInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   stats?: Prisma.FormStatUncheckedCreateNestedManyWithoutFormInput
@@ -626,6 +664,7 @@ export type FormUpdateWithoutSubmissionsInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stats?: Prisma.FormStatUpdateManyWithoutFormNestedInput
@@ -643,6 +682,7 @@ export type FormUncheckedUpdateWithoutSubmissionsInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stats?: Prisma.FormStatUncheckedUpdateManyWithoutFormNestedInput
@@ -660,6 +700,7 @@ export type FormCreateWithoutStatsInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
@@ -677,6 +718,7 @@ export type FormUncheckedCreateWithoutStatsInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
@@ -710,6 +752,7 @@ export type FormUpdateWithoutStatsInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
@@ -727,6 +770,7 @@ export type FormUncheckedUpdateWithoutStatsInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
@@ -744,6 +788,7 @@ export type FormCreateWithoutAnalysisInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
@@ -761,6 +806,7 @@ export type FormUncheckedCreateWithoutAnalysisInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
@@ -794,6 +840,7 @@ export type FormUpdateWithoutAnalysisInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
@@ -811,6 +858,7 @@ export type FormUncheckedUpdateWithoutAnalysisInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
@@ -828,6 +876,7 @@ export type FormCreateWithoutProductionStepsInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
@@ -845,6 +894,7 @@ export type FormUncheckedCreateWithoutProductionStepsInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
@@ -878,6 +928,7 @@ export type FormUpdateWithoutProductionStepsInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
@@ -895,6 +946,7 @@ export type FormUncheckedUpdateWithoutProductionStepsInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
@@ -912,6 +964,7 @@ export type FormCreateWithoutApprovalPoliciesInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
@@ -929,6 +982,7 @@ export type FormUncheckedCreateWithoutApprovalPoliciesInput = {
   schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
   isActive?: boolean
+  slaHours?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
@@ -962,6 +1016,7 @@ export type FormUpdateWithoutApprovalPoliciesInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
@@ -979,6 +1034,7 @@ export type FormUncheckedUpdateWithoutApprovalPoliciesInput = {
   schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
@@ -1063,6 +1119,7 @@ export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   schema?: boolean
   version?: boolean
   isActive?: boolean
+  slaHours?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
@@ -1082,6 +1139,7 @@ export type FormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   schema?: boolean
   version?: boolean
   isActive?: boolean
+  slaHours?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["form"]>
@@ -1095,6 +1153,7 @@ export type FormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   schema?: boolean
   version?: boolean
   isActive?: boolean
+  slaHours?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["form"]>
@@ -1108,11 +1167,12 @@ export type FormSelectScalar = {
   schema?: boolean
   version?: boolean
   isActive?: boolean
+  slaHours?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "customId" | "name" | "description" | "schema" | "version" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
+export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "customId" | "name" | "description" | "schema" | "version" | "isActive" | "slaHours" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
 export type FormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
   stats?: boolean | Prisma.Form$statsArgs<ExtArgs>
@@ -1142,6 +1202,7 @@ export type $FormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     schema: runtime.JsonValue
     version: number
     isActive: boolean
+    slaHours: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["form"]>
@@ -1580,6 +1641,7 @@ export interface FormFieldRefs {
   readonly schema: Prisma.FieldRef<"Form", 'Json'>
   readonly version: Prisma.FieldRef<"Form", 'Int'>
   readonly isActive: Prisma.FieldRef<"Form", 'Boolean'>
+  readonly slaHours: Prisma.FieldRef<"Form", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Form", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Form", 'DateTime'>
 }

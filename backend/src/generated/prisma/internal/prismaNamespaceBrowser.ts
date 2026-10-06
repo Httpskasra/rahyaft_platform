@@ -88,6 +88,7 @@ export const ModelName = {
   RepairVisit: 'RepairVisit',
   RepairStatusLog: 'RepairStatusLog',
   RepairSla: 'RepairSla',
+  RepairSlaPolicy: 'RepairSlaPolicy',
   NotificationEvent: 'NotificationEvent',
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
@@ -148,6 +149,8 @@ export const UserScalarFieldEnum = {
   departmentId: 'departmentId',
   managerId: 'managerId',
   refreshToken: 'refreshToken',
+  signatureStorageKey: 'signatureStorageKey',
+  signatureMimeType: 'signatureMimeType',
   baleChatId: 'baleChatId',
   createdAt: 'createdAt',
   employeeCode: 'employeeCode'
@@ -336,6 +339,7 @@ export const FormScalarFieldEnum = {
   schema: 'schema',
   version: 'version',
   isActive: 'isActive',
+  slaHours: 'slaHours',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -484,7 +488,8 @@ export const ApprovalStepScalarFieldEnum = {
   policyId: 'policyId',
   stepOrder: 'stepOrder',
   roleId: 'roleId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  slaHours: 'slaHours'
 } as const
 
 export type ApprovalStepScalarFieldEnum = (typeof ApprovalStepScalarFieldEnum)[keyof typeof ApprovalStepScalarFieldEnum]
@@ -509,6 +514,8 @@ export const ApprovalActionScalarFieldEnum = {
   approverId: 'approverId',
   action: 'action',
   comments: 'comments',
+  signatureStorageKey: 'signatureStorageKey',
+  signatureMimeType: 'signatureMimeType',
   createdAt: 'createdAt'
 } as const
 
@@ -614,12 +621,27 @@ export type RepairStatusLogScalarFieldEnum = (typeof RepairStatusLogScalarFieldE
 export const RepairSlaScalarFieldEnum = {
   id: 'id',
   repairCaseId: 'repairCaseId',
+  targetHours: 'targetHours',
   dueAt: 'dueAt',
   completedAt: 'completedAt',
-  isBreached: 'isBreached'
+  isBreached: 'isBreached',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type RepairSlaScalarFieldEnum = (typeof RepairSlaScalarFieldEnum)[keyof typeof RepairSlaScalarFieldEnum]
+
+
+export const RepairSlaPolicyScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  targetHours: 'targetHours',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RepairSlaPolicyScalarFieldEnum = (typeof RepairSlaPolicyScalarFieldEnum)[keyof typeof RepairSlaPolicyScalarFieldEnum]
 
 
 export const NotificationEventScalarFieldEnum = {

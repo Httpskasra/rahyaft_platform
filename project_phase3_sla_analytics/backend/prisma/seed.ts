@@ -1,0 +1,183 @@
+import { PrismaClient } from '../src/generated/prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
+
+async function main() {
+  // 1. Create a root department
+  const dept = await prisma.department.upsert({
+    where: { id: 'seed-dept-id' },
+    update: {},
+    create: { id: 'seed-dept-id', name: 'HQ' },
+  });
+
+  // 2. Create superadmin user
+
+  const admin = await prisma.user.upsert({
+    where: { phoneNumber: '09164532683' },
+    update: {},
+    create: {
+      phoneNumber: '09164532683',
+      name: 'Super Admin',
+      departmentId: dept.id,
+      employeeCode: '1',
+    },
+  });
+
+  // 3. Create role
+  const role = await prisma.role.upsert({
+    where: { name: 'superadmin' },
+    update: {},
+    create: { name: 'superadmin' },
+  });
+
+  // 4. Create permissions for all actions + resources
+
+  const actions = ['create', 'read', 'update', 'delete', 'approve', 'assign'];
+  const resources = [
+    'users',
+    'roles',
+    'departments',
+    'forms',
+    'form-submissions',
+    'approvals',
+    'user-info',
+    'attendance',
+    'repairs',
+    'organization-chart',
+    'communication',
+    'production-flows',
+    'production-runs',
+  ];
+
+  for (const action of actions) {
+    for (const resource of resources) {
+      const perm = await prisma.permission.upsert({
+        where: { action_resource: { action, resource } },
+        update: {},
+        create: { action, resource },
+      });
+
+      await prisma.rolePermission.upsert({
+        where: {
+          roleId_permissionId: { roleId: role.id, permissionId: perm.id },
+        },
+        update: {},
+        create: {
+          roleId: role.id,
+          permissionId: perm.id,
+          scope: 'ORG_WIDE',
+        },
+      });
+    }
+  }
+
+  // Recruitment permissions (independent workflow)
+  const recruitmentPermissions = [
+    ['read', 'recruitment-applications'],
+    ['review-initial', 'recruitment-applications'],
+    ['conduct-initial-interview', 'recruitment-applications'],
+    ['assign-technical-interviewer', 'recruitment-applications'],
+    ['conduct-technical-interview', 'recruitment-interviews'],
+    ['final-approve', 'recruitment-applications'],
+    ['manage', 'recruitment-settings'],
+  ] as const;
+
+  for (const [action, resource] of recruitmentPermissions) {
+    const permission = await prisma.permission.upsert({
+      where: { action_resource: { action, resource } },
+      update: {},
+      create: { action, resource },
+    });
+    await prisma.rolePermission.upsert({
+      where: { roleId_permissionId: { roleId: role.id, permissionId: permission.id } },
+      update: { scope: 'ORG_WIDE' },
+      create: { roleId: role.id, permissionId: permission.id, scope: 'ORG_WIDE' },
+    });
+  }
+
+  // 5. Assign role to admin user
+  await prisma.userRole.upsert({
+    where: { userId_roleId: { userId: admin.id, roleId: role.id } },
+    update: {},
+    create: { userId: admin.id, roleId: role.id },
+  });
+
+  // 6. Create a "user" role with SELF-only access to user-info
+  //mehrak
+  const userRole = await prisma.role.upsert({
+    where: { name: 'user' },
+    update: {},
+    create: { name: 'user' },
+  });
+
+  for (const action of ['create', 'read', 'update']) {
+    const perm = await prisma.permission.upsert({
+      where: { action_resource: { action, resource: 'communication' } },
+      update: {},
+      create: { action, resource: 'communication' },
+    });
+    await prisma.rolePermission.upsert({
+      where: {
+        roleId_permissionId: { roleId: userRole.id, permissionId: perm.id },
+      },
+      update: { scope: 'SELF' },
+      create: {
+        roleId: userRole.id,
+        permissionId: perm.id,
+        scope: 'SELF',
+      },
+    });
+  }
+
+  for (const action of actions) {
+    const perm = await prisma.permission.upsert({
+      where: { action_resource: { action, resource: 'user-info' } },
+      update: {},
+      create: { action, resource: 'user-info' },
+    });
+
+    await prisma.rolePermission.upsert({
+      where: {
+        roleId_permissionId: { roleId: userRole.id, permissionId: perm.id },
+      },
+      update: {},
+      create: {
+        roleId: userRole.id,
+        permissionId: perm.id,
+        scope: 'SELF',
+      },
+    });
+  }
+
+
+  // Production pipeline access for regular employees: view flows and work on assigned runs.
+  for (const [action, resource] of [
+    ['read', 'production-flows'],
+    ['read', 'production-runs'],
+    ['update', 'production-runs'],
+  ] as const) {
+    const perm = await prisma.permission.upsert({
+      where: { action_resource: { action, resource } },
+      update: {},
+      create: { action, resource },
+    });
+    await prisma.rolePermission.upsert({
+      where: { roleId_permissionId: { roleId: userRole.id, permissionId: perm.id } },
+      update: { scope: 'SELF' },
+      create: { roleId: userRole.id, permissionId: perm.id, scope: 'SELF' },
+    });
+  }
+
+  console.log('✓ Seed complete — admin@company.com / admin123');
+}
+
+main()
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());

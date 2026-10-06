@@ -203,6 +203,11 @@ export type RepairStatusLog = Prisma.RepairStatusLogModel
  */
 export type RepairSla = Prisma.RepairSlaModel
 /**
+ * Model RepairSlaPolicy
+ * 
+ */
+export type RepairSlaPolicy = Prisma.RepairSlaPolicyModel
+/**
  * Model NotificationEvent
  * 
  */

@@ -31,6 +31,8 @@ export type UserMinAggregateOutputType = {
   departmentId: string | null
   managerId: string | null
   refreshToken: string | null
+  signatureStorageKey: string | null
+  signatureMimeType: string | null
   baleChatId: string | null
   createdAt: Date | null
   employeeCode: string | null
@@ -43,6 +45,8 @@ export type UserMaxAggregateOutputType = {
   departmentId: string | null
   managerId: string | null
   refreshToken: string | null
+  signatureStorageKey: string | null
+  signatureMimeType: string | null
   baleChatId: string | null
   createdAt: Date | null
   employeeCode: string | null
@@ -55,6 +59,8 @@ export type UserCountAggregateOutputType = {
   departmentId: number
   managerId: number
   refreshToken: number
+  signatureStorageKey: number
+  signatureMimeType: number
   baleChatId: number
   createdAt: number
   employeeCode: number
@@ -69,6 +75,8 @@ export type UserMinAggregateInputType = {
   departmentId?: true
   managerId?: true
   refreshToken?: true
+  signatureStorageKey?: true
+  signatureMimeType?: true
   baleChatId?: true
   createdAt?: true
   employeeCode?: true
@@ -81,6 +89,8 @@ export type UserMaxAggregateInputType = {
   departmentId?: true
   managerId?: true
   refreshToken?: true
+  signatureStorageKey?: true
+  signatureMimeType?: true
   baleChatId?: true
   createdAt?: true
   employeeCode?: true
@@ -93,6 +103,8 @@ export type UserCountAggregateInputType = {
   departmentId?: true
   managerId?: true
   refreshToken?: true
+  signatureStorageKey?: true
+  signatureMimeType?: true
   baleChatId?: true
   createdAt?: true
   employeeCode?: true
@@ -178,6 +190,8 @@ export type UserGroupByOutputType = {
   departmentId: string
   managerId: string | null
   refreshToken: string | null
+  signatureStorageKey: string | null
+  signatureMimeType: string | null
   baleChatId: string | null
   createdAt: Date
   employeeCode: string | null
@@ -211,6 +225,8 @@ export type UserWhereInput = {
   departmentId?: Prisma.StringFilter<"User"> | string
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureStorageKey?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureMimeType?: Prisma.StringNullableFilter<"User"> | string | null
   baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   employeeCode?: Prisma.StringNullableFilter<"User"> | string | null
@@ -258,6 +274,8 @@ export type UserOrderByWithRelationInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   baleChatId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   employeeCode?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -309,6 +327,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   departmentId?: Prisma.StringFilter<"User"> | string
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureStorageKey?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureMimeType?: Prisma.StringNullableFilter<"User"> | string | null
   baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
@@ -355,6 +375,8 @@ export type UserOrderByWithAggregationInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   baleChatId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   employeeCode?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -373,6 +395,8 @@ export type UserScalarWhereWithAggregatesInput = {
   departmentId?: Prisma.StringWithAggregatesFilter<"User"> | string
   managerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  signatureStorageKey?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  signatureMimeType?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   baleChatId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   employeeCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -383,6 +407,8 @@ export type UserCreateInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -430,6 +456,8 @@ export type UserUncheckedCreateInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -473,6 +501,8 @@ export type UserUpdateInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -520,6 +550,8 @@ export type UserUncheckedUpdateInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -565,6 +597,8 @@ export type UserCreateManyInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -575,6 +609,8 @@ export type UserUpdateManyMutationInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -587,6 +623,8 @@ export type UserUncheckedUpdateManyInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -614,6 +652,8 @@ export type UserCountOrderByAggregateInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  signatureStorageKey?: Prisma.SortOrder
+  signatureMimeType?: Prisma.SortOrder
   baleChatId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   employeeCode?: Prisma.SortOrder
@@ -626,6 +666,8 @@ export type UserMaxOrderByAggregateInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  signatureStorageKey?: Prisma.SortOrder
+  signatureMimeType?: Prisma.SortOrder
   baleChatId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   employeeCode?: Prisma.SortOrder
@@ -638,6 +680,8 @@ export type UserMinOrderByAggregateInput = {
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  signatureStorageKey?: Prisma.SortOrder
+  signatureMimeType?: Prisma.SortOrder
   baleChatId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   employeeCode?: Prisma.SortOrder
@@ -1223,6 +1267,8 @@ export type UserCreateWithoutDepartmentInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1268,6 +1314,8 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   name: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1342,6 +1390,8 @@ export type UserScalarWhereInput = {
   departmentId?: Prisma.StringFilter<"User"> | string
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureStorageKey?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureMimeType?: Prisma.StringNullableFilter<"User"> | string | null
   baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   employeeCode?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1352,6 +1402,8 @@ export type UserCreateWithoutSubordinatesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1398,6 +1450,8 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1445,6 +1499,8 @@ export type UserCreateWithoutManagerInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1490,6 +1546,8 @@ export type UserUncheckedCreateWithoutManagerInput = {
   name: string
   departmentId: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1554,6 +1612,8 @@ export type UserUpdateWithoutSubordinatesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1600,6 +1660,8 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1658,6 +1720,8 @@ export type UserCreateWithoutCreatedThreadsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1704,6 +1768,8 @@ export type UserUncheckedCreateWithoutCreatedThreadsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1762,6 +1828,8 @@ export type UserUpdateWithoutCreatedThreadsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1808,6 +1876,8 @@ export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1850,6 +1920,8 @@ export type UserCreateWithoutThreadEntityLinksInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1896,6 +1968,8 @@ export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -1954,6 +2028,8 @@ export type UserUpdateWithoutThreadEntityLinksInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2000,6 +2076,8 @@ export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2042,6 +2120,8 @@ export type UserCreateWithoutThreadParticipantsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2088,6 +2168,8 @@ export type UserUncheckedCreateWithoutThreadParticipantsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2146,6 +2228,8 @@ export type UserUpdateWithoutThreadParticipantsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2192,6 +2276,8 @@ export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2234,6 +2320,8 @@ export type UserCreateWithoutThreadAssignmentsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2280,6 +2368,8 @@ export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2327,6 +2417,8 @@ export type UserCreateWithoutAssignedThreadsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2373,6 +2465,8 @@ export type UserUncheckedCreateWithoutAssignedThreadsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2431,6 +2525,8 @@ export type UserUpdateWithoutThreadAssignmentsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2477,6 +2573,8 @@ export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2530,6 +2628,8 @@ export type UserUpdateWithoutAssignedThreadsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2576,6 +2676,8 @@ export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2618,6 +2720,8 @@ export type UserCreateWithoutSentThreadMessagesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2664,6 +2768,8 @@ export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2722,6 +2828,8 @@ export type UserUpdateWithoutSentThreadMessagesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2768,6 +2876,8 @@ export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2810,6 +2920,8 @@ export type UserCreateWithoutThreadMentionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2856,6 +2968,8 @@ export type UserUncheckedCreateWithoutThreadMentionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -2914,6 +3028,8 @@ export type UserUpdateWithoutThreadMentionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2960,6 +3076,8 @@ export type UserUncheckedUpdateWithoutThreadMentionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3002,6 +3120,8 @@ export type UserCreateWithoutThreadAttachmentsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3048,6 +3168,8 @@ export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3106,6 +3228,8 @@ export type UserUpdateWithoutThreadAttachmentsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3152,6 +3276,8 @@ export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3194,6 +3320,8 @@ export type UserCreateWithoutThreadNotificationsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3240,6 +3368,8 @@ export type UserUncheckedCreateWithoutThreadNotificationsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3298,6 +3428,8 @@ export type UserUpdateWithoutThreadNotificationsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3344,6 +3476,8 @@ export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3386,6 +3520,8 @@ export type UserCreateWithoutThreadActivitiesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3432,6 +3568,8 @@ export type UserUncheckedCreateWithoutThreadActivitiesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3490,6 +3628,8 @@ export type UserUpdateWithoutThreadActivitiesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3536,6 +3676,8 @@ export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3578,6 +3720,8 @@ export type UserCreateWithoutAttendancesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3624,6 +3768,8 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3682,6 +3828,8 @@ export type UserUpdateWithoutAttendancesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3728,6 +3876,8 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3770,6 +3920,8 @@ export type UserCreateWithoutRolesInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3816,6 +3968,8 @@ export type UserUncheckedCreateWithoutRolesInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -3874,6 +4028,8 @@ export type UserUpdateWithoutRolesInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3920,6 +4076,8 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3962,6 +4120,8 @@ export type UserCreateWithoutSubmissionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4008,6 +4168,8 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4066,6 +4228,8 @@ export type UserUpdateWithoutSubmissionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4112,6 +4276,8 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4154,6 +4320,8 @@ export type UserCreateWithoutProductionFlowsCreatedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4200,6 +4368,8 @@ export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4258,6 +4428,8 @@ export type UserUpdateWithoutProductionFlowsCreatedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4304,6 +4476,8 @@ export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4346,6 +4520,8 @@ export type UserCreateWithoutProductionFlowStepsAssignedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4392,6 +4568,8 @@ export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4439,6 +4617,8 @@ export type UserCreateWithoutProductionFlowStepsSupervisedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4485,6 +4665,8 @@ export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4532,6 +4714,8 @@ export type UserCreateWithoutProductionFlowStepsApprovedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4578,6 +4762,8 @@ export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4636,6 +4822,8 @@ export type UserUpdateWithoutProductionFlowStepsAssignedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4682,6 +4870,8 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4735,6 +4925,8 @@ export type UserUpdateWithoutProductionFlowStepsSupervisedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4781,6 +4973,8 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4834,6 +5028,8 @@ export type UserUpdateWithoutProductionFlowStepsApprovedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4880,6 +5076,8 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4922,6 +5120,8 @@ export type UserCreateWithoutProductionRunsStartedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -4968,6 +5168,8 @@ export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5026,6 +5228,8 @@ export type UserUpdateWithoutProductionRunsStartedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5072,6 +5276,8 @@ export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5114,6 +5320,8 @@ export type UserCreateWithoutProductionStepsAssignedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5160,6 +5368,8 @@ export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5207,6 +5417,8 @@ export type UserCreateWithoutProductionStepsSupervisedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5253,6 +5465,8 @@ export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5300,6 +5514,8 @@ export type UserCreateWithoutProductionStepsApprovedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5346,6 +5562,8 @@ export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5404,6 +5622,8 @@ export type UserUpdateWithoutProductionStepsAssignedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5450,6 +5670,8 @@ export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5503,6 +5725,8 @@ export type UserUpdateWithoutProductionStepsSupervisedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5549,6 +5773,8 @@ export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5602,6 +5828,8 @@ export type UserUpdateWithoutProductionStepsApprovedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5648,6 +5876,8 @@ export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5690,6 +5920,8 @@ export type UserCreateWithoutProductionReviewsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5736,6 +5968,8 @@ export type UserUncheckedCreateWithoutProductionReviewsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5794,6 +6028,8 @@ export type UserUpdateWithoutProductionReviewsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5840,6 +6076,8 @@ export type UserUncheckedUpdateWithoutProductionReviewsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5882,6 +6120,8 @@ export type UserCreateWithoutApprovalActionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5928,6 +6168,8 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -5986,6 +6228,8 @@ export type UserUpdateWithoutApprovalActionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6032,6 +6276,8 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6074,6 +6320,8 @@ export type UserCreateWithoutUserInfoInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6120,6 +6368,8 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6178,6 +6428,8 @@ export type UserUpdateWithoutUserInfoInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6224,6 +6476,8 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6266,6 +6520,8 @@ export type UserCreateWithoutAssignedRepairsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6312,6 +6568,8 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6370,6 +6628,8 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6416,6 +6676,8 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6458,6 +6720,8 @@ export type UserCreateWithoutRepairVisitsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6504,6 +6768,8 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6562,6 +6828,8 @@ export type UserUpdateWithoutRepairVisitsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6608,6 +6876,8 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6650,6 +6920,8 @@ export type UserCreateWithoutStatusLogsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6696,6 +6968,8 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6754,6 +7028,8 @@ export type UserUpdateWithoutStatusLogsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6800,6 +7076,8 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6842,6 +7120,8 @@ export type UserCreateWithoutRecruitmentFinalizedInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6888,6 +7168,8 @@ export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -6946,6 +7228,8 @@ export type UserUpdateWithoutRecruitmentFinalizedInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6992,6 +7276,8 @@ export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7034,6 +7320,8 @@ export type UserCreateWithoutRecruitmentSubmissionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7080,6 +7368,8 @@ export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7138,6 +7428,8 @@ export type UserUpdateWithoutRecruitmentSubmissionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7184,6 +7476,8 @@ export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7226,6 +7520,8 @@ export type UserCreateWithoutRecruitmentAssignmentsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7272,6 +7568,8 @@ export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7319,6 +7617,8 @@ export type UserCreateWithoutRecruitmentAssignedByInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7365,6 +7665,8 @@ export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7423,6 +7725,8 @@ export type UserUpdateWithoutRecruitmentAssignmentsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7469,6 +7773,8 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7522,6 +7828,8 @@ export type UserUpdateWithoutRecruitmentAssignedByInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7568,6 +7876,8 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7610,6 +7920,8 @@ export type UserCreateWithoutRecruitmentTransitionsInput = {
   phoneNumber: string
   name: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7656,6 +7968,8 @@ export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
   departmentId: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7714,6 +8028,8 @@ export type UserUpdateWithoutRecruitmentTransitionsInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7760,6 +8076,8 @@ export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7803,6 +8121,8 @@ export type UserCreateManyDepartmentInput = {
   name: string
   managerId?: string | null
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7813,6 +8133,8 @@ export type UserUpdateWithoutDepartmentInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7858,6 +8180,8 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7902,6 +8226,8 @@ export type UserUncheckedUpdateManyWithoutDepartmentInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7913,6 +8239,8 @@ export type UserCreateManyManagerInput = {
   name: string
   departmentId: string
   refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
@@ -7923,6 +8251,8 @@ export type UserUpdateWithoutManagerInput = {
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7968,6 +8298,8 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8012,6 +8344,8 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8334,6 +8668,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  signatureStorageKey?: boolean
+  signatureMimeType?: boolean
   baleChatId?: boolean
   createdAt?: boolean
   employeeCode?: boolean
@@ -8382,6 +8718,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  signatureStorageKey?: boolean
+  signatureMimeType?: boolean
   baleChatId?: boolean
   createdAt?: boolean
   employeeCode?: boolean
@@ -8396,6 +8734,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  signatureStorageKey?: boolean
+  signatureMimeType?: boolean
   baleChatId?: boolean
   createdAt?: boolean
   employeeCode?: boolean
@@ -8410,12 +8750,14 @@ export type UserSelectScalar = {
   departmentId?: boolean
   managerId?: boolean
   refreshToken?: boolean
+  signatureStorageKey?: boolean
+  signatureMimeType?: boolean
   baleChatId?: boolean
   createdAt?: boolean
   employeeCode?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "name" | "departmentId" | "managerId" | "refreshToken" | "baleChatId" | "createdAt" | "employeeCode", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "name" | "departmentId" | "managerId" | "refreshToken" | "signatureStorageKey" | "signatureMimeType" | "baleChatId" | "createdAt" | "employeeCode", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
@@ -8509,6 +8851,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     departmentId: string
     managerId: string | null
     refreshToken: string | null
+    signatureStorageKey: string | null
+    signatureMimeType: string | null
     baleChatId: string | null
     createdAt: Date
     employeeCode: string | null
@@ -8976,6 +9320,8 @@ export interface UserFieldRefs {
   readonly departmentId: Prisma.FieldRef<"User", 'String'>
   readonly managerId: Prisma.FieldRef<"User", 'String'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
+  readonly signatureStorageKey: Prisma.FieldRef<"User", 'String'>
+  readonly signatureMimeType: Prisma.FieldRef<"User", 'String'>
   readonly baleChatId: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly employeeCode: Prisma.FieldRef<"User", 'String'>

@@ -757,14 +757,6 @@ export type ProductionFlowStepUncheckedUpdateManyWithoutFlowNestedInput = {
   deleteMany?: Prisma.ProductionFlowStepScalarWhereInput | Prisma.ProductionFlowStepScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ProductionFlowStepCreateNestedOneWithoutRunStepsInput = {
   create?: Prisma.XOR<Prisma.ProductionFlowStepCreateWithoutRunStepsInput, Prisma.ProductionFlowStepUncheckedCreateWithoutRunStepsInput>
   connectOrCreate?: Prisma.ProductionFlowStepCreateOrConnectWithoutRunStepsInput

@@ -30,6 +30,7 @@ import { EventsModule } from './events/events.module';
 import { RecruitmentModule } from './recruitment/recruitment.module';
 import { CommunicationModule } from './communication/communication.module';
 import { ProductionModule } from './production/production.module';
+import { AnalyticsAiModule } from './analytics-ai/analytics-ai.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { ProductionModule } from './production/production.module';
     RecruitmentModule,
     CommunicationModule,
     ProductionModule,
+    AnalyticsAiModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

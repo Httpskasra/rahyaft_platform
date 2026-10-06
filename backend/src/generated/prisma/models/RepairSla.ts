@@ -20,58 +20,94 @@ export type RepairSlaModel = runtime.Types.Result.DefaultSelection<Prisma.$Repai
 
 export type AggregateRepairSla = {
   _count: RepairSlaCountAggregateOutputType | null
+  _avg: RepairSlaAvgAggregateOutputType | null
+  _sum: RepairSlaSumAggregateOutputType | null
   _min: RepairSlaMinAggregateOutputType | null
   _max: RepairSlaMaxAggregateOutputType | null
+}
+
+export type RepairSlaAvgAggregateOutputType = {
+  targetHours: number | null
+}
+
+export type RepairSlaSumAggregateOutputType = {
+  targetHours: number | null
 }
 
 export type RepairSlaMinAggregateOutputType = {
   id: string | null
   repairCaseId: string | null
+  targetHours: number | null
   dueAt: Date | null
   completedAt: Date | null
   isBreached: boolean | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type RepairSlaMaxAggregateOutputType = {
   id: string | null
   repairCaseId: string | null
+  targetHours: number | null
   dueAt: Date | null
   completedAt: Date | null
   isBreached: boolean | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type RepairSlaCountAggregateOutputType = {
   id: number
   repairCaseId: number
+  targetHours: number
   dueAt: number
   completedAt: number
   isBreached: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
+export type RepairSlaAvgAggregateInputType = {
+  targetHours?: true
+}
+
+export type RepairSlaSumAggregateInputType = {
+  targetHours?: true
+}
+
 export type RepairSlaMinAggregateInputType = {
   id?: true
   repairCaseId?: true
+  targetHours?: true
   dueAt?: true
   completedAt?: true
   isBreached?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type RepairSlaMaxAggregateInputType = {
   id?: true
   repairCaseId?: true
+  targetHours?: true
   dueAt?: true
   completedAt?: true
   isBreached?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type RepairSlaCountAggregateInputType = {
   id?: true
   repairCaseId?: true
+  targetHours?: true
   dueAt?: true
   completedAt?: true
   isBreached?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -113,6 +149,18 @@ export type RepairSlaAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: RepairSlaAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: RepairSlaSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: RepairSlaMinAggregateInputType
@@ -143,6 +191,8 @@ export type RepairSlaGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   _count?: RepairSlaCountAggregateInputType | true
+  _avg?: RepairSlaAvgAggregateInputType
+  _sum?: RepairSlaSumAggregateInputType
   _min?: RepairSlaMinAggregateInputType
   _max?: RepairSlaMaxAggregateInputType
 }
@@ -150,10 +200,15 @@ export type RepairSlaGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type RepairSlaGroupByOutputType = {
   id: string
   repairCaseId: string
+  targetHours: number
   dueAt: Date
   completedAt: Date | null
   isBreached: boolean
+  createdAt: Date
+  updatedAt: Date
   _count: RepairSlaCountAggregateOutputType | null
+  _avg: RepairSlaAvgAggregateOutputType | null
+  _sum: RepairSlaSumAggregateOutputType | null
   _min: RepairSlaMinAggregateOutputType | null
   _max: RepairSlaMaxAggregateOutputType | null
 }
@@ -179,17 +234,25 @@ export type RepairSlaWhereInput = {
   NOT?: Prisma.RepairSlaWhereInput | Prisma.RepairSlaWhereInput[]
   id?: Prisma.StringFilter<"RepairSla"> | string
   repairCaseId?: Prisma.StringFilter<"RepairSla"> | string
+  targetHours?: Prisma.IntFilter<"RepairSla"> | number
   dueAt?: Prisma.DateTimeFilter<"RepairSla"> | Date | string
   completedAt?: Prisma.DateTimeNullableFilter<"RepairSla"> | Date | string | null
   isBreached?: Prisma.BoolFilter<"RepairSla"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"RepairSla"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"RepairSla"> | Date | string
+  repairCase?: Prisma.XOR<Prisma.RepairCaseScalarRelationFilter, Prisma.RepairCaseWhereInput>
 }
 
 export type RepairSlaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   repairCaseId?: Prisma.SortOrder
+  targetHours?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isBreached?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  repairCase?: Prisma.RepairCaseOrderByWithRelationInput
 }
 
 export type RepairSlaWhereUniqueInput = Prisma.AtLeast<{
@@ -198,20 +261,29 @@ export type RepairSlaWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.RepairSlaWhereInput | Prisma.RepairSlaWhereInput[]
   OR?: Prisma.RepairSlaWhereInput[]
   NOT?: Prisma.RepairSlaWhereInput | Prisma.RepairSlaWhereInput[]
+  targetHours?: Prisma.IntFilter<"RepairSla"> | number
   dueAt?: Prisma.DateTimeFilter<"RepairSla"> | Date | string
   completedAt?: Prisma.DateTimeNullableFilter<"RepairSla"> | Date | string | null
   isBreached?: Prisma.BoolFilter<"RepairSla"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"RepairSla"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"RepairSla"> | Date | string
+  repairCase?: Prisma.XOR<Prisma.RepairCaseScalarRelationFilter, Prisma.RepairCaseWhereInput>
 }, "id" | "repairCaseId">
 
 export type RepairSlaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   repairCaseId?: Prisma.SortOrder
+  targetHours?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isBreached?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.RepairSlaCountOrderByAggregateInput
+  _avg?: Prisma.RepairSlaAvgOrderByAggregateInput
   _max?: Prisma.RepairSlaMaxOrderByAggregateInput
   _min?: Prisma.RepairSlaMinOrderByAggregateInput
+  _sum?: Prisma.RepairSlaSumOrderByAggregateInput
 }
 
 export type RepairSlaScalarWhereWithAggregatesInput = {
@@ -220,89 +292,222 @@ export type RepairSlaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RepairSlaScalarWhereWithAggregatesInput | Prisma.RepairSlaScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"RepairSla"> | string
   repairCaseId?: Prisma.StringWithAggregatesFilter<"RepairSla"> | string
+  targetHours?: Prisma.IntWithAggregatesFilter<"RepairSla"> | number
   dueAt?: Prisma.DateTimeWithAggregatesFilter<"RepairSla"> | Date | string
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RepairSla"> | Date | string | null
   isBreached?: Prisma.BoolWithAggregatesFilter<"RepairSla"> | boolean
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"RepairSla"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RepairSla"> | Date | string
 }
 
 export type RepairSlaCreateInput = {
   id?: string
-  repairCaseId: string
+  targetHours: number
   dueAt: Date | string
   completedAt?: Date | string | null
   isBreached?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repairCase: Prisma.RepairCaseCreateNestedOneWithoutSlaInput
 }
 
 export type RepairSlaUncheckedCreateInput = {
   id?: string
   repairCaseId: string
+  targetHours: number
   dueAt: Date | string
   completedAt?: Date | string | null
   isBreached?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type RepairSlaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  repairCaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  targetHours?: Prisma.IntFieldUpdateOperationsInput | number
   dueAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBreached?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repairCase?: Prisma.RepairCaseUpdateOneRequiredWithoutSlaNestedInput
 }
 
 export type RepairSlaUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   repairCaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  targetHours?: Prisma.IntFieldUpdateOperationsInput | number
   dueAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBreached?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RepairSlaCreateManyInput = {
   id?: string
   repairCaseId: string
+  targetHours: number
   dueAt: Date | string
   completedAt?: Date | string | null
   isBreached?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type RepairSlaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  repairCaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  targetHours?: Prisma.IntFieldUpdateOperationsInput | number
   dueAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBreached?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RepairSlaUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   repairCaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  targetHours?: Prisma.IntFieldUpdateOperationsInput | number
   dueAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBreached?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RepairSlaNullableScalarRelationFilter = {
+  is?: Prisma.RepairSlaWhereInput | null
+  isNot?: Prisma.RepairSlaWhereInput | null
 }
 
 export type RepairSlaCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   repairCaseId?: Prisma.SortOrder
+  targetHours?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   isBreached?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type RepairSlaAvgOrderByAggregateInput = {
+  targetHours?: Prisma.SortOrder
 }
 
 export type RepairSlaMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   repairCaseId?: Prisma.SortOrder
+  targetHours?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   isBreached?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type RepairSlaMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   repairCaseId?: Prisma.SortOrder
+  targetHours?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   isBreached?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type RepairSlaSumOrderByAggregateInput = {
+  targetHours?: Prisma.SortOrder
+}
+
+export type RepairSlaCreateNestedOneWithoutRepairCaseInput = {
+  create?: Prisma.XOR<Prisma.RepairSlaCreateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedCreateWithoutRepairCaseInput>
+  connectOrCreate?: Prisma.RepairSlaCreateOrConnectWithoutRepairCaseInput
+  connect?: Prisma.RepairSlaWhereUniqueInput
+}
+
+export type RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput = {
+  create?: Prisma.XOR<Prisma.RepairSlaCreateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedCreateWithoutRepairCaseInput>
+  connectOrCreate?: Prisma.RepairSlaCreateOrConnectWithoutRepairCaseInput
+  connect?: Prisma.RepairSlaWhereUniqueInput
+}
+
+export type RepairSlaUpdateOneWithoutRepairCaseNestedInput = {
+  create?: Prisma.XOR<Prisma.RepairSlaCreateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedCreateWithoutRepairCaseInput>
+  connectOrCreate?: Prisma.RepairSlaCreateOrConnectWithoutRepairCaseInput
+  upsert?: Prisma.RepairSlaUpsertWithoutRepairCaseInput
+  disconnect?: Prisma.RepairSlaWhereInput | boolean
+  delete?: Prisma.RepairSlaWhereInput | boolean
+  connect?: Prisma.RepairSlaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepairSlaUpdateToOneWithWhereWithoutRepairCaseInput, Prisma.RepairSlaUpdateWithoutRepairCaseInput>, Prisma.RepairSlaUncheckedUpdateWithoutRepairCaseInput>
+}
+
+export type RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput = {
+  create?: Prisma.XOR<Prisma.RepairSlaCreateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedCreateWithoutRepairCaseInput>
+  connectOrCreate?: Prisma.RepairSlaCreateOrConnectWithoutRepairCaseInput
+  upsert?: Prisma.RepairSlaUpsertWithoutRepairCaseInput
+  disconnect?: Prisma.RepairSlaWhereInput | boolean
+  delete?: Prisma.RepairSlaWhereInput | boolean
+  connect?: Prisma.RepairSlaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepairSlaUpdateToOneWithWhereWithoutRepairCaseInput, Prisma.RepairSlaUpdateWithoutRepairCaseInput>, Prisma.RepairSlaUncheckedUpdateWithoutRepairCaseInput>
+}
+
+export type RepairSlaCreateWithoutRepairCaseInput = {
+  id?: string
+  targetHours: number
+  dueAt: Date | string
+  completedAt?: Date | string | null
+  isBreached?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RepairSlaUncheckedCreateWithoutRepairCaseInput = {
+  id?: string
+  targetHours: number
+  dueAt: Date | string
+  completedAt?: Date | string | null
+  isBreached?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RepairSlaCreateOrConnectWithoutRepairCaseInput = {
+  where: Prisma.RepairSlaWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepairSlaCreateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedCreateWithoutRepairCaseInput>
+}
+
+export type RepairSlaUpsertWithoutRepairCaseInput = {
+  update: Prisma.XOR<Prisma.RepairSlaUpdateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedUpdateWithoutRepairCaseInput>
+  create: Prisma.XOR<Prisma.RepairSlaCreateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedCreateWithoutRepairCaseInput>
+  where?: Prisma.RepairSlaWhereInput
+}
+
+export type RepairSlaUpdateToOneWithWhereWithoutRepairCaseInput = {
+  where?: Prisma.RepairSlaWhereInput
+  data: Prisma.XOR<Prisma.RepairSlaUpdateWithoutRepairCaseInput, Prisma.RepairSlaUncheckedUpdateWithoutRepairCaseInput>
+}
+
+export type RepairSlaUpdateWithoutRepairCaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  targetHours?: Prisma.IntFieldUpdateOperationsInput | number
+  dueAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBreached?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RepairSlaUncheckedUpdateWithoutRepairCaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  targetHours?: Prisma.IntFieldUpdateOperationsInput | number
+  dueAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBreached?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -310,46 +515,75 @@ export type RepairSlaMinOrderByAggregateInput = {
 export type RepairSlaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   repairCaseId?: boolean
+  targetHours?: boolean
   dueAt?: boolean
   completedAt?: boolean
   isBreached?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repairSla"]>
 
 export type RepairSlaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   repairCaseId?: boolean
+  targetHours?: boolean
   dueAt?: boolean
   completedAt?: boolean
   isBreached?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repairSla"]>
 
 export type RepairSlaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   repairCaseId?: boolean
+  targetHours?: boolean
   dueAt?: boolean
   completedAt?: boolean
   isBreached?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repairSla"]>
 
 export type RepairSlaSelectScalar = {
   id?: boolean
   repairCaseId?: boolean
+  targetHours?: boolean
   dueAt?: boolean
   completedAt?: boolean
   isBreached?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type RepairSlaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repairCaseId" | "dueAt" | "completedAt" | "isBreached", ExtArgs["result"]["repairSla"]>
+export type RepairSlaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repairCaseId" | "targetHours" | "dueAt" | "completedAt" | "isBreached" | "createdAt" | "updatedAt", ExtArgs["result"]["repairSla"]>
+export type RepairSlaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
+}
+export type RepairSlaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
+}
+export type RepairSlaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
+}
 
 export type $RepairSlaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RepairSla"
-  objects: {}
+  objects: {
+    repairCase: Prisma.$RepairCasePayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     repairCaseId: string
+    targetHours: number
     dueAt: Date
     completedAt: Date | null
     isBreached: boolean
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["repairSla"]>
   composites: {}
 }
@@ -744,6 +978,7 @@ readonly fields: RepairSlaFieldRefs;
  */
 export interface Prisma__RepairSlaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  repairCase<T extends Prisma.RepairCaseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RepairCaseDefaultArgs<ExtArgs>>): Prisma.Prisma__RepairCaseClient<runtime.Types.Result.GetResult<Prisma.$RepairCasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -775,9 +1010,12 @@ export interface Prisma__RepairSlaClient<T, Null = never, ExtArgs extends runtim
 export interface RepairSlaFieldRefs {
   readonly id: Prisma.FieldRef<"RepairSla", 'String'>
   readonly repairCaseId: Prisma.FieldRef<"RepairSla", 'String'>
+  readonly targetHours: Prisma.FieldRef<"RepairSla", 'Int'>
   readonly dueAt: Prisma.FieldRef<"RepairSla", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"RepairSla", 'DateTime'>
   readonly isBreached: Prisma.FieldRef<"RepairSla", 'Boolean'>
+  readonly createdAt: Prisma.FieldRef<"RepairSla", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"RepairSla", 'DateTime'>
 }
     
 
@@ -794,6 +1032,10 @@ export type RepairSlaFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
   /**
    * Filter, which RepairSla to fetch.
    */
@@ -813,6 +1055,10 @@ export type RepairSlaFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
+  /**
    * Filter, which RepairSla to fetch.
    */
   where: Prisma.RepairSlaWhereUniqueInput
@@ -830,6 +1076,10 @@ export type RepairSlaFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
   /**
    * Filter, which RepairSla to fetch.
    */
@@ -879,6 +1129,10 @@ export type RepairSlaFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
+  /**
    * Filter, which RepairSla to fetch.
    */
   where?: Prisma.RepairSlaWhereInput
@@ -926,6 +1180,10 @@ export type RepairSlaFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
   /**
    * Filter, which RepairSlas to fetch.
    */
@@ -975,6 +1233,10 @@ export type RepairSlaCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
+  /**
    * The data needed to create a RepairSla.
    */
   data: Prisma.XOR<Prisma.RepairSlaCreateInput, Prisma.RepairSlaUncheckedCreateInput>
@@ -1008,6 +1270,10 @@ export type RepairSlaCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    */
   data: Prisma.RepairSlaCreateManyInput | Prisma.RepairSlaCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1022,6 +1288,10 @@ export type RepairSlaUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
   /**
    * The data needed to update a RepairSla.
    */
@@ -1074,6 +1344,10 @@ export type RepairSlaUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many RepairSlas to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1088,6 +1362,10 @@ export type RepairSlaUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
   /**
    * The filter to search for the RepairSla to update in case it exists.
    */
@@ -1114,6 +1392,10 @@ export type RepairSlaDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
   /**
    * Filter which RepairSla to delete.
    */
@@ -1146,4 +1428,8 @@ export type RepairSlaDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the RepairSla
    */
   omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
 }

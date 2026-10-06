@@ -309,6 +309,7 @@ export type RepairCaseWhereInput = {
   visits?: Prisma.RepairVisitListRelationFilter
   parts?: Prisma.RepairItemListRelationFilter
   statusLogs?: Prisma.RepairStatusLogListRelationFilter
+  sla?: Prisma.XOR<Prisma.RepairSlaNullableScalarRelationFilter, Prisma.RepairSlaWhereInput> | null
 }
 
 export type RepairCaseOrderByWithRelationInput = {
@@ -333,6 +334,7 @@ export type RepairCaseOrderByWithRelationInput = {
   visits?: Prisma.RepairVisitOrderByRelationAggregateInput
   parts?: Prisma.RepairItemOrderByRelationAggregateInput
   statusLogs?: Prisma.RepairStatusLogOrderByRelationAggregateInput
+  sla?: Prisma.RepairSlaOrderByWithRelationInput
 }
 
 export type RepairCaseWhereUniqueInput = Prisma.AtLeast<{
@@ -360,6 +362,7 @@ export type RepairCaseWhereUniqueInput = Prisma.AtLeast<{
   visits?: Prisma.RepairVisitListRelationFilter
   parts?: Prisma.RepairItemListRelationFilter
   statusLogs?: Prisma.RepairStatusLogListRelationFilter
+  sla?: Prisma.XOR<Prisma.RepairSlaNullableScalarRelationFilter, Prisma.RepairSlaWhereInput> | null
 }, "id" | "caseNumber">
 
 export type RepairCaseOrderByWithAggregationInput = {
@@ -428,6 +431,7 @@ export type RepairCaseCreateInput = {
   visits?: Prisma.RepairVisitCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUncheckedCreateInput = {
@@ -450,6 +454,7 @@ export type RepairCaseUncheckedCreateInput = {
   visits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemUncheckedCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUpdateInput = {
@@ -472,6 +477,7 @@ export type RepairCaseUpdateInput = {
   visits?: Prisma.RepairVisitUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateInput = {
@@ -494,6 +500,7 @@ export type RepairCaseUncheckedUpdateInput = {
   visits?: Prisma.RepairVisitUncheckedUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUncheckedUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseCreateManyInput = {
@@ -731,6 +738,20 @@ export type RepairCaseUpdateOneRequiredWithoutStatusLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RepairCaseUpdateToOneWithWhereWithoutStatusLogsInput, Prisma.RepairCaseUpdateWithoutStatusLogsInput>, Prisma.RepairCaseUncheckedUpdateWithoutStatusLogsInput>
 }
 
+export type RepairCaseCreateNestedOneWithoutSlaInput = {
+  create?: Prisma.XOR<Prisma.RepairCaseCreateWithoutSlaInput, Prisma.RepairCaseUncheckedCreateWithoutSlaInput>
+  connectOrCreate?: Prisma.RepairCaseCreateOrConnectWithoutSlaInput
+  connect?: Prisma.RepairCaseWhereUniqueInput
+}
+
+export type RepairCaseUpdateOneRequiredWithoutSlaNestedInput = {
+  create?: Prisma.XOR<Prisma.RepairCaseCreateWithoutSlaInput, Prisma.RepairCaseUncheckedCreateWithoutSlaInput>
+  connectOrCreate?: Prisma.RepairCaseCreateOrConnectWithoutSlaInput
+  upsert?: Prisma.RepairCaseUpsertWithoutSlaInput
+  connect?: Prisma.RepairCaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepairCaseUpdateToOneWithWhereWithoutSlaInput, Prisma.RepairCaseUpdateWithoutSlaInput>, Prisma.RepairCaseUncheckedUpdateWithoutSlaInput>
+}
+
 export type RepairCaseCreateNestedManyWithoutCustomerInput = {
   create?: Prisma.XOR<Prisma.RepairCaseCreateWithoutCustomerInput, Prisma.RepairCaseUncheckedCreateWithoutCustomerInput> | Prisma.RepairCaseCreateWithoutCustomerInput[] | Prisma.RepairCaseUncheckedCreateWithoutCustomerInput[]
   connectOrCreate?: Prisma.RepairCaseCreateOrConnectWithoutCustomerInput | Prisma.RepairCaseCreateOrConnectWithoutCustomerInput[]
@@ -792,6 +813,7 @@ export type RepairCaseCreateWithoutTechnicianInput = {
   visits?: Prisma.RepairVisitCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUncheckedCreateWithoutTechnicianInput = {
@@ -813,6 +835,7 @@ export type RepairCaseUncheckedCreateWithoutTechnicianInput = {
   visits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemUncheckedCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseCreateOrConnectWithoutTechnicianInput = {
@@ -882,6 +905,7 @@ export type RepairCaseCreateWithoutPartsInput = {
   technician?: Prisma.UserCreateNestedOneWithoutAssignedRepairsInput
   visits?: Prisma.RepairVisitCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUncheckedCreateWithoutPartsInput = {
@@ -903,6 +927,7 @@ export type RepairCaseUncheckedCreateWithoutPartsInput = {
   problemDescription: string
   visits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseCreateOrConnectWithoutPartsInput = {
@@ -940,6 +965,7 @@ export type RepairCaseUpdateWithoutPartsInput = {
   technician?: Prisma.UserUpdateOneWithoutAssignedRepairsNestedInput
   visits?: Prisma.RepairVisitUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateWithoutPartsInput = {
@@ -961,6 +987,7 @@ export type RepairCaseUncheckedUpdateWithoutPartsInput = {
   problemDescription?: Prisma.StringFieldUpdateOperationsInput | string
   visits?: Prisma.RepairVisitUncheckedUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseCreateWithoutVisitsInput = {
@@ -982,6 +1009,7 @@ export type RepairCaseCreateWithoutVisitsInput = {
   technician?: Prisma.UserCreateNestedOneWithoutAssignedRepairsInput
   parts?: Prisma.RepairItemCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUncheckedCreateWithoutVisitsInput = {
@@ -1003,6 +1031,7 @@ export type RepairCaseUncheckedCreateWithoutVisitsInput = {
   problemDescription: string
   parts?: Prisma.RepairItemUncheckedCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseCreateOrConnectWithoutVisitsInput = {
@@ -1040,6 +1069,7 @@ export type RepairCaseUpdateWithoutVisitsInput = {
   technician?: Prisma.UserUpdateOneWithoutAssignedRepairsNestedInput
   parts?: Prisma.RepairItemUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateWithoutVisitsInput = {
@@ -1061,6 +1091,7 @@ export type RepairCaseUncheckedUpdateWithoutVisitsInput = {
   problemDescription?: Prisma.StringFieldUpdateOperationsInput | string
   parts?: Prisma.RepairItemUncheckedUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseCreateWithoutStatusLogsInput = {
@@ -1082,6 +1113,7 @@ export type RepairCaseCreateWithoutStatusLogsInput = {
   technician?: Prisma.UserCreateNestedOneWithoutAssignedRepairsInput
   visits?: Prisma.RepairVisitCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUncheckedCreateWithoutStatusLogsInput = {
@@ -1103,6 +1135,7 @@ export type RepairCaseUncheckedCreateWithoutStatusLogsInput = {
   problemDescription: string
   visits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemUncheckedCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseCreateOrConnectWithoutStatusLogsInput = {
@@ -1140,6 +1173,7 @@ export type RepairCaseUpdateWithoutStatusLogsInput = {
   technician?: Prisma.UserUpdateOneWithoutAssignedRepairsNestedInput
   visits?: Prisma.RepairVisitUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateWithoutStatusLogsInput = {
@@ -1161,6 +1195,111 @@ export type RepairCaseUncheckedUpdateWithoutStatusLogsInput = {
   problemDescription?: Prisma.StringFieldUpdateOperationsInput | string
   visits?: Prisma.RepairVisitUncheckedUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUncheckedUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput
+}
+
+export type RepairCaseCreateWithoutSlaInput = {
+  id?: string
+  caseNumber: string
+  type: $Enums.RepairType
+  status: $Enums.RepairStatus
+  description?: string | null
+  needCostApproval?: boolean
+  estimatedCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deviceTitle: string
+  serialNumber?: string | null
+  problemDescription: string
+  customer: Prisma.CustomerCreateNestedOneWithoutRepairsInput
+  technician?: Prisma.UserCreateNestedOneWithoutAssignedRepairsInput
+  visits?: Prisma.RepairVisitCreateNestedManyWithoutRepairCaseInput
+  parts?: Prisma.RepairItemCreateNestedManyWithoutRepairCaseInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutRepairCaseInput
+}
+
+export type RepairCaseUncheckedCreateWithoutSlaInput = {
+  id?: string
+  caseNumber: string
+  customerId: string
+  type: $Enums.RepairType
+  status: $Enums.RepairStatus
+  technicianId?: string | null
+  description?: string | null
+  needCostApproval?: boolean
+  estimatedCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deviceTitle: string
+  serialNumber?: string | null
+  problemDescription: string
+  visits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutRepairCaseInput
+  parts?: Prisma.RepairItemUncheckedCreateNestedManyWithoutRepairCaseInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutRepairCaseInput
+}
+
+export type RepairCaseCreateOrConnectWithoutSlaInput = {
+  where: Prisma.RepairCaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepairCaseCreateWithoutSlaInput, Prisma.RepairCaseUncheckedCreateWithoutSlaInput>
+}
+
+export type RepairCaseUpsertWithoutSlaInput = {
+  update: Prisma.XOR<Prisma.RepairCaseUpdateWithoutSlaInput, Prisma.RepairCaseUncheckedUpdateWithoutSlaInput>
+  create: Prisma.XOR<Prisma.RepairCaseCreateWithoutSlaInput, Prisma.RepairCaseUncheckedCreateWithoutSlaInput>
+  where?: Prisma.RepairCaseWhereInput
+}
+
+export type RepairCaseUpdateToOneWithWhereWithoutSlaInput = {
+  where?: Prisma.RepairCaseWhereInput
+  data: Prisma.XOR<Prisma.RepairCaseUpdateWithoutSlaInput, Prisma.RepairCaseUncheckedUpdateWithoutSlaInput>
+}
+
+export type RepairCaseUpdateWithoutSlaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumRepairTypeFieldUpdateOperationsInput | $Enums.RepairType
+  status?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  needCostApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  estimatedCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deviceTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutRepairsNestedInput
+  technician?: Prisma.UserUpdateOneWithoutAssignedRepairsNestedInput
+  visits?: Prisma.RepairVisitUpdateManyWithoutRepairCaseNestedInput
+  parts?: Prisma.RepairItemUpdateManyWithoutRepairCaseNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutRepairCaseNestedInput
+}
+
+export type RepairCaseUncheckedUpdateWithoutSlaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumRepairTypeFieldUpdateOperationsInput | $Enums.RepairType
+  status?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  needCostApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  estimatedCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deviceTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  visits?: Prisma.RepairVisitUncheckedUpdateManyWithoutRepairCaseNestedInput
+  parts?: Prisma.RepairItemUncheckedUpdateManyWithoutRepairCaseNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseCreateWithoutCustomerInput = {
@@ -1182,6 +1321,7 @@ export type RepairCaseCreateWithoutCustomerInput = {
   visits?: Prisma.RepairVisitCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseUncheckedCreateWithoutCustomerInput = {
@@ -1203,6 +1343,7 @@ export type RepairCaseUncheckedCreateWithoutCustomerInput = {
   visits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutRepairCaseInput
   parts?: Prisma.RepairItemUncheckedCreateNestedManyWithoutRepairCaseInput
   statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutRepairCaseInput
+  sla?: Prisma.RepairSlaUncheckedCreateNestedOneWithoutRepairCaseInput
 }
 
 export type RepairCaseCreateOrConnectWithoutCustomerInput = {
@@ -1268,6 +1409,7 @@ export type RepairCaseUpdateWithoutTechnicianInput = {
   visits?: Prisma.RepairVisitUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateWithoutTechnicianInput = {
@@ -1289,6 +1431,7 @@ export type RepairCaseUncheckedUpdateWithoutTechnicianInput = {
   visits?: Prisma.RepairVisitUncheckedUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUncheckedUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateManyWithoutTechnicianInput = {
@@ -1346,6 +1489,7 @@ export type RepairCaseUpdateWithoutCustomerInput = {
   visits?: Prisma.RepairVisitUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateWithoutCustomerInput = {
@@ -1367,6 +1511,7 @@ export type RepairCaseUncheckedUpdateWithoutCustomerInput = {
   visits?: Prisma.RepairVisitUncheckedUpdateManyWithoutRepairCaseNestedInput
   parts?: Prisma.RepairItemUncheckedUpdateManyWithoutRepairCaseNestedInput
   statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutRepairCaseNestedInput
+  sla?: Prisma.RepairSlaUncheckedUpdateOneWithoutRepairCaseNestedInput
 }
 
 export type RepairCaseUncheckedUpdateManyWithoutCustomerInput = {
@@ -1458,6 +1603,7 @@ export type RepairCaseSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   visits?: boolean | Prisma.RepairCase$visitsArgs<ExtArgs>
   parts?: boolean | Prisma.RepairCase$partsArgs<ExtArgs>
   statusLogs?: boolean | Prisma.RepairCase$statusLogsArgs<ExtArgs>
+  sla?: boolean | Prisma.RepairCase$slaArgs<ExtArgs>
   _count?: boolean | Prisma.RepairCaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repairCase"]>
 
@@ -1529,6 +1675,7 @@ export type RepairCaseInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   visits?: boolean | Prisma.RepairCase$visitsArgs<ExtArgs>
   parts?: boolean | Prisma.RepairCase$partsArgs<ExtArgs>
   statusLogs?: boolean | Prisma.RepairCase$statusLogsArgs<ExtArgs>
+  sla?: boolean | Prisma.RepairCase$slaArgs<ExtArgs>
   _count?: boolean | Prisma.RepairCaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RepairCaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1548,6 +1695,7 @@ export type $RepairCasePayload<ExtArgs extends runtime.Types.Extensions.Internal
     visits: Prisma.$RepairVisitPayload<ExtArgs>[]
     parts: Prisma.$RepairItemPayload<ExtArgs>[]
     statusLogs: Prisma.$RepairStatusLogPayload<ExtArgs>[]
+    sla: Prisma.$RepairSlaPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1965,6 +2113,7 @@ export interface Prisma__RepairCaseClient<T, Null = never, ExtArgs extends runti
   visits<T extends Prisma.RepairCase$visitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RepairCase$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   parts<T extends Prisma.RepairCase$partsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RepairCase$partsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   statusLogs<T extends Prisma.RepairCase$statusLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RepairCase$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepairStatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sla<T extends Prisma.RepairCase$slaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RepairCase$slaArgs<ExtArgs>>): Prisma.Prisma__RepairSlaClient<runtime.Types.Result.GetResult<Prisma.$RepairSlaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2499,6 +2648,25 @@ export type RepairCase$statusLogsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.RepairStatusLogScalarFieldEnum | Prisma.RepairStatusLogScalarFieldEnum[]
+}
+
+/**
+ * RepairCase.sla
+ */
+export type RepairCase$slaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RepairSla
+   */
+  select?: Prisma.RepairSlaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RepairSla
+   */
+  omit?: Prisma.RepairSlaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepairSlaInclude<ExtArgs> | null
+  where?: Prisma.RepairSlaWhereInput
 }
 
 /**

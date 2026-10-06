@@ -1,3 +1,4 @@
+import type { AiAnalyticsResult, AnalyticsAnomaly, AnalyticsInsight } from "./analytics";
 import { apiClient } from "./client";
 
 // ─── Schema ───────────────────────────────────────────────────
@@ -228,6 +229,81 @@ export interface DeepAnalysis {
   nlpByField: Record<string, NlpCorpus>;
 }
 
+
+export interface FormAnalyticsKpis {
+  submissions: number;
+  submissionsChangePct: number | null;
+  approved: number;
+  rejected: number;
+  pending: number;
+  noWorkflow?: number;
+  approvalRate: number;
+  rejectionRate: number;
+  pendingRate: number;
+  averageProcessingHours: number | null;
+  medianProcessingHours?: number | null;
+}
+
+export interface FormApprovalFunnelStep {
+  stepId: string;
+  stepOrder: number;
+  roleId: string;
+  roleName: string;
+  entered: number;
+  processed: number;
+  approved: number;
+  rejected: number;
+  pending: number;
+  conversionRate: number;
+  averageWaitHours: number | null;
+}
+
+export interface FormFieldAnalytics {
+  key: string;
+  label: string;
+  type: string;
+  required: boolean;
+  filled: number;
+  missing: number;
+  fillRate: number;
+  numeric?: { count: number; average: number; median: number; min: number; max: number } | null;
+  distribution?: { value: string; count: number }[];
+  dateDistribution?: { month: string; count: number }[];
+  text?: { averageLength: number };
+}
+
+export interface FormAnalytics {
+  form: Pick<Form, "id" | "name" | "customId" | "description" | "schema">;
+  range: { from: string; to: string };
+  kpis: FormAnalyticsKpis;
+  trend: { date: string; count: number }[];
+  comparison: { previous: { submissions: number; approvalRate: number | null; rejectionRate: number | null; averageProcessingHours: number | null } };
+  insights: AnalyticsInsight[];
+  anomalies: AnalyticsAnomaly[];
+  statusDistribution: { status: "APPROVED" | "REJECTED" | "PENDING" | "NO_WORKFLOW"; count: number }[];
+  approvalFunnel: FormApprovalFunnelStep[];
+  bottleneck: FormApprovalFunnelStep | null;
+  fieldAnalytics: FormFieldAnalytics[];
+  sla: {
+    targetHours: number | null; eligible: number; compliant: number; breached: number; complianceRate: number | null; averageOverdueHours: number | null;
+    trend: { date: string; compliant: number; breached: number }[];
+    steps: { stepId: string; stepOrder: number; roleName: string; targetHours: number | null; evaluated: number; compliant: number; breached: number; complianceRate: number | null; averageOverdueHours: number | null }[];
+    breaches: { submissionId: string; status: string; targetHours: number; dueAt: string; finishedAt: string | null; overdueHours: number; breached: boolean }[];
+  };
+}
+
+export interface FormsAnalyticsOverview {
+  range: { from: string; to: string };
+  kpis: FormAnalyticsKpis;
+  trend: { date: string; count: number }[];
+  insights: AnalyticsInsight[];
+  anomalies: AnalyticsAnomaly[];
+  forms: Array<{
+    id?: string; name?: string; customId?: string | null;
+    submissions: number; approved: number; rejected: number; pending: number;
+  }>;
+}
+
 // ─── API ──────────────────────────────────────────────────────
 
 export const formsApi = {
@@ -236,6 +312,13 @@ export const formsApi = {
   findById: (id: string) => apiClient.get<Form>(`/forms/${id}`),
   getStats: (id: string) => apiClient.get<FormStats>(`/forms/${id}/stats`),
   getDeepAnalysis: (id: string) => apiClient.get<DeepAnalysis>(`/forms/${id}/deep-analysis`),
+  getAnalyticsOverview: (range = "30d") => apiClient.get<FormsAnalyticsOverview>(`/forms/analytics/overview?range=${range}`),
+  getAnalytics: (id: string, range = "30d") => apiClient.get<FormAnalytics>(`/forms/${id}/analytics?range=${range}`),
+  getOverviewAiSummary: (range = "30d") => apiClient.post<AiAnalyticsResult>(`/forms/analytics/ai-summary?range=${range}`, {}),
+  askOverviewAnalytics: (question: string, range = "30d") => apiClient.post<AiAnalyticsResult>(`/forms/analytics/ask?range=${range}`, { question }),
+  getAiSummary: (id: string, range = "30d") => apiClient.post<AiAnalyticsResult>(`/forms/${id}/analytics/ai-summary?range=${range}`, {}),
+  askAnalytics: (id: string, question: string, range = "30d") => apiClient.post<AiAnalyticsResult>(`/forms/${id}/analytics/ask?range=${range}`, { question }),
+  updateSla: (id: string, data: { slaHours?: number | null; steps?: Array<{ stepId: string; slaHours: number | null }> }) => apiClient.patch(`/forms/${id}/sla`, data),
   create: (data: { name: string; description?: string; customId?: string; schema: FormSchema }) =>
     apiClient.post<Form>("/forms", data),
   update: (

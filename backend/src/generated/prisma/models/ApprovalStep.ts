@@ -28,10 +28,12 @@ export type AggregateApprovalStep = {
 
 export type ApprovalStepAvgAggregateOutputType = {
   stepOrder: number | null
+  slaHours: number | null
 }
 
 export type ApprovalStepSumAggregateOutputType = {
   stepOrder: number | null
+  slaHours: number | null
 }
 
 export type ApprovalStepMinAggregateOutputType = {
@@ -40,6 +42,7 @@ export type ApprovalStepMinAggregateOutputType = {
   stepOrder: number | null
   roleId: string | null
   createdAt: Date | null
+  slaHours: number | null
 }
 
 export type ApprovalStepMaxAggregateOutputType = {
@@ -48,6 +51,7 @@ export type ApprovalStepMaxAggregateOutputType = {
   stepOrder: number | null
   roleId: string | null
   createdAt: Date | null
+  slaHours: number | null
 }
 
 export type ApprovalStepCountAggregateOutputType = {
@@ -56,16 +60,19 @@ export type ApprovalStepCountAggregateOutputType = {
   stepOrder: number
   roleId: number
   createdAt: number
+  slaHours: number
   _all: number
 }
 
 
 export type ApprovalStepAvgAggregateInputType = {
   stepOrder?: true
+  slaHours?: true
 }
 
 export type ApprovalStepSumAggregateInputType = {
   stepOrder?: true
+  slaHours?: true
 }
 
 export type ApprovalStepMinAggregateInputType = {
@@ -74,6 +81,7 @@ export type ApprovalStepMinAggregateInputType = {
   stepOrder?: true
   roleId?: true
   createdAt?: true
+  slaHours?: true
 }
 
 export type ApprovalStepMaxAggregateInputType = {
@@ -82,6 +90,7 @@ export type ApprovalStepMaxAggregateInputType = {
   stepOrder?: true
   roleId?: true
   createdAt?: true
+  slaHours?: true
 }
 
 export type ApprovalStepCountAggregateInputType = {
@@ -90,6 +99,7 @@ export type ApprovalStepCountAggregateInputType = {
   stepOrder?: true
   roleId?: true
   createdAt?: true
+  slaHours?: true
   _all?: true
 }
 
@@ -185,6 +195,7 @@ export type ApprovalStepGroupByOutputType = {
   stepOrder: number
   roleId: string
   createdAt: Date
+  slaHours: number | null
   _count: ApprovalStepCountAggregateOutputType | null
   _avg: ApprovalStepAvgAggregateOutputType | null
   _sum: ApprovalStepSumAggregateOutputType | null
@@ -216,6 +227,7 @@ export type ApprovalStepWhereInput = {
   stepOrder?: Prisma.IntFilter<"ApprovalStep"> | number
   roleId?: Prisma.StringFilter<"ApprovalStep"> | string
   createdAt?: Prisma.DateTimeFilter<"ApprovalStep"> | Date | string
+  slaHours?: Prisma.IntNullableFilter<"ApprovalStep"> | number | null
   policy?: Prisma.XOR<Prisma.ApprovalPolicyScalarRelationFilter, Prisma.ApprovalPolicyWhereInput>
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
   approvalActions?: Prisma.ApprovalActionListRelationFilter
@@ -227,6 +239,7 @@ export type ApprovalStepOrderByWithRelationInput = {
   stepOrder?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrderInput | Prisma.SortOrder
   policy?: Prisma.ApprovalPolicyOrderByWithRelationInput
   role?: Prisma.RoleOrderByWithRelationInput
   approvalActions?: Prisma.ApprovalActionOrderByRelationAggregateInput
@@ -242,6 +255,7 @@ export type ApprovalStepWhereUniqueInput = Prisma.AtLeast<{
   stepOrder?: Prisma.IntFilter<"ApprovalStep"> | number
   roleId?: Prisma.StringFilter<"ApprovalStep"> | string
   createdAt?: Prisma.DateTimeFilter<"ApprovalStep"> | Date | string
+  slaHours?: Prisma.IntNullableFilter<"ApprovalStep"> | number | null
   policy?: Prisma.XOR<Prisma.ApprovalPolicyScalarRelationFilter, Prisma.ApprovalPolicyWhereInput>
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
   approvalActions?: Prisma.ApprovalActionListRelationFilter
@@ -253,6 +267,7 @@ export type ApprovalStepOrderByWithAggregationInput = {
   stepOrder?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ApprovalStepCountOrderByAggregateInput
   _avg?: Prisma.ApprovalStepAvgOrderByAggregateInput
   _max?: Prisma.ApprovalStepMaxOrderByAggregateInput
@@ -269,12 +284,14 @@ export type ApprovalStepScalarWhereWithAggregatesInput = {
   stepOrder?: Prisma.IntWithAggregatesFilter<"ApprovalStep"> | number
   roleId?: Prisma.StringWithAggregatesFilter<"ApprovalStep"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ApprovalStep"> | Date | string
+  slaHours?: Prisma.IntNullableWithAggregatesFilter<"ApprovalStep"> | number | null
 }
 
 export type ApprovalStepCreateInput = {
   id?: string
   stepOrder: number
   createdAt?: Date | string
+  slaHours?: number | null
   policy: Prisma.ApprovalPolicyCreateNestedOneWithoutStepsInput
   role: Prisma.RoleCreateNestedOneWithoutApprovalStepsInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutStepInput
@@ -286,6 +303,7 @@ export type ApprovalStepUncheckedCreateInput = {
   stepOrder: number
   roleId: string
   createdAt?: Date | string
+  slaHours?: number | null
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutStepInput
 }
 
@@ -293,6 +311,7 @@ export type ApprovalStepUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   policy?: Prisma.ApprovalPolicyUpdateOneRequiredWithoutStepsNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutApprovalStepsNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutStepNestedInput
@@ -304,6 +323,7 @@ export type ApprovalStepUncheckedUpdateInput = {
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutStepNestedInput
 }
 
@@ -313,12 +333,14 @@ export type ApprovalStepCreateManyInput = {
   stepOrder: number
   roleId: string
   createdAt?: Date | string
+  slaHours?: number | null
 }
 
 export type ApprovalStepUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ApprovalStepUncheckedUpdateManyInput = {
@@ -327,6 +349,7 @@ export type ApprovalStepUncheckedUpdateManyInput = {
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ApprovalStepListRelationFilter = {
@@ -350,10 +373,12 @@ export type ApprovalStepCountOrderByAggregateInput = {
   stepOrder?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type ApprovalStepAvgOrderByAggregateInput = {
   stepOrder?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type ApprovalStepMaxOrderByAggregateInput = {
@@ -362,6 +387,7 @@ export type ApprovalStepMaxOrderByAggregateInput = {
   stepOrder?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type ApprovalStepMinOrderByAggregateInput = {
@@ -370,10 +396,12 @@ export type ApprovalStepMinOrderByAggregateInput = {
   stepOrder?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type ApprovalStepSumOrderByAggregateInput = {
   stepOrder?: Prisma.SortOrder
+  slaHours?: Prisma.SortOrder
 }
 
 export type ApprovalStepScalarRelationFilter = {
@@ -483,6 +511,7 @@ export type ApprovalStepCreateWithoutRoleInput = {
   id?: string
   stepOrder: number
   createdAt?: Date | string
+  slaHours?: number | null
   policy: Prisma.ApprovalPolicyCreateNestedOneWithoutStepsInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutStepInput
 }
@@ -492,6 +521,7 @@ export type ApprovalStepUncheckedCreateWithoutRoleInput = {
   policyId: string
   stepOrder: number
   createdAt?: Date | string
+  slaHours?: number | null
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutStepInput
 }
 
@@ -530,12 +560,14 @@ export type ApprovalStepScalarWhereInput = {
   stepOrder?: Prisma.IntFilter<"ApprovalStep"> | number
   roleId?: Prisma.StringFilter<"ApprovalStep"> | string
   createdAt?: Prisma.DateTimeFilter<"ApprovalStep"> | Date | string
+  slaHours?: Prisma.IntNullableFilter<"ApprovalStep"> | number | null
 }
 
 export type ApprovalStepCreateWithoutPolicyInput = {
   id?: string
   stepOrder: number
   createdAt?: Date | string
+  slaHours?: number | null
   role: Prisma.RoleCreateNestedOneWithoutApprovalStepsInput
   approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutStepInput
 }
@@ -545,6 +577,7 @@ export type ApprovalStepUncheckedCreateWithoutPolicyInput = {
   stepOrder: number
   roleId: string
   createdAt?: Date | string
+  slaHours?: number | null
   approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutStepInput
 }
 
@@ -578,6 +611,7 @@ export type ApprovalStepCreateWithoutApprovalActionsInput = {
   id?: string
   stepOrder: number
   createdAt?: Date | string
+  slaHours?: number | null
   policy: Prisma.ApprovalPolicyCreateNestedOneWithoutStepsInput
   role: Prisma.RoleCreateNestedOneWithoutApprovalStepsInput
 }
@@ -588,6 +622,7 @@ export type ApprovalStepUncheckedCreateWithoutApprovalActionsInput = {
   stepOrder: number
   roleId: string
   createdAt?: Date | string
+  slaHours?: number | null
 }
 
 export type ApprovalStepCreateOrConnectWithoutApprovalActionsInput = {
@@ -610,6 +645,7 @@ export type ApprovalStepUpdateWithoutApprovalActionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   policy?: Prisma.ApprovalPolicyUpdateOneRequiredWithoutStepsNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutApprovalStepsNestedInput
 }
@@ -620,6 +656,7 @@ export type ApprovalStepUncheckedUpdateWithoutApprovalActionsInput = {
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ApprovalStepCreateManyRoleInput = {
@@ -627,12 +664,14 @@ export type ApprovalStepCreateManyRoleInput = {
   policyId: string
   stepOrder: number
   createdAt?: Date | string
+  slaHours?: number | null
 }
 
 export type ApprovalStepUpdateWithoutRoleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   policy?: Prisma.ApprovalPolicyUpdateOneRequiredWithoutStepsNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutStepNestedInput
 }
@@ -642,6 +681,7 @@ export type ApprovalStepUncheckedUpdateWithoutRoleInput = {
   policyId?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutStepNestedInput
 }
 
@@ -650,6 +690,7 @@ export type ApprovalStepUncheckedUpdateManyWithoutRoleInput = {
   policyId?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ApprovalStepCreateManyPolicyInput = {
@@ -657,12 +698,14 @@ export type ApprovalStepCreateManyPolicyInput = {
   stepOrder: number
   roleId: string
   createdAt?: Date | string
+  slaHours?: number | null
 }
 
 export type ApprovalStepUpdateWithoutPolicyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   role?: Prisma.RoleUpdateOneRequiredWithoutApprovalStepsNestedInput
   approvalActions?: Prisma.ApprovalActionUpdateManyWithoutStepNestedInput
 }
@@ -672,6 +715,7 @@ export type ApprovalStepUncheckedUpdateWithoutPolicyInput = {
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutStepNestedInput
 }
 
@@ -680,6 +724,7 @@ export type ApprovalStepUncheckedUpdateManyWithoutPolicyInput = {
   stepOrder?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slaHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -719,6 +764,7 @@ export type ApprovalStepSelect<ExtArgs extends runtime.Types.Extensions.Internal
   stepOrder?: boolean
   roleId?: boolean
   createdAt?: boolean
+  slaHours?: boolean
   policy?: boolean | Prisma.ApprovalPolicyDefaultArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   approvalActions?: boolean | Prisma.ApprovalStep$approvalActionsArgs<ExtArgs>
@@ -731,6 +777,7 @@ export type ApprovalStepSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   stepOrder?: boolean
   roleId?: boolean
   createdAt?: boolean
+  slaHours?: boolean
   policy?: boolean | Prisma.ApprovalPolicyDefaultArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["approvalStep"]>
@@ -741,6 +788,7 @@ export type ApprovalStepSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   stepOrder?: boolean
   roleId?: boolean
   createdAt?: boolean
+  slaHours?: boolean
   policy?: boolean | Prisma.ApprovalPolicyDefaultArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["approvalStep"]>
@@ -751,9 +799,10 @@ export type ApprovalStepSelectScalar = {
   stepOrder?: boolean
   roleId?: boolean
   createdAt?: boolean
+  slaHours?: boolean
 }
 
-export type ApprovalStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "policyId" | "stepOrder" | "roleId" | "createdAt", ExtArgs["result"]["approvalStep"]>
+export type ApprovalStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "policyId" | "stepOrder" | "roleId" | "createdAt" | "slaHours", ExtArgs["result"]["approvalStep"]>
 export type ApprovalStepInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   policy?: boolean | Prisma.ApprovalPolicyDefaultArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
@@ -782,6 +831,7 @@ export type $ApprovalStepPayload<ExtArgs extends runtime.Types.Extensions.Intern
     stepOrder: number
     roleId: string
     createdAt: Date
+    slaHours: number | null
   }, ExtArgs["result"]["approvalStep"]>
   composites: {}
 }
@@ -1213,6 +1263,7 @@ export interface ApprovalStepFieldRefs {
   readonly stepOrder: Prisma.FieldRef<"ApprovalStep", 'Int'>
   readonly roleId: Prisma.FieldRef<"ApprovalStep", 'String'>
   readonly createdAt: Prisma.FieldRef<"ApprovalStep", 'DateTime'>
+  readonly slaHours: Prisma.FieldRef<"ApprovalStep", 'Int'>
 }
     
 

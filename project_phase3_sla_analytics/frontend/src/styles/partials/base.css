@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode across the app */
+@custom-variant dark (&:is(.dark *));
+
+html {
+  direction: rtl;
+}
+
+/*
+  Tailwind CSS v4 compatibility:
+  default border color changed to currentColor.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,369 @@
+name: enterprise-prod
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB is required}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?REDIS_PASSWORD is required}"]
+    volumes:
+      - redis_prod_data:/data
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a '${REDIS_PASSWORD}' ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:?RABBITMQ_USER is required}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:?RABBITMQ_PASS is required}
+    volumes:
+      - rabbitmq_prod_data:/var/lib/rabbitmq
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+      start_period: 30s
+
+  ollama:
+    image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
+    restart: always
+
+    volumes:
+      - ollama_prod_data:/root/.ollama
+
+    networks:
+      - internal
+      - public
+
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+
+  ollama-init:
+    image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
+    restart: "no"
+
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b}
+
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+    entrypoint: ["/bin/sh", "-c"]
+
+    command:
+      - |
+        set -eu
+
+        echo "Waiting for Ollama server..."
+
+        until ollama list >/dev/null 2>&1; do
+          sleep 3
+        done
+
+        echo "Checking model: $${OLLAMA_MODEL}"
+
+        if ollama list | awk 'NR > 1 {print $$1}' | grep -Fxq "$${OLLAMA_MODEL}"; then
+          echo "Model already exists: $${OLLAMA_MODEL}"
+        else
+          echo "Downloading model: $${OLLAMA_MODEL}"
+          ollama pull "$${OLLAMA_MODEL}"
+        fi
+
+        echo "Ollama model is ready."
+
+    networks:
+      - public
+  migrate:
+    build:
+      context: ./backend
+      target: build
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    command: npx prisma migrate deploy
+    networks: [internal]
+
+  backend:
+    build:
+      context: ./backend
+      target: prod
+    restart: always
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-15m}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:?JWT_REFRESH_SECRET is required}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-7d}
+      FRONTEND_URL: ${FRONTEND_URL:?FRONTEND_URL is required}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:-}
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-false}
+      API_VERSION: ${API_VERSION:-1.0.0}
+      BALE_BOT_TOKEN: ${BALE_BOT_TOKEN:-}
+    ports:
+      - "0.0.0.0:${BACKEND_PORT:-3000}:3000"
+    volumes:
+      - communication_uploads:/app/uploads/communication
+      - signature_uploads:/app/uploads/signatures
+    networks: [internal, public]
+    security_opt:
+      - no-new-privileges:true
+  bale-tunnel:
+    build:
+      context: ./infrastructure/bale-tunnel
+    restart: always
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    environment:
+      BACKEND_URL: http://backend:3000
+      STATE_DIR: /state
+      CLOUDFLARED_PROTOCOL: http2
+      TUNNEL_STARTUP_ATTEMPTS: 60
+
+    volumes:
+      - bale_tunnel_state:/state
+
+    networks:
+      - public
+
+    security_opt:
+      - no-new-privileges:true
+
+  bale-webhook-init:
+    image: alpine:3.22
+    restart: on-failure
+
+    depends_on:
+      backend:
+        condition: service_healthy
+      bale-tunnel:
+        condition: service_started
+
+    environment:
+      BALE_BOT_TOKEN: ${BALE_BOT_TOKEN:?BALE_BOT_TOKEN is required}
+      TUNNEL_URL_FILE: /state/tunnel-url
+      WEBHOOK_PATH: /api/v1/bale/webhook
+
+    volumes:
+      - bale_tunnel_state:/state:ro
+
+    entrypoint:
+      - /bin/sh
+      - -c
+
+    command:
+      - |
+        set -eu
+
+        apk add --no-cache curl ca-certificates >/dev/null
+
+        URL_FILE="$${TUNNEL_URL_FILE}"
+        ATTEMPT=0
+        MAX_ATTEMPTS=90
+
+        echo "Waiting for Cloudflare Tunnel URL..."
+
+        while [ "$${ATTEMPT}" -lt "$${MAX_ATTEMPTS}" ]; do
+          if [ -s "$${URL_FILE}" ]; then
+            TUNNEL_URL="$$(cat "$${URL_FILE}")"
+            break
+          fi
+
+          ATTEMPT=$$((ATTEMPT + 1))
+          sleep 2
+        done
+
+        if [ -z "$${TUNNEL_URL:-}" ]; then
+          echo "Tunnel URL was not found."
+          exit 1
+        fi
+
+        WEBHOOK_URL="$${TUNNEL_URL}$${WEBHOOK_PATH}"
+
+        echo "Checking public webhook endpoint:"
+        echo "$${WEBHOOK_URL}"
+
+        ATTEMPT=0
+
+        while [ "$${ATTEMPT}" -lt 30 ]; do
+          STATUS="$$(curl \
+            --silent \
+            --output /tmp/webhook-response \
+            --write-out '%{http_code}' \
+            --request POST \
+            --header 'Content-Type: application/json' \
+            --data '{}' \
+            "$${WEBHOOK_URL}" || true)"
+
+          if [ "$${STATUS}" = "200" ] || [ "$${STATUS}" = "201" ]; then
+            echo "Public webhook endpoint is reachable."
+            break
+          fi
+
+          echo "Webhook endpoint not ready. HTTP status: $${STATUS}"
+          ATTEMPT=$$((ATTEMPT + 1))
+          sleep 3
+        done
+
+        if [ "$${STATUS}" != "200" ] && [ "$${STATUS}" != "201" ]; then
+          echo "Public webhook endpoint is unavailable."
+          cat /tmp/webhook-response 2>/dev/null || true
+          exit 1
+        fi
+
+        echo "Registering Bale webhook..."
+
+        RESPONSE="$$(curl \
+          --silent \
+          --show-error \
+          --fail \
+          --request POST \
+          "https://tapi.bale.ai/bot$${BALE_BOT_TOKEN}/setWebhook" \
+          --header 'Content-Type: application/json' \
+          --data "{\"url\":\"$${WEBHOOK_URL}\"}")"
+
+        echo "$${RESPONSE}"
+
+        echo "$${RESPONSE}" | grep -q '"ok":true' || {
+          echo "Bale webhook registration failed."
+          exit 1
+        }
+
+        echo "Bale webhook registered successfully:"
+        echo "$${WEBHOOK_URL}"
+
+    networks:
+      - public
+
+    security_opt:
+      - no-new-privileges:true
+
+  frontend:
+    build:
+      context: ./frontend
+      target: prod
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:?NEXT_PUBLIC_API_URL is required}
+    restart: always
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "0.0.0.0:${FRONTEND_PORT:-3001}:3001"
+    networks: [public]
+    security_opt:
+      - no-new-privileges:true
+
+  form-analytics-worker:
+    build:
+      context: ./analytics
+      target: prod
+    restart: always
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    command: ["python", "src/worker.py"]
+    networks: [internal]
+    security_opt:
+      - no-new-privileges:true
+
+  crm-ai-worker:
+    build:
+      context: ./analytics
+      target: prod
+    restart: always
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      rabbitmq:
+        condition: service_healthy
+      ollama-init:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
+      DOMAIN_EXCHANGE: ${DOMAIN_EXCHANGE:-domain_events}
+      CRM_QUEUE: ${CRM_QUEUE:-crm_ai_worker}
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b}
+      OLLAMA_TIMEOUT_SECONDS: ${OLLAMA_TIMEOUT_SECONDS:-120}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    command: ["python", "src/crm_worker.py"]
+    networks: [internal]
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  internal:
+    internal: true
+  public:
+
+volumes:
+  communication_uploads:
+  signature_uploads:
+  postgres_prod_data:
+  redis_prod_data:
+  rabbitmq_prod_data:
+  ollama_prod_data:
+  bale_tunnel_state:

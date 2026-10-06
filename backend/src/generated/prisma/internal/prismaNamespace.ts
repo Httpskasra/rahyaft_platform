@@ -421,6 +421,7 @@ export const ModelName = {
   RepairVisit: 'RepairVisit',
   RepairStatusLog: 'RepairStatusLog',
   RepairSla: 'RepairSla',
+  RepairSlaPolicy: 'RepairSlaPolicy',
   NotificationEvent: 'NotificationEvent',
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
@@ -451,7 +452,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "productionFlow" | "productionFlowStep" | "productionRun" | "productionRunStep" | "productionStepReview" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
+    modelProps: "department" | "departmentRelation" | "user" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "productionFlow" | "productionFlowStep" | "productionRun" | "productionRunStep" | "productionStepReview" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "repairSlaPolicy" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3193,6 +3194,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RepairSlaPolicy: {
+      payload: Prisma.$RepairSlaPolicyPayload<ExtArgs>
+      fields: Prisma.RepairSlaPolicyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RepairSlaPolicyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RepairSlaPolicyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>
+        }
+        findFirst: {
+          args: Prisma.RepairSlaPolicyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RepairSlaPolicyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>
+        }
+        findMany: {
+          args: Prisma.RepairSlaPolicyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>[]
+        }
+        create: {
+          args: Prisma.RepairSlaPolicyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>
+        }
+        createMany: {
+          args: Prisma.RepairSlaPolicyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RepairSlaPolicyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>[]
+        }
+        delete: {
+          args: Prisma.RepairSlaPolicyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>
+        }
+        update: {
+          args: Prisma.RepairSlaPolicyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>
+        }
+        deleteMany: {
+          args: Prisma.RepairSlaPolicyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RepairSlaPolicyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RepairSlaPolicyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>[]
+        }
+        upsert: {
+          args: Prisma.RepairSlaPolicyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RepairSlaPolicyPayload>
+        }
+        aggregate: {
+          args: Prisma.RepairSlaPolicyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRepairSlaPolicy>
+        }
+        groupBy: {
+          args: Prisma.RepairSlaPolicyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RepairSlaPolicyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RepairSlaPolicyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RepairSlaPolicyCountAggregateOutputType> | number
+        }
+      }
+    }
     NotificationEvent: {
       payload: Prisma.$NotificationEventPayload<ExtArgs>
       fields: Prisma.NotificationEventFieldRefs
@@ -4369,6 +4444,8 @@ export const UserScalarFieldEnum = {
   departmentId: 'departmentId',
   managerId: 'managerId',
   refreshToken: 'refreshToken',
+  signatureStorageKey: 'signatureStorageKey',
+  signatureMimeType: 'signatureMimeType',
   baleChatId: 'baleChatId',
   createdAt: 'createdAt',
   employeeCode: 'employeeCode'
@@ -4557,6 +4634,7 @@ export const FormScalarFieldEnum = {
   schema: 'schema',
   version: 'version',
   isActive: 'isActive',
+  slaHours: 'slaHours',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -4705,7 +4783,8 @@ export const ApprovalStepScalarFieldEnum = {
   policyId: 'policyId',
   stepOrder: 'stepOrder',
   roleId: 'roleId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  slaHours: 'slaHours'
 } as const
 
 export type ApprovalStepScalarFieldEnum = (typeof ApprovalStepScalarFieldEnum)[keyof typeof ApprovalStepScalarFieldEnum]
@@ -4730,6 +4809,8 @@ export const ApprovalActionScalarFieldEnum = {
   approverId: 'approverId',
   action: 'action',
   comments: 'comments',
+  signatureStorageKey: 'signatureStorageKey',
+  signatureMimeType: 'signatureMimeType',
   createdAt: 'createdAt'
 } as const
 
@@ -4835,12 +4916,27 @@ export type RepairStatusLogScalarFieldEnum = (typeof RepairStatusLogScalarFieldE
 export const RepairSlaScalarFieldEnum = {
   id: 'id',
   repairCaseId: 'repairCaseId',
+  targetHours: 'targetHours',
   dueAt: 'dueAt',
   completedAt: 'completedAt',
-  isBreached: 'isBreached'
+  isBreached: 'isBreached',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type RepairSlaScalarFieldEnum = (typeof RepairSlaScalarFieldEnum)[keyof typeof RepairSlaScalarFieldEnum]
+
+
+export const RepairSlaPolicyScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  targetHours: 'targetHours',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RepairSlaPolicyScalarFieldEnum = (typeof RepairSlaPolicyScalarFieldEnum)[keyof typeof RepairSlaPolicyScalarFieldEnum]
 
 
 export const NotificationEventScalarFieldEnum = {
@@ -5804,6 +5900,7 @@ export type GlobalOmitConfig = {
   repairVisit?: Prisma.RepairVisitOmit
   repairStatusLog?: Prisma.RepairStatusLogOmit
   repairSla?: Prisma.RepairSlaOmit
+  repairSlaPolicy?: Prisma.RepairSlaPolicyOmit
   notificationEvent?: Prisma.NotificationEventOmit
   customer?: Prisma.CustomerOmit
   customerContact?: Prisma.CustomerContactOmit

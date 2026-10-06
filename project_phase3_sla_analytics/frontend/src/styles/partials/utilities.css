@@ -1,0 +1,120 @@
+/* =========================
+   Project utilities & shared components
+   (Keep this file small and intentional.)
+   ========================= */
+
+@layer base {
+  body {
+    @apply relative z-1 bg-gray-50 text-base font-normal font-outfit dark:bg-black;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+      max-height: 0;
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      max-height: 500px;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+      max-height: 500px;
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-8px);
+      max-height: 0;
+    }
+  }
+}
+
+/* TailAdmin-style menu utilities (used by Sidebar/Nav) */
+@layer utilities {
+  .menu-item {
+    @apply relative flex items-center gap-3 rounded-lg px-3 py-2 text-theme-sm font-medium;
+  }
+  .menu-item-active {
+    @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  }
+  .menu-item-inactive {
+    @apply text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-gray-300;
+  }
+  .menu-item-arrow {
+    @apply absolute top-1/2 left-2.5 -translate-y-1/2;
+  }
+
+  .menu-dropdown {
+    @apply overflow-hidden;
+  }
+
+  .menu-dropdown.open {
+    animation: slideDown 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .menu-dropdown.closed {
+    animation: slideUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .menu-dropdown-item {
+    @apply relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-theme-sm font-medium;
+  }
+  .menu-dropdown-item-active {
+    @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  }
+  .menu-dropdown-item-inactive {
+    @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5;
+  }
+  .menu-dropdown-badge {
+    @apply block rounded-full px-2.5 py-0.5 text-xs font-medium uppercase text-brand-500 dark:text-brand-400;
+  }
+  .menu-dropdown-badge-inactive {
+    @apply bg-brand-50 group-hover:bg-brand-100 dark:bg-brand-500/15 dark:group-hover:bg-brand-500/20;
+  }
+
+  .no-scrollbar {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .custom-scrollbar {
+    &::-webkit-scrollbar {
+      @apply size-1.5;
+    }
+    &::-webkit-scrollbar-track {
+      @apply rounded-full;
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-full bg-gray-200;
+    }
+  }
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-700);
+}
+
+/* Remove date/time picker icons (optional) */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Checkbox helper used by some TailAdmin tables */
+.tableCheckbox:checked ~ span span {
+  @apply opacity-100;
+}
+.tableCheckbox:checked ~ span {
+  @apply border-brand-500 bg-brand-500;
+}

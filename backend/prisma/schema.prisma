@@ -401,6 +401,7 @@ model Form {
   schema      Json
   version     Int     @default(1)
   isActive    Boolean @default(true)
+  slaHours    Int?
 
   submissions FormSubmission[]
   stats       FormStat[]
@@ -634,6 +635,7 @@ model ApprovalStep {
   roleId          String
   role            Role             @relation(fields: [roleId], references: [id])
   createdAt       DateTime         @default(now())
+  slaHours        Int?
   approvalActions ApprovalAction[]
 
   @@unique([policyId, stepOrder])
@@ -741,8 +743,8 @@ model RepairCase {
 
   parts      RepairItem[]
   statusLogs RepairStatusLog[]
+  sla        RepairSla?
   // notificationEvents NotificationEvent[]
-  // sla RepairSla?
 }
 
 model RepairItem {
@@ -848,12 +850,26 @@ model RepairSla {
   id String @id @default(uuid())
 
   repairCaseId String @unique
+  repairCase   RepairCase @relation(fields: [repairCaseId], references: [id], onDelete: Cascade)
 
+  targetHours Int
   dueAt DateTime
 
   completedAt DateTime?
 
   isBreached Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RepairSlaPolicy {
+  id          String     @id @default(uuid())
+  type        RepairType @unique
+  targetHours Int
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model NotificationEvent {
