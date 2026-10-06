@@ -46,25 +46,25 @@ services:
       retries: 15
       start_period: 30s
 
-  ollama:
-    image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
-    restart: always
+  # ollama:
+  #   image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
+  #   restart: always
 
-    volumes:
-      - ollama_prod_data:/root/.ollama
+  #   volumes:
+  #     - ollama_prod_data:/root/.ollama
 
-    networks:
-      - internal
-      - public
+  #   networks:
+  #     - internal
+  #     - public
 
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 15s
-      timeout: 10s
-      retries: 20
-      start_period: 30s
+  #   healthcheck:
+  #     test: ["CMD", "ollama", "list"]
+  #     interval: 15s
+  #     timeout: 10s
+  #     retries: 20
+  #     start_period: 30s
 
-  ollama-init:
+  # ollama-init:
     image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
     restart: "no"
 
@@ -157,8 +157,8 @@ services:
       AI_ANALYTICS_INCLUDE_IDENTIFIERS: ${AI_ANALYTICS_INCLUDE_IDENTIFIERS:-false}
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
       OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b}
-    ports:
-      - "0.0.0.0:${BACKEND_PORT:-3000}:3000"
+    expose:
+      - "3000"
     volumes:
       - communication_uploads:/app/uploads/communication
       - signature_uploads:/app/uploads/signatures
@@ -313,30 +313,30 @@ services:
       PORT: 3001
       HOSTNAME: 0.0.0.0
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-    ports:
-      - "0.0.0.0:${FRONTEND_PORT:-3001}:3001"
+    expose:
+      - "3001"
     networks: [public]
     security_opt:
       - no-new-privileges:true
 
-  form-analytics-worker:
-    build:
-      context: ./analytics
-      target: prod
-    restart: always
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-      rabbitmq:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
-      LOG_LEVEL: ${LOG_LEVEL:-INFO}
-    command: ["python", "src/worker.py"]
-    networks: [internal]
-    security_opt:
-      - no-new-privileges:true
+  # form-analytics-worker:
+  #   build:
+  #     context: ./analytics
+  #     target: prod
+  #   restart: always
+  #   depends_on:
+  #     migrate:
+  #       condition: service_completed_successfully
+  #     rabbitmq:
+  #       condition: service_healthy
+  #   environment:
+  #     DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+  #     RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
+  #     LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  #   command: ["python", "src/worker.py"]
+  #   networks: [internal]
+  #   security_opt:
+  #     - no-new-privileges:true
 
   crm-ai-worker:
     build:
