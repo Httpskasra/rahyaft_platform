@@ -1,1 +1,0 @@
-export const IR_PHONE_REGEX = /^09[0-9]{9}$/;
