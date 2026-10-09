@@ -3,11 +3,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
-  CheckCircle, CheckSquare, Clock, History, Loader2, XCircle,
+  CheckCircle,
+  CheckSquare,
+  Clock,
+  History,
+  Loader2,
+  XCircle,
 } from "lucide-react";
-import {
-  approvalsApi, type ApprovalInstanceStatus,
-} from "@/lib/api/approvals";
+import { approvalsApi, type ApprovalInstanceStatus } from "@/lib/api/approvals";
 import { cn } from "@/lib/cn";
 
 export function ApprovalStatusModal({
@@ -181,7 +184,9 @@ export function ApprovalStatusModal({
                       </div>
                       {isCompleted && action.signatureDataUrl && (
                         <div className="mt-3 rounded-lg border border-dashed border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
-                          <p className="mb-1 text-[10px] text-gray-400">امضای ثبت‌شده در زمان اقدام</p>
+                          <p className="mb-1 text-[10px] text-gray-400">
+                            امضای ثبت‌شده در زمان اقدام
+                          </p>
                           <img
                             src={action.signatureDataUrl}
                             alt={`امضای ${action.approver.name}`}

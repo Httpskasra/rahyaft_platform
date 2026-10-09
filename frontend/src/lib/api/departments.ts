@@ -60,10 +60,31 @@ export interface OrganizationChartResponse {
 
   generatedAt: string;
 }
-export const departmentsApi = {
-  findAll: () => apiClient.get("/departments"),
+export interface DepartmentChild {
+  id: string;
+  name: string;
+}
 
-  findOne: (id: string) => apiClient.get(`/departments/${id}`),
+export interface DepartmentRelation {
+  id: string;
+  fromDepartmentId: string;
+  toDepartmentId: string;
+  type: DepartmentRelationType;
+  toDepartment: { id: string; name: string };
+}
+
+export interface Department {
+  id: string;
+  name: string;
+  parentId: string | null;
+  createdAt: string;
+  children: DepartmentChild[];
+  outgoingRelations: DepartmentRelation[];
+}
+export const departmentsApi = {
+  findAll: () => apiClient.get<Department[]>("/departments"),
+
+  findOne: (id: string) => apiClient.get<Department>(`/departments/${id}`),
 
   create: (body: { name: string; parentId?: string }) =>
     apiClient.post("/departments", body),
