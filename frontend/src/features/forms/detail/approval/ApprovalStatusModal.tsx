@@ -178,7 +178,7 @@ export function ApprovalStatusModal({
                                 "fa-IR",
                               )}
                             </p>
-                            <p>توسط: {action.approver.name}</p>
+                            <p>توسط: {action.approver?.name ?? "نامشخص"}</p>
                           </div>
                         )}
                       </div>
@@ -189,7 +189,7 @@ export function ApprovalStatusModal({
                           </p>
                           <img
                             src={action.signatureDataUrl}
-                            alt={`امضای ${action.approver.name}`}
+                            alt={`امضای ${action.approver?.name ?? "تأییدکننده"}`}
                             className="h-14 max-w-[180px] object-contain"
                           />
                         </div>

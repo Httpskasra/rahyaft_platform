@@ -15,10 +15,10 @@ export interface ApprovalPolicy {
 
 export interface ApprovalAction {
   id: string;
-  stepId?: string;
+  stepId: string;
   stepOrder?: number;
-  approverId?: string;
-  approver?: { id: string; name: string; phoneNumber: string };
+  approverId: string;
+  approver: { id: string; name: string; phoneNumber: string };
   action: "APPROVED" | "REJECTED";
   comments: string | null;
   signatureDataUrl?: string | null;
