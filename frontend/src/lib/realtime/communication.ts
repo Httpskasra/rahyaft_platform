@@ -8,7 +8,16 @@ class CommunicationSocketClient {
   private manualClose = false;
   connected = false;
   private url() {
-    const source = process.env.NEXT_PUBLIC_SOCKET_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000/api/v1";
+    const source = process.env.NEXT_PUBLIC_SOCKET_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
+
+    // Same-origin production setup (for example NEXT_PUBLIC_API_URL=/api/v1).
+    // Build the WebSocket URL from the browser origin so it also works through
+    // Nginx / Cloudflare without knowing the public hostname at build time.
+    if (source.startsWith("/")) {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      return `${protocol}//${window.location.host}/communication-ws`;
+    }
+
     const base = source.replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
     return `${base.replace(/^http:/, "ws:").replace(/^https:/, "wss:")}/communication-ws`;
   }
