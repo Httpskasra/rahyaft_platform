@@ -1,0 +1,1 @@
+From Cloudflare > SSL/TLS > Origin Server, create Origin certificate for httpskasra.ir and *.httpskasra.ir. Save certificate to origin.pem and private key to origin.key. NEVER commit private key.

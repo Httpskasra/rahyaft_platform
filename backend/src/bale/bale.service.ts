@@ -8,7 +8,7 @@ export class BaleService {
 
   constructor(private readonly config: ConfigService) {
     const token = this.config.get<string>('BALE_BOT_TOKEN');
-    this.logger.log(`Bale token: ${token}`); // log test
+    if (!token) this.logger.warn("BALE_BOT_TOKEN is not configured");
     this.baseUrl = `https://tapi.bale.ai/bot${token}`;
   }
 
