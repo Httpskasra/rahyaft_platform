@@ -42,3 +42,8 @@ Thumbs.db
 *.zip
 uploads/
 *.md
+# Deployment secrets / TLS
+.env.production
+.env.test
+certbot/conf/
+certbot/www/
