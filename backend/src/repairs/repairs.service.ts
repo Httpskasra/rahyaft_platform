@@ -10,6 +10,7 @@ import { RepairCaseNumberService } from './services/repair-case-number.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { RepairStatus, RepairType, ScopeType } from 'src/generated/prisma/enums';
 import { AuthenticatedUser } from 'src/common/interfaces/auth.interface';
+import { NotificationsService } from '../notifications/notifications.service';
 
 // شکلی که PermissionGuard روی request.matchedPermission می‌گذارد
 // (همان RolePermission منطبق‌شده، شامل scope و relationType)
@@ -25,6 +26,7 @@ export class RepairsService {
     private readonly prisma: PrismaService,
     private readonly caseNumberService: RepairCaseNumberService,
     private readonly statusService: RepairStatusService,
+    private readonly notifications: NotificationsService,
   ) {}
 private readonly completedStatuses: RepairStatus[] = [
   RepairStatus.CLOSED,
@@ -569,19 +571,15 @@ private readonly completedStatuses: RepairStatus[] = [
       throw new NotFoundException('Technician not found');
     }
 
-    return this.prisma.repairCase.update({
-      where: {
-        id: repairId,
-      },
-
-      data: {
-        technicianId: dto.technicianId,
-      },
-
-      include: {
-        technician: true,
-      },
+    const updated = await this.prisma.repairCase.update({
+      where: { id: repairId }, data: { technicianId: dto.technicianId }, include: { technician: true },
     });
+    await this.notifications.create({
+      userId: dto.technicianId, type: 'REPAIR_ASSIGNED', category: 'REPAIRS', title: 'تعمیر جدید به شما ارجاع شد',
+      body: `${repair.caseNumber} — ${repair.deviceTitle}`, href: `/dashboard/repairs?repairId=${repairId}`,
+      entityType: 'REPAIR', entityId: repairId,
+    });
+    return updated;
   }
 
   async changeStatus(
@@ -604,7 +602,7 @@ private readonly completedStatuses: RepairStatus[] = [
     // 1. Validate State Machine
     this.statusService.validateTransition(repair.status, newStatus);
 
-    return this.prisma.$transaction(async (tx) => {
+    const updatedRepair = await this.prisma.$transaction(async (tx) => {
       // 2. Update Repair
       const updated = await tx.repairCase.update({
         where: { id: repairId },
@@ -657,6 +655,14 @@ private readonly completedStatuses: RepairStatus[] = [
 
       return updated;
     });
+    if (repair.technicianId && repair.technicianId !== user.id) {
+      await this.notifications.create({
+        userId: repair.technicianId, type: 'REPAIR_STATUS_CHANGED', category: 'REPAIRS', title: 'وضعیت تعمیر تغییر کرد',
+        body: `${repair.caseNumber}: ${repair.status} ← ${newStatus}`, href: `/dashboard/repairs?repairId=${repairId}`,
+        entityType: 'REPAIR', entityId: repairId, actorId: user.id, metadata: { oldStatus: repair.status, newStatus },
+      });
+    }
+    return updatedRepair;
   }
 
   async getSlaPolicies() {

@@ -30,6 +30,31 @@ const ACTION_LABELS: Record<string, string> = { create: "ایجاد", read: "م�
 export function getResourceLabel(r: string) { return RESOURCE_LABELS[r] ?? r; }
 export function getActionLabel(a: string) { return ACTION_LABELS[a] ?? a; }
 
+/** Visual styles for permission action badges. */
+export function getActionColor(action: string): {
+  bg: string;
+  text: string;
+  darkBg: string;
+  darkText: string;
+  dot: string;
+} {
+  switch (action) {
+    case "read":
+      return { bg: "bg-blue-50", text: "text-blue-700", darkBg: "dark:bg-blue-500/10", darkText: "dark:text-blue-300", dot: "bg-blue-500" };
+    case "create":
+      return { bg: "bg-emerald-50", text: "text-emerald-700", darkBg: "dark:bg-emerald-500/10", darkText: "dark:text-emerald-300", dot: "bg-emerald-500" };
+    case "update":
+      return { bg: "bg-amber-50", text: "text-amber-700", darkBg: "dark:bg-amber-500/10", darkText: "dark:text-amber-300", dot: "bg-amber-500" };
+    case "delete":
+      return { bg: "bg-red-50", text: "text-red-700", darkBg: "dark:bg-red-500/10", darkText: "dark:text-red-300", dot: "bg-red-500" };
+    case "approve":
+      return { bg: "bg-violet-50", text: "text-violet-700", darkBg: "dark:bg-violet-500/10", darkText: "dark:text-violet-300", dot: "bg-violet-500" };
+    default:
+      return { bg: "bg-gray-100", text: "text-gray-700", darkBg: "dark:bg-gray-700", darkText: "dark:text-gray-200", dot: "bg-gray-400" };
+  }
+}
+
+
 export const SCOPE_LABELS: Record<ScopeType, string> = {
   SELF: "فقط اطلاعات خودش",
   TEAM: "تیم خودش",

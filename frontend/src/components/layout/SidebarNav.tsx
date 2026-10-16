@@ -22,6 +22,7 @@ import {
   LucideCalendarClock,
   MessageSquare,
   Factory,
+  Bell,
   // PieChart,
 } from "lucide-react";
 import { usePermission } from "@/hooks/usePermission";
@@ -170,6 +171,12 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
         <MenuGroupTitle collapsed={collapsed} title={t.common.menu} />
 
         <ul className="mb-6 flex flex-col gap-4">
+          <li>
+            <Link href="/dashboard/notifications" className={["menu-item group", isActive("/dashboard/notifications") ? "menu-item-active" : "menu-item-inactive"].join(" ")}>
+              <Bell size={20} />
+              <span className={collapsed ? "lg:hidden" : ""}>اعلان‌ها</span>
+            </Link>
+          </li>
           {canReadProduction && (
             <li>
               <Link

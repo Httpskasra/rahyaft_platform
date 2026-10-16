@@ -31,6 +31,7 @@ import { RecruitmentModule } from './recruitment/recruitment.module';
 import { CommunicationModule } from './communication/communication.module';
 import { ProductionModule } from './production/production.module';
 import { AnalyticsAiModule } from './analytics-ai/analytics-ai.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { AnalyticsAiModule } from './analytics-ai/analytics-ai.module';
     CommunicationModule,
     ProductionModule,
     AnalyticsAiModule,
+    NotificationsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

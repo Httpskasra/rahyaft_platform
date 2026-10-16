@@ -17,6 +17,7 @@ export class BaleService {
 
     const res = await fetch(`${this.baseUrl}/sendMessage`, {
       method: 'POST',
+      signal: AbortSignal.timeout(12000),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         chat_id: baleChatId,
@@ -26,7 +27,7 @@ export class BaleService {
     });
 
     const data = (await res.json()) as { ok: boolean; description?: string };
-    if (!data.ok) {
+    if (!res.ok || !data.ok) {
       this.logger.error(`Bale sendMessage failed: ${data.description}`);
       throw new Error(`Bale API error: ${data.description}`);
     }
@@ -37,13 +38,14 @@ export class BaleService {
   async sendMessage(chatId: string, text: string): Promise<void> {
     const res = await fetch(`${this.baseUrl}/sendMessage`, {
       method: 'POST',
+      signal: AbortSignal.timeout(12000),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: chatId, text }),
     });
 
     const data = (await res.json()) as { ok: boolean; description?: string };
 
-    if (!data.ok) {
+    if (!res.ok || !data.ok) {
       this.logger.error(`Bale sendMessage failed: ${data.description}`);
       throw new Error(`Bale API error: ${data.description}`);
     }

@@ -4,8 +4,9 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { AlignJustify, Bell, Info, LogOut, Moon, Sun } from "lucide-react";
+import { AlignJustify, Info, LogOut, Moon, Sun } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { NotificationBell } from "@/components/layout/NotificationBell";
 export function HorizonHeader({
   onOpenSidenavAction,
   brandText,
@@ -60,12 +61,7 @@ export function HorizonHeader({
         </button>
 
         {/* Icons */}
-        <button
-          type="button"
-          className="rounded-full p-2 text-indigo-600 hover:bg-indigo-100 dark:text-zinc-300 dark:hover:bg-white/10"
-          aria-label="اطلاعات">
-          <Bell className="h-4 w-4" />
-        </button>
+        <NotificationBell />
 
         <button
           type="button"

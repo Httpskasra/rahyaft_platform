@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { FormSubmissionsService } from '../form-submissions/form-submissions.service';
 import type { AuthenticatedUser } from '../common/interfaces/auth.interface';
+import { NotificationsService } from '../notifications/notifications.service';
 import {
   CreateProductionFlowDto,
   ReviewProductionQcDto,
@@ -38,6 +39,7 @@ export class ProductionService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly submissions: FormSubmissionsService,
+    private readonly notifications: NotificationsService,
   ) {}
 
   private ensureUniqueOrders(steps: { stepOrder: number }[]) {
@@ -224,7 +226,7 @@ export class ProductionService {
       if (duplicate) throw new BadRequestException('این شماره سریال قبلاً در تولید ثبت شده است');
     }
     const referenceNo = await this.nextReferenceNo();
-    return this.prisma.productionRun.create({
+    const run = await this.prisma.productionRun.create({
       data: {
         flowId,
         title: dto.title,
@@ -268,6 +270,15 @@ export class ProductionService {
       },
       include: this.runInclude(),
     });
+    const firstStep = run.steps.find((step) => step.stepOrder === 1);
+    if (firstStep) {
+      await this.notifications.create({
+        userId: firstStep.assigneeUserId, type: 'PRODUCTION_STEP_ASSIGNED', category: 'PRODUCTION',
+        title: 'مرحله تولید جدید به شما تخصیص داده شد', body: `${run.referenceNo} — ${firstStep.name}`,
+        href: `/dashboard/production/runs/${run.id}`, entityType: 'PRODUCTION_RUN', entityId: run.id, actorId: user.id,
+      });
+    }
+    return run;
   }
 
   async listRuns(filters?: { q?: string; status?: string; flowId?: string; qcStatus?: string }) {
@@ -393,7 +404,11 @@ export class ProductionService {
         completedAt: nextStatus === 'COMPLETED' ? new Date() : null,
       },
     });
-    if (nextStatus === 'COMPLETED') await this.advanceRun(runId, step.stepOrder);
+    if (nextStatus === 'WAITING_SUPERVISOR' && step.supervisorUserId) {
+      await this.notifications.create({ userId: step.supervisorUserId, type: 'PRODUCTION_WAITING_SUPERVISOR', category: 'PRODUCTION', title: 'مرحله تولید منتظر بررسی شماست', body: step.name, href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId: user.id });
+    } else if (nextStatus === 'WAITING_APPROVAL' && step.approverUserId) {
+      await this.notifications.create({ userId: step.approverUserId, type: 'PRODUCTION_WAITING_APPROVAL', category: 'PRODUCTION', title: 'مرحله تولید منتظر تأیید شماست', body: step.name, href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId: user.id });
+    } else if (nextStatus === 'COMPLETED') await this.advanceRun(runId, step.stepOrder, user.id);
     return this.getRun(runId);
   }
 
@@ -413,13 +428,16 @@ export class ProductionService {
         where: { id: step.id },
         data: { status: 'NEEDS_REVISION', submissionId: null, submittedAt: null, completedAt: null },
       });
+      await this.notifications.create({ userId: step.assigneeUserId, type: 'PRODUCTION_NEEDS_REVISION', category: 'PRODUCTION', title: 'مرحله تولید برای اصلاح برگشت خورد', body: dto.comment || step.name, href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId: user.id });
       return this.getRun(runId);
     }
     if (isSupervisor && step.approverUserId) {
       await this.prisma.productionRunStep.update({ where: { id: step.id }, data: { status: 'WAITING_APPROVAL' } });
+      await this.notifications.create({ userId: step.approverUserId, type: 'PRODUCTION_WAITING_APPROVAL', category: 'PRODUCTION', title: 'مرحله تولید منتظر تأیید شماست', body: step.name, href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId: user.id });
     } else {
       await this.prisma.productionRunStep.update({ where: { id: step.id }, data: { status: 'COMPLETED', completedAt: new Date() } });
-      await this.advanceRun(runId, step.stepOrder);
+      await this.notifications.create({ userId: step.assigneeUserId, type: 'PRODUCTION_STEP_APPROVED', category: 'PRODUCTION', title: 'مرحله تولید شما تأیید شد', body: step.name, href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId: user.id });
+      await this.advanceRun(runId, step.stepOrder, user.id);
     }
     return this.getRun(runId);
   }
@@ -448,6 +466,11 @@ export class ProductionService {
         ...(lastStep ? [this.prisma.productionRunStep.update({ where: { id: lastStep.id }, data: { status: 'NEEDS_REVISION', completedAt: null } })] : []),
       ]);
     }
+    await this.notifications.create({
+      userId: run.startedById, type: dto.status === 'PASSED' ? 'PRODUCTION_QC_PASSED' : 'PRODUCTION_QC_FAILED', category: 'PRODUCTION',
+      title: dto.status === 'PASSED' ? 'QC محصول تأیید شد' : 'QC محصول رد شد', body: dto.notes || undefined,
+      href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId: user.id,
+    });
     return this.getRun(runId);
   }
 
@@ -467,19 +490,21 @@ export class ProductionService {
     return step;
   }
 
-  private async advanceRun(runId: string, completedOrder: number) {
+  private async advanceRun(runId: string, completedOrder: number, actorId?: string) {
     const next = await this.prisma.productionRunStep.findFirst({ where: { runId, stepOrder: completedOrder + 1 } });
     if (next) {
       await this.prisma.$transaction([
         this.prisma.productionRunStep.update({ where: { id: next.id }, data: { status: 'READY' } }),
         this.prisma.productionRun.update({ where: { id: runId }, data: { currentStepOrder: next.stepOrder } }),
       ]);
+      await this.notifications.create({ userId: next.assigneeUserId, type: 'PRODUCTION_STEP_ASSIGNED', category: 'PRODUCTION', title: 'مرحله بعدی تولید آماده انجام است', body: next.name, href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId });
       return;
     }
     const run = await this.prisma.productionRun.findUnique({ where: { id: runId } });
     if (!run) return;
     if (run.qcStatus !== 'NOT_REQUIRED') {
       await this.prisma.productionRun.update({ where: { id: runId }, data: { status: 'IN_PROGRESS', currentStepOrder: null, qcStatus: 'PENDING', completedAt: null } });
+      if (run.qcAssigneeId) await this.notifications.create({ userId: run.qcAssigneeId, type: 'PRODUCTION_QC_PENDING', category: 'PRODUCTION', title: 'محصول منتظر QC نهایی شماست', href: `/dashboard/production/runs/${runId}`, entityType: 'PRODUCTION_RUN', entityId: runId, actorId });
       return;
     }
     await this.prisma.productionRun.update({ where: { id: runId }, data: { status: 'COMPLETED', currentStepOrder: null, completedAt: new Date() } });

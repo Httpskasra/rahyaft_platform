@@ -95,6 +95,7 @@ model User {
   threadActivities              ThreadActivity[]
   threadMentions                ThreadMention[]
   threadNotifications           CommunicationNotification[]
+  notifications                 AppNotification[]
   threadAttachments             ThreadAttachment[]
   threadEntityLinks             ThreadEntityLink[]
   productionFlowsCreated        ProductionFlow[]            @relation("ProductionFlowCreator")
@@ -317,6 +318,35 @@ model CommunicationNotification {
 
   @@index([userId, readAt, createdAt])
   @@index([threadId, createdAt])
+}
+
+
+model AppNotification {
+  id         String    @id @default(uuid())
+  userId     String
+  type       String
+  category   String
+  title      String
+  body       String?
+  href       String?
+  entityType String?
+  entityId   String?
+  actorId    String?
+  metadata   Json?
+  readAt     DateTime?
+  createdAt  DateTime  @default(now())
+  baleStatus String    @default("PENDING") // PENDING, SENDING, SENT, SKIPPED, FAILED
+  baleAttempts Int     @default(0)
+  baleNextAttemptAt DateTime @default(now())
+  baleSentAt DateTime?
+  baleLastError String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt, createdAt])
+  @@index([userId, category, createdAt])
+  @@index([entityType, entityId])
+  @@index([baleStatus, baleNextAttemptAt])
 }
 
 model ThreadActivity {

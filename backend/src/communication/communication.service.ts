@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CommunicationRealtimeService } from './communication.realtime.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import type {
   AuthenticatedUser,
   PermissionEntry,
@@ -43,7 +44,7 @@ const detailMessageLimit = 30;
 
 @Injectable()
 export class CommunicationService {
-  constructor(private readonly prisma: PrismaService, private readonly realtime: CommunicationRealtimeService) {}
+  constructor(private readonly prisma: PrismaService, private readonly realtime: CommunicationRealtimeService, private readonly notifications: NotificationsService) {}
 
   listPeople() {
     return this.prisma.user.findMany({
@@ -157,6 +158,9 @@ export class CommunicationService {
       }
       return thread.id;
     });
+    if (assigneeIds.length) await this.createNotifications(assigneeIds, threadId, 'ASSIGNMENT', 'یک گفتگوی جدید به شما ارجاع شد', dto.title.trim());
+    const participantOnly = participantIds.filter((id) => !assigneeIds.includes(id));
+    if (participantOnly.length) await this.createNotifications(participantOnly, threadId, 'THREAD_ADDED', 'به یک گفتگوی جدید اضافه شدید', dto.title.trim());
     const detail = await this.getThreadInternal(threadId);
     await this.broadcastThreadChanged(threadId, 'communication:thread.created', detail);
     return detail;
@@ -428,6 +432,7 @@ export class CommunicationService {
         },
       });
     });
+    await this.createNotifications([dto.userId], id, 'THREAD_ADDED', 'به یک گفتگو اضافه شدید');
     const detail = await this.getThreadInternal(id);
     await this.broadcastThreadChanged(id, 'communication:thread.updated', detail);
     return detail;
@@ -576,6 +581,10 @@ export class CommunicationService {
   private async createNotifications(userIds: string[], threadId: string, type: string, title: string, body?: string) {
     const unique = [...new Set(userIds)]; if (!unique.length) return;
     await this.prisma.communicationNotification.createMany({ data: unique.map((userId) => ({ userId, threadId, type, title, body: body?.slice(0, 240) })) });
+    await this.notifications.notifyUsers(unique, {
+      type: `COMMUNICATION_${type}`, category: 'COMMUNICATION', title, body: body?.slice(0, 240),
+      href: `/dashboard/communications?threadId=${threadId}`, entityType: 'THREAD', entityId: threadId,
+    });
     this.realtime.emitToUsers(unique, 'communication:notification.created', { threadId, type, title });
   }
 

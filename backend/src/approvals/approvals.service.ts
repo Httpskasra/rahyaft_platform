@@ -18,10 +18,11 @@ import { AuthenticatedUser } from '../common/interfaces/auth.interface';
 import { copyFile, mkdir, readFile } from 'node:fs/promises';
 import { extname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class ApprovalsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly notifications: NotificationsService) {}
 
   // ─────────────────────────────────────────────
   // Policy Management (for form owners/admins)
@@ -311,7 +312,7 @@ export class ApprovalsService {
     const instance = await this.prisma.approvalInstance.findUnique({
       where: { submissionId },
       include: {
-        submission: { select: { formId: true } },
+        submission: { select: { formId: true, userId: true, form: { select: { name: true } } } },
         actions: {
           include: {
             step: { include: { role: true } },
@@ -362,7 +363,7 @@ export class ApprovalsService {
     const instance = await this.prisma.approvalInstance.findUnique({
       where: { submissionId },
       include: {
-        submission: { select: { formId: true } },
+        submission: { select: { formId: true, userId: true, form: { select: { name: true } } } },
         actions: { include: { step: true } },
       },
     });
@@ -432,6 +433,11 @@ export class ApprovalsService {
         where: { id: instance.id },
         data: { status: 'REJECTED', currentStepOrder: null },
       });
+      if (instance.submission.userId) await this.notifications.create({
+        userId: instance.submission.userId, type: 'FORM_REJECTED', category: 'APPROVALS',
+        title: 'فرم شما رد شد', body: `${instance.submission.form.name}${dto.comments ? ` — ${dto.comments}` : ''}`,
+        href: '/dashboard/forms/my-submissions', entityType: 'FORM_SUBMISSION', entityId: submissionId, actorId: user.id,
+      });
       return { message: 'Submission rejected', action };
     }
 
@@ -449,6 +455,11 @@ export class ApprovalsService {
         where: { id: instance.id },
         data: { status: 'APPROVED', currentStepOrder: null },
       });
+      if (instance.submission.userId) await this.notifications.create({
+        userId: instance.submission.userId, type: 'FORM_APPROVED', category: 'APPROVALS',
+        title: 'فرم شما تأیید نهایی شد', body: instance.submission.form.name, href: '/dashboard/forms/my-submissions',
+        entityType: 'FORM_SUBMISSION', entityId: submissionId, actorId: user.id,
+      });
       return { message: 'Submission fully approved', action };
     }
 
@@ -456,6 +467,11 @@ export class ApprovalsService {
     await this.prisma.approvalInstance.update({
       where: { id: instance.id },
       data: { currentStepOrder: nextStep.stepOrder },
+    });
+    await this.notifications.notifyUsersByRoleIds([nextStep.roleId], {
+      type: 'FORM_WAITING_APPROVAL', category: 'APPROVALS', title: 'فرم منتظر تأیید شماست',
+      body: instance.submission.form.name, href: '/dashboard/approvals',
+      entityType: 'FORM_SUBMISSION', entityId: submissionId, actorId: user.id,
     });
 
     return {
@@ -518,12 +534,15 @@ export class ApprovalsService {
     const firstStepOrder = policy.steps[0]?.stepOrder;
     if (!firstStepOrder) return null;
 
-    return this.prisma.approvalInstance.create({
-      data: {
-        submissionId,
-        currentStepOrder: firstStepOrder,
-        status: 'PENDING',
-      },
+    const instance = await this.prisma.approvalInstance.create({
+      data: { submissionId, currentStepOrder: firstStepOrder, status: 'PENDING' },
     });
+    const form = await this.prisma.form.findUnique({ where: { id: formId }, select: { name: true } });
+    await this.notifications.notifyUsersByRoleIds([policy.steps[0].roleId], {
+      type: 'FORM_WAITING_APPROVAL', category: 'APPROVALS', title: 'فرم جدید منتظر تأیید شماست',
+      body: form?.name ?? 'فرم', href: '/dashboard/approvals',
+      entityType: 'FORM_SUBMISSION', entityId: submissionId,
+    });
+    return instance;
   }
 }
