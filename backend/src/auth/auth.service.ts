@@ -80,21 +80,21 @@ export class AuthService {
     await this.redis.del(`${this.OTP_ATTEMPT_PREFIX}${phoneNumber}`);
 
     // 6. send OTP on Bale //mehrak
-    // const userWithChat = await this.prisma.user.findUnique({
-    //   where: { phoneNumber },
-    //   select: { baleChatId: true },
-    // });
+    const userWithChat = await this.prisma.user.findUnique({
+      where: { phoneNumber },
+      select: { baleChatId: true },
+    });
 
-    // if (!userWithChat?.baleChatId) {
-    //   throw new BadRequestException({
-    //     statusCode: 400,
-    //     error: 'BALE_NOT_REGISTERED',
-    //     message: 'ربات بله را فعال کنید',
-    //     botUsername: 'platform_rahyaft_bot',
-    //   });
-    // }
+    if (!userWithChat?.baleChatId) {
+      throw new BadRequestException({
+        statusCode: 400,
+        error: 'BALE_NOT_REGISTERED',
+        message: 'ربات بله را فعال کنید',
+        botUsername: 'platform_rahyaft_bot',
+      });
+    }
 
-    // await this.bale.sendOtp(userWithChat.baleChatId, otp);
+    await this.bale.sendOtp(userWithChat.baleChatId, otp);
 
     return { message: 'OTP sent successfully' };
   }
