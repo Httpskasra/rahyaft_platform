@@ -12,6 +12,11 @@ export const rolesApi = {
   rename: (roleId: string, body: { name: string }) =>
     apiClient.patch(`/roles/${roleId}`, body),
 
+  syncPermissions: (
+    roleId: string,
+    body: { permissions: Array<{ action: string; resource: string; scope: string; relationType?: string; constraints?: object }> }
+  ) => apiClient.put(`/roles/${roleId}/permissions`, body),
+
   addPermission: (
     roleId: string,
     body: {

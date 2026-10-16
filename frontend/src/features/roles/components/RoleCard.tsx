@@ -1,6 +1,6 @@
 import { ChevronRight, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { countPermissions } from "./permissionConfig";
+import { countPermissions, getActionLabel, getResourceLabel } from "./permissionConfig";
 import type { Role } from "./types";
 
 export function RoleCard({
@@ -69,7 +69,7 @@ export function RoleCard({
               key={rp.id}
               className="inline-flex items-center rounded-md bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-600 dark:bg-gray-800 dark:text-gray-400"
             >
-              {rp.permission.action}.{rp.permission.resource}
+              {getResourceLabel(rp.permission.resource)} · {getActionLabel(rp.permission.action)}
             </span>
           ))}
           {permCount > 4 && (

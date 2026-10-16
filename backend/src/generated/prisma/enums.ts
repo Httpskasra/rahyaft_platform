@@ -146,6 +146,16 @@ export const ProductionReviewAction = {
 export type ProductionReviewAction = (typeof ProductionReviewAction)[keyof typeof ProductionReviewAction]
 
 
+export const ProductionQcStatus = {
+  NOT_REQUIRED: 'NOT_REQUIRED',
+  PENDING: 'PENDING',
+  PASSED: 'PASSED',
+  FAILED: 'FAILED'
+} as const
+
+export type ProductionQcStatus = (typeof ProductionQcStatus)[keyof typeof ProductionQcStatus]
+
+
 export const ApprovalStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',

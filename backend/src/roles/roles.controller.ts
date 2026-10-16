@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   Patch,
+  Put,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
@@ -17,6 +18,7 @@ import { AssignRoleDto } from './dto/assign-role.dto';
 import { AddPermissionDto } from './dto/add-permission.dto';
 import { RequirePermission } from '../common/decorators/require-permission.decorator';
 import { UpdateRoleDto } from './dto/updtade-role.dto';
+import { SyncPermissionsDto } from './dto/sync-permissions.dto';
 
 @ApiTags('Roles')
 @ApiBearerAuth('access-token')
@@ -43,13 +45,23 @@ export class RolesController {
     return this.rolesService.remove(roleId);
   }
   @Patch(':roleId')
-  @RequirePermission({ action: 'delete', resource: 'roles' })
+  @RequirePermission({ action: 'update', resource: 'roles' })
   update(
     @Param('roleId', ParseUUIDPipe) roleId: string,
     @Body() dto: UpdateRoleDto,
   ) {
     return this.rolesService.update(roleId, dto);
   }
+  /** PUT /roles/:roleId/permissions — replace the role permission set atomically */
+  @Put(':roleId/permissions')
+  @RequirePermission({ action: 'update', resource: 'roles' })
+  syncPermissions(
+    @Param('roleId', ParseUUIDPipe) roleId: string,
+    @Body() dto: SyncPermissionsDto,
+  ) {
+    return this.rolesService.syncPermissions(roleId, dto);
+  }
+
   /** POST /roles/:roleId/permissions — add a permission (with scope) to a role */
   @Post(':roleId/permissions')
   @RequirePermission({ action: 'update', resource: 'roles' })

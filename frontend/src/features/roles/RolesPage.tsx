@@ -6,7 +6,6 @@ import {
   AlertCircle, Pencil, Plus, Search, ShieldCheck, Trash2, Users,
 } from "lucide-react";
 import { rolesApi } from "@/lib/api/roles";
-import { authApi } from "@/lib/api/auth";
 import { Spinner } from "@/components/ui/Spinner";
 import { Modal } from "@/components/ui/Modal";
 import { ToastViewport } from "@/components/ui/ToastViewport";
@@ -26,14 +25,10 @@ import {
   type PermMatrix,
   type Role,
 } from "@/features/roles/components";
+import { PERMISSION_MODULES, ROLE_TEMPLATES, permissionsFromTemplate } from "@/features/roles/components/permissionConfig";
 
 export default function RolesPermissionsPage() {
   const { toasts, show: showToast } = useToast();
-
-  // ── Meta (از /me) ──
-  const [availableResources, setAvailableResources] = useState<string[]>([]);
-  const [availableActions, setAvailableActions] = useState<string[]>([]);
-  const [metaLoading, setMetaLoading] = useState(true);
 
   // ── Data ──
   const [roles, setRoles] = useState<Role[]>([]);
@@ -62,33 +57,12 @@ export default function RolesPermissionsPage() {
 
   // ── Form state ──
   const [newName, setNewName] = useState("");
+  const [selectedTemplateId, setSelectedTemplateId] = useState("empty");
   const [creating, setCreating] = useState(false);
   const [renameDraft, setRenameDraft] = useState("");
   const [renaming, setRenaming] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
-
-  // ── بارگذاری resources و actions از /me ──
-  useEffect(() => {
-    async function loadMeta() {
-      setMetaLoading(true);
-      try {
-        const { data } = await authApi.me();
-        const allPerms = data.roles.flatMap((r) => r.permissions);
-        const resources = [...new Set(allPerms.map((p) => p.resource))];
-        const actions = [...new Set(allPerms.map((p) => p.action))];
-        setAvailableResources(resources);
-        setAvailableActions(actions);
-      } catch {
-        // fallback
-        setAvailableResources(["users", "roles", "departments"]);
-        setAvailableActions(["create", "read", "update", "delete"]);
-      } finally {
-        setMetaLoading(false);
-      }
-    }
-    loadMeta();
-  }, []);
 
   // ── Fetch all roles ──
   const fetchRoles = useCallback(async () => {
@@ -123,11 +97,19 @@ export default function RolesPermissionsPage() {
     setCreating(true);
     try {
       const { data } = await rolesApi.create({ name });
-      const safe: Role = { ...data, permissions: data.permissions ?? [] };
+      let safe: Role = { ...data, permissions: data.permissions ?? [] };
+      const template = ROLE_TEMPLATES.find((item) => item.id === selectedTemplateId);
+      if (template && template.grants.length > 0) {
+        const synced = await rolesApi.syncPermissions(safe.id, {
+          permissions: permissionsFromTemplate(template),
+        });
+        safe = synced.data;
+      }
       setRoles((prev) => [safe, ...prev]);
       setActiveId(safe.id);
       setCreateOpen(false);
       setNewName("");
+      setSelectedTemplateId("empty");
       showToast("success", `نقش «${safe.name}» ایجاد شد`);
     } catch (e: unknown) {
       const msg =
@@ -190,24 +172,16 @@ export default function RolesPermissionsPage() {
     if (!activeRole) return;
     setSaving(true);
     try {
-      const tasks = [];
-      for (const res of availableResources) {
-        for (const act of availableActions) {
-          const key = getPermissionKey(act, res);
-          const state = matrix[key];
-          if (state?.enabled) {
-            tasks.push(
-              rolesApi.addPermission(activeRole.id, {
-                action: act,
-                resource: res,
-                scope: state.scope,
-              })
-            );
-          }
-        }
-      }
-      await Promise.all(tasks);
-      await fetchRoles();
+      const permissions = PERMISSION_MODULES.flatMap((module) =>
+        module.actions.flatMap((act) => {
+          const state = matrix[getPermissionKey(act, module.resource)];
+          return state?.enabled
+            ? [{ action: act, resource: module.resource, scope: state.scope }]
+            : [];
+        })
+      );
+      const { data } = await rolesApi.syncPermissions(activeRole.id, { permissions });
+      setRoles((prev) => prev.map((r) => (r.id === activeRole.id ? data : r)));
       showToast("success", "دسترسی‌ها ذخیره شدند");
     } catch (e: unknown) {
       const msg =
@@ -240,6 +214,7 @@ export default function RolesPermissionsPage() {
           type="button"
           onClick={() => {
             setNewName("");
+            setSelectedTemplateId("empty");
             setCreateOpen(true);
           }}
           className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-brand-600 transition-colors"
@@ -312,10 +287,6 @@ export default function RolesPermissionsPage() {
             <div className="flex h-full min-h-[400px] items-center justify-center">
               <NoSelection />
             </div>
-          ) : metaLoading ? (
-            <div className="flex h-full min-h-[400px] items-center justify-center">
-              <Spinner size={22} />
-            </div>
           ) : (
             <div className="flex flex-col">
               {/* Editor header */}
@@ -366,8 +337,6 @@ export default function RolesPermissionsPage() {
                   role={activeRole}
                   onSave={handleSavePermissions}
                   saving={saving}
-                  resources={availableResources}
-                  actions={availableActions}
                 />
               </div>
 
@@ -409,6 +378,28 @@ export default function RolesPermissionsPage() {
               className="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 placeholder-gray-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:placeholder-gray-500"
             />
           </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">از چه الگویی شروع شود؟</label>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {ROLE_TEMPLATES.map((template) => (
+                <button
+                  key={template.id}
+                  type="button"
+                  onClick={() => setSelectedTemplateId(template.id)}
+                  className={cn(
+                    "rounded-xl border p-3 text-right transition-colors",
+                    selectedTemplateId === template.id
+                      ? "border-brand-400 bg-brand-50 dark:border-brand-600 dark:bg-brand-500/10"
+                      : "border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                  )}
+                >
+                  <span className="block text-sm font-semibold text-gray-800 dark:text-white">{template.title}</span>
+                  <span className="mt-1 block text-xs leading-5 text-gray-500 dark:text-gray-400">{template.description}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="flex justify-end gap-2">
             <button
               type="button"

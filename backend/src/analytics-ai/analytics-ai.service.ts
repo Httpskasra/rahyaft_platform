@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-export type AiAnalyticsSource = 'forms-overview' | 'form' | 'repairs';
+export type AiAnalyticsSource = 'forms-overview' | 'form' | 'repairs' | 'production';
 
 export interface AiAnalyticsResult {
   available: boolean;
@@ -293,6 +293,25 @@ export class AnalyticsAiService {
         })),
         insights: (raw.insights || []).slice(0, 10),
         anomalies: (raw.anomalies || []).slice(0, 10),
+      };
+    }
+    if (source === 'production') {
+      return {
+        range: raw.range,
+        kpis: raw.kpis,
+        trend: raw.trend,
+        statusDistribution: raw.statusDistribution,
+        qcDistribution: raw.qcDistribution,
+        flows: (raw.flows || []).slice(0, 20),
+        bottlenecks: (raw.bottlenecks || []).slice(0, 12),
+        assignees: (raw.assignees || []).slice(0, 20).map((x: any, i: number) => ({
+          label: includeIdentifiers ? x.name : `Operator ${i + 1}`,
+          steps: x.steps, completed: x.completed, revisions: x.revisions,
+        })),
+        recent: (raw.recent || []).slice(0, 12).map((x: any) => ({
+          flow: x.flow, status: x.status, qcStatus: x.qcStatus, startedAt: x.startedAt, completedAt: x.completedAt,
+          ...(includeIdentifiers ? { referenceNo: x.referenceNo, productName: x.productName, serialNumber: x.serialNumber } : {}),
+        })),
       };
     }
     if (source === 'form') {

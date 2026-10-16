@@ -27,10 +27,12 @@ export type AggregateProductionRun = {
 }
 
 export type ProductionRunAvgAggregateOutputType = {
+  quantity: number | null
   currentStepOrder: number | null
 }
 
 export type ProductionRunSumAggregateOutputType = {
+  quantity: number | null
   currentStepOrder: number | null
 }
 
@@ -38,6 +40,12 @@ export type ProductionRunMinAggregateOutputType = {
   id: string | null
   flowId: string | null
   title: string | null
+  productName: string | null
+  productCode: string | null
+  serialNumber: string | null
+  batchNumber: string | null
+  quantity: number | null
+  dueDate: Date | null
   referenceNo: string | null
   status: $Enums.ProductionRunStatus | null
   currentStepOrder: number | null
@@ -45,6 +53,11 @@ export type ProductionRunMinAggregateOutputType = {
   startedAt: Date | null
   completedAt: Date | null
   cancelledAt: Date | null
+  qcStatus: $Enums.ProductionQcStatus | null
+  qcAssigneeId: string | null
+  qcReviewerId: string | null
+  qcNotes: string | null
+  qcReviewedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +66,12 @@ export type ProductionRunMaxAggregateOutputType = {
   id: string | null
   flowId: string | null
   title: string | null
+  productName: string | null
+  productCode: string | null
+  serialNumber: string | null
+  batchNumber: string | null
+  quantity: number | null
+  dueDate: Date | null
   referenceNo: string | null
   status: $Enums.ProductionRunStatus | null
   currentStepOrder: number | null
@@ -60,6 +79,11 @@ export type ProductionRunMaxAggregateOutputType = {
   startedAt: Date | null
   completedAt: Date | null
   cancelledAt: Date | null
+  qcStatus: $Enums.ProductionQcStatus | null
+  qcAssigneeId: string | null
+  qcReviewerId: string | null
+  qcNotes: string | null
+  qcReviewedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,6 +92,12 @@ export type ProductionRunCountAggregateOutputType = {
   id: number
   flowId: number
   title: number
+  productName: number
+  productCode: number
+  serialNumber: number
+  batchNumber: number
+  quantity: number
+  dueDate: number
   referenceNo: number
   status: number
   currentStepOrder: number
@@ -76,6 +106,11 @@ export type ProductionRunCountAggregateOutputType = {
   completedAt: number
   cancelledAt: number
   metadata: number
+  qcStatus: number
+  qcAssigneeId: number
+  qcReviewerId: number
+  qcNotes: number
+  qcReviewedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -83,10 +118,12 @@ export type ProductionRunCountAggregateOutputType = {
 
 
 export type ProductionRunAvgAggregateInputType = {
+  quantity?: true
   currentStepOrder?: true
 }
 
 export type ProductionRunSumAggregateInputType = {
+  quantity?: true
   currentStepOrder?: true
 }
 
@@ -94,6 +131,12 @@ export type ProductionRunMinAggregateInputType = {
   id?: true
   flowId?: true
   title?: true
+  productName?: true
+  productCode?: true
+  serialNumber?: true
+  batchNumber?: true
+  quantity?: true
+  dueDate?: true
   referenceNo?: true
   status?: true
   currentStepOrder?: true
@@ -101,6 +144,11 @@ export type ProductionRunMinAggregateInputType = {
   startedAt?: true
   completedAt?: true
   cancelledAt?: true
+  qcStatus?: true
+  qcAssigneeId?: true
+  qcReviewerId?: true
+  qcNotes?: true
+  qcReviewedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -109,6 +157,12 @@ export type ProductionRunMaxAggregateInputType = {
   id?: true
   flowId?: true
   title?: true
+  productName?: true
+  productCode?: true
+  serialNumber?: true
+  batchNumber?: true
+  quantity?: true
+  dueDate?: true
   referenceNo?: true
   status?: true
   currentStepOrder?: true
@@ -116,6 +170,11 @@ export type ProductionRunMaxAggregateInputType = {
   startedAt?: true
   completedAt?: true
   cancelledAt?: true
+  qcStatus?: true
+  qcAssigneeId?: true
+  qcReviewerId?: true
+  qcNotes?: true
+  qcReviewedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +183,12 @@ export type ProductionRunCountAggregateInputType = {
   id?: true
   flowId?: true
   title?: true
+  productName?: true
+  productCode?: true
+  serialNumber?: true
+  batchNumber?: true
+  quantity?: true
+  dueDate?: true
   referenceNo?: true
   status?: true
   currentStepOrder?: true
@@ -132,6 +197,11 @@ export type ProductionRunCountAggregateInputType = {
   completedAt?: true
   cancelledAt?: true
   metadata?: true
+  qcStatus?: true
+  qcAssigneeId?: true
+  qcReviewerId?: true
+  qcNotes?: true
+  qcReviewedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -227,6 +297,12 @@ export type ProductionRunGroupByOutputType = {
   id: string
   flowId: string
   title: string
+  productName: string
+  productCode: string | null
+  serialNumber: string | null
+  batchNumber: string | null
+  quantity: number
+  dueDate: Date | null
   referenceNo: string
   status: $Enums.ProductionRunStatus
   currentStepOrder: number | null
@@ -235,6 +311,11 @@ export type ProductionRunGroupByOutputType = {
   completedAt: Date | null
   cancelledAt: Date | null
   metadata: runtime.JsonValue | null
+  qcStatus: $Enums.ProductionQcStatus
+  qcAssigneeId: string | null
+  qcReviewerId: string | null
+  qcNotes: string | null
+  qcReviewedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ProductionRunCountAggregateOutputType | null
@@ -266,6 +347,12 @@ export type ProductionRunWhereInput = {
   id?: Prisma.StringFilter<"ProductionRun"> | string
   flowId?: Prisma.StringFilter<"ProductionRun"> | string
   title?: Prisma.StringFilter<"ProductionRun"> | string
+  productName?: Prisma.StringFilter<"ProductionRun"> | string
+  productCode?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  serialNumber?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  batchNumber?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  quantity?: Prisma.IntFilter<"ProductionRun"> | number
+  dueDate?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   referenceNo?: Prisma.StringFilter<"ProductionRun"> | string
   status?: Prisma.EnumProductionRunStatusFilter<"ProductionRun"> | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.IntNullableFilter<"ProductionRun"> | number | null
@@ -274,10 +361,17 @@ export type ProductionRunWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   metadata?: Prisma.JsonNullableFilter<"ProductionRun">
+  qcStatus?: Prisma.EnumProductionQcStatusFilter<"ProductionRun"> | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcReviewerId?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcNotes?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcReviewedAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductionRun"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionRun"> | Date | string
   flow?: Prisma.XOR<Prisma.ProductionFlowScalarRelationFilter, Prisma.ProductionFlowWhereInput>
   startedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  qcAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  qcReviewer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   steps?: Prisma.ProductionRunStepListRelationFilter
 }
 
@@ -285,6 +379,12 @@ export type ProductionRunOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   flowId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  productName?: Prisma.SortOrder
+  productCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  serialNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -293,21 +393,34 @@ export type ProductionRunOrderByWithRelationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcStatus?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcReviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   flow?: Prisma.ProductionFlowOrderByWithRelationInput
   startedBy?: Prisma.UserOrderByWithRelationInput
+  qcAssignee?: Prisma.UserOrderByWithRelationInput
+  qcReviewer?: Prisma.UserOrderByWithRelationInput
   steps?: Prisma.ProductionRunStepOrderByRelationAggregateInput
 }
 
 export type ProductionRunWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  serialNumber?: string
   referenceNo?: string
   AND?: Prisma.ProductionRunWhereInput | Prisma.ProductionRunWhereInput[]
   OR?: Prisma.ProductionRunWhereInput[]
   NOT?: Prisma.ProductionRunWhereInput | Prisma.ProductionRunWhereInput[]
   flowId?: Prisma.StringFilter<"ProductionRun"> | string
   title?: Prisma.StringFilter<"ProductionRun"> | string
+  productName?: Prisma.StringFilter<"ProductionRun"> | string
+  productCode?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  batchNumber?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  quantity?: Prisma.IntFilter<"ProductionRun"> | number
+  dueDate?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   status?: Prisma.EnumProductionRunStatusFilter<"ProductionRun"> | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.IntNullableFilter<"ProductionRun"> | number | null
   startedById?: Prisma.StringFilter<"ProductionRun"> | string
@@ -315,17 +428,30 @@ export type ProductionRunWhereUniqueInput = Prisma.AtLeast<{
   completedAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   metadata?: Prisma.JsonNullableFilter<"ProductionRun">
+  qcStatus?: Prisma.EnumProductionQcStatusFilter<"ProductionRun"> | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcReviewerId?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcNotes?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcReviewedAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductionRun"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionRun"> | Date | string
   flow?: Prisma.XOR<Prisma.ProductionFlowScalarRelationFilter, Prisma.ProductionFlowWhereInput>
   startedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  qcAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  qcReviewer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   steps?: Prisma.ProductionRunStepListRelationFilter
-}, "id" | "referenceNo">
+}, "id" | "serialNumber" | "referenceNo">
 
 export type ProductionRunOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   flowId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  productName?: Prisma.SortOrder
+  productCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  serialNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -334,6 +460,11 @@ export type ProductionRunOrderByWithAggregationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcStatus?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcReviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  qcReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProductionRunCountOrderByAggregateInput
@@ -350,6 +481,12 @@ export type ProductionRunScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ProductionRun"> | string
   flowId?: Prisma.StringWithAggregatesFilter<"ProductionRun"> | string
   title?: Prisma.StringWithAggregatesFilter<"ProductionRun"> | string
+  productName?: Prisma.StringWithAggregatesFilter<"ProductionRun"> | string
+  productCode?: Prisma.StringNullableWithAggregatesFilter<"ProductionRun"> | string | null
+  serialNumber?: Prisma.StringNullableWithAggregatesFilter<"ProductionRun"> | string | null
+  batchNumber?: Prisma.StringNullableWithAggregatesFilter<"ProductionRun"> | string | null
+  quantity?: Prisma.IntWithAggregatesFilter<"ProductionRun"> | number
+  dueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRun"> | Date | string | null
   referenceNo?: Prisma.StringWithAggregatesFilter<"ProductionRun"> | string
   status?: Prisma.EnumProductionRunStatusWithAggregatesFilter<"ProductionRun"> | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.IntNullableWithAggregatesFilter<"ProductionRun"> | number | null
@@ -358,6 +495,11 @@ export type ProductionRunScalarWhereWithAggregatesInput = {
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRun"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRun"> | Date | string | null
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"ProductionRun">
+  qcStatus?: Prisma.EnumProductionQcStatusWithAggregatesFilter<"ProductionRun"> | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.StringNullableWithAggregatesFilter<"ProductionRun"> | string | null
+  qcReviewerId?: Prisma.StringNullableWithAggregatesFilter<"ProductionRun"> | string | null
+  qcNotes?: Prisma.StringNullableWithAggregatesFilter<"ProductionRun"> | string | null
+  qcReviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRun"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionRun"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionRun"> | Date | string
 }
@@ -365,6 +507,12 @@ export type ProductionRunScalarWhereWithAggregatesInput = {
 export type ProductionRunCreateInput = {
   id?: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -372,10 +520,15 @@ export type ProductionRunCreateInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutRunsInput
   startedBy: Prisma.UserCreateNestedOneWithoutProductionRunsStartedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionRunsQcAssignedInput
+  qcReviewer?: Prisma.UserCreateNestedOneWithoutProductionRunsQcReviewedInput
   steps?: Prisma.ProductionRunStepCreateNestedManyWithoutRunInput
 }
 
@@ -383,6 +536,12 @@ export type ProductionRunUncheckedCreateInput = {
   id?: string
   flowId: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -391,6 +550,11 @@ export type ProductionRunUncheckedCreateInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   steps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutRunInput
@@ -399,6 +563,12 @@ export type ProductionRunUncheckedCreateInput = {
 export type ProductionRunUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -406,10 +576,15 @@ export type ProductionRunUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutRunsNestedInput
   startedBy?: Prisma.UserUpdateOneRequiredWithoutProductionRunsStartedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionRunsQcAssignedNestedInput
+  qcReviewer?: Prisma.UserUpdateOneWithoutProductionRunsQcReviewedNestedInput
   steps?: Prisma.ProductionRunStepUpdateManyWithoutRunNestedInput
 }
 
@@ -417,6 +592,12 @@ export type ProductionRunUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flowId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -425,6 +606,11 @@ export type ProductionRunUncheckedUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   steps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutRunNestedInput
@@ -434,6 +620,12 @@ export type ProductionRunCreateManyInput = {
   id?: string
   flowId: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -442,6 +634,11 @@ export type ProductionRunCreateManyInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -449,6 +646,12 @@ export type ProductionRunCreateManyInput = {
 export type ProductionRunUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -456,6 +659,9 @@ export type ProductionRunUpdateManyMutationInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -464,6 +670,12 @@ export type ProductionRunUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flowId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -472,6 +684,11 @@ export type ProductionRunUncheckedUpdateManyInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -490,6 +707,12 @@ export type ProductionRunCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   flowId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  productName?: Prisma.SortOrder
+  productCode?: Prisma.SortOrder
+  serialNumber?: Prisma.SortOrder
+  batchNumber?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   referenceNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrder
@@ -498,11 +721,17 @@ export type ProductionRunCountOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
+  qcStatus?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrder
+  qcReviewerId?: Prisma.SortOrder
+  qcNotes?: Prisma.SortOrder
+  qcReviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProductionRunAvgOrderByAggregateInput = {
+  quantity?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrder
 }
 
@@ -510,6 +739,12 @@ export type ProductionRunMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   flowId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  productName?: Prisma.SortOrder
+  productCode?: Prisma.SortOrder
+  serialNumber?: Prisma.SortOrder
+  batchNumber?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   referenceNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrder
@@ -517,6 +752,11 @@ export type ProductionRunMaxOrderByAggregateInput = {
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
+  qcStatus?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrder
+  qcReviewerId?: Prisma.SortOrder
+  qcNotes?: Prisma.SortOrder
+  qcReviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -525,6 +765,12 @@ export type ProductionRunMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   flowId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  productName?: Prisma.SortOrder
+  productCode?: Prisma.SortOrder
+  serialNumber?: Prisma.SortOrder
+  batchNumber?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   referenceNo?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrder
@@ -532,11 +778,17 @@ export type ProductionRunMinOrderByAggregateInput = {
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
+  qcStatus?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrder
+  qcReviewerId?: Prisma.SortOrder
+  qcNotes?: Prisma.SortOrder
+  qcReviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProductionRunSumOrderByAggregateInput = {
+  quantity?: Prisma.SortOrder
   currentStepOrder?: Prisma.SortOrder
 }
 
@@ -552,10 +804,38 @@ export type ProductionRunCreateNestedManyWithoutStartedByInput = {
   connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
 }
 
+export type ProductionRunCreateNestedManyWithoutQcAssigneeInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionRunCreateWithoutQcAssigneeInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcAssigneeInputEnvelope
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+}
+
+export type ProductionRunCreateNestedManyWithoutQcReviewerInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput> | Prisma.ProductionRunCreateWithoutQcReviewerInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput | Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcReviewerInputEnvelope
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+}
+
 export type ProductionRunUncheckedCreateNestedManyWithoutStartedByInput = {
   create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutStartedByInput, Prisma.ProductionRunUncheckedCreateWithoutStartedByInput> | Prisma.ProductionRunCreateWithoutStartedByInput[] | Prisma.ProductionRunUncheckedCreateWithoutStartedByInput[]
   connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutStartedByInput | Prisma.ProductionRunCreateOrConnectWithoutStartedByInput[]
   createMany?: Prisma.ProductionRunCreateManyStartedByInputEnvelope
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+}
+
+export type ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionRunCreateWithoutQcAssigneeInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcAssigneeInputEnvelope
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+}
+
+export type ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput> | Prisma.ProductionRunCreateWithoutQcReviewerInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput | Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcReviewerInputEnvelope
   connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
 }
 
@@ -573,6 +853,34 @@ export type ProductionRunUpdateManyWithoutStartedByNestedInput = {
   deleteMany?: Prisma.ProductionRunScalarWhereInput | Prisma.ProductionRunScalarWhereInput[]
 }
 
+export type ProductionRunUpdateManyWithoutQcAssigneeNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionRunCreateWithoutQcAssigneeInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput[]
+  upsert?: Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcAssigneeInputEnvelope
+  set?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  disconnect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  delete?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  update?: Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcAssigneeInput[]
+  updateMany?: Prisma.ProductionRunUpdateManyWithWhereWithoutQcAssigneeInput | Prisma.ProductionRunUpdateManyWithWhereWithoutQcAssigneeInput[]
+  deleteMany?: Prisma.ProductionRunScalarWhereInput | Prisma.ProductionRunScalarWhereInput[]
+}
+
+export type ProductionRunUpdateManyWithoutQcReviewerNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput> | Prisma.ProductionRunCreateWithoutQcReviewerInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput | Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput[]
+  upsert?: Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcReviewerInput | Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcReviewerInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcReviewerInputEnvelope
+  set?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  disconnect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  delete?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  update?: Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcReviewerInput | Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcReviewerInput[]
+  updateMany?: Prisma.ProductionRunUpdateManyWithWhereWithoutQcReviewerInput | Prisma.ProductionRunUpdateManyWithWhereWithoutQcReviewerInput[]
+  deleteMany?: Prisma.ProductionRunScalarWhereInput | Prisma.ProductionRunScalarWhereInput[]
+}
+
 export type ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput = {
   create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutStartedByInput, Prisma.ProductionRunUncheckedCreateWithoutStartedByInput> | Prisma.ProductionRunCreateWithoutStartedByInput[] | Prisma.ProductionRunUncheckedCreateWithoutStartedByInput[]
   connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutStartedByInput | Prisma.ProductionRunCreateOrConnectWithoutStartedByInput[]
@@ -584,6 +892,34 @@ export type ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput = {
   connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
   update?: Prisma.ProductionRunUpdateWithWhereUniqueWithoutStartedByInput | Prisma.ProductionRunUpdateWithWhereUniqueWithoutStartedByInput[]
   updateMany?: Prisma.ProductionRunUpdateManyWithWhereWithoutStartedByInput | Prisma.ProductionRunUpdateManyWithWhereWithoutStartedByInput[]
+  deleteMany?: Prisma.ProductionRunScalarWhereInput | Prisma.ProductionRunScalarWhereInput[]
+}
+
+export type ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionRunCreateWithoutQcAssigneeInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionRunCreateOrConnectWithoutQcAssigneeInput[]
+  upsert?: Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcAssigneeInputEnvelope
+  set?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  disconnect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  delete?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  update?: Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcAssigneeInput[]
+  updateMany?: Prisma.ProductionRunUpdateManyWithWhereWithoutQcAssigneeInput | Prisma.ProductionRunUpdateManyWithWhereWithoutQcAssigneeInput[]
+  deleteMany?: Prisma.ProductionRunScalarWhereInput | Prisma.ProductionRunScalarWhereInput[]
+}
+
+export type ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput> | Prisma.ProductionRunCreateWithoutQcReviewerInput[] | Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput[]
+  connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput | Prisma.ProductionRunCreateOrConnectWithoutQcReviewerInput[]
+  upsert?: Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcReviewerInput | Prisma.ProductionRunUpsertWithWhereUniqueWithoutQcReviewerInput[]
+  createMany?: Prisma.ProductionRunCreateManyQcReviewerInputEnvelope
+  set?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  disconnect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  delete?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  connect?: Prisma.ProductionRunWhereUniqueInput | Prisma.ProductionRunWhereUniqueInput[]
+  update?: Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcReviewerInput | Prisma.ProductionRunUpdateWithWhereUniqueWithoutQcReviewerInput[]
+  updateMany?: Prisma.ProductionRunUpdateManyWithWhereWithoutQcReviewerInput | Prisma.ProductionRunUpdateManyWithWhereWithoutQcReviewerInput[]
   deleteMany?: Prisma.ProductionRunScalarWhereInput | Prisma.ProductionRunScalarWhereInput[]
 }
 
@@ -633,6 +969,10 @@ export type EnumProductionRunStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProductionRunStatus
 }
 
+export type EnumProductionQcStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ProductionQcStatus
+}
+
 export type ProductionRunCreateNestedOneWithoutStepsInput = {
   create?: Prisma.XOR<Prisma.ProductionRunCreateWithoutStepsInput, Prisma.ProductionRunUncheckedCreateWithoutStepsInput>
   connectOrCreate?: Prisma.ProductionRunCreateOrConnectWithoutStepsInput
@@ -650,6 +990,12 @@ export type ProductionRunUpdateOneRequiredWithoutStepsNestedInput = {
 export type ProductionRunCreateWithoutStartedByInput = {
   id?: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -657,9 +1003,14 @@ export type ProductionRunCreateWithoutStartedByInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutRunsInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionRunsQcAssignedInput
+  qcReviewer?: Prisma.UserCreateNestedOneWithoutProductionRunsQcReviewedInput
   steps?: Prisma.ProductionRunStepCreateNestedManyWithoutRunInput
 }
 
@@ -667,6 +1018,12 @@ export type ProductionRunUncheckedCreateWithoutStartedByInput = {
   id?: string
   flowId: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -674,6 +1031,11 @@ export type ProductionRunUncheckedCreateWithoutStartedByInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   steps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutRunInput
@@ -686,6 +1048,134 @@ export type ProductionRunCreateOrConnectWithoutStartedByInput = {
 
 export type ProductionRunCreateManyStartedByInputEnvelope = {
   data: Prisma.ProductionRunCreateManyStartedByInput | Prisma.ProductionRunCreateManyStartedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductionRunCreateWithoutQcAssigneeInput = {
+  id?: string
+  title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
+  referenceNo: string
+  status?: $Enums.ProductionRunStatus
+  currentStepOrder?: number | null
+  startedAt?: Date | string
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  flow: Prisma.ProductionFlowCreateNestedOneWithoutRunsInput
+  startedBy: Prisma.UserCreateNestedOneWithoutProductionRunsStartedInput
+  qcReviewer?: Prisma.UserCreateNestedOneWithoutProductionRunsQcReviewedInput
+  steps?: Prisma.ProductionRunStepCreateNestedManyWithoutRunInput
+}
+
+export type ProductionRunUncheckedCreateWithoutQcAssigneeInput = {
+  id?: string
+  flowId: string
+  title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
+  referenceNo: string
+  status?: $Enums.ProductionRunStatus
+  currentStepOrder?: number | null
+  startedById: string
+  startedAt?: Date | string
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  steps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutRunInput
+}
+
+export type ProductionRunCreateOrConnectWithoutQcAssigneeInput = {
+  where: Prisma.ProductionRunWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput>
+}
+
+export type ProductionRunCreateManyQcAssigneeInputEnvelope = {
+  data: Prisma.ProductionRunCreateManyQcAssigneeInput | Prisma.ProductionRunCreateManyQcAssigneeInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductionRunCreateWithoutQcReviewerInput = {
+  id?: string
+  title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
+  referenceNo: string
+  status?: $Enums.ProductionRunStatus
+  currentStepOrder?: number | null
+  startedAt?: Date | string
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  flow: Prisma.ProductionFlowCreateNestedOneWithoutRunsInput
+  startedBy: Prisma.UserCreateNestedOneWithoutProductionRunsStartedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionRunsQcAssignedInput
+  steps?: Prisma.ProductionRunStepCreateNestedManyWithoutRunInput
+}
+
+export type ProductionRunUncheckedCreateWithoutQcReviewerInput = {
+  id?: string
+  flowId: string
+  title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
+  referenceNo: string
+  status?: $Enums.ProductionRunStatus
+  currentStepOrder?: number | null
+  startedById: string
+  startedAt?: Date | string
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  steps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutRunInput
+}
+
+export type ProductionRunCreateOrConnectWithoutQcReviewerInput = {
+  where: Prisma.ProductionRunWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput>
+}
+
+export type ProductionRunCreateManyQcReviewerInputEnvelope = {
+  data: Prisma.ProductionRunCreateManyQcReviewerInput | Prisma.ProductionRunCreateManyQcReviewerInput[]
   skipDuplicates?: boolean
 }
 
@@ -712,6 +1202,12 @@ export type ProductionRunScalarWhereInput = {
   id?: Prisma.StringFilter<"ProductionRun"> | string
   flowId?: Prisma.StringFilter<"ProductionRun"> | string
   title?: Prisma.StringFilter<"ProductionRun"> | string
+  productName?: Prisma.StringFilter<"ProductionRun"> | string
+  productCode?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  serialNumber?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  batchNumber?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  quantity?: Prisma.IntFilter<"ProductionRun"> | number
+  dueDate?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   referenceNo?: Prisma.StringFilter<"ProductionRun"> | string
   status?: Prisma.EnumProductionRunStatusFilter<"ProductionRun"> | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.IntNullableFilter<"ProductionRun"> | number | null
@@ -720,13 +1216,56 @@ export type ProductionRunScalarWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   metadata?: Prisma.JsonNullableFilter<"ProductionRun">
+  qcStatus?: Prisma.EnumProductionQcStatusFilter<"ProductionRun"> | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcReviewerId?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcNotes?: Prisma.StringNullableFilter<"ProductionRun"> | string | null
+  qcReviewedAt?: Prisma.DateTimeNullableFilter<"ProductionRun"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductionRun"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionRun"> | Date | string
+}
+
+export type ProductionRunUpsertWithWhereUniqueWithoutQcAssigneeInput = {
+  where: Prisma.ProductionRunWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductionRunUpdateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedUpdateWithoutQcAssigneeInput>
+  create: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedCreateWithoutQcAssigneeInput>
+}
+
+export type ProductionRunUpdateWithWhereUniqueWithoutQcAssigneeInput = {
+  where: Prisma.ProductionRunWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductionRunUpdateWithoutQcAssigneeInput, Prisma.ProductionRunUncheckedUpdateWithoutQcAssigneeInput>
+}
+
+export type ProductionRunUpdateManyWithWhereWithoutQcAssigneeInput = {
+  where: Prisma.ProductionRunScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductionRunUpdateManyMutationInput, Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeInput>
+}
+
+export type ProductionRunUpsertWithWhereUniqueWithoutQcReviewerInput = {
+  where: Prisma.ProductionRunWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductionRunUpdateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedUpdateWithoutQcReviewerInput>
+  create: Prisma.XOR<Prisma.ProductionRunCreateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedCreateWithoutQcReviewerInput>
+}
+
+export type ProductionRunUpdateWithWhereUniqueWithoutQcReviewerInput = {
+  where: Prisma.ProductionRunWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductionRunUpdateWithoutQcReviewerInput, Prisma.ProductionRunUncheckedUpdateWithoutQcReviewerInput>
+}
+
+export type ProductionRunUpdateManyWithWhereWithoutQcReviewerInput = {
+  where: Prisma.ProductionRunScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductionRunUpdateManyMutationInput, Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerInput>
 }
 
 export type ProductionRunCreateWithoutFlowInput = {
   id?: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -734,15 +1273,26 @@ export type ProductionRunCreateWithoutFlowInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   startedBy: Prisma.UserCreateNestedOneWithoutProductionRunsStartedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionRunsQcAssignedInput
+  qcReviewer?: Prisma.UserCreateNestedOneWithoutProductionRunsQcReviewedInput
   steps?: Prisma.ProductionRunStepCreateNestedManyWithoutRunInput
 }
 
 export type ProductionRunUncheckedCreateWithoutFlowInput = {
   id?: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -751,6 +1301,11 @@ export type ProductionRunUncheckedCreateWithoutFlowInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   steps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutRunInput
@@ -785,6 +1340,12 @@ export type ProductionRunUpdateManyWithWhereWithoutFlowInput = {
 export type ProductionRunCreateWithoutStepsInput = {
   id?: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -792,16 +1353,27 @@ export type ProductionRunCreateWithoutStepsInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutRunsInput
   startedBy: Prisma.UserCreateNestedOneWithoutProductionRunsStartedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionRunsQcAssignedInput
+  qcReviewer?: Prisma.UserCreateNestedOneWithoutProductionRunsQcReviewedInput
 }
 
 export type ProductionRunUncheckedCreateWithoutStepsInput = {
   id?: string
   flowId: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -810,6 +1382,11 @@ export type ProductionRunUncheckedCreateWithoutStepsInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -833,6 +1410,12 @@ export type ProductionRunUpdateToOneWithWhereWithoutStepsInput = {
 export type ProductionRunUpdateWithoutStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -840,16 +1423,27 @@ export type ProductionRunUpdateWithoutStepsInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutRunsNestedInput
   startedBy?: Prisma.UserUpdateOneRequiredWithoutProductionRunsStartedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionRunsQcAssignedNestedInput
+  qcReviewer?: Prisma.UserUpdateOneWithoutProductionRunsQcReviewedNestedInput
 }
 
 export type ProductionRunUncheckedUpdateWithoutStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flowId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -858,6 +1452,11 @@ export type ProductionRunUncheckedUpdateWithoutStepsInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -866,6 +1465,12 @@ export type ProductionRunCreateManyStartedByInput = {
   id?: string
   flowId: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -873,6 +1478,63 @@ export type ProductionRunCreateManyStartedByInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductionRunCreateManyQcAssigneeInput = {
+  id?: string
+  flowId: string
+  title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
+  referenceNo: string
+  status?: $Enums.ProductionRunStatus
+  currentStepOrder?: number | null
+  startedById: string
+  startedAt?: Date | string
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductionRunCreateManyQcReviewerInput = {
+  id?: string
+  flowId: string
+  title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
+  referenceNo: string
+  status?: $Enums.ProductionRunStatus
+  currentStepOrder?: number | null
+  startedById: string
+  startedAt?: Date | string
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -880,6 +1542,12 @@ export type ProductionRunCreateManyStartedByInput = {
 export type ProductionRunUpdateWithoutStartedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -887,9 +1555,14 @@ export type ProductionRunUpdateWithoutStartedByInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutRunsNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionRunsQcAssignedNestedInput
+  qcReviewer?: Prisma.UserUpdateOneWithoutProductionRunsQcReviewedNestedInput
   steps?: Prisma.ProductionRunStepUpdateManyWithoutRunNestedInput
 }
 
@@ -897,6 +1570,12 @@ export type ProductionRunUncheckedUpdateWithoutStartedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flowId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -904,6 +1583,11 @@ export type ProductionRunUncheckedUpdateWithoutStartedByInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   steps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutRunNestedInput
@@ -913,6 +1597,12 @@ export type ProductionRunUncheckedUpdateManyWithoutStartedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flowId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -920,6 +1610,171 @@ export type ProductionRunUncheckedUpdateManyWithoutStartedByInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductionRunUpdateWithoutQcAssigneeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
+  currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutRunsNestedInput
+  startedBy?: Prisma.UserUpdateOneRequiredWithoutProductionRunsStartedNestedInput
+  qcReviewer?: Prisma.UserUpdateOneWithoutProductionRunsQcReviewedNestedInput
+  steps?: Prisma.ProductionRunStepUpdateManyWithoutRunNestedInput
+}
+
+export type ProductionRunUncheckedUpdateWithoutQcAssigneeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  flowId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
+  currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  startedById?: Prisma.StringFieldUpdateOperationsInput | string
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  steps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutRunNestedInput
+}
+
+export type ProductionRunUncheckedUpdateManyWithoutQcAssigneeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  flowId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
+  currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  startedById?: Prisma.StringFieldUpdateOperationsInput | string
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductionRunUpdateWithoutQcReviewerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
+  currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutRunsNestedInput
+  startedBy?: Prisma.UserUpdateOneRequiredWithoutProductionRunsStartedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionRunsQcAssignedNestedInput
+  steps?: Prisma.ProductionRunStepUpdateManyWithoutRunNestedInput
+}
+
+export type ProductionRunUncheckedUpdateWithoutQcReviewerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  flowId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
+  currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  startedById?: Prisma.StringFieldUpdateOperationsInput | string
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  steps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutRunNestedInput
+}
+
+export type ProductionRunUncheckedUpdateManyWithoutQcReviewerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  flowId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
+  currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  startedById?: Prisma.StringFieldUpdateOperationsInput | string
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -927,6 +1782,12 @@ export type ProductionRunUncheckedUpdateManyWithoutStartedByInput = {
 export type ProductionRunCreateManyFlowInput = {
   id?: string
   title: string
+  productName: string
+  productCode?: string | null
+  serialNumber?: string | null
+  batchNumber?: string | null
+  quantity?: number
+  dueDate?: Date | string | null
   referenceNo: string
   status?: $Enums.ProductionRunStatus
   currentStepOrder?: number | null
@@ -935,6 +1796,11 @@ export type ProductionRunCreateManyFlowInput = {
   completedAt?: Date | string | null
   cancelledAt?: Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: $Enums.ProductionQcStatus
+  qcAssigneeId?: string | null
+  qcReviewerId?: string | null
+  qcNotes?: string | null
+  qcReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -942,6 +1808,12 @@ export type ProductionRunCreateManyFlowInput = {
 export type ProductionRunUpdateWithoutFlowInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -949,15 +1821,26 @@ export type ProductionRunUpdateWithoutFlowInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedBy?: Prisma.UserUpdateOneRequiredWithoutProductionRunsStartedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionRunsQcAssignedNestedInput
+  qcReviewer?: Prisma.UserUpdateOneWithoutProductionRunsQcReviewedNestedInput
   steps?: Prisma.ProductionRunStepUpdateManyWithoutRunNestedInput
 }
 
 export type ProductionRunUncheckedUpdateWithoutFlowInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -966,6 +1849,11 @@ export type ProductionRunUncheckedUpdateWithoutFlowInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   steps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutRunNestedInput
@@ -974,6 +1862,12 @@ export type ProductionRunUncheckedUpdateWithoutFlowInput = {
 export type ProductionRunUncheckedUpdateManyWithoutFlowInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  productCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   referenceNo?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductionRunStatusFieldUpdateOperationsInput | $Enums.ProductionRunStatus
   currentStepOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -982,6 +1876,11 @@ export type ProductionRunUncheckedUpdateManyWithoutFlowInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  qcStatus?: Prisma.EnumProductionQcStatusFieldUpdateOperationsInput | $Enums.ProductionQcStatus
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qcReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1021,6 +1920,12 @@ export type ProductionRunSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   flowId?: boolean
   title?: boolean
+  productName?: boolean
+  productCode?: boolean
+  serialNumber?: boolean
+  batchNumber?: boolean
+  quantity?: boolean
+  dueDate?: boolean
   referenceNo?: boolean
   status?: boolean
   currentStepOrder?: boolean
@@ -1029,10 +1934,17 @@ export type ProductionRunSelect<ExtArgs extends runtime.Types.Extensions.Interna
   completedAt?: boolean
   cancelledAt?: boolean
   metadata?: boolean
+  qcStatus?: boolean
+  qcAssigneeId?: boolean
+  qcReviewerId?: boolean
+  qcNotes?: boolean
+  qcReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   startedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>
+  qcReviewer?: boolean | Prisma.ProductionRun$qcReviewerArgs<ExtArgs>
   steps?: boolean | Prisma.ProductionRun$stepsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductionRunCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productionRun"]>
@@ -1041,6 +1953,12 @@ export type ProductionRunSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   flowId?: boolean
   title?: boolean
+  productName?: boolean
+  productCode?: boolean
+  serialNumber?: boolean
+  batchNumber?: boolean
+  quantity?: boolean
+  dueDate?: boolean
   referenceNo?: boolean
   status?: boolean
   currentStepOrder?: boolean
@@ -1049,16 +1967,29 @@ export type ProductionRunSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   completedAt?: boolean
   cancelledAt?: boolean
   metadata?: boolean
+  qcStatus?: boolean
+  qcAssigneeId?: boolean
+  qcReviewerId?: boolean
+  qcNotes?: boolean
+  qcReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   startedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>
+  qcReviewer?: boolean | Prisma.ProductionRun$qcReviewerArgs<ExtArgs>
 }, ExtArgs["result"]["productionRun"]>
 
 export type ProductionRunSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   flowId?: boolean
   title?: boolean
+  productName?: boolean
+  productCode?: boolean
+  serialNumber?: boolean
+  batchNumber?: boolean
+  quantity?: boolean
+  dueDate?: boolean
   referenceNo?: boolean
   status?: boolean
   currentStepOrder?: boolean
@@ -1067,16 +1998,29 @@ export type ProductionRunSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   completedAt?: boolean
   cancelledAt?: boolean
   metadata?: boolean
+  qcStatus?: boolean
+  qcAssigneeId?: boolean
+  qcReviewerId?: boolean
+  qcNotes?: boolean
+  qcReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   startedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>
+  qcReviewer?: boolean | Prisma.ProductionRun$qcReviewerArgs<ExtArgs>
 }, ExtArgs["result"]["productionRun"]>
 
 export type ProductionRunSelectScalar = {
   id?: boolean
   flowId?: boolean
   title?: boolean
+  productName?: boolean
+  productCode?: boolean
+  serialNumber?: boolean
+  batchNumber?: boolean
+  quantity?: boolean
+  dueDate?: boolean
   referenceNo?: boolean
   status?: boolean
   currentStepOrder?: boolean
@@ -1085,24 +2029,35 @@ export type ProductionRunSelectScalar = {
   completedAt?: boolean
   cancelledAt?: boolean
   metadata?: boolean
+  qcStatus?: boolean
+  qcAssigneeId?: boolean
+  qcReviewerId?: boolean
+  qcNotes?: boolean
+  qcReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductionRunOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "flowId" | "title" | "referenceNo" | "status" | "currentStepOrder" | "startedById" | "startedAt" | "completedAt" | "cancelledAt" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["productionRun"]>
+export type ProductionRunOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "flowId" | "title" | "productName" | "productCode" | "serialNumber" | "batchNumber" | "quantity" | "dueDate" | "referenceNo" | "status" | "currentStepOrder" | "startedById" | "startedAt" | "completedAt" | "cancelledAt" | "metadata" | "qcStatus" | "qcAssigneeId" | "qcReviewerId" | "qcNotes" | "qcReviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["productionRun"]>
 export type ProductionRunInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   startedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>
+  qcReviewer?: boolean | Prisma.ProductionRun$qcReviewerArgs<ExtArgs>
   steps?: boolean | Prisma.ProductionRun$stepsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductionRunCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductionRunIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   startedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>
+  qcReviewer?: boolean | Prisma.ProductionRun$qcReviewerArgs<ExtArgs>
 }
 export type ProductionRunIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   startedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>
+  qcReviewer?: boolean | Prisma.ProductionRun$qcReviewerArgs<ExtArgs>
 }
 
 export type $ProductionRunPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1110,12 +2065,20 @@ export type $ProductionRunPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     flow: Prisma.$ProductionFlowPayload<ExtArgs>
     startedBy: Prisma.$UserPayload<ExtArgs>
+    qcAssignee: Prisma.$UserPayload<ExtArgs> | null
+    qcReviewer: Prisma.$UserPayload<ExtArgs> | null
     steps: Prisma.$ProductionRunStepPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     flowId: string
     title: string
+    productName: string
+    productCode: string | null
+    serialNumber: string | null
+    batchNumber: string | null
+    quantity: number
+    dueDate: Date | null
     referenceNo: string
     status: $Enums.ProductionRunStatus
     currentStepOrder: number | null
@@ -1124,6 +2087,11 @@ export type $ProductionRunPayload<ExtArgs extends runtime.Types.Extensions.Inter
     completedAt: Date | null
     cancelledAt: Date | null
     metadata: runtime.JsonValue | null
+    qcStatus: $Enums.ProductionQcStatus
+    qcAssigneeId: string | null
+    qcReviewerId: string | null
+    qcNotes: string | null
+    qcReviewedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["productionRun"]>
@@ -1522,6 +2490,8 @@ export interface Prisma__ProductionRunClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   flow<T extends Prisma.ProductionFlowDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionFlowDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductionFlowClient<runtime.Types.Result.GetResult<Prisma.$ProductionFlowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   startedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  qcAssignee<T extends Prisma.ProductionRun$qcAssigneeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionRun$qcAssigneeArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  qcReviewer<T extends Prisma.ProductionRun$qcReviewerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionRun$qcReviewerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   steps<T extends Prisma.ProductionRun$stepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionRun$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1555,6 +2525,12 @@ export interface ProductionRunFieldRefs {
   readonly id: Prisma.FieldRef<"ProductionRun", 'String'>
   readonly flowId: Prisma.FieldRef<"ProductionRun", 'String'>
   readonly title: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly productName: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly productCode: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly serialNumber: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly batchNumber: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly quantity: Prisma.FieldRef<"ProductionRun", 'Int'>
+  readonly dueDate: Prisma.FieldRef<"ProductionRun", 'DateTime'>
   readonly referenceNo: Prisma.FieldRef<"ProductionRun", 'String'>
   readonly status: Prisma.FieldRef<"ProductionRun", 'ProductionRunStatus'>
   readonly currentStepOrder: Prisma.FieldRef<"ProductionRun", 'Int'>
@@ -1563,6 +2539,11 @@ export interface ProductionRunFieldRefs {
   readonly completedAt: Prisma.FieldRef<"ProductionRun", 'DateTime'>
   readonly cancelledAt: Prisma.FieldRef<"ProductionRun", 'DateTime'>
   readonly metadata: Prisma.FieldRef<"ProductionRun", 'Json'>
+  readonly qcStatus: Prisma.FieldRef<"ProductionRun", 'ProductionQcStatus'>
+  readonly qcAssigneeId: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly qcReviewerId: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly qcNotes: Prisma.FieldRef<"ProductionRun", 'String'>
+  readonly qcReviewedAt: Prisma.FieldRef<"ProductionRun", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ProductionRun", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ProductionRun", 'DateTime'>
 }
@@ -1963,6 +2944,44 @@ export type ProductionRunDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many ProductionRuns to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductionRun.qcAssignee
+ */
+export type ProductionRun$qcAssigneeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * ProductionRun.qcReviewer
+ */
+export type ProductionRun$qcReviewerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

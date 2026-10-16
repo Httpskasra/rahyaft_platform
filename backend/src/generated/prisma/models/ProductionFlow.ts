@@ -30,6 +30,8 @@ export type ProductionFlowMinAggregateOutputType = {
   code: string | null
   description: string | null
   isActive: boolean | null
+  requiresQc: boolean | null
+  qcAssigneeId: string | null
   createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -41,6 +43,8 @@ export type ProductionFlowMaxAggregateOutputType = {
   code: string | null
   description: string | null
   isActive: boolean | null
+  requiresQc: boolean | null
+  qcAssigneeId: string | null
   createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,6 +56,8 @@ export type ProductionFlowCountAggregateOutputType = {
   code: number
   description: number
   isActive: number
+  requiresQc: number
+  qcAssigneeId: number
   createdById: number
   createdAt: number
   updatedAt: number
@@ -65,6 +71,8 @@ export type ProductionFlowMinAggregateInputType = {
   code?: true
   description?: true
   isActive?: true
+  requiresQc?: true
+  qcAssigneeId?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -76,6 +84,8 @@ export type ProductionFlowMaxAggregateInputType = {
   code?: true
   description?: true
   isActive?: true
+  requiresQc?: true
+  qcAssigneeId?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -87,6 +97,8 @@ export type ProductionFlowCountAggregateInputType = {
   code?: true
   description?: true
   isActive?: true
+  requiresQc?: true
+  qcAssigneeId?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -171,6 +183,8 @@ export type ProductionFlowGroupByOutputType = {
   code: string | null
   description: string | null
   isActive: boolean
+  requiresQc: boolean
+  qcAssigneeId: string | null
   createdById: string
   createdAt: Date
   updatedAt: Date
@@ -203,10 +217,13 @@ export type ProductionFlowWhereInput = {
   code?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   description?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   isActive?: Prisma.BoolFilter<"ProductionFlow"> | boolean
+  requiresQc?: Prisma.BoolFilter<"ProductionFlow"> | boolean
+  qcAssigneeId?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   createdById?: Prisma.StringFilter<"ProductionFlow"> | string
   createdAt?: Prisma.DateTimeFilter<"ProductionFlow"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionFlow"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  qcAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   steps?: Prisma.ProductionFlowStepListRelationFilter
   runs?: Prisma.ProductionRunListRelationFilter
 }
@@ -217,10 +234,13 @@ export type ProductionFlowOrderByWithRelationInput = {
   code?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  requiresQc?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.UserOrderByWithRelationInput
+  qcAssignee?: Prisma.UserOrderByWithRelationInput
   steps?: Prisma.ProductionFlowStepOrderByRelationAggregateInput
   runs?: Prisma.ProductionRunOrderByRelationAggregateInput
 }
@@ -234,10 +254,13 @@ export type ProductionFlowWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"ProductionFlow"> | string
   description?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   isActive?: Prisma.BoolFilter<"ProductionFlow"> | boolean
+  requiresQc?: Prisma.BoolFilter<"ProductionFlow"> | boolean
+  qcAssigneeId?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   createdById?: Prisma.StringFilter<"ProductionFlow"> | string
   createdAt?: Prisma.DateTimeFilter<"ProductionFlow"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionFlow"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  qcAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   steps?: Prisma.ProductionFlowStepListRelationFilter
   runs?: Prisma.ProductionRunListRelationFilter
 }, "id" | "code">
@@ -248,6 +271,8 @@ export type ProductionFlowOrderByWithAggregationInput = {
   code?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  requiresQc?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -265,6 +290,8 @@ export type ProductionFlowScalarWhereWithAggregatesInput = {
   code?: Prisma.StringNullableWithAggregatesFilter<"ProductionFlow"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"ProductionFlow"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"ProductionFlow"> | boolean
+  requiresQc?: Prisma.BoolWithAggregatesFilter<"ProductionFlow"> | boolean
+  qcAssigneeId?: Prisma.StringNullableWithAggregatesFilter<"ProductionFlow"> | string | null
   createdById?: Prisma.StringWithAggregatesFilter<"ProductionFlow"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionFlow"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionFlow"> | Date | string
@@ -276,9 +303,11 @@ export type ProductionFlowCreateInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutProductionFlowsCreatedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionFlowsQcOwnedInput
   steps?: Prisma.ProductionFlowStepCreateNestedManyWithoutFlowInput
   runs?: Prisma.ProductionRunCreateNestedManyWithoutFlowInput
 }
@@ -289,6 +318,8 @@ export type ProductionFlowUncheckedCreateInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -302,9 +333,11 @@ export type ProductionFlowUpdateInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutProductionFlowsCreatedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionFlowsQcOwnedNestedInput
   steps?: Prisma.ProductionFlowStepUpdateManyWithoutFlowNestedInput
   runs?: Prisma.ProductionRunUpdateManyWithoutFlowNestedInput
 }
@@ -315,6 +348,8 @@ export type ProductionFlowUncheckedUpdateInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -328,6 +363,8 @@ export type ProductionFlowCreateManyInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -339,6 +376,7 @@ export type ProductionFlowUpdateManyMutationInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,6 +387,8 @@ export type ProductionFlowUncheckedUpdateManyInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -370,6 +410,8 @@ export type ProductionFlowCountOrderByAggregateInput = {
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  requiresQc?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -381,6 +423,8 @@ export type ProductionFlowMaxOrderByAggregateInput = {
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  requiresQc?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -392,6 +436,8 @@ export type ProductionFlowMinOrderByAggregateInput = {
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  requiresQc?: Prisma.SortOrder
+  qcAssigneeId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -409,10 +455,24 @@ export type ProductionFlowCreateNestedManyWithoutCreatedByInput = {
   connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
 }
 
+export type ProductionFlowCreateNestedManyWithoutQcAssigneeInput = {
+  create?: Prisma.XOR<Prisma.ProductionFlowCreateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionFlowCreateWithoutQcAssigneeInput[] | Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionFlowCreateManyQcAssigneeInputEnvelope
+  connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+}
+
 export type ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput = {
   create?: Prisma.XOR<Prisma.ProductionFlowCreateWithoutCreatedByInput, Prisma.ProductionFlowUncheckedCreateWithoutCreatedByInput> | Prisma.ProductionFlowCreateWithoutCreatedByInput[] | Prisma.ProductionFlowUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.ProductionFlowCreateOrConnectWithoutCreatedByInput | Prisma.ProductionFlowCreateOrConnectWithoutCreatedByInput[]
   createMany?: Prisma.ProductionFlowCreateManyCreatedByInputEnvelope
+  connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+}
+
+export type ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput = {
+  create?: Prisma.XOR<Prisma.ProductionFlowCreateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionFlowCreateWithoutQcAssigneeInput[] | Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionFlowCreateManyQcAssigneeInputEnvelope
   connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
 }
 
@@ -430,6 +490,20 @@ export type ProductionFlowUpdateManyWithoutCreatedByNestedInput = {
   deleteMany?: Prisma.ProductionFlowScalarWhereInput | Prisma.ProductionFlowScalarWhereInput[]
 }
 
+export type ProductionFlowUpdateManyWithoutQcAssigneeNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductionFlowCreateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionFlowCreateWithoutQcAssigneeInput[] | Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput[]
+  upsert?: Prisma.ProductionFlowUpsertWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionFlowUpsertWithWhereUniqueWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionFlowCreateManyQcAssigneeInputEnvelope
+  set?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  disconnect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  delete?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  update?: Prisma.ProductionFlowUpdateWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionFlowUpdateWithWhereUniqueWithoutQcAssigneeInput[]
+  updateMany?: Prisma.ProductionFlowUpdateManyWithWhereWithoutQcAssigneeInput | Prisma.ProductionFlowUpdateManyWithWhereWithoutQcAssigneeInput[]
+  deleteMany?: Prisma.ProductionFlowScalarWhereInput | Prisma.ProductionFlowScalarWhereInput[]
+}
+
 export type ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput = {
   create?: Prisma.XOR<Prisma.ProductionFlowCreateWithoutCreatedByInput, Prisma.ProductionFlowUncheckedCreateWithoutCreatedByInput> | Prisma.ProductionFlowCreateWithoutCreatedByInput[] | Prisma.ProductionFlowUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.ProductionFlowCreateOrConnectWithoutCreatedByInput | Prisma.ProductionFlowCreateOrConnectWithoutCreatedByInput[]
@@ -441,6 +515,20 @@ export type ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput = {
   connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
   update?: Prisma.ProductionFlowUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.ProductionFlowUpdateWithWhereUniqueWithoutCreatedByInput[]
   updateMany?: Prisma.ProductionFlowUpdateManyWithWhereWithoutCreatedByInput | Prisma.ProductionFlowUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.ProductionFlowScalarWhereInput | Prisma.ProductionFlowScalarWhereInput[]
+}
+
+export type ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductionFlowCreateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput> | Prisma.ProductionFlowCreateWithoutQcAssigneeInput[] | Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput[]
+  connectOrCreate?: Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput | Prisma.ProductionFlowCreateOrConnectWithoutQcAssigneeInput[]
+  upsert?: Prisma.ProductionFlowUpsertWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionFlowUpsertWithWhereUniqueWithoutQcAssigneeInput[]
+  createMany?: Prisma.ProductionFlowCreateManyQcAssigneeInputEnvelope
+  set?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  disconnect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  delete?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  connect?: Prisma.ProductionFlowWhereUniqueInput | Prisma.ProductionFlowWhereUniqueInput[]
+  update?: Prisma.ProductionFlowUpdateWithWhereUniqueWithoutQcAssigneeInput | Prisma.ProductionFlowUpdateWithWhereUniqueWithoutQcAssigneeInput[]
+  updateMany?: Prisma.ProductionFlowUpdateManyWithWhereWithoutQcAssigneeInput | Prisma.ProductionFlowUpdateManyWithWhereWithoutQcAssigneeInput[]
   deleteMany?: Prisma.ProductionFlowScalarWhereInput | Prisma.ProductionFlowScalarWhereInput[]
 }
 
@@ -478,8 +566,10 @@ export type ProductionFlowCreateWithoutCreatedByInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionFlowsQcOwnedInput
   steps?: Prisma.ProductionFlowStepCreateNestedManyWithoutFlowInput
   runs?: Prisma.ProductionRunCreateNestedManyWithoutFlowInput
 }
@@ -490,6 +580,8 @@ export type ProductionFlowUncheckedCreateWithoutCreatedByInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   steps?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutFlowInput
@@ -503,6 +595,44 @@ export type ProductionFlowCreateOrConnectWithoutCreatedByInput = {
 
 export type ProductionFlowCreateManyCreatedByInputEnvelope = {
   data: Prisma.ProductionFlowCreateManyCreatedByInput | Prisma.ProductionFlowCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductionFlowCreateWithoutQcAssigneeInput = {
+  id?: string
+  name: string
+  code?: string | null
+  description?: string | null
+  isActive?: boolean
+  requiresQc?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy: Prisma.UserCreateNestedOneWithoutProductionFlowsCreatedInput
+  steps?: Prisma.ProductionFlowStepCreateNestedManyWithoutFlowInput
+  runs?: Prisma.ProductionRunCreateNestedManyWithoutFlowInput
+}
+
+export type ProductionFlowUncheckedCreateWithoutQcAssigneeInput = {
+  id?: string
+  name: string
+  code?: string | null
+  description?: string | null
+  isActive?: boolean
+  requiresQc?: boolean
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  steps?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutFlowInput
+  runs?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutFlowInput
+}
+
+export type ProductionFlowCreateOrConnectWithoutQcAssigneeInput = {
+  where: Prisma.ProductionFlowWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductionFlowCreateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput>
+}
+
+export type ProductionFlowCreateManyQcAssigneeInputEnvelope = {
+  data: Prisma.ProductionFlowCreateManyQcAssigneeInput | Prisma.ProductionFlowCreateManyQcAssigneeInput[]
   skipDuplicates?: boolean
 }
 
@@ -531,9 +661,27 @@ export type ProductionFlowScalarWhereInput = {
   code?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   description?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   isActive?: Prisma.BoolFilter<"ProductionFlow"> | boolean
+  requiresQc?: Prisma.BoolFilter<"ProductionFlow"> | boolean
+  qcAssigneeId?: Prisma.StringNullableFilter<"ProductionFlow"> | string | null
   createdById?: Prisma.StringFilter<"ProductionFlow"> | string
   createdAt?: Prisma.DateTimeFilter<"ProductionFlow"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionFlow"> | Date | string
+}
+
+export type ProductionFlowUpsertWithWhereUniqueWithoutQcAssigneeInput = {
+  where: Prisma.ProductionFlowWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductionFlowUpdateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedUpdateWithoutQcAssigneeInput>
+  create: Prisma.XOR<Prisma.ProductionFlowCreateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedCreateWithoutQcAssigneeInput>
+}
+
+export type ProductionFlowUpdateWithWhereUniqueWithoutQcAssigneeInput = {
+  where: Prisma.ProductionFlowWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductionFlowUpdateWithoutQcAssigneeInput, Prisma.ProductionFlowUncheckedUpdateWithoutQcAssigneeInput>
+}
+
+export type ProductionFlowUpdateManyWithWhereWithoutQcAssigneeInput = {
+  where: Prisma.ProductionFlowScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductionFlowUpdateManyMutationInput, Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeInput>
 }
 
 export type ProductionFlowCreateWithoutStepsInput = {
@@ -542,9 +690,11 @@ export type ProductionFlowCreateWithoutStepsInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutProductionFlowsCreatedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionFlowsQcOwnedInput
   runs?: Prisma.ProductionRunCreateNestedManyWithoutFlowInput
 }
 
@@ -554,6 +704,8 @@ export type ProductionFlowUncheckedCreateWithoutStepsInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -582,9 +734,11 @@ export type ProductionFlowUpdateWithoutStepsInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutProductionFlowsCreatedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionFlowsQcOwnedNestedInput
   runs?: Prisma.ProductionRunUpdateManyWithoutFlowNestedInput
 }
 
@@ -594,6 +748,8 @@ export type ProductionFlowUncheckedUpdateWithoutStepsInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -606,9 +762,11 @@ export type ProductionFlowCreateWithoutRunsInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutProductionFlowsCreatedInput
+  qcAssignee?: Prisma.UserCreateNestedOneWithoutProductionFlowsQcOwnedInput
   steps?: Prisma.ProductionFlowStepCreateNestedManyWithoutFlowInput
 }
 
@@ -618,6 +776,8 @@ export type ProductionFlowUncheckedCreateWithoutRunsInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -646,9 +806,11 @@ export type ProductionFlowUpdateWithoutRunsInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutProductionFlowsCreatedNestedInput
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionFlowsQcOwnedNestedInput
   steps?: Prisma.ProductionFlowStepUpdateManyWithoutFlowNestedInput
 }
 
@@ -658,6 +820,8 @@ export type ProductionFlowUncheckedUpdateWithoutRunsInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -670,6 +834,20 @@ export type ProductionFlowCreateManyCreatedByInput = {
   code?: string | null
   description?: string | null
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductionFlowCreateManyQcAssigneeInput = {
+  id?: string
+  name: string
+  code?: string | null
+  description?: string | null
+  isActive?: boolean
+  requiresQc?: boolean
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -680,8 +858,10 @@ export type ProductionFlowUpdateWithoutCreatedByInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qcAssignee?: Prisma.UserUpdateOneWithoutProductionFlowsQcOwnedNestedInput
   steps?: Prisma.ProductionFlowStepUpdateManyWithoutFlowNestedInput
   runs?: Prisma.ProductionRunUpdateManyWithoutFlowNestedInput
 }
@@ -692,6 +872,8 @@ export type ProductionFlowUncheckedUpdateWithoutCreatedByInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   steps?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutFlowNestedInput
@@ -704,6 +886,48 @@ export type ProductionFlowUncheckedUpdateManyWithoutCreatedByInput = {
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  qcAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductionFlowUpdateWithoutQcAssigneeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutProductionFlowsCreatedNestedInput
+  steps?: Prisma.ProductionFlowStepUpdateManyWithoutFlowNestedInput
+  runs?: Prisma.ProductionRunUpdateManyWithoutFlowNestedInput
+}
+
+export type ProductionFlowUncheckedUpdateWithoutQcAssigneeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  steps?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutFlowNestedInput
+  runs?: Prisma.ProductionRunUncheckedUpdateManyWithoutFlowNestedInput
+}
+
+export type ProductionFlowUncheckedUpdateManyWithoutQcAssigneeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresQc?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -754,10 +978,13 @@ export type ProductionFlowSelect<ExtArgs extends runtime.Types.Extensions.Intern
   code?: boolean
   description?: boolean
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>
   steps?: boolean | Prisma.ProductionFlow$stepsArgs<ExtArgs>
   runs?: boolean | Prisma.ProductionFlow$runsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductionFlowCountOutputTypeDefaultArgs<ExtArgs>
@@ -769,10 +996,13 @@ export type ProductionFlowSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   code?: boolean
   description?: boolean
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>
 }, ExtArgs["result"]["productionFlow"]>
 
 export type ProductionFlowSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -781,10 +1011,13 @@ export type ProductionFlowSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   code?: boolean
   description?: boolean
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>
 }, ExtArgs["result"]["productionFlow"]>
 
 export type ProductionFlowSelectScalar = {
@@ -793,29 +1026,35 @@ export type ProductionFlowSelectScalar = {
   code?: boolean
   description?: boolean
   isActive?: boolean
+  requiresQc?: boolean
+  qcAssigneeId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductionFlowOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "description" | "isActive" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["productionFlow"]>
+export type ProductionFlowOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "description" | "isActive" | "requiresQc" | "qcAssigneeId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["productionFlow"]>
 export type ProductionFlowInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>
   steps?: boolean | Prisma.ProductionFlow$stepsArgs<ExtArgs>
   runs?: boolean | Prisma.ProductionFlow$runsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductionFlowCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductionFlowIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>
 }
 export type ProductionFlowIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  qcAssignee?: boolean | Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>
 }
 
 export type $ProductionFlowPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductionFlow"
   objects: {
     createdBy: Prisma.$UserPayload<ExtArgs>
+    qcAssignee: Prisma.$UserPayload<ExtArgs> | null
     steps: Prisma.$ProductionFlowStepPayload<ExtArgs>[]
     runs: Prisma.$ProductionRunPayload<ExtArgs>[]
   }
@@ -825,6 +1064,8 @@ export type $ProductionFlowPayload<ExtArgs extends runtime.Types.Extensions.Inte
     code: string | null
     description: string | null
     isActive: boolean
+    requiresQc: boolean
+    qcAssigneeId: string | null
     createdById: string
     createdAt: Date
     updatedAt: Date
@@ -1223,6 +1464,7 @@ readonly fields: ProductionFlowFieldRefs;
 export interface Prisma__ProductionFlowClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  qcAssignee<T extends Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionFlow$qcAssigneeArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   steps<T extends Prisma.ProductionFlow$stepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionFlow$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionFlowStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   runs<T extends Prisma.ProductionFlow$runsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductionFlow$runsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1259,6 +1501,8 @@ export interface ProductionFlowFieldRefs {
   readonly code: Prisma.FieldRef<"ProductionFlow", 'String'>
   readonly description: Prisma.FieldRef<"ProductionFlow", 'String'>
   readonly isActive: Prisma.FieldRef<"ProductionFlow", 'Boolean'>
+  readonly requiresQc: Prisma.FieldRef<"ProductionFlow", 'Boolean'>
+  readonly qcAssigneeId: Prisma.FieldRef<"ProductionFlow", 'String'>
   readonly createdById: Prisma.FieldRef<"ProductionFlow", 'String'>
   readonly createdAt: Prisma.FieldRef<"ProductionFlow", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ProductionFlow", 'DateTime'>
@@ -1660,6 +1904,25 @@ export type ProductionFlowDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many ProductionFlows to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductionFlow.qcAssignee
+ */
+export type ProductionFlow$qcAssigneeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

@@ -464,6 +464,13 @@ export type EnumProductionRunStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductionRunStatusFilter<$PrismaModel> | $Enums.ProductionRunStatus
 }
 
+export type EnumProductionQcStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionQcStatus | Prisma.EnumProductionQcStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionQcStatusFilter<$PrismaModel> | $Enums.ProductionQcStatus
+}
+
 export type EnumProductionRunStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ProductionRunStatus | Prisma.EnumProductionRunStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ProductionRunStatus[] | Prisma.ListEnumProductionRunStatusFieldRefInput<$PrismaModel>
@@ -472,6 +479,16 @@ export type EnumProductionRunStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductionRunStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductionRunStatusFilter<$PrismaModel>
+}
+
+export type EnumProductionQcStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionQcStatus | Prisma.EnumProductionQcStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionQcStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProductionQcStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductionQcStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductionQcStatusFilter<$PrismaModel>
 }
 
 export type EnumProductionRunStepStatusFilter<$PrismaModel = never> = {
@@ -1328,6 +1345,13 @@ export type NestedEnumProductionRunStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductionRunStatusFilter<$PrismaModel> | $Enums.ProductionRunStatus
 }
 
+export type NestedEnumProductionQcStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionQcStatus | Prisma.EnumProductionQcStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionQcStatusFilter<$PrismaModel> | $Enums.ProductionQcStatus
+}
+
 export type NestedEnumProductionRunStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ProductionRunStatus | Prisma.EnumProductionRunStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ProductionRunStatus[] | Prisma.ListEnumProductionRunStatusFieldRefInput<$PrismaModel>
@@ -1336,6 +1360,16 @@ export type NestedEnumProductionRunStatusWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductionRunStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductionRunStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumProductionQcStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionQcStatus | Prisma.EnumProductionQcStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionQcStatus[] | Prisma.ListEnumProductionQcStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionQcStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProductionQcStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductionQcStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductionQcStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumProductionRunStepStatusFilter<$PrismaModel = never> = {

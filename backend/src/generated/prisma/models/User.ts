@@ -265,6 +265,9 @@ export type UserWhereInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepListRelationFilter
   productionStepsApproved?: Prisma.ProductionRunStepListRelationFilter
   productionReviews?: Prisma.ProductionStepReviewListRelationFilter
+  productionFlowsQcOwned?: Prisma.ProductionFlowListRelationFilter
+  productionRunsQcAssigned?: Prisma.ProductionRunListRelationFilter
+  productionRunsQcReviewed?: Prisma.ProductionRunListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -314,6 +317,9 @@ export type UserOrderByWithRelationInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepOrderByRelationAggregateInput
   productionStepsApproved?: Prisma.ProductionRunStepOrderByRelationAggregateInput
   productionReviews?: Prisma.ProductionStepReviewOrderByRelationAggregateInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowOrderByRelationAggregateInput
+  productionRunsQcAssigned?: Prisma.ProductionRunOrderByRelationAggregateInput
+  productionRunsQcReviewed?: Prisma.ProductionRunOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -366,6 +372,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   productionStepsSupervised?: Prisma.ProductionRunStepListRelationFilter
   productionStepsApproved?: Prisma.ProductionRunStepListRelationFilter
   productionReviews?: Prisma.ProductionStepReviewListRelationFilter
+  productionFlowsQcOwned?: Prisma.ProductionFlowListRelationFilter
+  productionRunsQcAssigned?: Prisma.ProductionRunListRelationFilter
+  productionRunsQcReviewed?: Prisma.ProductionRunListRelationFilter
 }, "id" | "phoneNumber" | "employeeCode">
 
 export type UserOrderByWithAggregationInput = {
@@ -447,6 +456,9 @@ export type UserCreateInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -494,6 +506,9 @@ export type UserUncheckedCreateInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUpdateInput = {
@@ -541,6 +556,9 @@ export type UserUpdateInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -588,6 +606,9 @@ export type UserUncheckedUpdateInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -986,12 +1007,28 @@ export type UserCreateNestedOneWithoutProductionFlowsCreatedInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutProductionFlowsQcOwnedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductionFlowsQcOwnedInput, Prisma.UserUncheckedCreateWithoutProductionFlowsQcOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionFlowsQcOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneRequiredWithoutProductionFlowsCreatedNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProductionFlowsCreatedInput, Prisma.UserUncheckedCreateWithoutProductionFlowsCreatedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionFlowsCreatedInput
   upsert?: Prisma.UserUpsertWithoutProductionFlowsCreatedInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductionFlowsCreatedInput, Prisma.UserUpdateWithoutProductionFlowsCreatedInput>, Prisma.UserUncheckedUpdateWithoutProductionFlowsCreatedInput>
+}
+
+export type UserUpdateOneWithoutProductionFlowsQcOwnedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductionFlowsQcOwnedInput, Prisma.UserUncheckedCreateWithoutProductionFlowsQcOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionFlowsQcOwnedInput
+  upsert?: Prisma.UserUpsertWithoutProductionFlowsQcOwnedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductionFlowsQcOwnedInput, Prisma.UserUpdateWithoutProductionFlowsQcOwnedInput>, Prisma.UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput>
 }
 
 export type UserCreateNestedOneWithoutProductionFlowStepsAssignedInput = {
@@ -1046,12 +1083,44 @@ export type UserCreateNestedOneWithoutProductionRunsStartedInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutProductionRunsQcAssignedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcAssignedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcAssignedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionRunsQcAssignedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutProductionRunsQcReviewedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcReviewedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionRunsQcReviewedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneRequiredWithoutProductionRunsStartedNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsStartedInput, Prisma.UserUncheckedCreateWithoutProductionRunsStartedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionRunsStartedInput
   upsert?: Prisma.UserUpsertWithoutProductionRunsStartedInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductionRunsStartedInput, Prisma.UserUpdateWithoutProductionRunsStartedInput>, Prisma.UserUncheckedUpdateWithoutProductionRunsStartedInput>
+}
+
+export type UserUpdateOneWithoutProductionRunsQcAssignedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcAssignedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcAssignedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionRunsQcAssignedInput
+  upsert?: Prisma.UserUpsertWithoutProductionRunsQcAssignedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductionRunsQcAssignedInput, Prisma.UserUpdateWithoutProductionRunsQcAssignedInput>, Prisma.UserUncheckedUpdateWithoutProductionRunsQcAssignedInput>
+}
+
+export type UserUpdateOneWithoutProductionRunsQcReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcReviewedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductionRunsQcReviewedInput
+  upsert?: Prisma.UserUpsertWithoutProductionRunsQcReviewedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductionRunsQcReviewedInput, Prisma.UserUpdateWithoutProductionRunsQcReviewedInput>, Prisma.UserUncheckedUpdateWithoutProductionRunsQcReviewedInput>
 }
 
 export type UserCreateNestedOneWithoutProductionStepsAssignedInput = {
@@ -1306,6 +1375,9 @@ export type UserCreateWithoutDepartmentInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -1352,6 +1424,9 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -1441,6 +1516,9 @@ export type UserCreateWithoutSubordinatesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutSubordinatesInput = {
@@ -1487,6 +1565,9 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutSubordinatesInput = {
@@ -1538,6 +1619,9 @@ export type UserCreateWithoutManagerInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutManagerInput = {
@@ -1584,6 +1668,9 @@ export type UserUncheckedCreateWithoutManagerInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutManagerInput = {
@@ -1651,6 +1738,9 @@ export type UserUpdateWithoutSubordinatesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubordinatesInput = {
@@ -1697,6 +1787,9 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutManagerInput = {
@@ -1759,6 +1852,9 @@ export type UserCreateWithoutCreatedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutCreatedThreadsInput = {
@@ -1805,6 +1901,9 @@ export type UserUncheckedCreateWithoutCreatedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutCreatedThreadsInput = {
@@ -1867,6 +1966,9 @@ export type UserUpdateWithoutCreatedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
@@ -1913,6 +2015,9 @@ export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadEntityLinksInput = {
@@ -1959,6 +2064,9 @@ export type UserCreateWithoutThreadEntityLinksInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
@@ -2005,6 +2113,9 @@ export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadEntityLinksInput = {
@@ -2067,6 +2178,9 @@ export type UserUpdateWithoutThreadEntityLinksInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
@@ -2113,6 +2227,9 @@ export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadParticipantsInput = {
@@ -2159,6 +2276,9 @@ export type UserCreateWithoutThreadParticipantsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadParticipantsInput = {
@@ -2205,6 +2325,9 @@ export type UserUncheckedCreateWithoutThreadParticipantsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadParticipantsInput = {
@@ -2267,6 +2390,9 @@ export type UserUpdateWithoutThreadParticipantsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
@@ -2313,6 +2439,9 @@ export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadAssignmentsInput = {
@@ -2359,6 +2488,9 @@ export type UserCreateWithoutThreadAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
@@ -2405,6 +2537,9 @@ export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadAssignmentsInput = {
@@ -2456,6 +2591,9 @@ export type UserCreateWithoutAssignedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutAssignedThreadsInput = {
@@ -2502,6 +2640,9 @@ export type UserUncheckedCreateWithoutAssignedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutAssignedThreadsInput = {
@@ -2564,6 +2705,9 @@ export type UserUpdateWithoutThreadAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
@@ -2610,6 +2754,9 @@ export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithoutAssignedThreadsInput = {
@@ -2667,6 +2814,9 @@ export type UserUpdateWithoutAssignedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
@@ -2713,6 +2863,9 @@ export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutSentThreadMessagesInput = {
@@ -2759,6 +2912,9 @@ export type UserCreateWithoutSentThreadMessagesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
@@ -2805,6 +2961,9 @@ export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutSentThreadMessagesInput = {
@@ -2867,6 +3026,9 @@ export type UserUpdateWithoutSentThreadMessagesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
@@ -2913,6 +3075,9 @@ export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadMentionsInput = {
@@ -2959,6 +3124,9 @@ export type UserCreateWithoutThreadMentionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadMentionsInput = {
@@ -3005,6 +3173,9 @@ export type UserUncheckedCreateWithoutThreadMentionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadMentionsInput = {
@@ -3067,6 +3238,9 @@ export type UserUpdateWithoutThreadMentionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadMentionsInput = {
@@ -3113,6 +3287,9 @@ export type UserUncheckedUpdateWithoutThreadMentionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadAttachmentsInput = {
@@ -3159,6 +3336,9 @@ export type UserCreateWithoutThreadAttachmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
@@ -3205,6 +3385,9 @@ export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadAttachmentsInput = {
@@ -3267,6 +3450,9 @@ export type UserUpdateWithoutThreadAttachmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
@@ -3313,6 +3499,9 @@ export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadNotificationsInput = {
@@ -3359,6 +3548,9 @@ export type UserCreateWithoutThreadNotificationsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadNotificationsInput = {
@@ -3405,6 +3597,9 @@ export type UserUncheckedCreateWithoutThreadNotificationsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadNotificationsInput = {
@@ -3467,6 +3662,9 @@ export type UserUpdateWithoutThreadNotificationsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
@@ -3513,6 +3711,9 @@ export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutThreadActivitiesInput = {
@@ -3559,6 +3760,9 @@ export type UserCreateWithoutThreadActivitiesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutThreadActivitiesInput = {
@@ -3605,6 +3809,9 @@ export type UserUncheckedCreateWithoutThreadActivitiesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutThreadActivitiesInput = {
@@ -3667,6 +3874,9 @@ export type UserUpdateWithoutThreadActivitiesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
@@ -3713,6 +3923,9 @@ export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutAttendancesInput = {
@@ -3759,6 +3972,9 @@ export type UserCreateWithoutAttendancesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -3805,6 +4021,9 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -3867,6 +4086,9 @@ export type UserUpdateWithoutAttendancesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
@@ -3913,6 +4135,9 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -3959,6 +4184,9 @@ export type UserCreateWithoutRolesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -4005,6 +4233,9 @@ export type UserUncheckedCreateWithoutRolesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -4067,6 +4298,9 @@ export type UserUpdateWithoutRolesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -4113,6 +4347,9 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutSubmissionsInput = {
@@ -4159,6 +4396,9 @@ export type UserCreateWithoutSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -4205,6 +4445,9 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -4267,6 +4510,9 @@ export type UserUpdateWithoutSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -4313,6 +4559,9 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutProductionFlowsCreatedInput = {
@@ -4359,6 +4608,9 @@ export type UserCreateWithoutProductionFlowsCreatedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
@@ -4405,11 +4657,117 @@ export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowsCreatedInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutProductionFlowsCreatedInput, Prisma.UserUncheckedCreateWithoutProductionFlowsCreatedInput>
+}
+
+export type UserCreateWithoutProductionFlowsQcOwnedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserUncheckedCreateWithoutProductionFlowsQcOwnedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserCreateOrConnectWithoutProductionFlowsQcOwnedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductionFlowsQcOwnedInput, Prisma.UserUncheckedCreateWithoutProductionFlowsQcOwnedInput>
 }
 
 export type UserUpsertWithoutProductionFlowsCreatedInput = {
@@ -4467,6 +4825,9 @@ export type UserUpdateWithoutProductionFlowsCreatedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
@@ -4513,6 +4874,118 @@ export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUpsertWithoutProductionFlowsQcOwnedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProductionFlowsQcOwnedInput, Prisma.UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductionFlowsQcOwnedInput, Prisma.UserUncheckedCreateWithoutProductionFlowsQcOwnedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProductionFlowsQcOwnedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProductionFlowsQcOwnedInput, Prisma.UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput>
+}
+
+export type UserUpdateWithoutProductionFlowsQcOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutProductionFlowStepsAssignedInput = {
@@ -4559,6 +5032,9 @@ export type UserCreateWithoutProductionFlowStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
@@ -4605,6 +5081,9 @@ export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowStepsAssignedInput = {
@@ -4656,6 +5135,9 @@ export type UserCreateWithoutProductionFlowStepsSupervisedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
@@ -4702,6 +5184,9 @@ export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowStepsSupervisedInput = {
@@ -4753,6 +5238,9 @@ export type UserCreateWithoutProductionFlowStepsApprovedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
@@ -4799,6 +5287,9 @@ export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowStepsApprovedInput = {
@@ -4861,6 +5352,9 @@ export type UserUpdateWithoutProductionFlowStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
@@ -4907,6 +5401,9 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithoutProductionFlowStepsSupervisedInput = {
@@ -4964,6 +5461,9 @@ export type UserUpdateWithoutProductionFlowStepsSupervisedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
@@ -5010,6 +5510,9 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithoutProductionFlowStepsApprovedInput = {
@@ -5067,6 +5570,9 @@ export type UserUpdateWithoutProductionFlowStepsApprovedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
@@ -5113,6 +5619,9 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutProductionRunsStartedInput = {
@@ -5159,6 +5668,9 @@ export type UserCreateWithoutProductionRunsStartedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
@@ -5205,11 +5717,220 @@ export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionRunsStartedInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsStartedInput, Prisma.UserUncheckedCreateWithoutProductionRunsStartedInput>
+}
+
+export type UserCreateWithoutProductionRunsQcAssignedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserUncheckedCreateWithoutProductionRunsQcAssignedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserCreateOrConnectWithoutProductionRunsQcAssignedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcAssignedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcAssignedInput>
+}
+
+export type UserCreateWithoutProductionRunsQcReviewedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+}
+
+export type UserUncheckedCreateWithoutProductionRunsQcReviewedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+}
+
+export type UserCreateOrConnectWithoutProductionRunsQcReviewedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcReviewedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcReviewedInput>
 }
 
 export type UserUpsertWithoutProductionRunsStartedInput = {
@@ -5267,6 +5988,9 @@ export type UserUpdateWithoutProductionRunsStartedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
@@ -5313,6 +6037,227 @@ export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUpsertWithoutProductionRunsQcAssignedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProductionRunsQcAssignedInput, Prisma.UserUncheckedUpdateWithoutProductionRunsQcAssignedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcAssignedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcAssignedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProductionRunsQcAssignedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProductionRunsQcAssignedInput, Prisma.UserUncheckedUpdateWithoutProductionRunsQcAssignedInput>
+}
+
+export type UserUpdateWithoutProductionRunsQcAssignedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProductionRunsQcAssignedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUpsertWithoutProductionRunsQcReviewedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProductionRunsQcReviewedInput, Prisma.UserUncheckedUpdateWithoutProductionRunsQcReviewedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductionRunsQcReviewedInput, Prisma.UserUncheckedCreateWithoutProductionRunsQcReviewedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProductionRunsQcReviewedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProductionRunsQcReviewedInput, Prisma.UserUncheckedUpdateWithoutProductionRunsQcReviewedInput>
+}
+
+export type UserUpdateWithoutProductionRunsQcReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProductionRunsQcReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
 }
 
 export type UserCreateWithoutProductionStepsAssignedInput = {
@@ -5359,6 +6304,9 @@ export type UserCreateWithoutProductionStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
@@ -5405,6 +6353,9 @@ export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionStepsAssignedInput = {
@@ -5456,6 +6407,9 @@ export type UserCreateWithoutProductionStepsSupervisedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
@@ -5502,6 +6456,9 @@ export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionStepsSupervisedInput = {
@@ -5553,6 +6510,9 @@ export type UserCreateWithoutProductionStepsApprovedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
@@ -5599,6 +6559,9 @@ export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionStepsApprovedInput = {
@@ -5661,6 +6624,9 @@ export type UserUpdateWithoutProductionStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
@@ -5707,6 +6673,9 @@ export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithoutProductionStepsSupervisedInput = {
@@ -5764,6 +6733,9 @@ export type UserUpdateWithoutProductionStepsSupervisedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
@@ -5810,6 +6782,9 @@ export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithoutProductionStepsApprovedInput = {
@@ -5867,6 +6842,9 @@ export type UserUpdateWithoutProductionStepsApprovedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
@@ -5913,6 +6891,9 @@ export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutProductionReviewsInput = {
@@ -5959,6 +6940,9 @@ export type UserCreateWithoutProductionReviewsInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutProductionReviewsInput = {
@@ -6005,6 +6989,9 @@ export type UserUncheckedCreateWithoutProductionReviewsInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutProductionReviewsInput = {
@@ -6067,6 +7054,9 @@ export type UserUpdateWithoutProductionReviewsInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionReviewsInput = {
@@ -6113,6 +7103,9 @@ export type UserUncheckedUpdateWithoutProductionReviewsInput = {
   productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutApprovalActionsInput = {
@@ -6159,6 +7152,9 @@ export type UserCreateWithoutApprovalActionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutApprovalActionsInput = {
@@ -6205,6 +7201,9 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutApprovalActionsInput = {
@@ -6267,6 +7266,9 @@ export type UserUpdateWithoutApprovalActionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovalActionsInput = {
@@ -6313,6 +7315,9 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutUserInfoInput = {
@@ -6359,6 +7364,9 @@ export type UserCreateWithoutUserInfoInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutUserInfoInput = {
@@ -6405,6 +7413,9 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutUserInfoInput = {
@@ -6467,6 +7478,9 @@ export type UserUpdateWithoutUserInfoInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserInfoInput = {
@@ -6513,6 +7527,9 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutAssignedRepairsInput = {
@@ -6559,6 +7576,9 @@ export type UserCreateWithoutAssignedRepairsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutAssignedRepairsInput = {
@@ -6605,6 +7625,9 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutAssignedRepairsInput = {
@@ -6667,6 +7690,9 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
@@ -6713,6 +7739,9 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutRepairVisitsInput = {
@@ -6759,6 +7788,9 @@ export type UserCreateWithoutRepairVisitsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRepairVisitsInput = {
@@ -6805,6 +7837,9 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRepairVisitsInput = {
@@ -6867,6 +7902,9 @@ export type UserUpdateWithoutRepairVisitsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepairVisitsInput = {
@@ -6913,6 +7951,9 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutStatusLogsInput = {
@@ -6959,6 +8000,9 @@ export type UserCreateWithoutStatusLogsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutStatusLogsInput = {
@@ -7005,6 +8049,9 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutStatusLogsInput = {
@@ -7067,6 +8114,9 @@ export type UserUpdateWithoutStatusLogsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatusLogsInput = {
@@ -7113,6 +8163,9 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutRecruitmentFinalizedInput = {
@@ -7159,6 +8212,9 @@ export type UserCreateWithoutRecruitmentFinalizedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
@@ -7205,6 +8261,9 @@ export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentFinalizedInput = {
@@ -7267,6 +8326,9 @@ export type UserUpdateWithoutRecruitmentFinalizedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
@@ -7313,6 +8375,9 @@ export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutRecruitmentSubmissionsInput = {
@@ -7359,6 +8424,9 @@ export type UserCreateWithoutRecruitmentSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
@@ -7405,6 +8473,9 @@ export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentSubmissionsInput = {
@@ -7467,6 +8538,9 @@ export type UserUpdateWithoutRecruitmentSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
@@ -7513,6 +8587,9 @@ export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutRecruitmentAssignmentsInput = {
@@ -7559,6 +8636,9 @@ export type UserCreateWithoutRecruitmentAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
@@ -7605,6 +8685,9 @@ export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentAssignmentsInput = {
@@ -7656,6 +8739,9 @@ export type UserCreateWithoutRecruitmentAssignedByInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
@@ -7702,6 +8788,9 @@ export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentAssignedByInput = {
@@ -7764,6 +8853,9 @@ export type UserUpdateWithoutRecruitmentAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
@@ -7810,6 +8902,9 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUpsertWithoutRecruitmentAssignedByInput = {
@@ -7867,6 +8962,9 @@ export type UserUpdateWithoutRecruitmentAssignedByInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
@@ -7913,6 +9011,9 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateWithoutRecruitmentTransitionsInput = {
@@ -7959,6 +9060,9 @@ export type UserCreateWithoutRecruitmentTransitionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
@@ -8005,6 +9109,9 @@ export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentTransitionsInput = {
@@ -8067,6 +9174,9 @@ export type UserUpdateWithoutRecruitmentTransitionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
@@ -8113,6 +9223,9 @@ export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -8172,6 +9285,9 @@ export type UserUpdateWithoutDepartmentInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -8218,6 +9334,9 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -8290,6 +9409,9 @@ export type UserUpdateWithoutManagerInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagerInput = {
@@ -8336,6 +9458,9 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
   productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagerInput = {
@@ -8389,6 +9514,9 @@ export type UserCountOutputType = {
   productionStepsSupervised: number
   productionStepsApproved: number
   productionReviews: number
+  productionFlowsQcOwned: number
+  productionRunsQcAssigned: number
+  productionRunsQcReviewed: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8424,6 +9552,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   productionStepsSupervised?: boolean | UserCountOutputTypeCountProductionStepsSupervisedArgs
   productionStepsApproved?: boolean | UserCountOutputTypeCountProductionStepsApprovedArgs
   productionReviews?: boolean | UserCountOutputTypeCountProductionReviewsArgs
+  productionFlowsQcOwned?: boolean | UserCountOutputTypeCountProductionFlowsQcOwnedArgs
+  productionRunsQcAssigned?: boolean | UserCountOutputTypeCountProductionRunsQcAssignedArgs
+  productionRunsQcReviewed?: boolean | UserCountOutputTypeCountProductionRunsQcReviewedArgs
 }
 
 /**
@@ -8660,6 +9791,27 @@ export type UserCountOutputTypeCountProductionReviewsArgs<ExtArgs extends runtim
   where?: Prisma.ProductionStepReviewWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProductionFlowsQcOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductionFlowWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProductionRunsQcAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductionRunWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProductionRunsQcReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductionRunWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -8708,6 +9860,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   productionStepsSupervised?: boolean | Prisma.User$productionStepsSupervisedArgs<ExtArgs>
   productionStepsApproved?: boolean | Prisma.User$productionStepsApprovedArgs<ExtArgs>
   productionReviews?: boolean | Prisma.User$productionReviewsArgs<ExtArgs>
+  productionFlowsQcOwned?: boolean | Prisma.User$productionFlowsQcOwnedArgs<ExtArgs>
+  productionRunsQcAssigned?: boolean | Prisma.User$productionRunsQcAssignedArgs<ExtArgs>
+  productionRunsQcReviewed?: boolean | Prisma.User$productionRunsQcReviewedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -8794,6 +9949,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   productionStepsSupervised?: boolean | Prisma.User$productionStepsSupervisedArgs<ExtArgs>
   productionStepsApproved?: boolean | Prisma.User$productionStepsApprovedArgs<ExtArgs>
   productionReviews?: boolean | Prisma.User$productionReviewsArgs<ExtArgs>
+  productionFlowsQcOwned?: boolean | Prisma.User$productionFlowsQcOwnedArgs<ExtArgs>
+  productionRunsQcAssigned?: boolean | Prisma.User$productionRunsQcAssignedArgs<ExtArgs>
+  productionRunsQcReviewed?: boolean | Prisma.User$productionRunsQcReviewedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8843,6 +10001,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     productionStepsSupervised: Prisma.$ProductionRunStepPayload<ExtArgs>[]
     productionStepsApproved: Prisma.$ProductionRunStepPayload<ExtArgs>[]
     productionReviews: Prisma.$ProductionStepReviewPayload<ExtArgs>[]
+    productionFlowsQcOwned: Prisma.$ProductionFlowPayload<ExtArgs>[]
+    productionRunsQcAssigned: Prisma.$ProductionRunPayload<ExtArgs>[]
+    productionRunsQcReviewed: Prisma.$ProductionRunPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9285,6 +10446,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   productionStepsSupervised<T extends Prisma.User$productionStepsSupervisedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionStepsSupervisedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productionStepsApproved<T extends Prisma.User$productionStepsApprovedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionStepsApprovedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productionReviews<T extends Prisma.User$productionReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionStepReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productionFlowsQcOwned<T extends Prisma.User$productionFlowsQcOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionFlowsQcOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionFlowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productionRunsQcAssigned<T extends Prisma.User$productionRunsQcAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionRunsQcAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productionRunsQcReviewed<T extends Prisma.User$productionRunsQcReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionRunsQcReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10529,6 +11693,78 @@ export type User$productionReviewsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.ProductionStepReviewScalarFieldEnum | Prisma.ProductionStepReviewScalarFieldEnum[]
+}
+
+/**
+ * User.productionFlowsQcOwned
+ */
+export type User$productionFlowsQcOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductionFlow
+   */
+  select?: Prisma.ProductionFlowSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductionFlow
+   */
+  omit?: Prisma.ProductionFlowOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductionFlowInclude<ExtArgs> | null
+  where?: Prisma.ProductionFlowWhereInput
+  orderBy?: Prisma.ProductionFlowOrderByWithRelationInput | Prisma.ProductionFlowOrderByWithRelationInput[]
+  cursor?: Prisma.ProductionFlowWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductionFlowScalarFieldEnum | Prisma.ProductionFlowScalarFieldEnum[]
+}
+
+/**
+ * User.productionRunsQcAssigned
+ */
+export type User$productionRunsQcAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductionRun
+   */
+  select?: Prisma.ProductionRunSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductionRun
+   */
+  omit?: Prisma.ProductionRunOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductionRunInclude<ExtArgs> | null
+  where?: Prisma.ProductionRunWhereInput
+  orderBy?: Prisma.ProductionRunOrderByWithRelationInput | Prisma.ProductionRunOrderByWithRelationInput[]
+  cursor?: Prisma.ProductionRunWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductionRunScalarFieldEnum | Prisma.ProductionRunScalarFieldEnum[]
+}
+
+/**
+ * User.productionRunsQcReviewed
+ */
+export type User$productionRunsQcReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductionRun
+   */
+  select?: Prisma.ProductionRunSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductionRun
+   */
+  omit?: Prisma.ProductionRunOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductionRunInclude<ExtArgs> | null
+  where?: Prisma.ProductionRunWhereInput
+  orderBy?: Prisma.ProductionRunOrderByWithRelationInput | Prisma.ProductionRunOrderByWithRelationInput[]
+  cursor?: Prisma.ProductionRunWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductionRunScalarFieldEnum | Prisma.ProductionRunScalarFieldEnum[]
 }
 
 /**

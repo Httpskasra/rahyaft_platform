@@ -8,6 +8,7 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { AssignRoleDto } from './dto/assign-role.dto';
 import { AddPermissionDto } from './dto/add-permission.dto';
 import { UpdateRoleDto } from './dto/updtade-role.dto';
+import { SyncPermissionsDto } from './dto/sync-permissions.dto';
 
 @Injectable()
 export class RolesService {
@@ -75,6 +76,56 @@ export class RolesService {
         relationType: dto.relationType ?? null,
         // constraints: dto.constraints ?? undefined,
       },
+    });
+  }
+
+  async syncPermissions(roleId: string, dto: SyncPermissionsDto) {
+    await this.findById(roleId);
+
+    return this.prisma.$transaction(async (tx) => {
+      const keepPermissionIds: string[] = [];
+
+      for (const item of dto.permissions) {
+        const permission = await tx.permission.upsert({
+          where: {
+            action_resource: { action: item.action, resource: item.resource },
+          },
+          create: { action: item.action, resource: item.resource },
+          update: {},
+        });
+
+        keepPermissionIds.push(permission.id);
+
+        await tx.rolePermission.upsert({
+          where: {
+            roleId_permissionId: { roleId, permissionId: permission.id },
+          },
+          create: {
+            roleId,
+            permissionId: permission.id,
+            scope: item.scope,
+            relationType: item.relationType ?? null,
+          },
+          update: {
+            scope: item.scope,
+            relationType: item.relationType ?? null,
+          },
+        });
+      }
+
+      await tx.rolePermission.deleteMany({
+        where: {
+          roleId,
+          ...(keepPermissionIds.length > 0
+            ? { permissionId: { notIn: keepPermissionIds } }
+            : {}),
+        },
+      });
+
+      return tx.role.findUnique({
+        where: { id: roleId },
+        include: { permissions: { include: { permission: true } } },
+      });
     });
   }
 

@@ -95,6 +95,7 @@ export type ProductionRunStepCountAggregateOutputType = {
   startedAt: number
   submittedAt: number
   completedAt: number
+  checklist: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -170,6 +171,7 @@ export type ProductionRunStepCountAggregateInputType = {
   startedAt?: true
   submittedAt?: true
   completedAt?: true
+  checklist?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -278,6 +280,7 @@ export type ProductionRunStepGroupByOutputType = {
   startedAt: Date | null
   submittedAt: Date | null
   completedAt: Date | null
+  checklist: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   _count: ProductionRunStepCountAggregateOutputType | null
@@ -322,6 +325,7 @@ export type ProductionRunStepWhereInput = {
   startedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
   submittedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
+  checklist?: Prisma.JsonNullableFilter<"ProductionRunStep">
   createdAt?: Prisma.DateTimeFilter<"ProductionRunStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionRunStep"> | Date | string
   run?: Prisma.XOR<Prisma.ProductionRunScalarRelationFilter, Prisma.ProductionRunWhereInput>
@@ -350,6 +354,7 @@ export type ProductionRunStepOrderByWithRelationInput = {
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  checklist?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   run?: Prisma.ProductionRunOrderByWithRelationInput
@@ -382,6 +387,7 @@ export type ProductionRunStepWhereUniqueInput = Prisma.AtLeast<{
   startedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
   submittedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
+  checklist?: Prisma.JsonNullableFilter<"ProductionRunStep">
   createdAt?: Prisma.DateTimeFilter<"ProductionRunStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionRunStep"> | Date | string
   run?: Prisma.XOR<Prisma.ProductionRunScalarRelationFilter, Prisma.ProductionRunWhereInput>
@@ -410,6 +416,7 @@ export type ProductionRunStepOrderByWithAggregationInput = {
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  checklist?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProductionRunStepCountOrderByAggregateInput
@@ -439,6 +446,7 @@ export type ProductionRunStepScalarWhereWithAggregatesInput = {
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRunStep"> | Date | string | null
   submittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRunStep"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductionRunStep"> | Date | string | null
+  checklist?: Prisma.JsonNullableWithAggregatesFilter<"ProductionRunStep">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionRunStep"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionRunStep"> | Date | string
 }
@@ -454,6 +462,7 @@ export type ProductionRunStepCreateInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -482,6 +491,7 @@ export type ProductionRunStepUncheckedCreateInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -498,6 +508,7 @@ export type ProductionRunStepUpdateInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -526,6 +537,7 @@ export type ProductionRunStepUncheckedUpdateInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -548,6 +560,7 @@ export type ProductionRunStepCreateManyInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -563,6 +576,7 @@ export type ProductionRunStepUpdateManyMutationInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -584,6 +598,7 @@ export type ProductionRunStepUncheckedUpdateManyInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -625,6 +640,7 @@ export type ProductionRunStepCountOrderByAggregateInput = {
   startedAt?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  checklist?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -957,6 +973,7 @@ export type ProductionRunStepCreateWithoutAssigneeInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -983,6 +1000,7 @@ export type ProductionRunStepUncheckedCreateWithoutAssigneeInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -1009,6 +1027,7 @@ export type ProductionRunStepCreateWithoutSupervisorInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -1035,6 +1054,7 @@ export type ProductionRunStepUncheckedCreateWithoutSupervisorInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -1061,6 +1081,7 @@ export type ProductionRunStepCreateWithoutApproverInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -1087,6 +1108,7 @@ export type ProductionRunStepUncheckedCreateWithoutApproverInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -1138,6 +1160,7 @@ export type ProductionRunStepScalarWhereInput = {
   startedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
   submittedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"ProductionRunStep"> | Date | string | null
+  checklist?: Prisma.JsonNullableFilter<"ProductionRunStep">
   createdAt?: Prisma.DateTimeFilter<"ProductionRunStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionRunStep"> | Date | string
 }
@@ -1185,6 +1208,7 @@ export type ProductionRunStepCreateWithoutSubmissionInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -1211,6 +1235,7 @@ export type ProductionRunStepUncheckedCreateWithoutSubmissionInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -1243,6 +1268,7 @@ export type ProductionRunStepUpdateWithoutSubmissionInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -1269,6 +1295,7 @@ export type ProductionRunStepUncheckedUpdateWithoutSubmissionInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -1285,6 +1312,7 @@ export type ProductionRunStepCreateWithoutFlowStepInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -1311,6 +1339,7 @@ export type ProductionRunStepUncheckedCreateWithoutFlowStepInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -1353,6 +1382,7 @@ export type ProductionRunStepCreateWithoutRunInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flowStep: Prisma.ProductionFlowStepCreateNestedOneWithoutRunStepsInput
@@ -1379,6 +1409,7 @@ export type ProductionRunStepUncheckedCreateWithoutRunInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutRunStepInput
@@ -1421,6 +1452,7 @@ export type ProductionRunStepCreateWithoutReviewsInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   run: Prisma.ProductionRunCreateNestedOneWithoutStepsInput
@@ -1448,6 +1480,7 @@ export type ProductionRunStepUncheckedCreateWithoutReviewsInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1479,6 +1512,7 @@ export type ProductionRunStepUpdateWithoutReviewsInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -1506,6 +1540,7 @@ export type ProductionRunStepUncheckedUpdateWithoutReviewsInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1526,6 +1561,7 @@ export type ProductionRunStepCreateManyAssigneeInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1546,6 +1582,7 @@ export type ProductionRunStepCreateManySupervisorInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1566,6 +1603,7 @@ export type ProductionRunStepCreateManyApproverInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1581,6 +1619,7 @@ export type ProductionRunStepUpdateWithoutAssigneeInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -1607,6 +1646,7 @@ export type ProductionRunStepUncheckedUpdateWithoutAssigneeInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -1628,6 +1668,7 @@ export type ProductionRunStepUncheckedUpdateManyWithoutAssigneeInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1643,6 +1684,7 @@ export type ProductionRunStepUpdateWithoutSupervisorInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -1669,6 +1711,7 @@ export type ProductionRunStepUncheckedUpdateWithoutSupervisorInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -1690,6 +1733,7 @@ export type ProductionRunStepUncheckedUpdateManyWithoutSupervisorInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1705,6 +1749,7 @@ export type ProductionRunStepUpdateWithoutApproverInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -1731,6 +1776,7 @@ export type ProductionRunStepUncheckedUpdateWithoutApproverInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -1752,6 +1798,7 @@ export type ProductionRunStepUncheckedUpdateManyWithoutApproverInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1772,6 +1819,7 @@ export type ProductionRunStepCreateManyFlowStepInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1787,6 +1835,7 @@ export type ProductionRunStepUpdateWithoutFlowStepInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   run?: Prisma.ProductionRunUpdateOneRequiredWithoutStepsNestedInput
@@ -1813,6 +1862,7 @@ export type ProductionRunStepUncheckedUpdateWithoutFlowStepInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -1834,6 +1884,7 @@ export type ProductionRunStepUncheckedUpdateManyWithoutFlowStepInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1854,6 +1905,7 @@ export type ProductionRunStepCreateManyRunInput = {
   startedAt?: Date | string | null
   submittedAt?: Date | string | null
   completedAt?: Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1869,6 +1921,7 @@ export type ProductionRunStepUpdateWithoutRunInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flowStep?: Prisma.ProductionFlowStepUpdateOneRequiredWithoutRunStepsNestedInput
@@ -1895,6 +1948,7 @@ export type ProductionRunStepUncheckedUpdateWithoutRunInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutRunStepNestedInput
@@ -1916,6 +1970,7 @@ export type ProductionRunStepUncheckedUpdateManyWithoutRunInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checklist?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1968,6 +2023,7 @@ export type ProductionRunStepSelect<ExtArgs extends runtime.Types.Extensions.Int
   startedAt?: boolean
   submittedAt?: boolean
   completedAt?: boolean
+  checklist?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   run?: boolean | Prisma.ProductionRunDefaultArgs<ExtArgs>
@@ -1997,6 +2053,7 @@ export type ProductionRunStepSelectCreateManyAndReturn<ExtArgs extends runtime.T
   startedAt?: boolean
   submittedAt?: boolean
   completedAt?: boolean
+  checklist?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   run?: boolean | Prisma.ProductionRunDefaultArgs<ExtArgs>
@@ -2024,6 +2081,7 @@ export type ProductionRunStepSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   startedAt?: boolean
   submittedAt?: boolean
   completedAt?: boolean
+  checklist?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   run?: boolean | Prisma.ProductionRunDefaultArgs<ExtArgs>
@@ -2051,11 +2109,12 @@ export type ProductionRunStepSelectScalar = {
   startedAt?: boolean
   submittedAt?: boolean
   completedAt?: boolean
+  checklist?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductionRunStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "runId" | "flowStepId" | "stepOrder" | "name" | "description" | "formId" | "assigneeUserId" | "supervisorUserId" | "approverUserId" | "status" | "submissionId" | "attempt" | "startedAt" | "submittedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["productionRunStep"]>
+export type ProductionRunStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "runId" | "flowStepId" | "stepOrder" | "name" | "description" | "formId" | "assigneeUserId" | "supervisorUserId" | "approverUserId" | "status" | "submissionId" | "attempt" | "startedAt" | "submittedAt" | "completedAt" | "checklist" | "createdAt" | "updatedAt", ExtArgs["result"]["productionRunStep"]>
 export type ProductionRunStepInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   run?: boolean | Prisma.ProductionRunDefaultArgs<ExtArgs>
   flowStep?: boolean | Prisma.ProductionFlowStepDefaultArgs<ExtArgs>
@@ -2111,6 +2170,7 @@ export type $ProductionRunStepPayload<ExtArgs extends runtime.Types.Extensions.I
     startedAt: Date | null
     submittedAt: Date | null
     completedAt: Date | null
+    checklist: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["productionRunStep"]>
@@ -2559,6 +2619,7 @@ export interface ProductionRunStepFieldRefs {
   readonly startedAt: Prisma.FieldRef<"ProductionRunStep", 'DateTime'>
   readonly submittedAt: Prisma.FieldRef<"ProductionRunStep", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"ProductionRunStep", 'DateTime'>
+  readonly checklist: Prisma.FieldRef<"ProductionRunStep", 'Json'>
   readonly createdAt: Prisma.FieldRef<"ProductionRunStep", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ProductionRunStep", 'DateTime'>
 }

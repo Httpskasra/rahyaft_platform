@@ -4686,6 +4686,8 @@ export const ProductionFlowScalarFieldEnum = {
   code: 'code',
   description: 'description',
   isActive: 'isActive',
+  requiresQc: 'requiresQc',
+  qcAssigneeId: 'qcAssigneeId',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -4705,6 +4707,7 @@ export const ProductionFlowStepScalarFieldEnum = {
   supervisorUserId: 'supervisorUserId',
   approverUserId: 'approverUserId',
   estimatedMinutes: 'estimatedMinutes',
+  checklistTemplate: 'checklistTemplate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -4716,6 +4719,12 @@ export const ProductionRunScalarFieldEnum = {
   id: 'id',
   flowId: 'flowId',
   title: 'title',
+  productName: 'productName',
+  productCode: 'productCode',
+  serialNumber: 'serialNumber',
+  batchNumber: 'batchNumber',
+  quantity: 'quantity',
+  dueDate: 'dueDate',
   referenceNo: 'referenceNo',
   status: 'status',
   currentStepOrder: 'currentStepOrder',
@@ -4724,6 +4733,11 @@ export const ProductionRunScalarFieldEnum = {
   completedAt: 'completedAt',
   cancelledAt: 'cancelledAt',
   metadata: 'metadata',
+  qcStatus: 'qcStatus',
+  qcAssigneeId: 'qcAssigneeId',
+  qcReviewerId: 'qcReviewerId',
+  qcNotes: 'qcNotes',
+  qcReviewedAt: 'qcReviewedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -4748,6 +4762,7 @@ export const ProductionRunStepScalarFieldEnum = {
   startedAt: 'startedAt',
   submittedAt: 'submittedAt',
   completedAt: 'completedAt',
+  checklist: 'checklist',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -5429,6 +5444,20 @@ export type EnumProductionRunStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'ProductionRunStatus[]'
  */
 export type ListEnumProductionRunStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionRunStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductionQcStatus'
+ */
+export type EnumProductionQcStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionQcStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductionQcStatus[]'
+ */
+export type ListEnumProductionQcStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionQcStatus[]'>
     
 
 

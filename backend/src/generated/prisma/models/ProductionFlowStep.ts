@@ -77,6 +77,7 @@ export type ProductionFlowStepCountAggregateOutputType = {
   supervisorUserId: number
   approverUserId: number
   estimatedMinutes: number
+  checklistTemplate: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -134,6 +135,7 @@ export type ProductionFlowStepCountAggregateInputType = {
   supervisorUserId?: true
   approverUserId?: true
   estimatedMinutes?: true
+  checklistTemplate?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -236,6 +238,7 @@ export type ProductionFlowStepGroupByOutputType = {
   supervisorUserId: string | null
   approverUserId: string | null
   estimatedMinutes: number | null
+  checklistTemplate: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   _count: ProductionFlowStepCountAggregateOutputType | null
@@ -274,6 +277,7 @@ export type ProductionFlowStepWhereInput = {
   supervisorUserId?: Prisma.StringNullableFilter<"ProductionFlowStep"> | string | null
   approverUserId?: Prisma.StringNullableFilter<"ProductionFlowStep"> | string | null
   estimatedMinutes?: Prisma.IntNullableFilter<"ProductionFlowStep"> | number | null
+  checklistTemplate?: Prisma.JsonNullableFilter<"ProductionFlowStep">
   createdAt?: Prisma.DateTimeFilter<"ProductionFlowStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionFlowStep"> | Date | string
   flow?: Prisma.XOR<Prisma.ProductionFlowScalarRelationFilter, Prisma.ProductionFlowWhereInput>
@@ -295,6 +299,7 @@ export type ProductionFlowStepOrderByWithRelationInput = {
   supervisorUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   approverUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrderInput | Prisma.SortOrder
+  checklistTemplate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   flow?: Prisma.ProductionFlowOrderByWithRelationInput
@@ -320,6 +325,7 @@ export type ProductionFlowStepWhereUniqueInput = Prisma.AtLeast<{
   supervisorUserId?: Prisma.StringNullableFilter<"ProductionFlowStep"> | string | null
   approverUserId?: Prisma.StringNullableFilter<"ProductionFlowStep"> | string | null
   estimatedMinutes?: Prisma.IntNullableFilter<"ProductionFlowStep"> | number | null
+  checklistTemplate?: Prisma.JsonNullableFilter<"ProductionFlowStep">
   createdAt?: Prisma.DateTimeFilter<"ProductionFlowStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionFlowStep"> | Date | string
   flow?: Prisma.XOR<Prisma.ProductionFlowScalarRelationFilter, Prisma.ProductionFlowWhereInput>
@@ -341,6 +347,7 @@ export type ProductionFlowStepOrderByWithAggregationInput = {
   supervisorUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   approverUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrderInput | Prisma.SortOrder
+  checklistTemplate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProductionFlowStepCountOrderByAggregateInput
@@ -364,6 +371,7 @@ export type ProductionFlowStepScalarWhereWithAggregatesInput = {
   supervisorUserId?: Prisma.StringNullableWithAggregatesFilter<"ProductionFlowStep"> | string | null
   approverUserId?: Prisma.StringNullableWithAggregatesFilter<"ProductionFlowStep"> | string | null
   estimatedMinutes?: Prisma.IntNullableWithAggregatesFilter<"ProductionFlowStep"> | number | null
+  checklistTemplate?: Prisma.JsonNullableWithAggregatesFilter<"ProductionFlowStep">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionFlowStep"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductionFlowStep"> | Date | string
 }
@@ -374,6 +382,7 @@ export type ProductionFlowStepCreateInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutStepsInput
@@ -395,6 +404,7 @@ export type ProductionFlowStepUncheckedCreateInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutFlowStepInput
@@ -406,6 +416,7 @@ export type ProductionFlowStepUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutStepsNestedInput
@@ -427,6 +438,7 @@ export type ProductionFlowStepUncheckedUpdateInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutFlowStepNestedInput
@@ -443,6 +455,7 @@ export type ProductionFlowStepCreateManyInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -453,6 +466,7 @@ export type ProductionFlowStepUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -468,6 +482,7 @@ export type ProductionFlowStepUncheckedUpdateManyInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -498,6 +513,7 @@ export type ProductionFlowStepCountOrderByAggregateInput = {
   supervisorUserId?: Prisma.SortOrder
   approverUserId?: Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrder
+  checklistTemplate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -777,6 +793,7 @@ export type ProductionFlowStepCreateWithoutAssigneeInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutStepsInput
@@ -796,6 +813,7 @@ export type ProductionFlowStepUncheckedCreateWithoutAssigneeInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutFlowStepInput
@@ -817,6 +835,7 @@ export type ProductionFlowStepCreateWithoutSupervisorInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutStepsInput
@@ -836,6 +855,7 @@ export type ProductionFlowStepUncheckedCreateWithoutSupervisorInput = {
   assigneeUserId: string
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutFlowStepInput
@@ -857,6 +877,7 @@ export type ProductionFlowStepCreateWithoutApproverInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutStepsInput
@@ -876,6 +897,7 @@ export type ProductionFlowStepUncheckedCreateWithoutApproverInput = {
   assigneeUserId: string
   supervisorUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutFlowStepInput
@@ -921,6 +943,7 @@ export type ProductionFlowStepScalarWhereInput = {
   supervisorUserId?: Prisma.StringNullableFilter<"ProductionFlowStep"> | string | null
   approverUserId?: Prisma.StringNullableFilter<"ProductionFlowStep"> | string | null
   estimatedMinutes?: Prisma.IntNullableFilter<"ProductionFlowStep"> | number | null
+  checklistTemplate?: Prisma.JsonNullableFilter<"ProductionFlowStep">
   createdAt?: Prisma.DateTimeFilter<"ProductionFlowStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductionFlowStep"> | Date | string
 }
@@ -963,6 +986,7 @@ export type ProductionFlowStepCreateWithoutFormInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutStepsInput
@@ -982,6 +1006,7 @@ export type ProductionFlowStepUncheckedCreateWithoutFormInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutFlowStepInput
@@ -1019,6 +1044,7 @@ export type ProductionFlowStepCreateWithoutFlowInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   form: Prisma.FormCreateNestedOneWithoutProductionStepsInput
@@ -1038,6 +1064,7 @@ export type ProductionFlowStepUncheckedCreateWithoutFlowInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutFlowStepInput
@@ -1075,6 +1102,7 @@ export type ProductionFlowStepCreateWithoutRunStepsInput = {
   name: string
   description?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   flow: Prisma.ProductionFlowCreateNestedOneWithoutStepsInput
@@ -1095,6 +1123,7 @@ export type ProductionFlowStepUncheckedCreateWithoutRunStepsInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1121,6 +1150,7 @@ export type ProductionFlowStepUpdateWithoutRunStepsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutStepsNestedInput
@@ -1141,6 +1171,7 @@ export type ProductionFlowStepUncheckedUpdateWithoutRunStepsInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1155,6 +1186,7 @@ export type ProductionFlowStepCreateManyAssigneeInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1169,6 +1201,7 @@ export type ProductionFlowStepCreateManySupervisorInput = {
   assigneeUserId: string
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1183,6 +1216,7 @@ export type ProductionFlowStepCreateManyApproverInput = {
   assigneeUserId: string
   supervisorUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1193,6 +1227,7 @@ export type ProductionFlowStepUpdateWithoutAssigneeInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutStepsNestedInput
@@ -1212,6 +1247,7 @@ export type ProductionFlowStepUncheckedUpdateWithoutAssigneeInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutFlowStepNestedInput
@@ -1227,6 +1263,7 @@ export type ProductionFlowStepUncheckedUpdateManyWithoutAssigneeInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1237,6 +1274,7 @@ export type ProductionFlowStepUpdateWithoutSupervisorInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutStepsNestedInput
@@ -1256,6 +1294,7 @@ export type ProductionFlowStepUncheckedUpdateWithoutSupervisorInput = {
   assigneeUserId?: Prisma.StringFieldUpdateOperationsInput | string
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutFlowStepNestedInput
@@ -1271,6 +1310,7 @@ export type ProductionFlowStepUncheckedUpdateManyWithoutSupervisorInput = {
   assigneeUserId?: Prisma.StringFieldUpdateOperationsInput | string
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1281,6 +1321,7 @@ export type ProductionFlowStepUpdateWithoutApproverInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutStepsNestedInput
@@ -1300,6 +1341,7 @@ export type ProductionFlowStepUncheckedUpdateWithoutApproverInput = {
   assigneeUserId?: Prisma.StringFieldUpdateOperationsInput | string
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutFlowStepNestedInput
@@ -1315,6 +1357,7 @@ export type ProductionFlowStepUncheckedUpdateManyWithoutApproverInput = {
   assigneeUserId?: Prisma.StringFieldUpdateOperationsInput | string
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1329,6 +1372,7 @@ export type ProductionFlowStepCreateManyFormInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1339,6 +1383,7 @@ export type ProductionFlowStepUpdateWithoutFormInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flow?: Prisma.ProductionFlowUpdateOneRequiredWithoutStepsNestedInput
@@ -1358,6 +1403,7 @@ export type ProductionFlowStepUncheckedUpdateWithoutFormInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutFlowStepNestedInput
@@ -1373,6 +1419,7 @@ export type ProductionFlowStepUncheckedUpdateManyWithoutFormInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1387,6 +1434,7 @@ export type ProductionFlowStepCreateManyFlowInput = {
   supervisorUserId?: string | null
   approverUserId?: string | null
   estimatedMinutes?: number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1397,6 +1445,7 @@ export type ProductionFlowStepUpdateWithoutFlowInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   form?: Prisma.FormUpdateOneRequiredWithoutProductionStepsNestedInput
@@ -1416,6 +1465,7 @@ export type ProductionFlowStepUncheckedUpdateWithoutFlowInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   runSteps?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutFlowStepNestedInput
@@ -1431,6 +1481,7 @@ export type ProductionFlowStepUncheckedUpdateManyWithoutFlowInput = {
   supervisorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approverUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  checklistTemplate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1477,6 +1528,7 @@ export type ProductionFlowStepSelect<ExtArgs extends runtime.Types.Extensions.In
   supervisorUserId?: boolean
   approverUserId?: boolean
   estimatedMinutes?: boolean
+  checklistTemplate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
@@ -1499,6 +1551,7 @@ export type ProductionFlowStepSelectCreateManyAndReturn<ExtArgs extends runtime.
   supervisorUserId?: boolean
   approverUserId?: boolean
   estimatedMinutes?: boolean
+  checklistTemplate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
@@ -1519,6 +1572,7 @@ export type ProductionFlowStepSelectUpdateManyAndReturn<ExtArgs extends runtime.
   supervisorUserId?: boolean
   approverUserId?: boolean
   estimatedMinutes?: boolean
+  checklistTemplate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
@@ -1539,11 +1593,12 @@ export type ProductionFlowStepSelectScalar = {
   supervisorUserId?: boolean
   approverUserId?: boolean
   estimatedMinutes?: boolean
+  checklistTemplate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductionFlowStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "flowId" | "stepOrder" | "name" | "description" | "formId" | "assigneeUserId" | "supervisorUserId" | "approverUserId" | "estimatedMinutes" | "createdAt" | "updatedAt", ExtArgs["result"]["productionFlowStep"]>
+export type ProductionFlowStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "flowId" | "stepOrder" | "name" | "description" | "formId" | "assigneeUserId" | "supervisorUserId" | "approverUserId" | "estimatedMinutes" | "checklistTemplate" | "createdAt" | "updatedAt", ExtArgs["result"]["productionFlowStep"]>
 export type ProductionFlowStepInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   flow?: boolean | Prisma.ProductionFlowDefaultArgs<ExtArgs>
   form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
@@ -1589,6 +1644,7 @@ export type $ProductionFlowStepPayload<ExtArgs extends runtime.Types.Extensions.
     supervisorUserId: string | null
     approverUserId: string | null
     estimatedMinutes: number | null
+    checklistTemplate: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["productionFlowStep"]>
@@ -2030,6 +2086,7 @@ export interface ProductionFlowStepFieldRefs {
   readonly supervisorUserId: Prisma.FieldRef<"ProductionFlowStep", 'String'>
   readonly approverUserId: Prisma.FieldRef<"ProductionFlowStep", 'String'>
   readonly estimatedMinutes: Prisma.FieldRef<"ProductionFlowStep", 'Int'>
+  readonly checklistTemplate: Prisma.FieldRef<"ProductionFlowStep", 'Json'>
   readonly createdAt: Prisma.FieldRef<"ProductionFlowStep", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ProductionFlowStep", 'DateTime'>
 }

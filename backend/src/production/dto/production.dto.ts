@@ -3,7 +3,9 @@ import {
   ArrayMinSize,
   IsArray,
   IsBoolean,
+  IsIn,
   IsInt,
+  IsISO8601,
   IsNotEmpty,
   IsObject,
   IsOptional,
@@ -14,6 +16,18 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Prisma } from 'src/generated/prisma/client';
+
+export class ProductionChecklistTemplateItemDto {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(240)
+  title!: string;
+
+  @IsOptional()
+  @IsBoolean()
+  required?: boolean;
+}
+
 export class ProductionFlowStepDto {
   @IsInt()
   @Min(1)
@@ -47,6 +61,12 @@ export class ProductionFlowStepDto {
   @IsInt()
   @Min(1)
   estimatedMinutes?: number;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ProductionChecklistTemplateItemDto)
+  checklist?: ProductionChecklistTemplateItemDto[];
 }
 
 export class CreateProductionFlowDto {
@@ -69,6 +89,14 @@ export class CreateProductionFlowDto {
   @IsBoolean()
   isActive?: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  requiresQc?: boolean;
+
+  @IsOptional()
+  @IsUUID()
+  qcAssigneeId?: string;
+
   @IsArray()
   @ArrayMinSize(1)
   @ValidateNested({ each: true })
@@ -84,6 +112,35 @@ export class StartProductionRunDto {
   @MaxLength(200)
   title!: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(200)
+  productName!: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  productCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(150)
+  serialNumber?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(150)
+  batchNumber?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  quantity?: number;
+
+  @IsOptional()
+  @IsISO8601()
+  dueDate?: string;
+
   @IsOptional()
   @IsObject()
   metadata?: Record<string, unknown>;
@@ -96,10 +153,31 @@ export class SubmitProductionStepDto {
 
 export class ReviewProductionStepDto {
   @IsString()
+  @IsIn(['APPROVED', 'REJECTED'])
   action!: 'APPROVED' | 'REJECTED';
 
   @IsOptional()
   @IsString()
   @MaxLength(2000)
   comment?: string;
+}
+
+export class UpdateProductionChecklistDto {
+  @IsString()
+  @IsNotEmpty()
+  itemId!: string;
+
+  @IsBoolean()
+  checked!: boolean;
+}
+
+export class ReviewProductionQcDto {
+  @IsString()
+  @IsIn(['PASSED', 'FAILED'])
+  status!: 'PASSED' | 'FAILED';
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(3000)
+  notes?: string;
 }

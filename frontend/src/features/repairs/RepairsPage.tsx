@@ -2,11 +2,8 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { AlertCircle, Plus, Search, Wrench } from "lucide-react";
-import {
-  repairsApi,
-  type RepairCase,
-} from "@/lib/api/repairs";
+import { AlertCircle, BarChart3, Plus, Search, Wrench } from "lucide-react";
+import { repairsApi, type RepairCase } from "@/lib/api/repairs";
 import { usersApi, type UserData } from "@/lib/api/users";
 import { Spinner } from "@/components/ui/Spinner";
 import { ToastViewport } from "@/components/ui/ToastViewport";
@@ -17,6 +14,7 @@ import {
   RepairCard,
   RepairDetail,
 } from "@/features/repairs/components";
+import Link from "next/link";
 
 export default function RepairsPage() {
   const { toasts, show: showToast } = useToast();
@@ -72,9 +70,14 @@ export default function RepairsPage() {
       ]);
       setRepairs(repairsRes.data);
       setTechnicians(usersRes.data);
-      const targetId = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("repairId") : null;
-      if (targetId && repairsRes.data.some((r) => r.id === targetId)) setActiveId(targetId);
-      else if (repairsRes.data.length > 0 && !activeId) setActiveId(repairsRes.data[0].id);
+      const targetId =
+        typeof window !== "undefined" ?
+          new URLSearchParams(window.location.search).get("repairId")
+        : null;
+      if (targetId && repairsRes.data.some((r) => r.id === targetId))
+        setActiveId(targetId);
+      else if (repairsRes.data.length > 0 && !activeId)
+        setActiveId(repairsRes.data[0].id);
     } catch {
       setError("خطا در دریافت اطلاعات");
     } finally {
@@ -99,13 +102,21 @@ export default function RepairsPage() {
             پرونده‌های تعمیر را مشاهده، ثبت و پیگیری کنید
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setCreateOpen(true)}
-          className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-brand-600 transition-colors">
-          <Plus size={15} />
-          پرونده جدید
-        </button>
+        <div>
+          <Link
+            href="/dashboard/repairs/reports"
+            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800">
+            <BarChart3 size={16} /> تحلیل کلی
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setCreateOpen(true)}
+            className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-brand-600 transition-colors">
+            <Plus size={15} />
+            پرونده جدید
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[320px_1fr]">

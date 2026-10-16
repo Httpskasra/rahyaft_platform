@@ -106,6 +106,9 @@ model User {
   productionStepsSupervised     ProductionRunStep[]         @relation("ProductionRunStepSupervisor")
   productionStepsApproved       ProductionRunStep[]         @relation("ProductionRunStepApprover")
   productionReviews             ProductionStepReview[]      @relation("ProductionStepReviewer")
+  productionFlowsQcOwned         ProductionFlow[]            @relation("ProductionFlowQcAssignee")
+  productionRunsQcAssigned       ProductionRun[]             @relation("ProductionRunQcAssignee")
+  productionRunsQcReviewed       ProductionRun[]             @relation("ProductionRunQcReviewer")
 }
 
 enum ThreadType {
@@ -491,17 +494,27 @@ enum ProductionReviewAction {
   REJECTED
 }
 
+enum ProductionQcStatus {
+  NOT_REQUIRED
+  PENDING
+  PASSED
+  FAILED
+}
+
 model ProductionFlow {
   id          String   @id @default(uuid())
   name        String
   code        String?  @unique
   description String?
   isActive    Boolean  @default(true)
+  requiresQc  Boolean  @default(false)
+  qcAssigneeId String?
   createdById String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   createdBy User                 @relation("ProductionFlowCreator", fields: [createdById], references: [id])
+  qcAssignee User?               @relation("ProductionFlowQcAssignee", fields: [qcAssigneeId], references: [id])
   steps     ProductionFlowStep[]
   runs      ProductionRun[]
 
@@ -520,6 +533,7 @@ model ProductionFlowStep {
   supervisorUserId String?
   approverUserId   String?
   estimatedMinutes Int?
+  checklistTemplate Json?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -539,6 +553,12 @@ model ProductionRun {
   id               String              @id @default(uuid())
   flowId           String
   title            String
+  productName      String
+  productCode      String?
+  serialNumber     String?             @unique
+  batchNumber      String?
+  quantity         Int                 @default(1)
+  dueDate          DateTime?
   referenceNo      String              @unique
   status           ProductionRunStatus @default(IN_PROGRESS)
   currentStepOrder Int?
@@ -547,16 +567,26 @@ model ProductionRun {
   completedAt      DateTime?
   cancelledAt      DateTime?
   metadata         Json?
+  qcStatus         ProductionQcStatus  @default(NOT_REQUIRED)
+  qcAssigneeId     String?
+  qcReviewerId     String?
+  qcNotes          String?
+  qcReviewedAt     DateTime?
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt
 
   flow      ProductionFlow      @relation(fields: [flowId], references: [id])
   startedBy User                @relation("ProductionRunStarter", fields: [startedById], references: [id])
+  qcAssignee User?              @relation("ProductionRunQcAssignee", fields: [qcAssigneeId], references: [id])
+  qcReviewer User?              @relation("ProductionRunQcReviewer", fields: [qcReviewerId], references: [id])
   steps     ProductionRunStep[]
 
   @@index([flowId, status])
   @@index([startedById])
   @@index([updatedAt])
+  @@index([serialNumber])
+  @@index([batchNumber])
+  @@index([qcStatus])
 }
 
 model ProductionRunStep {
@@ -576,6 +606,7 @@ model ProductionRunStep {
   startedAt        DateTime?
   submittedAt      DateTime?
   completedAt      DateTime?
+  checklist        Json?
   createdAt        DateTime                @default(now())
   updatedAt        DateTime                @updatedAt
 
