@@ -22,10 +22,12 @@ export function PermissionEditor({
   role,
   onSave,
   saving,
+  suggestions,
 }: {
   role: Role;
   onSave: (matrix: PermMatrix) => Promise<void>;
   saving: boolean;
+  suggestions?: Array<{action:string;resource:string;scope:ScopeType}> | null;
 }) {
   const resources = useMemo(() => PERMISSION_MODULES.map((m) => m.resource), []);
   const actions = useMemo(() => [...new Set(PERMISSION_MODULES.flatMap((m) => m.actions))], []);
@@ -38,6 +40,21 @@ export function PermissionEditor({
     setDirty(false);
     setAdvancedResource(null);
   }, [role.id, resources, actions]);
+
+  useEffect(() => {
+    if (!suggestions) return;
+    setMatrix(prev => {
+      const next = { ...prev };
+      for (const suggestion of suggestions) {
+        const module = PERMISSION_MODULES.find(m => m.resource === suggestion.resource);
+        if (!module?.actions.includes(suggestion.action)) continue;
+        const key = getPermissionKey(suggestion.action, suggestion.resource);
+        next[key] = { enabled: true, scope: module.scopeMode === "global" ? "ORG_WIDE" : suggestion.scope };
+      }
+      return next;
+    });
+    setDirty(true);
+  }, [suggestions]);
 
   function setModuleLevel(resource: string, moduleActions: string[], level: Exclude<SimpleAccessLevel, "CUSTOM">) {
     const enabled = new Set(actionsForLevel(moduleActions, level));
@@ -111,9 +128,9 @@ export function PermissionEditor({
                 const enabledActions = module.actions.filter((action) => matrix[getPermissionKey(action, module.resource)]?.enabled);
                 const level = detectAccessLevel(module.actions, enabledActions);
                 const firstEnabled = enabledActions[0];
-                const scope = firstEnabled
+                const scope = module.scopeMode === "global" ? "ORG_WIDE" : (firstEnabled
                   ? matrix[getPermissionKey(firstEnabled, module.resource)]?.scope ?? "DEPARTMENT"
-                  : matrix[getPermissionKey(module.actions[0], module.resource)]?.scope ?? "DEPARTMENT";
+                  : matrix[getPermissionKey(module.actions[0], module.resource)]?.scope ?? "DEPARTMENT");
                 const isAdvanced = advancedResource === module.resource;
 
                 return (
@@ -149,7 +166,7 @@ export function PermissionEditor({
                       <p className="mt-2 text-xs font-medium text-violet-600 dark:text-violet-400">سطح سفارشی فعال است</p>
                     )}
 
-                    {enabledActions.length > 0 && (
+                    {enabledActions.length > 0 && module.scopeMode !== "global" && (
                       <div className="mt-4">
                         <label className="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">این دسترسی روی چه اطلاعاتی اعمال شود؟</label>
                         <select
@@ -211,7 +228,7 @@ export function PermissionEditor({
         <button
           type="button"
           disabled={!dirty || saving}
-          onClick={() => onSave(matrix)}
+          onClick={async () => { await onSave(matrix); setDirty(false); }}
           className={cn(
             "inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all",
             dirty && !saving

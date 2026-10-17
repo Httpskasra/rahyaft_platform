@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  AlertCircle, Pencil, Plus, Search, ShieldCheck, Trash2, Users,
+  AlertCircle, Pencil, Plus, Search, ShieldCheck, Trash2, Users, Sparkles,
 } from "lucide-react";
 import { rolesApi } from "@/lib/api/roles";
 import { Spinner } from "@/components/ui/Spinner";
@@ -62,6 +62,18 @@ export default function RolesPermissionsPage() {
   const [renameDraft, setRenameDraft] = useState("");
   const [renaming, setRenaming] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [advisorText, setAdvisorText] = useState("");
+  const [advisorLoading, setAdvisorLoading] = useState(false);
+  const [advisorError, setAdvisorError] = useState("");
+  const [advisorProposal, setAdvisorProposal] = useState<{summary:string; permissions:Array<{action:string;resource:string;scope:import("./components/types").ScopeType}>; warnings:string[]} | null>(null);
+  const [approvedSuggestions, setApprovedSuggestions] = useState<Array<{action:string;resource:string;scope:import("./components/types").ScopeType}> | null>(null);
+  async function askAdvisor() {
+    setAdvisorError(""); setAdvisorProposal(null); setAdvisorLoading(true);
+    try { const {data} = await rolesApi.suggest({description:advisorText}); setAdvisorProposal(data); }
+    catch(e:unknown) { setAdvisorError((e as any)?.response?.data?.message ?? "پیشنهاد AI دریافت نشد."); }
+    finally { setAdvisorLoading(false); }
+  }
+
   const [deleting, setDeleting] = useState(false);
 
   // ── Fetch all roles ──
@@ -106,7 +118,7 @@ export default function RolesPermissionsPage() {
         safe = synced.data;
       }
       setRoles((prev) => [safe, ...prev]);
-      setActiveId(safe.id);
+      setActiveId(safe.id); setApprovedSuggestions(null); setAdvisorProposal(null);
       setCreateOpen(false);
       setNewName("");
       setSelectedTemplateId("empty");
@@ -154,7 +166,7 @@ export default function RolesPermissionsPage() {
       await rolesApi.remove(activeRole.id);
       const remaining = roles.filter((r) => r.id !== activeRole.id);
       setRoles(remaining);
-      setActiveId(remaining[0]?.id ?? null);
+      setActiveId(remaining[0]?.id ?? null); setApprovedSuggestions(null); setAdvisorProposal(null);
       setDeleteOpen(false);
       showToast("success", `نقش «${activeRole.name}» حذف شد`);
     } catch (e: unknown) {
@@ -169,7 +181,7 @@ export default function RolesPermissionsPage() {
 
   // ── Save permissions ──
   async function handleSavePermissions(matrix: PermMatrix) {
-    if (!activeRole) return;
+    if (!activeRole || activeRole.name.toLowerCase() === "superadmin") return;
     setSaving(true);
     try {
       const permissions = PERMISSION_MODULES.flatMap((module) =>
@@ -273,7 +285,7 @@ export default function RolesPermissionsPage() {
                     key={role.id}
                     role={role}
                     active={role.id === activeId}
-                    onClick={() => setActiveId(role.id)}
+                    onClick={() => { setActiveId(role.id); setApprovedSuggestions(null); setAdvisorProposal(null); setAdvisorError(""); }}
                   />
                 ))
               )}
@@ -311,6 +323,7 @@ export default function RolesPermissionsPage() {
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
+                    disabled={activeRole.name.toLowerCase() === "superadmin"}
                     onClick={() => {
                       setRenameDraft(activeRole.name);
                       setRenameOpen(true);
@@ -322,6 +335,7 @@ export default function RolesPermissionsPage() {
                   </button>
                   <button
                     type="button"
+                    disabled={activeRole.name.toLowerCase() === "superadmin"}
                     onClick={() => setDeleteOpen(true)}
                     className="flex h-8 items-center gap-1.5 rounded-xl border border-red-200 bg-red-50 px-3 text-xs font-medium text-red-600 hover:bg-red-100 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30 transition-colors"
                   >
@@ -333,11 +347,30 @@ export default function RolesPermissionsPage() {
 
               {/* Permission editor */}
               <div className="p-6">
-                <PermissionEditor
+                {activeRole.name.toLowerCase() !== "superadmin" && (
+                  <section className="mb-6 rounded-2xl border border-violet-200 bg-violet-50/50 p-4 dark:border-violet-900 dark:bg-violet-950/20">
+                    <h3 className="flex items-center gap-2 text-sm font-bold text-violet-800 dark:text-violet-200"><Sparkles size={17}/> دستیار هوشمند پیشنهاد دسترسی</h3>
+                    <p className="mt-2 text-xs leading-6 text-gray-600 dark:text-gray-300">فقط مسئولیت‌های شغلی این نقش را بنویسید. این بخش به پرسش‌های خارج از موضوع نقش‌ها و مجوزها پاسخ نمی‌دهد. AI چیزی را ذخیره نمی‌کند.</p>
+                    <textarea aria-label="شرح مسئولیت‌های نقش" rows={3} maxLength={1000} value={advisorText} onChange={e=>setAdvisorText(e.target.value)} placeholder="مثلاً کارشناس تعمیرات باید تعمیرات دپارتمان خود را ببیند، به‌روزرسانی کند و به همکاران تخصیص دهد." className="mt-3 w-full rounded-xl border border-gray-200 bg-white p-3 text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"/>
+                    <div className="mt-2 flex items-center justify-between gap-2"><span className="text-xs text-gray-500">{advisorText.length}/۱۰۰۰</span><button type="button" disabled={advisorLoading || advisorText.trim().length < 12} onClick={askAdvisor} className="rounded-xl bg-violet-600 px-4 py-2 text-xs font-semibold text-white disabled:opacity-50">{advisorLoading ? "در حال بررسی..." : "دریافت پیشنهاد"}</button></div>
+                    {advisorError && <p role="alert" className="mt-2 text-xs text-red-600">{advisorError}</p>}
+                    {advisorProposal && <div className="mt-4 rounded-xl border border-violet-200 bg-white p-3 dark:border-violet-900 dark:bg-gray-900">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{advisorProposal.summary}</p>
+                      <p className="mt-2 text-xs text-gray-500">{advisorProposal.permissions.length} مجوز پیشنهادی — فقط به مجوزهای فعلی اضافه می‌شود؛ هیچ مجوزی حذف نخواهد شد.</p>
+                      <div className="mt-2 flex flex-wrap gap-2">{advisorProposal.permissions.map(g=><span key={`${g.action}:${g.resource}`} className="rounded-lg bg-violet-100 px-2 py-1 text-xs text-violet-800 dark:bg-violet-900 dark:text-violet-100">{g.resource} / {g.action} / {g.scope}</span>)}</div>
+                      {advisorProposal.warnings.map((w,i)=><p key={i} className="mt-2 text-xs text-amber-700 dark:text-amber-400">{w}</p>)}
+                      <div className="mt-3 flex justify-end gap-2"><button type="button" onClick={()=>setAdvisorProposal(null)} className="rounded-lg border px-3 py-2 text-xs dark:border-gray-700">رد پیشنهاد</button><button type="button" disabled={!advisorProposal.permissions.length} onClick={()=>{setApprovedSuggestions(advisorProposal.permissions);setAdvisorProposal(null);}} className="rounded-lg bg-violet-600 px-3 py-2 text-xs text-white disabled:opacity-50">افزودن تیک‌ها به پیش‌نویس</button></div>
+                    </div>}
+                  </section>
+                )}
+                {activeRole.name.toLowerCase() === "superadmin" && <p className="mb-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-950/30 dark:text-amber-300">نقش Super Admin سیستمی است و برای جلوگیری از قفل شدن سامانه، قابل ویرایش یا حذف نیست.</p>}
+                {activeRole.name.toLowerCase() !== "superadmin" && <PermissionEditor
+                  key={activeRole.id}
                   role={activeRole}
                   onSave={handleSavePermissions}
                   saving={saving}
-                />
+                  suggestions={approvedSuggestions}
+                />}
               </div>
 
               {/* Assign note */}

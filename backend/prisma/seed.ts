@@ -2,6 +2,7 @@ import { PrismaClient } from '../src/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import * as dotenv from 'dotenv';
+import { ALL_PERMISSIONS } from '../src/common/permissions/permission-catalog';
 
 dotenv.config();
 
@@ -9,175 +10,67 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
+const ROOT_DEPARTMENT_ID = '00000000-0000-4000-8000-000000000001';
+const SUPER_ADMIN_PHONE = '09164532683';
+
 async function main() {
-  // 1. Create a root department
-  const dept = await prisma.department.upsert({
-    where: { id: 'seed-dept-id' },
-    update: {},
-    create: { id: 'seed-dept-id', name: 'HQ' },
+  const department = await prisma.department.upsert({
+    where: { id: ROOT_DEPARTMENT_ID },
+    update: { name: 'مدیریت کل' },
+    create: { id: ROOT_DEPARTMENT_ID, name: 'مدیریت کل' },
   });
 
-  // 2. Create superadmin user
-
   const admin = await prisma.user.upsert({
-    where: { phoneNumber: '09164532683' },
-    update: {},
-    create: {
-      phoneNumber: '09164532683',
+    where: { phoneNumber: SUPER_ADMIN_PHONE },
+    update: {
       name: 'Super Admin',
-      departmentId: dept.id,
-      employeeCode: '1',
+      departmentId: department.id,
+      employeeCode: 'SUPERADMIN-001',
+    },
+    create: {
+      phoneNumber: SUPER_ADMIN_PHONE,
+      name: 'Super Admin',
+      departmentId: department.id,
+      employeeCode: 'SUPERADMIN-001',
     },
   });
 
-  // 3. Create role
   const role = await prisma.role.upsert({
     where: { name: 'superadmin' },
     update: {},
     create: { name: 'superadmin' },
   });
 
-  // 4. Create permissions for all actions + resources
-
-  const actions = ['create', 'read', 'update', 'delete', 'approve', 'assign'];
-  const resources = [
-    'users',
-    'roles',
-    'departments',
-    'forms',
-    'form-submissions',
-    'approvals',
-    'user-info',
-    'attendance',
-    'repairs',
-    'organization-chart',
-    'communication',
-    'production-flows',
-    'production-runs',
-  ];
-
-  for (const action of actions) {
-    for (const resource of resources) {
-      const perm = await prisma.permission.upsert({
-        where: { action_resource: { action, resource } },
-        update: {},
-        create: { action, resource },
-      });
-
-      await prisma.rolePermission.upsert({
-        where: {
-          roleId_permissionId: { roleId: role.id, permissionId: perm.id },
-        },
-        update: {},
-        create: {
-          roleId: role.id,
-          permissionId: perm.id,
-          scope: 'ORG_WIDE',
-        },
-      });
-    }
-  }
-
-  // Recruitment permissions (independent workflow)
-  const recruitmentPermissions = [
-    ['read', 'recruitment-applications'],
-    ['review-initial', 'recruitment-applications'],
-    ['conduct-initial-interview', 'recruitment-applications'],
-    ['assign-technical-interviewer', 'recruitment-applications'],
-    ['conduct-technical-interview', 'recruitment-interviews'],
-    ['final-approve', 'recruitment-applications'],
-    ['manage', 'recruitment-settings'],
-  ] as const;
-
-  for (const [action, resource] of recruitmentPermissions) {
+  for (const { action, resource } of ALL_PERMISSIONS) {
     const permission = await prisma.permission.upsert({
       where: { action_resource: { action, resource } },
       update: {},
       create: { action, resource },
     });
+
     await prisma.rolePermission.upsert({
       where: { roleId_permissionId: { roleId: role.id, permissionId: permission.id } },
-      update: { scope: 'ORG_WIDE' },
+      update: { scope: 'ORG_WIDE', relationType: null },
       create: { roleId: role.id, permissionId: permission.id, scope: 'ORG_WIDE' },
     });
   }
 
-  // 5. Assign role to admin user
   await prisma.userRole.upsert({
     where: { userId_roleId: { userId: admin.id, roleId: role.id } },
     update: {},
     create: { userId: admin.id, roleId: role.id },
   });
 
-  // 6. Create a "user" role with SELF-only access to user-info
-  //mehrak
-  const userRole = await prisma.role.upsert({
-    where: { name: 'user' },
-    update: {},
-    create: { name: 'user' },
-  });
-
-  for (const action of ['create', 'read', 'update']) {
-    const perm = await prisma.permission.upsert({
-      where: { action_resource: { action, resource: 'communication' } },
-      update: {},
-      create: { action, resource: 'communication' },
-    });
-    await prisma.rolePermission.upsert({
-      where: {
-        roleId_permissionId: { roleId: userRole.id, permissionId: perm.id },
-      },
-      update: { scope: 'SELF' },
-      create: {
-        roleId: userRole.id,
-        permissionId: perm.id,
-        scope: 'SELF',
-      },
-    });
-  }
-
-  for (const action of actions) {
-    const perm = await prisma.permission.upsert({
-      where: { action_resource: { action, resource: 'user-info' } },
-      update: {},
-      create: { action, resource: 'user-info' },
-    });
-
-    await prisma.rolePermission.upsert({
-      where: {
-        roleId_permissionId: { roleId: userRole.id, permissionId: perm.id },
-      },
-      update: {},
-      create: {
-        roleId: userRole.id,
-        permissionId: perm.id,
-        scope: 'SELF',
-      },
-    });
-  }
-
-
-  // Production pipeline access for regular employees: view flows and work on assigned runs.
-  for (const [action, resource] of [
-    ['read', 'production-flows'],
-    ['read', 'production-runs'],
-    ['update', 'production-runs'],
-  ] as const) {
-    const perm = await prisma.permission.upsert({
-      where: { action_resource: { action, resource } },
-      update: {},
-      create: { action, resource },
-    });
-    await prisma.rolePermission.upsert({
-      where: { roleId_permissionId: { roleId: userRole.id, permissionId: perm.id } },
-      update: { scope: 'SELF' },
-      create: { roleId: userRole.id, permissionId: perm.id, scope: 'SELF' },
-    });
-  }
-
-  console.log('✓ Seed complete — admin@company.com / admin123');
+  console.log(`✓ Seed complete — only Super Admin seed data created (${SUPER_ADMIN_PHONE})`);
+  console.log(`✓ Root department ID: ${ROOT_DEPARTMENT_ID}`);
 }
 
 main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect());
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+    await pool.end();
+  });

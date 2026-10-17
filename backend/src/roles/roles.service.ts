@@ -9,6 +9,8 @@ import { AssignRoleDto } from './dto/assign-role.dto';
 import { AddPermissionDto } from './dto/add-permission.dto';
 import { UpdateRoleDto } from './dto/updtade-role.dto';
 import { SyncPermissionsDto } from './dto/sync-permissions.dto';
+import { BadRequestException } from '@nestjs/common';
+import { isKnownPermission } from '../common/permissions/permission-catalog';
 
 @Injectable()
 export class RolesService {
@@ -41,16 +43,17 @@ export class RolesService {
   }
 
   async remove(roleId: string) {
-    await this.findById(roleId);
+    await this.assertMutableRole(roleId);
     await this.prisma.role.delete({ where: { id: roleId } });
   }
   async update(roleId: string, dto: UpdateRoleDto) {
-    await this.findById(roleId);
+    await this.assertMutableRole(roleId);
     await this.prisma.role.update({ where: { id: roleId }, data: dto });
   }
 
   async addPermission(roleId: string, dto: AddPermissionDto) {
-    await this.findById(roleId);
+    this.assertKnownPermission(dto.action, dto.resource);
+    await this.assertMutableRole(roleId);
 
     // Upsert the permission itself (action+resource is unique)
     const permission = await this.prisma.permission.upsert({
@@ -80,12 +83,13 @@ export class RolesService {
   }
 
   async syncPermissions(roleId: string, dto: SyncPermissionsDto) {
-    await this.findById(roleId);
+    await this.assertMutableRole(roleId);
 
     return this.prisma.$transaction(async (tx) => {
       const keepPermissionIds: string[] = [];
 
       for (const item of dto.permissions) {
+        this.assertKnownPermission(item.action, item.resource);
         const permission = await tx.permission.upsert({
           where: {
             action_resource: { action: item.action, resource: item.resource },
@@ -142,9 +146,20 @@ export class RolesService {
     });
   }
 
+  private async assertMutableRole(roleId: string) {
+    const role = await this.findById(roleId);
+    if (role.name.toLowerCase() === 'superadmin') throw new BadRequestException('نقش سوپر ادمین از این صفحه قابل تغییر نیست.');
+  }
+
   private async findById(roleId: string) {
     const role = await this.prisma.role.findUnique({ where: { id: roleId } });
     if (!role) throw new NotFoundException('Role not found');
     return role;
   }
+  private assertKnownPermission(action: string, resource: string) {
+    if (!isKnownPermission(action, resource)) {
+      throw new BadRequestException(`Unknown permission: ${action}:${resource}`);
+    }
+  }
+
 }

@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { Public } from '../common/decorators/public.decorator'; //موقتی
+import { RequirePermission } from '../common/decorators/require-permission.decorator';
 
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -24,7 +24,6 @@ import { UpdateSalesOpportunityDto } from './dto/update-sales-opportunity.dto';
 import { CreateCustomerActivityDto } from './dto/create-customer-activity.dto';
 import { CreateCustomerAiAnalysisDto } from './dto/create-customer-ai-analysis.dto';
 
-@Public() //موقتی
 @ApiTags('Customers')
 @Controller('customers')
 export class CustomerController {
@@ -35,6 +34,7 @@ export class CustomerController {
    * ایجاد مشتری جدید
    */
   @Post()
+  @RequirePermission({ action: 'create', resource: 'customers' })
   create(@Body() dto: CreateCustomerDto) {
     return this.customerService.create(dto);
   }
@@ -66,6 +66,7 @@ export class CustomerController {
    *   ?sortBy=registeredAt&sortOrder=desc
    */
   @Get()
+  @RequirePermission({ action: 'read', resource: 'customers' })
   findAll(@Query() query: QueryCustomerDto) {
     return this.customerService.findAll(query);
   }
@@ -75,6 +76,7 @@ export class CustomerController {
    * مشاهده جزئیات یک مشتری (شامل ۱۰ پرونده آخر)
    */
   @Get(':id')
+  @RequirePermission({ action: 'read', resource: 'customers' })
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.customerService.findOne(id);
   }
@@ -84,6 +86,7 @@ export class CustomerController {
    * ویرایش اطلاعات مشتری
    */
   @Patch(':id')
+  @RequirePermission({ action: 'update', resource: 'customers' })
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateCustomerDto,
@@ -96,6 +99,7 @@ export class CustomerController {
    * حذف مشتری
    */
   @Delete(':id')
+  @RequirePermission({ action: 'delete', resource: 'customers' })
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.customerService.remove(id);
   }
@@ -104,6 +108,7 @@ export class CustomerController {
    * افزودن مخاطب به مشتری سازمانی
    */
   @Post(':customerId/contacts')
+  @RequirePermission({ action: 'manage-contacts', resource: 'customers' })
   createContact(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Body() dto: CreateCustomerContactDto,
@@ -116,6 +121,7 @@ export class CustomerController {
    * ویرایش مخاطب مشتری سازمانی
    */
   @Patch(':customerId/contacts/:contactId')
+  @RequirePermission({ action: 'manage-contacts', resource: 'customers' })
   updateContact(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Param('contactId', ParseUUIDPipe) contactId: string,
@@ -129,6 +135,7 @@ export class CustomerController {
    * حذف مخاطب مشتری سازمانی
    */
   @Delete(':customerId/contacts/:contactId')
+  @RequirePermission({ action: 'manage-contacts', resource: 'customers' })
   removeContact(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Param('contactId', ParseUUIDPipe) contactId: string,
@@ -140,6 +147,7 @@ export class CustomerController {
    * افزودن فرصت فروش برای مشتری
    */
   @Post(':customerId/sales-opportunities')
+  @RequirePermission({ action: 'manage-opportunities', resource: 'customers' })
   createSalesOpportunity(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Body() dto: CreateSalesOpportunityDto,
@@ -152,6 +160,7 @@ export class CustomerController {
    * ویرایش فرصت فروش مشتری
    */
   @Patch(':customerId/sales-opportunities/:opportunityId')
+  @RequirePermission({ action: 'manage-opportunities', resource: 'customers' })
   updateSalesOpportunity(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Param('opportunityId', ParseUUIDPipe) opportunityId: string,
@@ -169,6 +178,7 @@ export class CustomerController {
    * حذف فرصت فروش مشتری
    */
   @Delete(':customerId/sales-opportunities/:opportunityId')
+  @RequirePermission({ action: 'manage-opportunities', resource: 'customers' })
   removeSalesOpportunity(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Param('opportunityId', ParseUUIDPipe) opportunityId: string,
@@ -183,6 +193,7 @@ export class CustomerController {
    * افزودن فعالیت / یادداشت / تماس / پیگیری برای مشتری
    */
   @Post(':customerId/activities')
+  @RequirePermission({ action: 'log-activity', resource: 'customers' })
   createActivity(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Body() dto: CreateCustomerActivityDto,
@@ -194,6 +205,7 @@ export class CustomerController {
    * ثبت تحلیل مشتری
    */
   @Post(':customerId/ai-analysis')
+  @RequirePermission({ action: 'analyze', resource: 'customers' })
   createAiAnalysis(
     @Param('customerId', ParseUUIDPipe) customerId: string,
     @Body() dto: CreateCustomerAiAnalysisDto,
@@ -206,6 +218,7 @@ export class CustomerController {
    * آخرین تحلیل مشتری
    */
   @Get(':customerId/ai-analysis/latest')
+  @RequirePermission({ action: 'read', resource: 'customers' })
   getLatestAiAnalysis(@Param('customerId', ParseUUIDPipe) customerId: string) {
     return this.customerService.getLatestAiAnalysis(customerId);
   }

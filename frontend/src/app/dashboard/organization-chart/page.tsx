@@ -19,7 +19,7 @@ export default function OrganizationChartPage() {
   return (
     <PermissionGate
       action="read"
-      resource="organization-chart"
+      resource="departments"
       fallback={
         <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
           شما اجازه مشاهده چارت سازمانی را ندارید.

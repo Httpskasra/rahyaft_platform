@@ -1,6 +1,7 @@
 import { apiClient } from "./client";
 
 export const rolesApi = {
+  suggest: (body: {description: string}) => apiClient.post("/roles/advisor/suggest", body),
   findAll: () => apiClient.get("/roles"),
 
   create: (body: { name: string }) =>

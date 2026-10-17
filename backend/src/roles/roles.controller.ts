@@ -11,7 +11,9 @@ import {
   HttpStatus,
   Patch,
   Put,
+  BadRequestException,
 } from '@nestjs/common';
+import { RoleAdvisorService } from './role-advisor.service';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { AssignRoleDto } from './dto/assign-role.dto';
@@ -24,7 +26,14 @@ import { SyncPermissionsDto } from './dto/sync-permissions.dto';
 @ApiBearerAuth('access-token')
 @Controller('roles')
 export class RolesController {
-  constructor(private readonly rolesService: RolesService) {}
+  constructor(private readonly rolesService: RolesService, private readonly advisor: RoleAdvisorService) {}
+
+  @Post('advisor/suggest')
+  @RequirePermission({ action: 'update', resource: 'roles' })
+  advise(@Body() body: { description?: string }) {
+    if (typeof body?.description !== 'string') throw new BadRequestException('شرح نقش الزامی است.');
+    return this.advisor.suggest(body.description);
+  }
 
   @Get()
   @RequirePermission({ action: 'read', resource: 'roles' })
@@ -74,13 +83,14 @@ export class RolesController {
 
   /** POST /roles/assign — assign a role to a user */
   @Post('assign')
-  @RequirePermission({ action: 'update', resource: 'roles' })
+  @RequirePermission({ action: 'assign', resource: 'roles' })
   assignToUser(@Body() dto: AssignRoleDto) {
     return this.rolesService.assignToUser(dto);
   }
 
   @Delete('assign/:userId/:roleId')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @RequirePermission({ action: 'assign', resource: 'roles' })
   removeFromUser(
     @Param('userId', ParseUUIDPipe) userId: string,
     @Param('roleId', ParseUUIDPipe) roleId: string,

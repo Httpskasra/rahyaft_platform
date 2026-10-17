@@ -132,12 +132,13 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
   const canReadRoles = usePermission("read", "roles");
   const canReadUsers = usePermission("read", "users");
   const canReadDepartments = usePermission("read", "departments");
-  const canReadOrganizationChart = usePermission("read", "organization-chart");
+  const canReadOrganizationChart = canReadDepartments;
   const canReadRecruitment = usePermission("read", "recruitment-applications");
   const canManageRecruitment = usePermission("manage", "recruitment-settings");
   const canReadCommunication = usePermission("read", "communication");
   const canReadProductionRuns = usePermission("read", "production-runs");
   const canReadProductionFlows = usePermission("read", "production-flows");
+  const canReadCustomers = usePermission("read", "customers");
   const canReadProduction = canReadProductionRuns || canReadProductionFlows;
   // تعیین کدام dropdown باید باز باشد بر اساس pathname
   const getInitialOpenGroup = (): GroupKey => {
@@ -321,7 +322,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
             }
           </li> */}
           {/* fixing dropdown */}
-          <li>
+          {canReadCustomers && <li>
             <button
               type="button"
               onClick={() =>
@@ -363,7 +364,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                 </li>
               </ul>
             </div>
-          </li>
+          </li>}
           <li>
             <button
               type="button"

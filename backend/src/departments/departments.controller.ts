@@ -32,7 +32,7 @@ export class DepartmentsController {
   @Get('organization-chart')
   @RequirePermission({
     action: 'read',
-    resource: 'organization-chart',
+    resource: 'departments',
   })
   getOrganizationChart() {
     return this.departmentsService.getOrganizationChart();

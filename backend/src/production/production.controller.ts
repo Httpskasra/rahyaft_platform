@@ -138,7 +138,7 @@ export class ProductionController {
   }
 
   @Post('runs/:runId/steps/:stepId/begin')
-  @RequirePermission({ action: 'update', resource: 'production-runs' })
+  @RequirePermission({ action: 'execute', resource: 'production-runs' })
   begin(
     @Param('runId', ParseUUIDPipe) runId: string,
     @Param('stepId', ParseUUIDPipe) stepId: string,
@@ -148,7 +148,7 @@ export class ProductionController {
   }
 
   @Patch('runs/:runId/steps/:stepId/checklist')
-  @RequirePermission({ action: 'update', resource: 'production-runs' })
+  @RequirePermission({ action: 'execute', resource: 'production-runs' })
   checklist(
     @Param('runId', ParseUUIDPipe) runId: string,
     @Param('stepId', ParseUUIDPipe) stepId: string,
@@ -159,7 +159,7 @@ export class ProductionController {
   }
 
   @Post('runs/:runId/steps/:stepId/submit')
-  @RequirePermission({ action: 'update', resource: 'production-runs' })
+  @RequirePermission({ action: 'execute', resource: 'production-runs' })
   submit(
     @Param('runId', ParseUUIDPipe) runId: string,
     @Param('stepId', ParseUUIDPipe) stepId: string,
@@ -170,7 +170,7 @@ export class ProductionController {
   }
 
   @Post('runs/:runId/steps/:stepId/supervisor-review')
-  @RequirePermission({ action: 'update', resource: 'production-runs' })
+  @RequirePermission({ action: 'supervise', resource: 'production-runs' })
   supervisorReview(
     @Param('runId', ParseUUIDPipe) runId: string,
     @Param('stepId', ParseUUIDPipe) stepId: string,
@@ -181,7 +181,7 @@ export class ProductionController {
   }
 
   @Post('runs/:runId/steps/:stepId/approval')
-  @RequirePermission({ action: 'update', resource: 'production-runs' })
+  @RequirePermission({ action: 'approve', resource: 'production-runs' })
   approval(
     @Param('runId', ParseUUIDPipe) runId: string,
     @Param('stepId', ParseUUIDPipe) stepId: string,
@@ -192,7 +192,7 @@ export class ProductionController {
   }
 
   @Post('runs/:runId/qc')
-  @RequirePermission({ action: 'update', resource: 'production-runs' })
+  @RequirePermission({ action: 'qc', resource: 'production-runs' })
   reviewQc(
     @Param('runId', ParseUUIDPipe) runId: string,
     @Body() dto: ReviewProductionQcDto,
