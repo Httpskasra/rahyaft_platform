@@ -63,6 +63,8 @@ model User {
   refreshToken String?
   signatureStorageKey String?
   signatureMimeType   String?
+  signatureChangeRequests SignatureChangeRequest[] @relation("SignatureChangeRequester")
+  signatureChangeReviews  SignatureChangeRequest[] @relation("SignatureChangeReviewer")
 
   department   Department       @relation(fields: [departmentId], references: [id])
   manager      User?            @relation("UserHierarchy", fields: [managerId], references: [id])
@@ -110,6 +112,33 @@ model User {
   productionFlowsQcOwned         ProductionFlow[]            @relation("ProductionFlowQcAssignee")
   productionRunsQcAssigned       ProductionRun[]             @relation("ProductionRunQcAssignee")
   productionRunsQcReviewed       ProductionRun[]             @relation("ProductionRunQcReviewer")
+}
+
+
+
+enum SignatureChangeRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model SignatureChangeRequest {
+  id                String                       @id @default(uuid())
+  requesterId       String
+  reviewerId        String
+  storageKey        String
+  mimeType          String
+  status            SignatureChangeRequestStatus @default(PENDING)
+  reviewComment     String?
+  reviewedAt        DateTime?
+  createdAt         DateTime                     @default(now())
+  updatedAt         DateTime                     @updatedAt
+
+  requester User @relation("SignatureChangeRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  reviewer  User @relation("SignatureChangeReviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@index([reviewerId, status, createdAt])
+  @@index([requesterId, status, createdAt])
 }
 
 enum ThreadType {

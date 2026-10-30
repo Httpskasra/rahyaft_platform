@@ -31,6 +31,15 @@ export const DepartmentRelationType = {
 export type DepartmentRelationType = (typeof DepartmentRelationType)[keyof typeof DepartmentRelationType]
 
 
+export const SignatureChangeRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type SignatureChangeRequestStatus = (typeof SignatureChangeRequestStatus)[keyof typeof SignatureChangeRequestStatus]
+
+
 export const ThreadType = {
   CONVERSATION: 'CONVERSATION',
   REQUEST: 'REQUEST',

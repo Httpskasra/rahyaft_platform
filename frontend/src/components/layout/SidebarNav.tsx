@@ -154,7 +154,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
     if (pathname.startsWith("/dashboard/customers")) {
       return "مشتریان";
     }
-    if (pathname.startsWith("/dashboard/forms") || pathname.startsWith("/dashboard/approvals")) {
+    if (pathname.startsWith("/dashboard/forms") || pathname.startsWith("/dashboard/approvals") || pathname.startsWith("/dashboard/signature-requests")) {
       return "فرم‌ها";
     }
     return "داشبورد";
@@ -679,6 +679,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
                   <li><DropdownItem href="/dashboard/forms/fill" label="جستجو و تکمیل فرم" active={isActive("/dashboard/forms/fill")} /></li>
                   <li><DropdownItem href="/dashboard/forms/my-submissions" label="پاسخ‌های من" active={isActive("/dashboard/forms/my-submissions")} /></li>
                   <li><DropdownItem href="/dashboard/approvals" label="کارتابل تأیید" active={isActive("/dashboard/approvals")} /></li>
+                  <li><DropdownItem href="/dashboard/signature-requests" label="تأیید تغییر امضا" active={isActive("/dashboard/signature-requests")} /></li>
                   <li><DropdownItem href="/dashboard/forms/manage" label="مدیریت فرم‌ها" active={isActive("/dashboard/forms/manage")} /></li>
                 </ul>
               </div>

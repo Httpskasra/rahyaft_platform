@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import {
   User,
   Phone,
@@ -16,6 +16,7 @@ import {
   PenLine,
   Eraser,
   Save,
+  Clock3,
   Loader2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -170,28 +171,45 @@ function Skeleton({ className }: { className?: string }) {
 }
 
 
-// ─── Signature pad ────────────────────────────────────────────
+// ─── Signature image ──────────────────────────────────────────
 function SignatureSection() {
+  const [savedSignature, setSavedSignature] = useState<string | null>(null);
+  const [request, setRequest] = useState<null | {
+    id: string;
+    status: "PENDING" | "APPROVED" | "REJECTED";
+    reviewComment: string | null;
+    reviewedAt: string | null;
+    createdAt: string;
+    reviewer: { id: string; name: string };
+  }>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawingRef = useRef(false);
   const [hasStroke, setHasStroke] = useState(false);
-  const [savedSignature, setSavedSignature] = useState<string | null>(null);
   const [loadingSignature, setLoadingSignature] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
+  const reload = async () => {
+    const [signatureResult, requestResult] = await Promise.all([
+      usersApi.getMySignature(),
+      usersApi.getMySignatureChangeRequest(),
+    ]);
+    setSavedSignature(signatureResult.data.signatureDataUrl);
+    setRequest(requestResult.data);
+  };
+
   useEffect(() => {
     let mounted = true;
-    usersApi.getMySignature()
-      .then(({ data }) => {
-        if (mounted) setSavedSignature(data.signatureDataUrl);
+    Promise.all([usersApi.getMySignature(), usersApi.getMySignatureChangeRequest()])
+      .then(([signatureResult, requestResult]) => {
+        if (!mounted) return;
+        setSavedSignature(signatureResult.data.signatureDataUrl);
+        setRequest(requestResult.data);
       })
       .catch(() => {
-        if (mounted) setMessage({ type: "error", text: "دریافت امضای فعلی ناموفق بود." });
+        if (mounted) setMessage({ type: "error", text: "دریافت اطلاعات امضا ناموفق بود." });
       })
-      .finally(() => {
-        if (mounted) setLoadingSignature(false);
-      });
+      .finally(() => { if (mounted) setLoadingSignature(false); });
     return () => { mounted = false; };
   }, []);
 
@@ -256,17 +274,24 @@ function SignatureSection() {
     setSaving(true);
     setMessage(null);
     try {
-      const signatureDataUrl = canvas.toDataURL("image/png");
-      const { data } = await usersApi.saveMySignature(signatureDataUrl);
-      setSavedSignature(data.signatureDataUrl);
+      const { data } = await usersApi.saveMySignature(canvas.toDataURL("image/png"));
       clearCanvas();
-      setMessage({ type: "success", text: "امضای شما با موفقیت ذخیره شد و از این پس در تأیید فرم‌ها استفاده می‌شود." });
-    } catch {
-      setMessage({ type: "error", text: "ذخیره امضا ناموفق بود. دوباره تلاش کنید." });
+      await reload();
+      setMessage({
+        type: "success",
+        text: data.requiresApproval
+          ? "درخواست تغییر امضا برای مدیر مستقیم شما ارسال شد. امضای قبلی تا زمان تأیید معتبر باقی می‌ماند."
+          : "اولین امضای شما با موفقیت ثبت و فعال شد.",
+      });
+    } catch (error: any) {
+      const detail = error?.response?.data?.message;
+      setMessage({ type: "error", text: Array.isArray(detail) ? detail.join("، ") : detail || "ثبت امضا ناموفق بود." });
     } finally {
       setSaving(false);
     }
   };
+
+  const pending = request?.status === "PENDING";
 
   return (
     <section className="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
@@ -274,10 +299,10 @@ function SignatureSection() {
         <div>
           <div className="flex items-center gap-2">
             <PenLine size={17} className="text-brand-500" />
-            <h2 className="text-sm font-semibold text-gray-800 dark:text-white/90">امضای دیجیتال من</h2>
+            <h2 className="text-sm font-semibold text-gray-800 dark:text-white/90">نمونه امضای من</h2>
           </div>
           <p className="mt-1 text-xs leading-6 text-gray-500 dark:text-gray-400">
-            امضای خود را با موس، قلم یا لمس داخل کادر بکشید. هنگام تأیید فرم، یک نسخه ثابت از همین امضا داخل سابقه تأیید و PDF ذخیره می‌شود.
+            امضای خود را با موس، قلم یا لمس داخل کادر بکشید. ثبت اولیه مستقیم فعال می‌شود؛ تغییرهای بعدی فقط با تأیید مدیر مربوطه اعمال می‌شوند.
           </p>
         </div>
         <span className={cn(
@@ -290,48 +315,53 @@ function SignatureSection() {
 
       {savedSignature && (
         <div className="mb-4 rounded-xl border border-emerald-100 bg-emerald-50/40 p-3 dark:border-emerald-900/60 dark:bg-emerald-500/5">
-          <p className="mb-2 text-xs font-medium text-gray-600 dark:text-gray-300">امضای فعلی</p>
-          <div className="flex min-h-24 items-center justify-center rounded-lg bg-white p-3 dark:bg-white">
+          <p className="mb-2 text-xs font-medium text-gray-600 dark:text-gray-300">امضای فعال فعلی</p>
+          <div className="flex min-h-24 items-center justify-center rounded-lg bg-white p-3">
             <img src={savedSignature} alt="امضای فعلی" className="max-h-20 max-w-full object-contain" />
           </div>
         </div>
       )}
 
-      <div className="overflow-hidden rounded-2xl border border-dashed border-gray-300 bg-white dark:border-gray-700">
+      {pending && request && (
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-amber-800 dark:border-amber-900/60 dark:bg-amber-500/10 dark:text-amber-300">
+          <Clock3 size={18} className="mt-0.5 shrink-0" />
+          <div className="text-xs leading-6">
+            <div className="font-semibold">درخواست تغییر امضا در انتظار تأیید است</div>
+            <div>مدیر بررسی‌کننده: {request.reviewer.name}</div>
+            <div>تا زمان تأیید، امضای قبلی شما در فرم‌ها و PDF استفاده می‌شود.</div>
+          </div>
+        </div>
+      )}
+
+      {request?.status === "REJECTED" && (
+        <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-xs leading-6 text-red-700 dark:border-red-900/60 dark:bg-red-500/10 dark:text-red-300">
+          آخرین درخواست تغییر امضا رد شده است.{request.reviewComment ? ` توضیح مدیر: ${request.reviewComment}` : ""}
+        </div>
+      )}
+
+      <div className={cn("overflow-hidden rounded-2xl border border-dashed border-gray-300 bg-white dark:border-gray-700", pending && "opacity-60")}>
         <canvas
           ref={canvasRef}
           width={900}
           height={280}
-          onPointerDown={startDrawing}
-          onPointerMove={draw}
+          onPointerDown={pending || saving ? undefined : startDrawing}
+          onPointerMove={pending || saving ? undefined : draw}
           onPointerUp={stopDrawing}
           onPointerCancel={stopDrawing}
           onPointerLeave={(e) => drawingRef.current && stopDrawing(e)}
-          className="h-56 w-full touch-none cursor-crosshair bg-white"
+          className={cn("h-56 w-full touch-none bg-white", pending ? "cursor-not-allowed" : "cursor-crosshair")}
           aria-label="کادر رسم امضا"
         />
       </div>
-
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[11px] text-gray-400">برای تغییر امضای قبلی، امضای جدید را بکشید و ذخیره کنید.</p>
+        <p className="text-[11px] text-gray-400">{savedSignature ? "تغییر امضا فقط بعد از تأیید مدیر مستقیم شما فعال می‌شود." : "ثبت اولین امضا نیاز به تأیید ندارد."}</p>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={clearCanvas}
-            disabled={saving}
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-          >
-            <Eraser size={14} />
-            پاک کردن کادر
+          <button type="button" onClick={clearCanvas} disabled={saving || pending} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-xs text-gray-600 disabled:opacity-50 dark:border-gray-700 dark:text-gray-300">
+            <Eraser size={14} /> پاک کردن کادر
           </button>
-          <button
-            type="button"
-            onClick={saveSignature}
-            disabled={saving || !hasStroke}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2 text-xs font-medium text-white hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-50"
-          >
+          <button type="button" onClick={saveSignature} disabled={saving || !hasStroke || pending} className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2 text-xs text-white hover:bg-brand-600 disabled:opacity-50">
             {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
-            ذخیره امضا
+            {savedSignature ? "ارسال درخواست تغییر" : "ثبت امضا"}
           </button>
         </div>
       </div>

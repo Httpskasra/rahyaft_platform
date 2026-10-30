@@ -579,10 +579,6 @@ export type EnumThreadPriorityFieldUpdateOperationsInput = {
   set?: $Enums.ThreadPriority
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type ThreadCreateNestedOneWithoutEntityLinksInput = {
   create?: Prisma.XOR<Prisma.ThreadCreateWithoutEntityLinksInput, Prisma.ThreadUncheckedCreateWithoutEntityLinksInput>
   connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutEntityLinksInput

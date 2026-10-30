@@ -387,6 +387,7 @@ export const ModelName = {
   Department: 'Department',
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
+  SignatureChangeRequest: 'SignatureChangeRequest',
   Thread: 'Thread',
   ThreadEntityLink: 'ThreadEntityLink',
   ThreadParticipant: 'ThreadParticipant',
@@ -395,6 +396,7 @@ export const ModelName = {
   ThreadMention: 'ThreadMention',
   ThreadAttachment: 'ThreadAttachment',
   CommunicationNotification: 'CommunicationNotification',
+  AppNotification: 'AppNotification',
   ThreadActivity: 'ThreadActivity',
   Attendance: 'Attendance',
   Role: 'Role',
@@ -452,7 +454,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "productionFlow" | "productionFlowStep" | "productionRun" | "productionRunStep" | "productionStepReview" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "repairSlaPolicy" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
+    modelProps: "department" | "departmentRelation" | "user" | "signatureChangeRequest" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "appNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "productionFlow" | "productionFlowStep" | "productionRun" | "productionRunStep" | "productionStepReview" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "repairSlaPolicy" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -675,6 +677,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    SignatureChangeRequest: {
+      payload: Prisma.$SignatureChangeRequestPayload<ExtArgs>
+      fields: Prisma.SignatureChangeRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SignatureChangeRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SignatureChangeRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.SignatureChangeRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SignatureChangeRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>
+        }
+        findMany: {
+          args: Prisma.SignatureChangeRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>[]
+        }
+        create: {
+          args: Prisma.SignatureChangeRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>
+        }
+        createMany: {
+          args: Prisma.SignatureChangeRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SignatureChangeRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.SignatureChangeRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>
+        }
+        update: {
+          args: Prisma.SignatureChangeRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.SignatureChangeRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SignatureChangeRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SignatureChangeRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.SignatureChangeRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureChangeRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.SignatureChangeRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSignatureChangeRequest>
+        }
+        groupBy: {
+          args: Prisma.SignatureChangeRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SignatureChangeRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SignatureChangeRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SignatureChangeRequestCountAggregateOutputType> | number
         }
       }
     }
@@ -1267,6 +1343,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CommunicationNotificationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CommunicationNotificationCountAggregateOutputType> | number
+        }
+      }
+    }
+    AppNotification: {
+      payload: Prisma.$AppNotificationPayload<ExtArgs>
+      fields: Prisma.AppNotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AppNotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AppNotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.AppNotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AppNotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+        }
+        findMany: {
+          args: Prisma.AppNotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>[]
+        }
+        create: {
+          args: Prisma.AppNotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+        }
+        createMany: {
+          args: Prisma.AppNotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AppNotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.AppNotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+        }
+        update: {
+          args: Prisma.AppNotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.AppNotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AppNotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AppNotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.AppNotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.AppNotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAppNotification>
+        }
+        groupBy: {
+          args: Prisma.AppNotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AppNotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AppNotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AppNotificationCountAggregateOutputType> | number
         }
       }
     }
@@ -4454,6 +4604,22 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const SignatureChangeRequestScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  reviewerId: 'reviewerId',
+  storageKey: 'storageKey',
+  mimeType: 'mimeType',
+  status: 'status',
+  reviewComment: 'reviewComment',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureChangeRequestScalarFieldEnum = (typeof SignatureChangeRequestScalarFieldEnum)[keyof typeof SignatureChangeRequestScalarFieldEnum]
+
+
 export const ThreadScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -4562,6 +4728,30 @@ export const CommunicationNotificationScalarFieldEnum = {
 } as const
 
 export type CommunicationNotificationScalarFieldEnum = (typeof CommunicationNotificationScalarFieldEnum)[keyof typeof CommunicationNotificationScalarFieldEnum]
+
+
+export const AppNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  category: 'category',
+  title: 'title',
+  body: 'body',
+  href: 'href',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  baleStatus: 'baleStatus',
+  baleAttempts: 'baleAttempts',
+  baleNextAttemptAt: 'baleNextAttemptAt',
+  baleSentAt: 'baleSentAt',
+  baleLastError: 'baleLastError'
+} as const
+
+export type AppNotificationScalarFieldEnum = (typeof AppNotificationScalarFieldEnum)[keyof typeof AppNotificationScalarFieldEnum]
 
 
 export const ThreadActivityScalarFieldEnum = {
@@ -5301,6 +5491,20 @@ export type ListEnumDepartmentRelationTypeFieldRefInput<$PrismaModel> = FieldRef
 
 
 /**
+ * Reference to a field of type 'SignatureChangeRequestStatus'
+ */
+export type EnumSignatureChangeRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SignatureChangeRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SignatureChangeRequestStatus[]'
+ */
+export type ListEnumSignatureChangeRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SignatureChangeRequestStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'ThreadType'
  */
 export type EnumThreadTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadType'>
@@ -5385,20 +5589,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'ThreadActivityType'
- */
-export type EnumThreadActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadActivityType'>
-    
-
-
-/**
- * Reference to a field of type 'ThreadActivityType[]'
- */
-export type ListEnumThreadActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadActivityType[]'>
-    
-
-
-/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -5409,6 +5599,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'ThreadActivityType'
+ */
+export type EnumThreadActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadActivityType'>
+    
+
+
+/**
+ * Reference to a field of type 'ThreadActivityType[]'
+ */
+export type ListEnumThreadActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThreadActivityType[]'>
     
 
 
@@ -5895,6 +6099,7 @@ export type GlobalOmitConfig = {
   department?: Prisma.DepartmentOmit
   departmentRelation?: Prisma.DepartmentRelationOmit
   user?: Prisma.UserOmit
+  signatureChangeRequest?: Prisma.SignatureChangeRequestOmit
   thread?: Prisma.ThreadOmit
   threadEntityLink?: Prisma.ThreadEntityLinkOmit
   threadParticipant?: Prisma.ThreadParticipantOmit
@@ -5903,6 +6108,7 @@ export type GlobalOmitConfig = {
   threadMention?: Prisma.ThreadMentionOmit
   threadAttachment?: Prisma.ThreadAttachmentOmit
   communicationNotification?: Prisma.CommunicationNotificationOmit
+  appNotification?: Prisma.AppNotificationOmit
   threadActivity?: Prisma.ThreadActivityOmit
   attendance?: Prisma.AttendanceOmit
   role?: Prisma.RoleOmit

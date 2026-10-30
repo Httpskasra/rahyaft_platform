@@ -54,6 +54,7 @@ export const ModelName = {
   Department: 'Department',
   DepartmentRelation: 'DepartmentRelation',
   User: 'User',
+  SignatureChangeRequest: 'SignatureChangeRequest',
   Thread: 'Thread',
   ThreadEntityLink: 'ThreadEntityLink',
   ThreadParticipant: 'ThreadParticipant',
@@ -62,6 +63,7 @@ export const ModelName = {
   ThreadMention: 'ThreadMention',
   ThreadAttachment: 'ThreadAttachment',
   CommunicationNotification: 'CommunicationNotification',
+  AppNotification: 'AppNotification',
   ThreadActivity: 'ThreadActivity',
   Attendance: 'Attendance',
   Role: 'Role',
@@ -157,6 +159,22 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const SignatureChangeRequestScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  reviewerId: 'reviewerId',
+  storageKey: 'storageKey',
+  mimeType: 'mimeType',
+  status: 'status',
+  reviewComment: 'reviewComment',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureChangeRequestScalarFieldEnum = (typeof SignatureChangeRequestScalarFieldEnum)[keyof typeof SignatureChangeRequestScalarFieldEnum]
 
 
 export const ThreadScalarFieldEnum = {
@@ -267,6 +285,30 @@ export const CommunicationNotificationScalarFieldEnum = {
 } as const
 
 export type CommunicationNotificationScalarFieldEnum = (typeof CommunicationNotificationScalarFieldEnum)[keyof typeof CommunicationNotificationScalarFieldEnum]
+
+
+export const AppNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  category: 'category',
+  title: 'title',
+  body: 'body',
+  href: 'href',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  baleStatus: 'baleStatus',
+  baleAttempts: 'baleAttempts',
+  baleNextAttemptAt: 'baleNextAttemptAt',
+  baleSentAt: 'baleSentAt',
+  baleLastError: 'baleLastError'
+} as const
+
+export type AppNotificationScalarFieldEnum = (typeof AppNotificationScalarFieldEnum)[keyof typeof AppNotificationScalarFieldEnum]
 
 
 export const ThreadActivityScalarFieldEnum = {

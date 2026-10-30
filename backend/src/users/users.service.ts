@@ -11,9 +11,10 @@ import { AuthenticatedUser } from '../common/interfaces/auth.interface';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Prisma } from 'src/generated/prisma/client';
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { NotificationsService } from '../notifications/notifications.service';
 
 const USER_SELECT = {
   id: true,
@@ -32,7 +33,10 @@ const USER_SELECT = {
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notifications: NotificationsService,
+  ) {}
 
   findAll() {
     return this.prisma.user.findMany({ select: USER_SELECT });
@@ -97,64 +101,283 @@ export class UsersService {
       return { hasSignature: false, signatureDataUrl: null };
     }
 
-    const filePath = join(
-      process.cwd(),
-      'uploads',
-      'signatures',
-      'users',
-      user.signatureStorageKey,
-    );
-    const buffer = await readFile(filePath);
     return {
       hasSignature: true,
-      signatureDataUrl: `data:${user.signatureMimeType};base64,${buffer.toString('base64')}`,
+      signatureDataUrl: await this.signatureDataUrl(
+        'users',
+        user.signatureStorageKey,
+        user.signatureMimeType,
+      ),
     };
   }
 
   async saveDrawnSignature(userId: string, signatureDataUrl: string) {
-    await this.findOne(userId);
-
-    const prefix = 'data:image/png;base64,';
-    if (!signatureDataUrl.startsWith(prefix)) {
-      throw new BadRequestException('Signature must be a PNG data URL');
+    if (!/^data:image\/png;base64,[A-Za-z0-9+/]+={0,2}$/.test(signatureDataUrl)) {
+      throw new BadRequestException('Only a drawn PNG signature is accepted');
     }
-
-    let buffer: Buffer;
-    try {
-      buffer = Buffer.from(signatureDataUrl.slice(prefix.length), 'base64');
-    } catch {
-      throw new BadRequestException('Invalid signature data');
-    }
-
-    if (buffer.length < 100) {
-      throw new BadRequestException('Signature is empty or invalid');
-    }
+    const buffer = Buffer.from(signatureDataUrl.split(',')[1], 'base64');
     if (buffer.length > 2 * 1024 * 1024) {
       throw new BadRequestException('Signature is too large');
     }
-    // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
-    const pngMagic = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-    if (buffer.length < 8 || !buffer.subarray(0, 8).equals(pngMagic)) {
-      throw new BadRequestException('Invalid PNG signature');
+    return this.uploadSignature(userId, { buffer, mimetype: 'image/png' } as Express.Multer.File);
+  }
+
+  async uploadSignature(userId: string, file?: Express.Multer.File) {
+    if (!file?.buffer?.length) {
+      throw new BadRequestException('Signature image file is required');
     }
 
-    const dir = join(process.cwd(), 'uploads', 'signatures', 'users');
-    await mkdir(dir, { recursive: true });
-    const storageKey = `${randomUUID()}.png`;
-    await writeFile(join(dir, storageKey), buffer);
-
-    await this.prisma.user.update({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      data: {
-        signatureStorageKey: storageKey,
-        signatureMimeType: 'image/png',
+      select: {
+        id: true,
+        name: true,
+        managerId: true,
+        signatureStorageKey: true,
+        signatureMimeType: true,
       },
+    });
+    if (!user) throw new NotFoundException('User not found');
+
+    const detected = this.validateSignatureImage(file.buffer, file.mimetype);
+
+    // First signature is activated immediately.
+    if (!user.signatureStorageKey || !user.signatureMimeType) {
+      const storageKey = await this.writeSignatureFile('users', file.buffer, detected.extension);
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: { signatureStorageKey: storageKey, signatureMimeType: detected.mimeType },
+      });
+      return {
+        status: 'ACTIVE',
+        requiresApproval: false,
+        hasSignature: true,
+        signatureDataUrl: `data:${detected.mimeType};base64,${file.buffer.toString('base64')}`,
+      };
+    }
+
+    if (!user.managerId) {
+      throw new BadRequestException('A manager must be assigned before requesting a signature change');
+    }
+
+    const pending = await this.prisma.signatureChangeRequest.findFirst({
+      where: { requesterId: userId, status: 'PENDING' },
+      select: { id: true },
+    });
+    if (pending) {
+      throw new ConflictException('A signature change request is already pending manager approval');
+    }
+
+    const storageKey = await this.writeSignatureFile('requests', file.buffer, detected.extension);
+    const request = await this.prisma.signatureChangeRequest.create({
+      data: {
+        requesterId: userId,
+        reviewerId: user.managerId,
+        storageKey,
+        mimeType: detected.mimeType,
+      },
+      select: { id: true, status: true, createdAt: true },
+    });
+
+    await this.notifications.create({
+      userId: user.managerId,
+      type: 'SIGNATURE_CHANGE_REQUESTED',
+      category: 'APPROVALS',
+      title: 'درخواست تغییر امضا',
+      body: `${user.name} درخواست تغییر نمونه امضای خود را ثبت کرده است.`,
+      href: '/dashboard/signature-requests',
+      entityType: 'SIGNATURE_CHANGE_REQUEST',
+      entityId: request.id,
+      actorId: user.id,
     });
 
     return {
-      hasSignature: true,
-      signatureDataUrl: `${prefix}${buffer.toString('base64')}`,
+      status: request.status,
+      requiresApproval: true,
+      requestId: request.id,
+      createdAt: request.createdAt,
+      message: 'Signature change request sent to manager for approval',
     };
+  }
+
+  async getMySignatureChangeRequest(userId: string) {
+    const request = await this.prisma.signatureChangeRequest.findFirst({
+      where: { requesterId: userId },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        status: true,
+        reviewComment: true,
+        reviewedAt: true,
+        createdAt: true,
+        reviewer: { select: { id: true, name: true } },
+      },
+    });
+    return request ?? null;
+  }
+
+  async getPendingSignatureChangeRequests(managerId: string) {
+    const requests = await this.prisma.signatureChangeRequest.findMany({
+      where: { reviewerId: managerId, status: 'PENDING' },
+      orderBy: { createdAt: 'asc' },
+      select: {
+        id: true,
+        storageKey: true,
+        mimeType: true,
+        createdAt: true,
+        requester: {
+          select: {
+            id: true,
+            name: true,
+            employeeCode: true,
+            department: { select: { id: true, name: true } },
+            signatureStorageKey: true,
+            signatureMimeType: true,
+          },
+        },
+      },
+    });
+
+    return Promise.all(requests.map(async (request) => ({
+      id: request.id,
+      createdAt: request.createdAt,
+      requester: {
+        id: request.requester.id,
+        name: request.requester.name,
+        employeeCode: request.requester.employeeCode,
+        department: request.requester.department,
+      },
+      currentSignatureDataUrl:
+        request.requester.signatureStorageKey && request.requester.signatureMimeType
+          ? await this.signatureDataUrl('users', request.requester.signatureStorageKey, request.requester.signatureMimeType)
+          : null,
+      requestedSignatureDataUrl: await this.signatureDataUrl('requests', request.storageKey, request.mimeType),
+    })));
+  }
+
+  async reviewSignatureChange(
+    requestId: string,
+    managerId: string,
+    approved: boolean,
+    comment?: string,
+  ) {
+    const request = await this.prisma.signatureChangeRequest.findUnique({
+      where: { id: requestId },
+      include: { requester: { select: { id: true, name: true } } },
+    });
+    if (!request) throw new NotFoundException('Signature change request not found');
+    if (request.reviewerId !== managerId) {
+      throw new ForbiddenException('This signature change request is not assigned to you');
+    }
+    if (request.status !== 'PENDING') {
+      throw new ConflictException('Signature change request has already been reviewed');
+    }
+
+    if (approved) {
+      const source = join(process.cwd(), 'uploads', 'signatures', 'requests', request.storageKey);
+      const buffer = await readFile(source);
+      const extension = this.extensionForMime(request.mimeType);
+      const activeStorageKey = await this.writeSignatureFile('users', buffer, extension);
+
+      const old = await this.prisma.user.findUnique({
+        where: { id: request.requesterId },
+        select: { signatureStorageKey: true },
+      });
+
+      await this.prisma.$transaction([
+        this.prisma.user.update({
+          where: { id: request.requesterId },
+          data: { signatureStorageKey: activeStorageKey, signatureMimeType: request.mimeType },
+        }),
+        this.prisma.signatureChangeRequest.update({
+          where: { id: requestId },
+          data: {
+            status: 'APPROVED',
+            reviewedAt: new Date(),
+            reviewComment: comment?.trim() || null,
+          },
+        }),
+      ]);
+
+      await this.safeDelete('requests', request.storageKey);
+      if (old?.signatureStorageKey) await this.safeDelete('users', old.signatureStorageKey);
+    } else {
+      await this.prisma.signatureChangeRequest.update({
+        where: { id: requestId },
+        data: {
+          status: 'REJECTED',
+          reviewedAt: new Date(),
+          reviewComment: comment?.trim() || null,
+        },
+      });
+      await this.safeDelete('requests', request.storageKey);
+    }
+
+    await this.notifications.create({
+      userId: request.requesterId,
+      type: approved ? 'SIGNATURE_CHANGE_APPROVED' : 'SIGNATURE_CHANGE_REJECTED',
+      category: 'APPROVALS',
+      title: approved ? 'تغییر امضا تأیید شد' : 'تغییر امضا رد شد',
+      body: comment?.trim() || (approved
+        ? 'نمونه امضای جدید شما فعال شد.'
+        : 'مدیر مربوطه درخواست تغییر امضای شما را رد کرد.'),
+      href: '/dashboard/profile',
+      entityType: 'SIGNATURE_CHANGE_REQUEST',
+      entityId: request.id,
+      actorId: managerId,
+    });
+
+    return { id: request.id, status: approved ? 'APPROVED' : 'REJECTED' };
+  }
+
+  private validateSignatureImage(buffer: Buffer, declaredMime?: string) {
+    if (buffer.length < 100) throw new BadRequestException('Signature image is empty or invalid');
+    if (buffer.length > 2 * 1024 * 1024) throw new BadRequestException('Signature image is too large');
+
+    const isPng = buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]));
+    const isJpeg = buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+    const isWebp = buffer.length >= 12 && buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP';
+
+    const detected = isPng
+      ? { mimeType: 'image/png', extension: '.png' }
+      : isJpeg
+        ? { mimeType: 'image/jpeg', extension: '.jpg' }
+        : isWebp
+          ? { mimeType: 'image/webp', extension: '.webp' }
+          : null;
+    if (!detected) throw new BadRequestException('Only PNG, JPG/JPEG or WEBP signature images are allowed');
+    if (declaredMime?.startsWith('image/') && declaredMime !== detected.mimeType && !(declaredMime === 'image/jpg' && detected.mimeType === 'image/jpeg')) {
+      throw new BadRequestException('Signature image content does not match its file type');
+    }
+    return detected;
+  }
+
+  private extensionForMime(mimeType: string) {
+    if (mimeType === 'image/png') return '.png';
+    if (mimeType === 'image/jpeg') return '.jpg';
+    if (mimeType === 'image/webp') return '.webp';
+    throw new BadRequestException('Unsupported signature image type');
+  }
+
+  private async writeSignatureFile(folder: 'users' | 'requests', buffer: Buffer, extension: string) {
+    const dir = join(process.cwd(), 'uploads', 'signatures', folder);
+    await mkdir(dir, { recursive: true });
+    const storageKey = `${randomUUID()}${extension}`;
+    await writeFile(join(dir, storageKey), buffer, { flag: 'wx' });
+    return storageKey;
+  }
+
+  private async signatureDataUrl(folder: 'users' | 'requests', storageKey: string, mimeType: string) {
+    const buffer = await readFile(join(process.cwd(), 'uploads', 'signatures', folder, storageKey));
+    return `data:${mimeType};base64,${buffer.toString('base64')}`;
+  }
+
+  private async safeDelete(folder: 'users' | 'requests', storageKey: string) {
+    try {
+      await unlink(join(process.cwd(), 'uploads', 'signatures', folder, storageKey));
+    } catch {
+      // File cleanup must not turn an already successful review into an API failure.
+    }
   }
 
   async update(userId: string, dto: UpdateUserDto) {

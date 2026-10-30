@@ -230,6 +230,8 @@ export type UserWhereInput = {
   baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   employeeCode?: Prisma.StringNullableFilter<"User"> | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestListRelationFilter
+  signatureChangeReviews?: Prisma.SignatureChangeRequestListRelationFilter
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   subordinates?: Prisma.UserListRelationFilter
@@ -254,6 +256,7 @@ export type UserWhereInput = {
   threadActivities?: Prisma.ThreadActivityListRelationFilter
   threadMentions?: Prisma.ThreadMentionListRelationFilter
   threadNotifications?: Prisma.CommunicationNotificationListRelationFilter
+  notifications?: Prisma.AppNotificationListRelationFilter
   threadAttachments?: Prisma.ThreadAttachmentListRelationFilter
   threadEntityLinks?: Prisma.ThreadEntityLinkListRelationFilter
   productionFlowsCreated?: Prisma.ProductionFlowListRelationFilter
@@ -282,6 +285,8 @@ export type UserOrderByWithRelationInput = {
   baleChatId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   employeeCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureChangeRequests?: Prisma.SignatureChangeRequestOrderByRelationAggregateInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestOrderByRelationAggregateInput
   department?: Prisma.DepartmentOrderByWithRelationInput
   manager?: Prisma.UserOrderByWithRelationInput
   subordinates?: Prisma.UserOrderByRelationAggregateInput
@@ -306,6 +311,7 @@ export type UserOrderByWithRelationInput = {
   threadActivities?: Prisma.ThreadActivityOrderByRelationAggregateInput
   threadMentions?: Prisma.ThreadMentionOrderByRelationAggregateInput
   threadNotifications?: Prisma.CommunicationNotificationOrderByRelationAggregateInput
+  notifications?: Prisma.AppNotificationOrderByRelationAggregateInput
   threadAttachments?: Prisma.ThreadAttachmentOrderByRelationAggregateInput
   threadEntityLinks?: Prisma.ThreadEntityLinkOrderByRelationAggregateInput
   productionFlowsCreated?: Prisma.ProductionFlowOrderByRelationAggregateInput
@@ -337,6 +343,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   signatureMimeType?: Prisma.StringNullableFilter<"User"> | string | null
   baleChatId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  signatureChangeRequests?: Prisma.SignatureChangeRequestListRelationFilter
+  signatureChangeReviews?: Prisma.SignatureChangeRequestListRelationFilter
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   subordinates?: Prisma.UserListRelationFilter
@@ -361,6 +369,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   threadActivities?: Prisma.ThreadActivityListRelationFilter
   threadMentions?: Prisma.ThreadMentionListRelationFilter
   threadNotifications?: Prisma.CommunicationNotificationListRelationFilter
+  notifications?: Prisma.AppNotificationListRelationFilter
   threadAttachments?: Prisma.ThreadAttachmentListRelationFilter
   threadEntityLinks?: Prisma.ThreadEntityLinkListRelationFilter
   productionFlowsCreated?: Prisma.ProductionFlowListRelationFilter
@@ -421,6 +430,8 @@ export type UserCreateInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -445,6 +456,7 @@ export type UserCreateInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -473,6 +485,8 @@ export type UserUncheckedCreateInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -495,6 +509,7 @@ export type UserUncheckedCreateInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -521,6 +536,8 @@ export type UserUpdateInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -545,6 +562,7 @@ export type UserUpdateInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -573,6 +591,8 @@ export type UserUncheckedUpdateInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -595,6 +615,7 @@ export type UserUncheckedUpdateInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -813,6 +834,34 @@ export type UserUncheckedUpdateManyWithoutManagerNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
+export type UserCreateNestedOneWithoutSignatureChangeRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeRequestsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSignatureChangeRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutSignatureChangeReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeReviewsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSignatureChangeReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSignatureChangeRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeRequestsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSignatureChangeRequestsInput
+  upsert?: Prisma.UserUpsertWithoutSignatureChangeRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSignatureChangeRequestsInput, Prisma.UserUpdateWithoutSignatureChangeRequestsInput>, Prisma.UserUncheckedUpdateWithoutSignatureChangeRequestsInput>
+}
+
+export type UserUpdateOneRequiredWithoutSignatureChangeReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeReviewsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSignatureChangeReviewsInput
+  upsert?: Prisma.UserUpsertWithoutSignatureChangeReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSignatureChangeReviewsInput, Prisma.UserUpdateWithoutSignatureChangeReviewsInput>, Prisma.UserUncheckedUpdateWithoutSignatureChangeReviewsInput>
+}
+
 export type UserCreateNestedOneWithoutCreatedThreadsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedThreadsInput, Prisma.UserUncheckedCreateWithoutCreatedThreadsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedThreadsInput
@@ -939,6 +988,20 @@ export type UserUpdateOneRequiredWithoutThreadNotificationsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutThreadNotificationsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutThreadNotificationsInput, Prisma.UserUpdateWithoutThreadNotificationsInput>, Prisma.UserUncheckedUpdateWithoutThreadNotificationsInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
 export type UserCreateNestedOneWithoutThreadActivitiesInput = {
@@ -1341,6 +1404,8 @@ export type UserCreateWithoutDepartmentInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
@@ -1364,6 +1429,7 @@ export type UserCreateWithoutDepartmentInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -1391,6 +1457,8 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -1413,6 +1481,7 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1482,6 +1551,8 @@ export type UserCreateWithoutSubordinatesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
@@ -1505,6 +1576,7 @@ export type UserCreateWithoutSubordinatesInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -1533,6 +1605,8 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
@@ -1554,6 +1628,7 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1585,6 +1660,8 @@ export type UserCreateWithoutManagerInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
@@ -1608,6 +1685,7 @@ export type UserCreateWithoutManagerInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -1635,6 +1713,8 @@ export type UserUncheckedCreateWithoutManagerInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -1657,6 +1737,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1704,6 +1785,8 @@ export type UserUpdateWithoutSubordinatesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
@@ -1727,6 +1810,7 @@ export type UserUpdateWithoutSubordinatesInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -1755,6 +1839,8 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
@@ -1776,6 +1862,7 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1808,6 +1895,454 @@ export type UserUpdateManyWithWhereWithoutManagerInput = {
   data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutManagerInput>
 }
 
+export type UserCreateWithoutSignatureChangeRequestsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserUncheckedCreateWithoutSignatureChangeRequestsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserCreateOrConnectWithoutSignatureChangeRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeRequestsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeRequestsInput>
+}
+
+export type UserCreateWithoutSignatureChangeReviewsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserUncheckedCreateWithoutSignatureChangeReviewsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserCreateOrConnectWithoutSignatureChangeReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeReviewsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeReviewsInput>
+}
+
+export type UserUpsertWithoutSignatureChangeRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSignatureChangeRequestsInput, Prisma.UserUncheckedUpdateWithoutSignatureChangeRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeRequestsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSignatureChangeRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSignatureChangeRequestsInput, Prisma.UserUncheckedUpdateWithoutSignatureChangeRequestsInput>
+}
+
+export type UserUpdateWithoutSignatureChangeRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSignatureChangeRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUpsertWithoutSignatureChangeReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSignatureChangeReviewsInput, Prisma.UserUncheckedUpdateWithoutSignatureChangeReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSignatureChangeReviewsInput, Prisma.UserUncheckedCreateWithoutSignatureChangeReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSignatureChangeReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSignatureChangeReviewsInput, Prisma.UserUncheckedUpdateWithoutSignatureChangeReviewsInput>
+}
+
+export type UserUpdateWithoutSignatureChangeReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSignatureChangeReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+}
+
 export type UserCreateWithoutCreatedThreadsInput = {
   id?: string
   phoneNumber: string
@@ -1818,6 +2353,8 @@ export type UserCreateWithoutCreatedThreadsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -1841,6 +2378,7 @@ export type UserCreateWithoutCreatedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -1869,6 +2407,8 @@ export type UserUncheckedCreateWithoutCreatedThreadsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -1890,6 +2430,7 @@ export type UserUncheckedCreateWithoutCreatedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1932,6 +2473,8 @@ export type UserUpdateWithoutCreatedThreadsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -1955,6 +2498,7 @@ export type UserUpdateWithoutCreatedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -1983,6 +2527,8 @@ export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -2004,6 +2550,7 @@ export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2030,6 +2577,8 @@ export type UserCreateWithoutThreadEntityLinksInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -2054,6 +2603,7 @@ export type UserCreateWithoutThreadEntityLinksInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
   productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
@@ -2081,6 +2631,8 @@ export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -2103,6 +2655,7 @@ export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
   productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
@@ -2144,6 +2697,8 @@ export type UserUpdateWithoutThreadEntityLinksInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -2168,6 +2723,7 @@ export type UserUpdateWithoutThreadEntityLinksInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
   productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
@@ -2195,6 +2751,8 @@ export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -2217,6 +2775,7 @@ export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
   productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
@@ -2242,6 +2801,8 @@ export type UserCreateWithoutThreadParticipantsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -2265,6 +2826,7 @@ export type UserCreateWithoutThreadParticipantsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -2293,6 +2855,8 @@ export type UserUncheckedCreateWithoutThreadParticipantsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -2314,6 +2878,7 @@ export type UserUncheckedCreateWithoutThreadParticipantsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2356,6 +2921,8 @@ export type UserUpdateWithoutThreadParticipantsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -2379,6 +2946,7 @@ export type UserUpdateWithoutThreadParticipantsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -2407,6 +2975,8 @@ export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -2428,6 +2998,7 @@ export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2454,6 +3025,8 @@ export type UserCreateWithoutThreadAssignmentsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -2477,6 +3050,7 @@ export type UserCreateWithoutThreadAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -2505,6 +3079,8 @@ export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -2526,6 +3102,7 @@ export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2557,6 +3134,8 @@ export type UserCreateWithoutAssignedThreadsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -2580,6 +3159,7 @@ export type UserCreateWithoutAssignedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -2608,6 +3188,8 @@ export type UserUncheckedCreateWithoutAssignedThreadsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -2629,6 +3211,7 @@ export type UserUncheckedCreateWithoutAssignedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2671,6 +3254,8 @@ export type UserUpdateWithoutThreadAssignmentsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -2694,6 +3279,7 @@ export type UserUpdateWithoutThreadAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -2722,6 +3308,8 @@ export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -2743,6 +3331,7 @@ export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2780,6 +3369,8 @@ export type UserUpdateWithoutAssignedThreadsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -2803,6 +3394,7 @@ export type UserUpdateWithoutAssignedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -2831,6 +3423,8 @@ export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -2852,6 +3446,7 @@ export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2878,6 +3473,8 @@ export type UserCreateWithoutSentThreadMessagesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -2901,6 +3498,7 @@ export type UserCreateWithoutSentThreadMessagesInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -2929,6 +3527,8 @@ export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -2950,6 +3550,7 @@ export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2992,6 +3593,8 @@ export type UserUpdateWithoutSentThreadMessagesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -3015,6 +3618,7 @@ export type UserUpdateWithoutSentThreadMessagesInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -3043,6 +3647,8 @@ export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -3064,6 +3670,7 @@ export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3090,6 +3697,8 @@ export type UserCreateWithoutThreadMentionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -3113,6 +3722,7 @@ export type UserCreateWithoutThreadMentionsInput = {
   assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -3141,6 +3751,8 @@ export type UserUncheckedCreateWithoutThreadMentionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -3162,6 +3774,7 @@ export type UserUncheckedCreateWithoutThreadMentionsInput = {
   assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3204,6 +3817,8 @@ export type UserUpdateWithoutThreadMentionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -3227,6 +3842,7 @@ export type UserUpdateWithoutThreadMentionsInput = {
   assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -3255,6 +3871,8 @@ export type UserUncheckedUpdateWithoutThreadMentionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -3276,6 +3894,7 @@ export type UserUncheckedUpdateWithoutThreadMentionsInput = {
   assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3302,6 +3921,8 @@ export type UserCreateWithoutThreadAttachmentsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -3326,6 +3947,7 @@ export type UserCreateWithoutThreadAttachmentsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
   productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
@@ -3353,6 +3975,8 @@ export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -3375,6 +3999,7 @@ export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
   productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
@@ -3416,6 +4041,8 @@ export type UserUpdateWithoutThreadAttachmentsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -3440,6 +4067,7 @@ export type UserUpdateWithoutThreadAttachmentsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
   productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
@@ -3467,6 +4095,8 @@ export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -3489,6 +4119,7 @@ export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
   productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
@@ -3514,6 +4145,8 @@ export type UserCreateWithoutThreadNotificationsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -3537,6 +4170,7 @@ export type UserCreateWithoutThreadNotificationsInput = {
   assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -3565,6 +4199,8 @@ export type UserUncheckedCreateWithoutThreadNotificationsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -3586,6 +4222,7 @@ export type UserUncheckedCreateWithoutThreadNotificationsInput = {
   assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3628,6 +4265,8 @@ export type UserUpdateWithoutThreadNotificationsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -3651,6 +4290,7 @@ export type UserUpdateWithoutThreadNotificationsInput = {
   assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -3679,6 +4319,8 @@ export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -3700,6 +4342,231 @@ export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
   assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3726,6 +4593,8 @@ export type UserCreateWithoutThreadActivitiesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -3749,6 +4618,7 @@ export type UserCreateWithoutThreadActivitiesInput = {
   assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -3777,6 +4647,8 @@ export type UserUncheckedCreateWithoutThreadActivitiesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -3798,6 +4670,7 @@ export type UserUncheckedCreateWithoutThreadActivitiesInput = {
   assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3840,6 +4713,8 @@ export type UserUpdateWithoutThreadActivitiesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -3863,6 +4738,7 @@ export type UserUpdateWithoutThreadActivitiesInput = {
   assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -3891,6 +4767,8 @@ export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -3912,6 +4790,7 @@ export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
   assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3938,6 +4817,8 @@ export type UserCreateWithoutAttendancesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -3961,6 +4842,7 @@ export type UserCreateWithoutAttendancesInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -3989,6 +4871,8 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -4010,6 +4894,7 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4052,6 +4937,8 @@ export type UserUpdateWithoutAttendancesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -4075,6 +4962,7 @@ export type UserUpdateWithoutAttendancesInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -4103,6 +4991,8 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -4124,6 +5014,7 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4150,6 +5041,8 @@ export type UserCreateWithoutRolesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -4173,6 +5066,7 @@ export type UserCreateWithoutRolesInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -4201,6 +5095,8 @@ export type UserUncheckedCreateWithoutRolesInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
@@ -4222,6 +5118,7 @@ export type UserUncheckedCreateWithoutRolesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4264,6 +5161,8 @@ export type UserUpdateWithoutRolesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -4287,6 +5186,7 @@ export type UserUpdateWithoutRolesInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -4315,6 +5215,8 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
@@ -4336,6 +5238,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4362,6 +5265,8 @@ export type UserCreateWithoutSubmissionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -4385,6 +5290,7 @@ export type UserCreateWithoutSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -4413,6 +5319,8 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
@@ -4434,6 +5342,7 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4476,6 +5385,8 @@ export type UserUpdateWithoutSubmissionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -4499,6 +5410,7 @@ export type UserUpdateWithoutSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -4527,6 +5439,8 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
@@ -4548,6 +5462,7 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4574,6 +5489,8 @@ export type UserCreateWithoutProductionFlowsCreatedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -4598,6 +5515,7 @@ export type UserCreateWithoutProductionFlowsCreatedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
@@ -4625,6 +5543,8 @@ export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -4647,6 +5567,7 @@ export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
@@ -4677,6 +5598,8 @@ export type UserCreateWithoutProductionFlowsQcOwnedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -4701,6 +5624,7 @@ export type UserCreateWithoutProductionFlowsQcOwnedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -4728,6 +5652,8 @@ export type UserUncheckedCreateWithoutProductionFlowsQcOwnedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -4750,6 +5676,7 @@ export type UserUncheckedCreateWithoutProductionFlowsQcOwnedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4791,6 +5718,8 @@ export type UserUpdateWithoutProductionFlowsCreatedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -4815,6 +5744,7 @@ export type UserUpdateWithoutProductionFlowsCreatedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
@@ -4842,6 +5772,8 @@ export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -4864,6 +5796,7 @@ export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
@@ -4900,6 +5833,8 @@ export type UserUpdateWithoutProductionFlowsQcOwnedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -4924,6 +5859,7 @@ export type UserUpdateWithoutProductionFlowsQcOwnedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -4951,6 +5887,8 @@ export type UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -4973,6 +5911,7 @@ export type UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4998,6 +5937,8 @@ export type UserCreateWithoutProductionFlowStepsAssignedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -5022,6 +5963,7 @@ export type UserCreateWithoutProductionFlowStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -5049,6 +5991,8 @@ export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -5071,6 +6015,7 @@ export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5101,6 +6046,8 @@ export type UserCreateWithoutProductionFlowStepsSupervisedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -5125,6 +6072,7 @@ export type UserCreateWithoutProductionFlowStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -5152,6 +6100,8 @@ export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -5174,6 +6124,7 @@ export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5204,6 +6155,8 @@ export type UserCreateWithoutProductionFlowStepsApprovedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -5228,6 +6181,7 @@ export type UserCreateWithoutProductionFlowStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -5255,6 +6209,8 @@ export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -5277,6 +6233,7 @@ export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5318,6 +6275,8 @@ export type UserUpdateWithoutProductionFlowStepsAssignedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -5342,6 +6301,7 @@ export type UserUpdateWithoutProductionFlowStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -5369,6 +6329,8 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -5391,6 +6353,7 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5427,6 +6390,8 @@ export type UserUpdateWithoutProductionFlowStepsSupervisedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -5451,6 +6416,7 @@ export type UserUpdateWithoutProductionFlowStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -5478,6 +6444,8 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -5500,6 +6468,7 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5536,6 +6505,8 @@ export type UserUpdateWithoutProductionFlowStepsApprovedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -5560,6 +6531,7 @@ export type UserUpdateWithoutProductionFlowStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -5587,6 +6559,8 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -5609,6 +6583,7 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5634,6 +6609,8 @@ export type UserCreateWithoutProductionRunsStartedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -5658,6 +6635,7 @@ export type UserCreateWithoutProductionRunsStartedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -5685,6 +6663,8 @@ export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -5707,6 +6687,7 @@ export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5737,6 +6718,8 @@ export type UserCreateWithoutProductionRunsQcAssignedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -5761,6 +6744,7 @@ export type UserCreateWithoutProductionRunsQcAssignedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -5788,6 +6772,8 @@ export type UserUncheckedCreateWithoutProductionRunsQcAssignedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -5810,6 +6796,7 @@ export type UserUncheckedCreateWithoutProductionRunsQcAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5840,6 +6827,8 @@ export type UserCreateWithoutProductionRunsQcReviewedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -5864,6 +6853,7 @@ export type UserCreateWithoutProductionRunsQcReviewedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -5891,6 +6881,8 @@ export type UserUncheckedCreateWithoutProductionRunsQcReviewedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -5913,6 +6905,7 @@ export type UserUncheckedCreateWithoutProductionRunsQcReviewedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5954,6 +6947,8 @@ export type UserUpdateWithoutProductionRunsStartedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -5978,6 +6973,7 @@ export type UserUpdateWithoutProductionRunsStartedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -6005,6 +7001,8 @@ export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -6027,6 +7025,7 @@ export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6063,6 +7062,8 @@ export type UserUpdateWithoutProductionRunsQcAssignedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -6087,6 +7088,7 @@ export type UserUpdateWithoutProductionRunsQcAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -6114,6 +7116,8 @@ export type UserUncheckedUpdateWithoutProductionRunsQcAssignedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -6136,6 +7140,7 @@ export type UserUncheckedUpdateWithoutProductionRunsQcAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6172,6 +7177,8 @@ export type UserUpdateWithoutProductionRunsQcReviewedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -6196,6 +7203,7 @@ export type UserUpdateWithoutProductionRunsQcReviewedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -6223,6 +7231,8 @@ export type UserUncheckedUpdateWithoutProductionRunsQcReviewedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -6245,6 +7255,7 @@ export type UserUncheckedUpdateWithoutProductionRunsQcReviewedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6270,6 +7281,8 @@ export type UserCreateWithoutProductionStepsAssignedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -6294,6 +7307,7 @@ export type UserCreateWithoutProductionStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -6321,6 +7335,8 @@ export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -6343,6 +7359,7 @@ export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6373,6 +7390,8 @@ export type UserCreateWithoutProductionStepsSupervisedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -6397,6 +7416,7 @@ export type UserCreateWithoutProductionStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -6424,6 +7444,8 @@ export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -6446,6 +7468,7 @@ export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6476,6 +7499,8 @@ export type UserCreateWithoutProductionStepsApprovedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -6500,6 +7525,7 @@ export type UserCreateWithoutProductionStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -6527,6 +7553,8 @@ export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -6549,6 +7577,7 @@ export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6590,6 +7619,8 @@ export type UserUpdateWithoutProductionStepsAssignedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -6614,6 +7645,7 @@ export type UserUpdateWithoutProductionStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -6641,6 +7673,8 @@ export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -6663,6 +7697,7 @@ export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6699,6 +7734,8 @@ export type UserUpdateWithoutProductionStepsSupervisedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -6723,6 +7760,7 @@ export type UserUpdateWithoutProductionStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -6750,6 +7788,8 @@ export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -6772,6 +7812,7 @@ export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6808,6 +7849,8 @@ export type UserUpdateWithoutProductionStepsApprovedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -6832,6 +7875,7 @@ export type UserUpdateWithoutProductionStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -6859,6 +7903,8 @@ export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -6881,6 +7927,7 @@ export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6906,6 +7953,8 @@ export type UserCreateWithoutProductionReviewsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -6930,6 +7979,7 @@ export type UserCreateWithoutProductionReviewsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -6957,6 +8007,8 @@ export type UserUncheckedCreateWithoutProductionReviewsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -6979,6 +8031,7 @@ export type UserUncheckedCreateWithoutProductionReviewsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7020,6 +8073,8 @@ export type UserUpdateWithoutProductionReviewsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -7044,6 +8099,7 @@ export type UserUpdateWithoutProductionReviewsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -7071,6 +8127,8 @@ export type UserUncheckedUpdateWithoutProductionReviewsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -7093,6 +8151,7 @@ export type UserUncheckedUpdateWithoutProductionReviewsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7118,6 +8177,8 @@ export type UserCreateWithoutApprovalActionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -7141,6 +8202,7 @@ export type UserCreateWithoutApprovalActionsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -7169,6 +8231,8 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -7190,6 +8254,7 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7232,6 +8297,8 @@ export type UserUpdateWithoutApprovalActionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -7255,6 +8322,7 @@ export type UserUpdateWithoutApprovalActionsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -7283,6 +8351,8 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -7304,6 +8374,7 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7330,6 +8401,8 @@ export type UserCreateWithoutUserInfoInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -7353,6 +8426,7 @@ export type UserCreateWithoutUserInfoInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -7381,6 +8455,8 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -7402,6 +8478,7 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7444,6 +8521,8 @@ export type UserUpdateWithoutUserInfoInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -7467,6 +8546,7 @@ export type UserUpdateWithoutUserInfoInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -7495,6 +8575,8 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -7516,6 +8598,7 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7542,6 +8625,8 @@ export type UserCreateWithoutAssignedRepairsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -7565,6 +8650,7 @@ export type UserCreateWithoutAssignedRepairsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -7593,6 +8679,8 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -7614,6 +8702,7 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7656,6 +8745,8 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -7679,6 +8770,7 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -7707,6 +8799,8 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -7728,6 +8822,7 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7754,6 +8849,8 @@ export type UserCreateWithoutRepairVisitsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -7777,6 +8874,7 @@ export type UserCreateWithoutRepairVisitsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -7805,6 +8903,8 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -7826,6 +8926,7 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7868,6 +8969,8 @@ export type UserUpdateWithoutRepairVisitsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -7891,6 +8994,7 @@ export type UserUpdateWithoutRepairVisitsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -7919,6 +9023,8 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -7940,6 +9046,7 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7966,6 +9073,8 @@ export type UserCreateWithoutStatusLogsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -7989,6 +9098,7 @@ export type UserCreateWithoutStatusLogsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -8017,6 +9127,8 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -8038,6 +9150,7 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8080,6 +9193,8 @@ export type UserUpdateWithoutStatusLogsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -8103,6 +9218,7 @@ export type UserUpdateWithoutStatusLogsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -8131,6 +9247,8 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -8152,6 +9270,7 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8178,6 +9297,8 @@ export type UserCreateWithoutRecruitmentFinalizedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -8201,6 +9322,7 @@ export type UserCreateWithoutRecruitmentFinalizedInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -8229,6 +9351,8 @@ export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -8250,6 +9374,7 @@ export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8292,6 +9417,8 @@ export type UserUpdateWithoutRecruitmentFinalizedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -8315,6 +9442,7 @@ export type UserUpdateWithoutRecruitmentFinalizedInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -8343,6 +9471,8 @@ export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -8364,6 +9494,7 @@ export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8390,6 +9521,8 @@ export type UserCreateWithoutRecruitmentSubmissionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -8413,6 +9546,7 @@ export type UserCreateWithoutRecruitmentSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -8441,6 +9575,8 @@ export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -8462,6 +9598,7 @@ export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8504,6 +9641,8 @@ export type UserUpdateWithoutRecruitmentSubmissionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -8527,6 +9666,7 @@ export type UserUpdateWithoutRecruitmentSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -8555,6 +9695,8 @@ export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -8576,6 +9718,7 @@ export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8602,6 +9745,8 @@ export type UserCreateWithoutRecruitmentAssignmentsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -8625,6 +9770,7 @@ export type UserCreateWithoutRecruitmentAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -8653,6 +9799,8 @@ export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -8674,6 +9822,7 @@ export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8705,6 +9854,8 @@ export type UserCreateWithoutRecruitmentAssignedByInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -8728,6 +9879,7 @@ export type UserCreateWithoutRecruitmentAssignedByInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -8756,6 +9908,8 @@ export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -8777,6 +9931,7 @@ export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8819,6 +9974,8 @@ export type UserUpdateWithoutRecruitmentAssignmentsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -8842,6 +9999,7 @@ export type UserUpdateWithoutRecruitmentAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -8870,6 +10028,8 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -8891,6 +10051,7 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8928,6 +10089,8 @@ export type UserUpdateWithoutRecruitmentAssignedByInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -8951,6 +10114,7 @@ export type UserUpdateWithoutRecruitmentAssignedByInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -8979,6 +10143,8 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -9000,6 +10166,7 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9026,6 +10193,8 @@ export type UserCreateWithoutRecruitmentTransitionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
   department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
   manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
   subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -9049,6 +10218,7 @@ export type UserCreateWithoutRecruitmentTransitionsInput = {
   threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
@@ -9077,6 +10247,8 @@ export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
   baleChatId?: string | null
   createdAt?: Date | string
   employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
   subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -9098,6 +10270,7 @@ export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
   threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
@@ -9140,6 +10313,8 @@ export type UserUpdateWithoutRecruitmentTransitionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -9163,6 +10338,7 @@ export type UserUpdateWithoutRecruitmentTransitionsInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -9191,6 +10367,8 @@ export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -9212,6 +10390,7 @@ export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9251,6 +10430,8 @@ export type UserUpdateWithoutDepartmentInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
@@ -9274,6 +10455,7 @@ export type UserUpdateWithoutDepartmentInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -9301,6 +10483,8 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -9323,6 +10507,7 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9375,6 +10560,8 @@ export type UserUpdateWithoutManagerInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
   subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
@@ -9398,6 +10585,7 @@ export type UserUpdateWithoutManagerInput = {
   threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
@@ -9425,6 +10613,8 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
   subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -9447,6 +10637,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
   threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
   threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
   threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
   threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9482,6 +10673,8 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
  */
 
 export type UserCountOutputType = {
+  signatureChangeRequests: number
+  signatureChangeReviews: number
   subordinates: number
   roles: number
   submissions: number
@@ -9503,6 +10696,7 @@ export type UserCountOutputType = {
   threadActivities: number
   threadMentions: number
   threadNotifications: number
+  notifications: number
   threadAttachments: number
   threadEntityLinks: number
   productionFlowsCreated: number
@@ -9520,6 +10714,8 @@ export type UserCountOutputType = {
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  signatureChangeRequests?: boolean | UserCountOutputTypeCountSignatureChangeRequestsArgs
+  signatureChangeReviews?: boolean | UserCountOutputTypeCountSignatureChangeReviewsArgs
   subordinates?: boolean | UserCountOutputTypeCountSubordinatesArgs
   roles?: boolean | UserCountOutputTypeCountRolesArgs
   submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
@@ -9541,6 +10737,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   threadActivities?: boolean | UserCountOutputTypeCountThreadActivitiesArgs
   threadMentions?: boolean | UserCountOutputTypeCountThreadMentionsArgs
   threadNotifications?: boolean | UserCountOutputTypeCountThreadNotificationsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   threadAttachments?: boolean | UserCountOutputTypeCountThreadAttachmentsArgs
   threadEntityLinks?: boolean | UserCountOutputTypeCountThreadEntityLinksArgs
   productionFlowsCreated?: boolean | UserCountOutputTypeCountProductionFlowsCreatedArgs
@@ -9565,6 +10762,20 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSignatureChangeRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureChangeRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSignatureChangeReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureChangeRequestWhereInput
 }
 
 /**
@@ -9717,6 +10928,13 @@ export type UserCountOutputTypeCountThreadNotificationsArgs<ExtArgs extends runt
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AppNotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountThreadAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ThreadAttachmentWhereInput
 }
@@ -9825,6 +11043,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   baleChatId?: boolean
   createdAt?: boolean
   employeeCode?: boolean
+  signatureChangeRequests?: boolean | Prisma.User$signatureChangeRequestsArgs<ExtArgs>
+  signatureChangeReviews?: boolean | Prisma.User$signatureChangeReviewsArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
   subordinates?: boolean | Prisma.User$subordinatesArgs<ExtArgs>
@@ -9849,6 +11069,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   threadActivities?: boolean | Prisma.User$threadActivitiesArgs<ExtArgs>
   threadMentions?: boolean | Prisma.User$threadMentionsArgs<ExtArgs>
   threadNotifications?: boolean | Prisma.User$threadNotificationsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   threadAttachments?: boolean | Prisma.User$threadAttachmentsArgs<ExtArgs>
   threadEntityLinks?: boolean | Prisma.User$threadEntityLinksArgs<ExtArgs>
   productionFlowsCreated?: boolean | Prisma.User$productionFlowsCreatedArgs<ExtArgs>
@@ -9914,6 +11135,8 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "name" | "departmentId" | "managerId" | "refreshToken" | "signatureStorageKey" | "signatureMimeType" | "baleChatId" | "createdAt" | "employeeCode", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  signatureChangeRequests?: boolean | Prisma.User$signatureChangeRequestsArgs<ExtArgs>
+  signatureChangeReviews?: boolean | Prisma.User$signatureChangeReviewsArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
   subordinates?: boolean | Prisma.User$subordinatesArgs<ExtArgs>
@@ -9938,6 +11161,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   threadActivities?: boolean | Prisma.User$threadActivitiesArgs<ExtArgs>
   threadMentions?: boolean | Prisma.User$threadMentionsArgs<ExtArgs>
   threadNotifications?: boolean | Prisma.User$threadNotificationsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   threadAttachments?: boolean | Prisma.User$threadAttachmentsArgs<ExtArgs>
   threadEntityLinks?: boolean | Prisma.User$threadEntityLinksArgs<ExtArgs>
   productionFlowsCreated?: boolean | Prisma.User$productionFlowsCreatedArgs<ExtArgs>
@@ -9966,6 +11190,8 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    signatureChangeRequests: Prisma.$SignatureChangeRequestPayload<ExtArgs>[]
+    signatureChangeReviews: Prisma.$SignatureChangeRequestPayload<ExtArgs>[]
     department: Prisma.$DepartmentPayload<ExtArgs>
     manager: Prisma.$UserPayload<ExtArgs> | null
     subordinates: Prisma.$UserPayload<ExtArgs>[]
@@ -9990,6 +11216,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     threadActivities: Prisma.$ThreadActivityPayload<ExtArgs>[]
     threadMentions: Prisma.$ThreadMentionPayload<ExtArgs>[]
     threadNotifications: Prisma.$CommunicationNotificationPayload<ExtArgs>[]
+    notifications: Prisma.$AppNotificationPayload<ExtArgs>[]
     threadAttachments: Prisma.$ThreadAttachmentPayload<ExtArgs>[]
     threadEntityLinks: Prisma.$ThreadEntityLinkPayload<ExtArgs>[]
     productionFlowsCreated: Prisma.$ProductionFlowPayload<ExtArgs>[]
@@ -10411,6 +11638,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  signatureChangeRequests<T extends Prisma.User$signatureChangeRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$signatureChangeRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureChangeRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  signatureChangeReviews<T extends Prisma.User$signatureChangeReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$signatureChangeReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureChangeRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   department<T extends Prisma.DepartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DepartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   manager<T extends Prisma.User$managerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subordinates<T extends Prisma.User$subordinatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subordinatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -10435,6 +11664,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   threadActivities<T extends Prisma.User$threadActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threadMentions<T extends Prisma.User$threadMentionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadMentionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadMentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threadNotifications<T extends Prisma.User$threadNotificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommunicationNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threadAttachments<T extends Prisma.User$threadAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threadEntityLinks<T extends Prisma.User$threadEntityLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadEntityLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadEntityLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productionFlowsCreated<T extends Prisma.User$productionFlowsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionFlowsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionFlowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -10887,6 +12117,54 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.signatureChangeRequests
+ */
+export type User$signatureChangeRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureChangeRequest
+   */
+  select?: Prisma.SignatureChangeRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureChangeRequest
+   */
+  omit?: Prisma.SignatureChangeRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureChangeRequestInclude<ExtArgs> | null
+  where?: Prisma.SignatureChangeRequestWhereInput
+  orderBy?: Prisma.SignatureChangeRequestOrderByWithRelationInput | Prisma.SignatureChangeRequestOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureChangeRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureChangeRequestScalarFieldEnum | Prisma.SignatureChangeRequestScalarFieldEnum[]
+}
+
+/**
+ * User.signatureChangeReviews
+ */
+export type User$signatureChangeReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureChangeRequest
+   */
+  select?: Prisma.SignatureChangeRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureChangeRequest
+   */
+  omit?: Prisma.SignatureChangeRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureChangeRequestInclude<ExtArgs> | null
+  where?: Prisma.SignatureChangeRequestWhereInput
+  orderBy?: Prisma.SignatureChangeRequestOrderByWithRelationInput | Prisma.SignatureChangeRequestOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureChangeRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureChangeRequestScalarFieldEnum | Prisma.SignatureChangeRequestScalarFieldEnum[]
 }
 
 /**
@@ -11429,6 +12707,30 @@ export type User$threadNotificationsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.CommunicationNotificationScalarFieldEnum | Prisma.CommunicationNotificationScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AppNotification
+   */
+  select?: Prisma.AppNotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AppNotification
+   */
+  omit?: Prisma.AppNotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppNotificationInclude<ExtArgs> | null
+  where?: Prisma.AppNotificationWhereInput
+  orderBy?: Prisma.AppNotificationOrderByWithRelationInput | Prisma.AppNotificationOrderByWithRelationInput[]
+  cursor?: Prisma.AppNotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AppNotificationScalarFieldEnum | Prisma.AppNotificationScalarFieldEnum[]
 }
 
 /**

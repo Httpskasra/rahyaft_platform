@@ -20,8 +20,18 @@ export type AppNotificationModel = runtime.Types.Result.DefaultSelection<Prisma.
 
 export type AggregateAppNotification = {
   _count: AppNotificationCountAggregateOutputType | null
+  _avg: AppNotificationAvgAggregateOutputType | null
+  _sum: AppNotificationSumAggregateOutputType | null
   _min: AppNotificationMinAggregateOutputType | null
   _max: AppNotificationMaxAggregateOutputType | null
+}
+
+export type AppNotificationAvgAggregateOutputType = {
+  baleAttempts: number | null
+}
+
+export type AppNotificationSumAggregateOutputType = {
+  baleAttempts: number | null
 }
 
 export type AppNotificationMinAggregateOutputType = {
@@ -37,6 +47,11 @@ export type AppNotificationMinAggregateOutputType = {
   actorId: string | null
   readAt: Date | null
   createdAt: Date | null
+  baleStatus: string | null
+  baleAttempts: number | null
+  baleNextAttemptAt: Date | null
+  baleSentAt: Date | null
+  baleLastError: string | null
 }
 
 export type AppNotificationMaxAggregateOutputType = {
@@ -52,6 +67,11 @@ export type AppNotificationMaxAggregateOutputType = {
   actorId: string | null
   readAt: Date | null
   createdAt: Date | null
+  baleStatus: string | null
+  baleAttempts: number | null
+  baleNextAttemptAt: Date | null
+  baleSentAt: Date | null
+  baleLastError: string | null
 }
 
 export type AppNotificationCountAggregateOutputType = {
@@ -68,9 +88,22 @@ export type AppNotificationCountAggregateOutputType = {
   metadata: number
   readAt: number
   createdAt: number
+  baleStatus: number
+  baleAttempts: number
+  baleNextAttemptAt: number
+  baleSentAt: number
+  baleLastError: number
   _all: number
 }
 
+
+export type AppNotificationAvgAggregateInputType = {
+  baleAttempts?: true
+}
+
+export type AppNotificationSumAggregateInputType = {
+  baleAttempts?: true
+}
 
 export type AppNotificationMinAggregateInputType = {
   id?: true
@@ -85,6 +118,11 @@ export type AppNotificationMinAggregateInputType = {
   actorId?: true
   readAt?: true
   createdAt?: true
+  baleStatus?: true
+  baleAttempts?: true
+  baleNextAttemptAt?: true
+  baleSentAt?: true
+  baleLastError?: true
 }
 
 export type AppNotificationMaxAggregateInputType = {
@@ -100,6 +138,11 @@ export type AppNotificationMaxAggregateInputType = {
   actorId?: true
   readAt?: true
   createdAt?: true
+  baleStatus?: true
+  baleAttempts?: true
+  baleNextAttemptAt?: true
+  baleSentAt?: true
+  baleLastError?: true
 }
 
 export type AppNotificationCountAggregateInputType = {
@@ -116,6 +159,11 @@ export type AppNotificationCountAggregateInputType = {
   metadata?: true
   readAt?: true
   createdAt?: true
+  baleStatus?: true
+  baleAttempts?: true
+  baleNextAttemptAt?: true
+  baleSentAt?: true
+  baleLastError?: true
   _all?: true
 }
 
@@ -157,6 +205,18 @@ export type AppNotificationAggregateArgs<ExtArgs extends runtime.Types.Extension
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: AppNotificationAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: AppNotificationSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: AppNotificationMinAggregateInputType
@@ -187,6 +247,8 @@ export type AppNotificationGroupByArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   _count?: AppNotificationCountAggregateInputType | true
+  _avg?: AppNotificationAvgAggregateInputType
+  _sum?: AppNotificationSumAggregateInputType
   _min?: AppNotificationMinAggregateInputType
   _max?: AppNotificationMaxAggregateInputType
 }
@@ -205,7 +267,14 @@ export type AppNotificationGroupByOutputType = {
   metadata: runtime.JsonValue | null
   readAt: Date | null
   createdAt: Date
+  baleStatus: string
+  baleAttempts: number
+  baleNextAttemptAt: Date
+  baleSentAt: Date | null
+  baleLastError: string | null
   _count: AppNotificationCountAggregateOutputType | null
+  _avg: AppNotificationAvgAggregateOutputType | null
+  _sum: AppNotificationSumAggregateOutputType | null
   _min: AppNotificationMinAggregateOutputType | null
   _max: AppNotificationMaxAggregateOutputType | null
 }
@@ -242,6 +311,11 @@ export type AppNotificationWhereInput = {
   metadata?: Prisma.JsonNullableFilter<"AppNotification">
   readAt?: Prisma.DateTimeNullableFilter<"AppNotification"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AppNotification"> | Date | string
+  baleStatus?: Prisma.StringFilter<"AppNotification"> | string
+  baleAttempts?: Prisma.IntFilter<"AppNotification"> | number
+  baleNextAttemptAt?: Prisma.DateTimeFilter<"AppNotification"> | Date | string
+  baleSentAt?: Prisma.DateTimeNullableFilter<"AppNotification"> | Date | string | null
+  baleLastError?: Prisma.StringNullableFilter<"AppNotification"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -259,6 +333,11 @@ export type AppNotificationOrderByWithRelationInput = {
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  baleStatus?: Prisma.SortOrder
+  baleAttempts?: Prisma.SortOrder
+  baleNextAttemptAt?: Prisma.SortOrder
+  baleSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  baleLastError?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -279,6 +358,11 @@ export type AppNotificationWhereUniqueInput = Prisma.AtLeast<{
   metadata?: Prisma.JsonNullableFilter<"AppNotification">
   readAt?: Prisma.DateTimeNullableFilter<"AppNotification"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AppNotification"> | Date | string
+  baleStatus?: Prisma.StringFilter<"AppNotification"> | string
+  baleAttempts?: Prisma.IntFilter<"AppNotification"> | number
+  baleNextAttemptAt?: Prisma.DateTimeFilter<"AppNotification"> | Date | string
+  baleSentAt?: Prisma.DateTimeNullableFilter<"AppNotification"> | Date | string | null
+  baleLastError?: Prisma.StringNullableFilter<"AppNotification"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -296,9 +380,16 @@ export type AppNotificationOrderByWithAggregationInput = {
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  baleStatus?: Prisma.SortOrder
+  baleAttempts?: Prisma.SortOrder
+  baleNextAttemptAt?: Prisma.SortOrder
+  baleSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  baleLastError?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AppNotificationCountOrderByAggregateInput
+  _avg?: Prisma.AppNotificationAvgOrderByAggregateInput
   _max?: Prisma.AppNotificationMaxOrderByAggregateInput
   _min?: Prisma.AppNotificationMinOrderByAggregateInput
+  _sum?: Prisma.AppNotificationSumOrderByAggregateInput
 }
 
 export type AppNotificationScalarWhereWithAggregatesInput = {
@@ -318,6 +409,11 @@ export type AppNotificationScalarWhereWithAggregatesInput = {
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"AppNotification">
   readAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AppNotification"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AppNotification"> | Date | string
+  baleStatus?: Prisma.StringWithAggregatesFilter<"AppNotification"> | string
+  baleAttempts?: Prisma.IntWithAggregatesFilter<"AppNotification"> | number
+  baleNextAttemptAt?: Prisma.DateTimeWithAggregatesFilter<"AppNotification"> | Date | string
+  baleSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AppNotification"> | Date | string | null
+  baleLastError?: Prisma.StringNullableWithAggregatesFilter<"AppNotification"> | string | null
 }
 
 export type AppNotificationCreateInput = {
@@ -333,6 +429,11 @@ export type AppNotificationCreateInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Date | string | null
   createdAt?: Date | string
+  baleStatus?: string
+  baleAttempts?: number
+  baleNextAttemptAt?: Date | string
+  baleSentAt?: Date | string | null
+  baleLastError?: string | null
   user: Prisma.UserCreateNestedOneWithoutNotificationsInput
 }
 
@@ -350,6 +451,11 @@ export type AppNotificationUncheckedCreateInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Date | string | null
   createdAt?: Date | string
+  baleStatus?: string
+  baleAttempts?: number
+  baleNextAttemptAt?: Date | string
+  baleSentAt?: Date | string | null
+  baleLastError?: string | null
 }
 
 export type AppNotificationUpdateInput = {
@@ -365,6 +471,11 @@ export type AppNotificationUpdateInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutNotificationsNestedInput
 }
 
@@ -382,6 +493,11 @@ export type AppNotificationUncheckedUpdateInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AppNotificationCreateManyInput = {
@@ -398,6 +514,11 @@ export type AppNotificationCreateManyInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Date | string | null
   createdAt?: Date | string
+  baleStatus?: string
+  baleAttempts?: number
+  baleNextAttemptAt?: Date | string
+  baleSentAt?: Date | string | null
+  baleLastError?: string | null
 }
 
 export type AppNotificationUpdateManyMutationInput = {
@@ -413,6 +534,11 @@ export type AppNotificationUpdateManyMutationInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AppNotificationUncheckedUpdateManyInput = {
@@ -429,6 +555,11 @@ export type AppNotificationUncheckedUpdateManyInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AppNotificationListRelationFilter = {
@@ -455,6 +586,15 @@ export type AppNotificationCountOrderByAggregateInput = {
   metadata?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  baleStatus?: Prisma.SortOrder
+  baleAttempts?: Prisma.SortOrder
+  baleNextAttemptAt?: Prisma.SortOrder
+  baleSentAt?: Prisma.SortOrder
+  baleLastError?: Prisma.SortOrder
+}
+
+export type AppNotificationAvgOrderByAggregateInput = {
+  baleAttempts?: Prisma.SortOrder
 }
 
 export type AppNotificationMaxOrderByAggregateInput = {
@@ -470,6 +610,11 @@ export type AppNotificationMaxOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  baleStatus?: Prisma.SortOrder
+  baleAttempts?: Prisma.SortOrder
+  baleNextAttemptAt?: Prisma.SortOrder
+  baleSentAt?: Prisma.SortOrder
+  baleLastError?: Prisma.SortOrder
 }
 
 export type AppNotificationMinOrderByAggregateInput = {
@@ -485,6 +630,15 @@ export type AppNotificationMinOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  baleStatus?: Prisma.SortOrder
+  baleAttempts?: Prisma.SortOrder
+  baleNextAttemptAt?: Prisma.SortOrder
+  baleSentAt?: Prisma.SortOrder
+  baleLastError?: Prisma.SortOrder
+}
+
+export type AppNotificationSumOrderByAggregateInput = {
+  baleAttempts?: Prisma.SortOrder
 }
 
 export type AppNotificationCreateNestedManyWithoutUserInput = {
@@ -542,6 +696,11 @@ export type AppNotificationCreateWithoutUserInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Date | string | null
   createdAt?: Date | string
+  baleStatus?: string
+  baleAttempts?: number
+  baleNextAttemptAt?: Date | string
+  baleSentAt?: Date | string | null
+  baleLastError?: string | null
 }
 
 export type AppNotificationUncheckedCreateWithoutUserInput = {
@@ -557,6 +716,11 @@ export type AppNotificationUncheckedCreateWithoutUserInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Date | string | null
   createdAt?: Date | string
+  baleStatus?: string
+  baleAttempts?: number
+  baleNextAttemptAt?: Date | string
+  baleSentAt?: Date | string | null
+  baleLastError?: string | null
 }
 
 export type AppNotificationCreateOrConnectWithoutUserInput = {
@@ -602,6 +766,11 @@ export type AppNotificationScalarWhereInput = {
   metadata?: Prisma.JsonNullableFilter<"AppNotification">
   readAt?: Prisma.DateTimeNullableFilter<"AppNotification"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AppNotification"> | Date | string
+  baleStatus?: Prisma.StringFilter<"AppNotification"> | string
+  baleAttempts?: Prisma.IntFilter<"AppNotification"> | number
+  baleNextAttemptAt?: Prisma.DateTimeFilter<"AppNotification"> | Date | string
+  baleSentAt?: Prisma.DateTimeNullableFilter<"AppNotification"> | Date | string | null
+  baleLastError?: Prisma.StringNullableFilter<"AppNotification"> | string | null
 }
 
 export type AppNotificationCreateManyUserInput = {
@@ -617,6 +786,11 @@ export type AppNotificationCreateManyUserInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Date | string | null
   createdAt?: Date | string
+  baleStatus?: string
+  baleAttempts?: number
+  baleNextAttemptAt?: Date | string
+  baleSentAt?: Date | string | null
+  baleLastError?: string | null
 }
 
 export type AppNotificationUpdateWithoutUserInput = {
@@ -632,6 +806,11 @@ export type AppNotificationUpdateWithoutUserInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AppNotificationUncheckedUpdateWithoutUserInput = {
@@ -647,6 +826,11 @@ export type AppNotificationUncheckedUpdateWithoutUserInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AppNotificationUncheckedUpdateManyWithoutUserInput = {
@@ -662,6 +846,11 @@ export type AppNotificationUncheckedUpdateManyWithoutUserInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  baleAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  baleNextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  baleSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  baleLastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -680,6 +869,11 @@ export type AppNotificationSelect<ExtArgs extends runtime.Types.Extensions.Inter
   metadata?: boolean
   readAt?: boolean
   createdAt?: boolean
+  baleStatus?: boolean
+  baleAttempts?: boolean
+  baleNextAttemptAt?: boolean
+  baleSentAt?: boolean
+  baleLastError?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["appNotification"]>
 
@@ -697,6 +891,11 @@ export type AppNotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   metadata?: boolean
   readAt?: boolean
   createdAt?: boolean
+  baleStatus?: boolean
+  baleAttempts?: boolean
+  baleNextAttemptAt?: boolean
+  baleSentAt?: boolean
+  baleLastError?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["appNotification"]>
 
@@ -714,6 +913,11 @@ export type AppNotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   metadata?: boolean
   readAt?: boolean
   createdAt?: boolean
+  baleStatus?: boolean
+  baleAttempts?: boolean
+  baleNextAttemptAt?: boolean
+  baleSentAt?: boolean
+  baleLastError?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["appNotification"]>
 
@@ -731,9 +935,14 @@ export type AppNotificationSelectScalar = {
   metadata?: boolean
   readAt?: boolean
   createdAt?: boolean
+  baleStatus?: boolean
+  baleAttempts?: boolean
+  baleNextAttemptAt?: boolean
+  baleSentAt?: boolean
+  baleLastError?: boolean
 }
 
-export type AppNotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "category" | "title" | "body" | "href" | "entityType" | "entityId" | "actorId" | "metadata" | "readAt" | "createdAt", ExtArgs["result"]["appNotification"]>
+export type AppNotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "category" | "title" | "body" | "href" | "entityType" | "entityId" | "actorId" | "metadata" | "readAt" | "createdAt" | "baleStatus" | "baleAttempts" | "baleNextAttemptAt" | "baleSentAt" | "baleLastError", ExtArgs["result"]["appNotification"]>
 export type AppNotificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -763,6 +972,11 @@ export type $AppNotificationPayload<ExtArgs extends runtime.Types.Extensions.Int
     metadata: runtime.JsonValue | null
     readAt: Date | null
     createdAt: Date
+    baleStatus: string
+    baleAttempts: number
+    baleNextAttemptAt: Date
+    baleSentAt: Date | null
+    baleLastError: string | null
   }, ExtArgs["result"]["appNotification"]>
   composites: {}
 }
@@ -1200,6 +1414,11 @@ export interface AppNotificationFieldRefs {
   readonly metadata: Prisma.FieldRef<"AppNotification", 'Json'>
   readonly readAt: Prisma.FieldRef<"AppNotification", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"AppNotification", 'DateTime'>
+  readonly baleStatus: Prisma.FieldRef<"AppNotification", 'String'>
+  readonly baleAttempts: Prisma.FieldRef<"AppNotification", 'Int'>
+  readonly baleNextAttemptAt: Prisma.FieldRef<"AppNotification", 'DateTime'>
+  readonly baleSentAt: Prisma.FieldRef<"AppNotification", 'DateTime'>
+  readonly baleLastError: Prisma.FieldRef<"AppNotification", 'String'>
 }
     
 

@@ -19,6 +19,7 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import type { AuthenticatedUser } from 'src/common/interfaces/auth.interface';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ReviewSignatureChangeDto } from './dto/review-signature-change.dto';
 import { SaveSignatureDto } from './dto/save-signature.dto';
 
 @ApiTags('Users')
@@ -40,13 +41,43 @@ export class UsersController {
     return this.usersService.getMySignature(user.id);
   }
 
-  /** POST /users/me/signature — save a signature drawn in the profile canvas */
+  /** POST /users/me/signature — submit drawn canvas PNG; changes require manager approval */
   @Post('me/signature')
   saveMySignature(
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: SaveSignatureDto,
   ) {
     return this.usersService.saveDrawnSignature(user.id, dto.signatureDataUrl);
+  }
+
+  /** GET /users/me/signature-change-request — current user's latest replacement request */
+  @Get('me/signature-change-request')
+  getMySignatureChangeRequest(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.getMySignatureChangeRequest(user.id);
+  }
+
+  /** GET /users/signature-change-requests/pending — requests assigned to current manager */
+  @Get('signature-change-requests/pending')
+  getPendingSignatureChangeRequests(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.getPendingSignatureChangeRequests(user.id);
+  }
+
+  @Post('signature-change-requests/:requestId/approve')
+  approveSignatureChange(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('requestId', ParseUUIDPipe) requestId: string,
+    @Body() dto: ReviewSignatureChangeDto,
+  ) {
+    return this.usersService.reviewSignatureChange(requestId, user.id, true, dto.comment);
+  }
+
+  @Post('signature-change-requests/:requestId/reject')
+  rejectSignatureChange(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('requestId', ParseUUIDPipe) requestId: string,
+    @Body() dto: ReviewSignatureChangeDto,
+  ) {
+    return this.usersService.reviewSignatureChange(requestId, user.id, false, dto.comment);
   }
 
   /** GET /users/:userId */

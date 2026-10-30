@@ -33,6 +33,11 @@ export type DepartmentRelation = Prisma.DepartmentRelationModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model SignatureChangeRequest
+ * 
+ */
+export type SignatureChangeRequest = Prisma.SignatureChangeRequestModel
+/**
  * Model Thread
  * 
  */
@@ -72,6 +77,11 @@ export type ThreadAttachment = Prisma.ThreadAttachmentModel
  * 
  */
 export type CommunicationNotification = Prisma.CommunicationNotificationModel
+/**
+ * Model AppNotification
+ * 
+ */
+export type AppNotification = Prisma.AppNotificationModel
 /**
  * Model ThreadActivity
  * 
