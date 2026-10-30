@@ -48,6 +48,16 @@ records, uses deterministic IDs so reruns do not duplicate imported records,
 and imports customer addresses into `CustomerAddress`. The script refuses
 non-local or non-dev database targets.
 
+Portal repair data can be imported after the customer/CRM import:
+
+```bash
+node scripts/import-portal-repairs.mjs
+node scripts/import-portal-repairs.mjs --apply
+```
+
+The repair importer also has a dry-run by default, preserves existing records,
+and requires all linked portal customers to exist in the dev database.
+
 ## Compile and run the project
 
 ```bash
