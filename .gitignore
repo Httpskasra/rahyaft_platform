@@ -15,6 +15,7 @@ build/
 # Database
 *.db
 *.sqlite
+needBackup/
 
 # Python
 __pycache__/

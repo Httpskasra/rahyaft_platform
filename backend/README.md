@@ -31,6 +31,23 @@
 $ yarn install
 ```
 
+## Local portal customer/CRM import
+
+With the dev PostgreSQL container running and
+`../needBackup/portal-customers-crm.normalized.json` available, run from this
+directory:
+
+```bash
+node scripts/import-portal-customers-crm.mjs
+node scripts/import-portal-customers-crm.mjs --apply
+```
+
+The first command validates and previews the import. The second inserts into
+the local `enterprise` database in one transaction. It preserves existing
+records, uses deterministic IDs so reruns do not duplicate imported records,
+and imports customer addresses into `CustomerAddress`. The script refuses
+non-local or non-dev database targets.
+
 ## Compile and run the project
 
 ```bash

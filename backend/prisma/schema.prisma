@@ -1096,6 +1096,7 @@ model Customer {
 
   // Relations
   repairs            RepairCase[]
+  addresses          CustomerAddress[]
   contacts           CustomerContact[]
   salesOpportunities SalesOpportunity[]
   activities         CustomerActivity[]
@@ -1109,6 +1110,25 @@ model Customer {
   @@index([organizationName])
   @@index([firstName, lastName])
   @@index([occupationGroup])
+}
+
+model CustomerAddress {
+  id String @id @default(uuid())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  title      String?
+  province   String?
+  city       String?
+  address    String?
+  postalCode String?
+  map        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
 }
 
 model CustomerContact {
