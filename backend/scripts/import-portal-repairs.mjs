@@ -9,7 +9,7 @@ const { Client } = pg;
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const defaultFile = path.resolve(
   scriptDirectory,
-  '../../needBackup/portal-repairs.normalized.json',
+  './portal-repairs.normalized.json',
 );
 const args = process.argv.slice(2);
 const apply = args.includes('--apply');

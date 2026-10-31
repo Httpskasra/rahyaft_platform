@@ -9,7 +9,7 @@ const { Client } = pg;
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const defaultFile = path.resolve(
   scriptDirectory,
-  '../../needBackup/portal-customers-crm.normalized.json',
+  './portal-customers-crm.normalized.json',
 );
 const args = process.argv.slice(2);
 const apply = args.includes('--apply');
