@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import pg from 'pg';
 
 const { Client } = pg;
+
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const defaultFile = path.resolve(
   scriptDirectory,
