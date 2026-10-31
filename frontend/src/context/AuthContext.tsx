@@ -18,14 +18,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const refreshUser = useCallback(async () => {
+    setLoading(true);
     try {
       const { data } = await authApi.me();
-          console.log("me response:", JSON.stringify(data, null, 2)); // ← add this
-
       setUser(data);
     } catch (e){
-    console.error("me() failed:", e); // ← and this
-
+      console.error("me() failed:", e);
       setUser(null);
     } finally {
       setLoading(false);

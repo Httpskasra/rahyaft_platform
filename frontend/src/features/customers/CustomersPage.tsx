@@ -41,7 +41,7 @@ export default function CustomersPage() {
     [loading, setLoading] = useState(true),
     [detailLoading, setDetailLoading] = useState(false),
     [search, setSearch] = useState(""),
-    [type, setType] = useState<"" | CustomerType>(""),
+    [type, setType] = useState<CustomerType>("PERSON"),
     [page, setPage] = useState(1),
     [pages, setPages] = useState(1),
     [message, setMessage] = useState<{
@@ -163,7 +163,7 @@ export default function CustomersPage() {
                 setPage(1);
               }}
               className={`${input} mt-3`}>
-              <option value="">همه مشتریان</option>
+
               <option value="PERSON">اشخاص حقیقی</option>
               <option value="ORGANIZATION">سازمان‌ها و کلینیک‌ها</option>
             </select>

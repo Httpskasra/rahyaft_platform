@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useCooldown } from "./useCooldown";
 import { isValidIranE164, normalizeIranPhone, onlyDigits } from "@/lib/login/phone";
 import { authApi } from "@/lib/api/auth";
+import { useAuth } from "@/context/AuthContext";
 
 type Step = "phone" | "otp";
 
 export function useOtpLogin() {
   const router = useRouter();
+  const { refreshUser } = useAuth();
   const [step, setStep] = useState<Step>("phone");
   const [phoneRaw, setPhoneRaw] = useState("");
   const [phone, setPhone] = useState("+989123456789");
@@ -60,6 +62,7 @@ export function useOtpLogin() {
       // ذخیره توکن در localStorage تا apiClient در درخواست‌های بعدی استفاده کند
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
+      await refreshUser();
       
       return true;
     } catch (err: any) {
