@@ -250,6 +250,11 @@ export type NotificationEvent = Prisma.NotificationEventModel
  */
 export type Customer = Prisma.CustomerModel
 /**
+ * Model CustomerAddress
+ * 
+ */
+export type CustomerAddress = Prisma.CustomerAddressModel
+/**
  * Model CustomerContact
  * 
  */

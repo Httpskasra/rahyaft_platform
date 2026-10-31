@@ -27,6 +27,7 @@ import {
   type RepairType,
 } from "@/lib/api/repairs";
 import { StatusTimeline } from "@/components/repairs/StatusTimeline";
+import { RepairStatusDetails } from "@/components/repairs/RepairStatusDetails";
 import { Spinner } from "@/components/ui/Spinner";
 import { cn } from "@/lib/cn";
 
@@ -167,6 +168,7 @@ function TaskDetail({ repair: initialRepair, showToast, onRefresh }: { repair: R
   const [changingStatus, setChangingStatus] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<RepairStatus | "">("");
   const [statusReason, setStatusReason] = useState("");
+  const [statusImage, setStatusImage] = useState<File | null>(null);
 
   const nextStatuses = STATUS_FLOW[initialRepair.status] ?? [];
 
@@ -175,6 +177,7 @@ function TaskDetail({ repair: initialRepair, showToast, onRefresh }: { repair: R
     setDetail(null);
     setSelectedStatus("");
     setStatusReason("");
+    setStatusImage(null);
     repairsApi.findOne(initialRepair.id)
       .then((r) => setDetail(r.data))
       .catch(() => {})
@@ -185,8 +188,16 @@ function TaskDetail({ repair: initialRepair, showToast, onRefresh }: { repair: R
     if (!selectedStatus) return;
     setChangingStatus(true);
     try {
-      await repairsApi.changeStatus(initialRepair.id, selectedStatus, statusReason || undefined);
+      await repairsApi.changeStatus(
+        initialRepair.id,
+        selectedStatus,
+        statusReason || undefined,
+        statusImage ?? undefined,
+      );
       showToast("success", "وضعیت تعمیر تغییر یافت");
+      setSelectedStatus("");
+      setStatusReason("");
+      setStatusImage(null);
       onRefresh();
     } catch (e: unknown) {
       const msg = (e as any)?.response?.data?.message ?? "خطا در تغییر وضعیت";
@@ -253,8 +264,15 @@ function TaskDetail({ repair: initialRepair, showToast, onRefresh }: { repair: R
                   ))}
                 </div>
                 {selectedStatus && (
-                  <div className="flex gap-2 pt-1">
-                    <input type="text" value={statusReason} onChange={(e) => setStatusReason(e.target.value)} placeholder="دلیل / توضیح (اختیاری)" className="h-9 flex-1 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 placeholder-gray-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:placeholder-gray-500" />
+                  <div className="space-y-3 pt-1">
+                    <RepairStatusDetails
+                      reason={statusReason}
+                      onReasonChange={setStatusReason}
+                      image={statusImage}
+                      onImageChange={setStatusImage}
+                      showToast={showToast}
+                      disabled={changingStatus}
+                    />
                     <button type="button" onClick={handleChangeStatus} disabled={changingStatus} className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600 disabled:opacity-60">
                       {changingStatus ? <Spinner size={13} /> : <Check size={13} />}
                       ثبت
@@ -315,8 +333,8 @@ export default function MyTasksPage() {
     try {
       // بک‌اند خودش بر اساس scope کاربر (SELF برای تکنسین) فیلتر می‌کند
       const { data } = await repairsApi.findAll();
-      setTasks(data);
-      if (data.length > 0 && !activeId) setActiveId(data[0].id);
+      setTasks(data.items);
+      if (data.items.length > 0 && !activeId) setActiveId(data.items[0].id);
     } catch {
       setError("خطا در دریافت اطلاعات");
     } finally {

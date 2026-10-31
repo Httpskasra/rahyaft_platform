@@ -93,6 +93,7 @@ export const ModelName = {
   RepairSlaPolicy: 'RepairSlaPolicy',
   NotificationEvent: 'NotificationEvent',
   Customer: 'Customer',
+  CustomerAddress: 'CustomerAddress',
   CustomerContact: 'CustomerContact',
   SalesOpportunity: 'SalesOpportunity',
   CustomerActivity: 'CustomerActivity',
@@ -669,6 +670,8 @@ export const RepairStatusLogScalarFieldEnum = {
   newStatus: 'newStatus',
   changedById: 'changedById',
   reason: 'reason',
+  imageStorageKey: 'imageStorageKey',
+  imageMimeType: 'imageMimeType',
   createdAt: 'createdAt'
 } as const
 
@@ -741,6 +744,22 @@ export const CustomerScalarFieldEnum = {
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const CustomerAddressScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  title: 'title',
+  province: 'province',
+  city: 'city',
+  address: 'address',
+  postalCode: 'postalCode',
+  map: 'map',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerAddressScalarFieldEnum = (typeof CustomerAddressScalarFieldEnum)[keyof typeof CustomerAddressScalarFieldEnum]
 
 
 export const CustomerContactScalarFieldEnum = {

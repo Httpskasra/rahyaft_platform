@@ -1,7 +1,20 @@
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Body, Controller, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  StreamableFile,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { RepairsService } from './repairs.service';
 
@@ -17,7 +30,10 @@ import { QueryRepairsDto } from './dto/query-repairs.dto';
 @ApiBearerAuth('access-token')
 @Controller('repairs')
 export class RepairsController {
-  constructor(private readonly repairsService: RepairsService, private readonly analyticsAi: AnalyticsAiService) {}
+  constructor(
+    private readonly repairsService: RepairsService,
+    private readonly analyticsAi: AnalyticsAiService,
+  ) {}
 
   @Post()
   @RequirePermission({ action: 'create', resource: 'repairs' })
@@ -28,15 +44,20 @@ export class RepairsController {
     return this.repairsService.create(dto);
   }
 
-
-
   @Get('sla-policies')
   @RequirePermission({ action: 'read', resource: 'repairs' })
-  getSlaPolicies() { return this.repairsService.getSlaPolicies(); }
+  getSlaPolicies() {
+    return this.repairsService.getSlaPolicies();
+  }
 
   @Patch('sla-policies')
   @RequirePermission({ action: 'update', resource: 'repairs' })
-  updateSlaPolicies(@Body() body: { items: Array<{ type: any; targetHours: number; isActive?: boolean }> }) {
+  updateSlaPolicies(
+    @Body()
+    body: {
+      items: Array<{ type: any; targetHours: number; isActive?: boolean }>;
+    },
+  ) {
     return this.repairsService.updateSlaPolicies(body.items ?? []);
   }
 
@@ -48,21 +69,21 @@ export class RepairsController {
     @Query('from') from?: string,
     @Query('to') to?: string,
   ) {
-    return this.repairsService.getAnalytics(
-      req.user,
-      req.matchedPermission,
-      { range, from, to },
-    );
+    return this.repairsService.getAnalytics(req.user, req.matchedPermission, {
+      range,
+      from,
+      to,
+    });
   }
-
 
   @Post('analytics/ai-summary')
   @RequirePermission({ action: 'read', resource: 'repairs' })
-  async analyticsAiSummary(
-    @Req() req: any,
-    @Query('range') range?: string,
-  ) {
-    const analytics = await this.repairsService.getAnalytics(req.user, req.matchedPermission, { range });
+  async analyticsAiSummary(@Req() req: any, @Query('range') range?: string) {
+    const analytics = await this.repairsService.getAnalytics(
+      req.user,
+      req.matchedPermission,
+      { range },
+    );
     return this.analyticsAi.summarize('repairs', analytics);
   }
 
@@ -73,18 +94,18 @@ export class RepairsController {
     @Req() req: any,
     @Query('range') range?: string,
   ) {
-    const analytics = await this.repairsService.getAnalytics(req.user, req.matchedPermission, { range });
+    const analytics = await this.repairsService.getAnalytics(
+      req.user,
+      req.matchedPermission,
+      { range },
+    );
     return this.analyticsAi.ask('repairs', dto.question, analytics);
   }
 
   @Get()
   @RequirePermission({ action: 'read', resource: 'repairs' })
   findAll(@Req() req: any, @Query() query: QueryRepairsDto) {
-    return this.repairsService.findAll(
-      req.user,
-      req.matchedPermission,
-      query,
-    );
+    return this.repairsService.findAll(req.user, req.matchedPermission, query);
   }
 
   @Get(':id')
@@ -96,6 +117,25 @@ export class RepairsController {
     @Req() req: any,
   ) {
     return this.repairsService.findOne(id, req.user, req.matchedPermission);
+  }
+
+  @Get(':id/status-logs/:logId/image')
+  @RequirePermission({ action: 'read', resource: 'repairs' })
+  async getStatusLogImage(
+    @Param('id') id: string,
+    @Param('logId') logId: string,
+    @Req() req: any,
+  ) {
+    const image = await this.repairsService.getStatusLogImage(
+      id,
+      logId,
+      req.user,
+      req.matchedPermission,
+    );
+    return new StreamableFile(image.buffer, {
+      type: image.mimeType,
+      disposition: 'inline',
+    });
   }
 
   @Patch(':id/assign')
@@ -112,10 +152,15 @@ export class RepairsController {
 
   @Patch(':id/status')
   @RequirePermission({ action: 'update', resource: 'repairs' })
+  @ApiConsumes('application/json', 'multipart/form-data')
+  @UseInterceptors(
+    FileInterceptor('image', { limits: { fileSize: 5 * 1024 * 1024 } }),
+  )
   changeStatus(
     @Param('id') id: string,
     @Body() dto: UpdateRepairStatusDto,
     @Req() req: any,
+    @UploadedFile() image?: Express.Multer.File,
   ) {
     return this.repairsService.changeStatus(
       id,
@@ -123,6 +168,7 @@ export class RepairsController {
       req.user,
       req.matchedPermission,
       dto.reason,
+      image,
     );
   }
 }

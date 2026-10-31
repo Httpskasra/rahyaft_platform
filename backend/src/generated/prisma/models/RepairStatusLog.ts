@@ -31,6 +31,8 @@ export type RepairStatusLogMinAggregateOutputType = {
   newStatus: $Enums.RepairStatus | null
   changedById: string | null
   reason: string | null
+  imageStorageKey: string | null
+  imageMimeType: string | null
   createdAt: Date | null
 }
 
@@ -41,6 +43,8 @@ export type RepairStatusLogMaxAggregateOutputType = {
   newStatus: $Enums.RepairStatus | null
   changedById: string | null
   reason: string | null
+  imageStorageKey: string | null
+  imageMimeType: string | null
   createdAt: Date | null
 }
 
@@ -51,6 +55,8 @@ export type RepairStatusLogCountAggregateOutputType = {
   newStatus: number
   changedById: number
   reason: number
+  imageStorageKey: number
+  imageMimeType: number
   createdAt: number
   _all: number
 }
@@ -63,6 +69,8 @@ export type RepairStatusLogMinAggregateInputType = {
   newStatus?: true
   changedById?: true
   reason?: true
+  imageStorageKey?: true
+  imageMimeType?: true
   createdAt?: true
 }
 
@@ -73,6 +81,8 @@ export type RepairStatusLogMaxAggregateInputType = {
   newStatus?: true
   changedById?: true
   reason?: true
+  imageStorageKey?: true
+  imageMimeType?: true
   createdAt?: true
 }
 
@@ -83,6 +93,8 @@ export type RepairStatusLogCountAggregateInputType = {
   newStatus?: true
   changedById?: true
   reason?: true
+  imageStorageKey?: true
+  imageMimeType?: true
   createdAt?: true
   _all?: true
 }
@@ -166,6 +178,8 @@ export type RepairStatusLogGroupByOutputType = {
   newStatus: $Enums.RepairStatus
   changedById: string
   reason: string | null
+  imageStorageKey: string | null
+  imageMimeType: string | null
   createdAt: Date
   _count: RepairStatusLogCountAggregateOutputType | null
   _min: RepairStatusLogMinAggregateOutputType | null
@@ -197,6 +211,8 @@ export type RepairStatusLogWhereInput = {
   newStatus?: Prisma.EnumRepairStatusFilter<"RepairStatusLog"> | $Enums.RepairStatus
   changedById?: Prisma.StringFilter<"RepairStatusLog"> | string
   reason?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
+  imageStorageKey?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
+  imageMimeType?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RepairStatusLog"> | Date | string
   repairCase?: Prisma.XOR<Prisma.RepairCaseScalarRelationFilter, Prisma.RepairCaseWhereInput>
   changedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -209,6 +225,8 @@ export type RepairStatusLogOrderByWithRelationInput = {
   newStatus?: Prisma.SortOrder
   changedById?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   repairCase?: Prisma.RepairCaseOrderByWithRelationInput
   changedBy?: Prisma.UserOrderByWithRelationInput
@@ -224,6 +242,8 @@ export type RepairStatusLogWhereUniqueInput = Prisma.AtLeast<{
   newStatus?: Prisma.EnumRepairStatusFilter<"RepairStatusLog"> | $Enums.RepairStatus
   changedById?: Prisma.StringFilter<"RepairStatusLog"> | string
   reason?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
+  imageStorageKey?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
+  imageMimeType?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RepairStatusLog"> | Date | string
   repairCase?: Prisma.XOR<Prisma.RepairCaseScalarRelationFilter, Prisma.RepairCaseWhereInput>
   changedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -236,6 +256,8 @@ export type RepairStatusLogOrderByWithAggregationInput = {
   newStatus?: Prisma.SortOrder
   changedById?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.RepairStatusLogCountOrderByAggregateInput
   _max?: Prisma.RepairStatusLogMaxOrderByAggregateInput
@@ -252,6 +274,8 @@ export type RepairStatusLogScalarWhereWithAggregatesInput = {
   newStatus?: Prisma.EnumRepairStatusWithAggregatesFilter<"RepairStatusLog"> | $Enums.RepairStatus
   changedById?: Prisma.StringWithAggregatesFilter<"RepairStatusLog"> | string
   reason?: Prisma.StringNullableWithAggregatesFilter<"RepairStatusLog"> | string | null
+  imageStorageKey?: Prisma.StringNullableWithAggregatesFilter<"RepairStatusLog"> | string | null
+  imageMimeType?: Prisma.StringNullableWithAggregatesFilter<"RepairStatusLog"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RepairStatusLog"> | Date | string
 }
 
@@ -260,6 +284,8 @@ export type RepairStatusLogCreateInput = {
   oldStatus?: $Enums.RepairStatus | null
   newStatus: $Enums.RepairStatus
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
   repairCase: Prisma.RepairCaseCreateNestedOneWithoutStatusLogsInput
   changedBy: Prisma.UserCreateNestedOneWithoutStatusLogsInput
@@ -272,6 +298,8 @@ export type RepairStatusLogUncheckedCreateInput = {
   newStatus: $Enums.RepairStatus
   changedById: string
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -280,6 +308,8 @@ export type RepairStatusLogUpdateInput = {
   oldStatus?: Prisma.NullableEnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus | null
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repairCase?: Prisma.RepairCaseUpdateOneRequiredWithoutStatusLogsNestedInput
   changedBy?: Prisma.UserUpdateOneRequiredWithoutStatusLogsNestedInput
@@ -292,6 +322,8 @@ export type RepairStatusLogUncheckedUpdateInput = {
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -302,6 +334,8 @@ export type RepairStatusLogCreateManyInput = {
   newStatus: $Enums.RepairStatus
   changedById: string
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -310,6 +344,8 @@ export type RepairStatusLogUpdateManyMutationInput = {
   oldStatus?: Prisma.NullableEnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus | null
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -320,6 +356,8 @@ export type RepairStatusLogUncheckedUpdateManyInput = {
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -340,6 +378,8 @@ export type RepairStatusLogCountOrderByAggregateInput = {
   newStatus?: Prisma.SortOrder
   changedById?: Prisma.SortOrder
   reason?: Prisma.SortOrder
+  imageStorageKey?: Prisma.SortOrder
+  imageMimeType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -350,6 +390,8 @@ export type RepairStatusLogMaxOrderByAggregateInput = {
   newStatus?: Prisma.SortOrder
   changedById?: Prisma.SortOrder
   reason?: Prisma.SortOrder
+  imageStorageKey?: Prisma.SortOrder
+  imageMimeType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -360,6 +402,8 @@ export type RepairStatusLogMinOrderByAggregateInput = {
   newStatus?: Prisma.SortOrder
   changedById?: Prisma.SortOrder
   reason?: Prisma.SortOrder
+  imageStorageKey?: Prisma.SortOrder
+  imageMimeType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -456,6 +500,8 @@ export type RepairStatusLogCreateWithoutChangedByInput = {
   oldStatus?: $Enums.RepairStatus | null
   newStatus: $Enums.RepairStatus
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
   repairCase: Prisma.RepairCaseCreateNestedOneWithoutStatusLogsInput
 }
@@ -466,6 +512,8 @@ export type RepairStatusLogUncheckedCreateWithoutChangedByInput = {
   oldStatus?: $Enums.RepairStatus | null
   newStatus: $Enums.RepairStatus
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -505,6 +553,8 @@ export type RepairStatusLogScalarWhereInput = {
   newStatus?: Prisma.EnumRepairStatusFilter<"RepairStatusLog"> | $Enums.RepairStatus
   changedById?: Prisma.StringFilter<"RepairStatusLog"> | string
   reason?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
+  imageStorageKey?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
+  imageMimeType?: Prisma.StringNullableFilter<"RepairStatusLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RepairStatusLog"> | Date | string
 }
 
@@ -513,6 +563,8 @@ export type RepairStatusLogCreateWithoutRepairCaseInput = {
   oldStatus?: $Enums.RepairStatus | null
   newStatus: $Enums.RepairStatus
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
   changedBy: Prisma.UserCreateNestedOneWithoutStatusLogsInput
 }
@@ -523,6 +575,8 @@ export type RepairStatusLogUncheckedCreateWithoutRepairCaseInput = {
   newStatus: $Enums.RepairStatus
   changedById: string
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -558,6 +612,8 @@ export type RepairStatusLogCreateManyChangedByInput = {
   oldStatus?: $Enums.RepairStatus | null
   newStatus: $Enums.RepairStatus
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -566,6 +622,8 @@ export type RepairStatusLogUpdateWithoutChangedByInput = {
   oldStatus?: Prisma.NullableEnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus | null
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repairCase?: Prisma.RepairCaseUpdateOneRequiredWithoutStatusLogsNestedInput
 }
@@ -576,6 +634,8 @@ export type RepairStatusLogUncheckedUpdateWithoutChangedByInput = {
   oldStatus?: Prisma.NullableEnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus | null
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -585,6 +645,8 @@ export type RepairStatusLogUncheckedUpdateManyWithoutChangedByInput = {
   oldStatus?: Prisma.NullableEnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus | null
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -594,6 +656,8 @@ export type RepairStatusLogCreateManyRepairCaseInput = {
   newStatus: $Enums.RepairStatus
   changedById: string
   reason?: string | null
+  imageStorageKey?: string | null
+  imageMimeType?: string | null
   createdAt?: Date | string
 }
 
@@ -602,6 +666,8 @@ export type RepairStatusLogUpdateWithoutRepairCaseInput = {
   oldStatus?: Prisma.NullableEnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus | null
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   changedBy?: Prisma.UserUpdateOneRequiredWithoutStatusLogsNestedInput
 }
@@ -612,6 +678,8 @@ export type RepairStatusLogUncheckedUpdateWithoutRepairCaseInput = {
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -621,6 +689,8 @@ export type RepairStatusLogUncheckedUpdateManyWithoutRepairCaseInput = {
   newStatus?: Prisma.EnumRepairStatusFieldUpdateOperationsInput | $Enums.RepairStatus
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -633,6 +703,8 @@ export type RepairStatusLogSelect<ExtArgs extends runtime.Types.Extensions.Inter
   newStatus?: boolean
   changedById?: boolean
   reason?: boolean
+  imageStorageKey?: boolean
+  imageMimeType?: boolean
   createdAt?: boolean
   repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
   changedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -645,6 +717,8 @@ export type RepairStatusLogSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   newStatus?: boolean
   changedById?: boolean
   reason?: boolean
+  imageStorageKey?: boolean
+  imageMimeType?: boolean
   createdAt?: boolean
   repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
   changedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -657,6 +731,8 @@ export type RepairStatusLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   newStatus?: boolean
   changedById?: boolean
   reason?: boolean
+  imageStorageKey?: boolean
+  imageMimeType?: boolean
   createdAt?: boolean
   repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
   changedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -669,10 +745,12 @@ export type RepairStatusLogSelectScalar = {
   newStatus?: boolean
   changedById?: boolean
   reason?: boolean
+  imageStorageKey?: boolean
+  imageMimeType?: boolean
   createdAt?: boolean
 }
 
-export type RepairStatusLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repairCaseId" | "oldStatus" | "newStatus" | "changedById" | "reason" | "createdAt", ExtArgs["result"]["repairStatusLog"]>
+export type RepairStatusLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repairCaseId" | "oldStatus" | "newStatus" | "changedById" | "reason" | "imageStorageKey" | "imageMimeType" | "createdAt", ExtArgs["result"]["repairStatusLog"]>
 export type RepairStatusLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repairCase?: boolean | Prisma.RepairCaseDefaultArgs<ExtArgs>
   changedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -699,6 +777,8 @@ export type $RepairStatusLogPayload<ExtArgs extends runtime.Types.Extensions.Int
     newStatus: $Enums.RepairStatus
     changedById: string
     reason: string | null
+    imageStorageKey: string | null
+    imageMimeType: string | null
     createdAt: Date
   }, ExtArgs["result"]["repairStatusLog"]>
   composites: {}
@@ -1131,6 +1211,8 @@ export interface RepairStatusLogFieldRefs {
   readonly newStatus: Prisma.FieldRef<"RepairStatusLog", 'RepairStatus'>
   readonly changedById: Prisma.FieldRef<"RepairStatusLog", 'String'>
   readonly reason: Prisma.FieldRef<"RepairStatusLog", 'String'>
+  readonly imageStorageKey: Prisma.FieldRef<"RepairStatusLog", 'String'>
+  readonly imageMimeType: Prisma.FieldRef<"RepairStatusLog", 'String'>
   readonly createdAt: Prisma.FieldRef<"RepairStatusLog", 'DateTime'>
 }
     

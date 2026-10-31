@@ -12,6 +12,7 @@ import type { UserData } from "@/lib/api/users";
 import { DetailInfoRow as InfoRow } from "@/components/ui/DetailInfoRow";
 import { Spinner } from "@/components/ui/Spinner";
 import { StatusTimeline } from "@/components/repairs/StatusTimeline";
+import { RepairStatusDetails } from "@/components/repairs/RepairStatusDetails";
 import type { ToastType } from "@/hooks/useToast";
 import { cn } from "@/lib/cn";
 import { RelatedCommunications } from "@/features/communications/components/RelatedCommunications";
@@ -37,6 +38,7 @@ export function RepairDetail({
   const [changingStatus, setChangingStatus] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<RepairStatus | "">("");
   const [statusReason, setStatusReason] = useState("");
+  const [statusImage, setStatusImage] = useState<File | null>(null);
 
   const [assigningTech, setAssigningTech] = useState(false);
   const [selectedTech, setSelectedTech] = useState(
@@ -51,6 +53,7 @@ export function RepairDetail({
     setSelectedTech(initialRepair.technicianId ?? "");
     setSelectedStatus("");
     setStatusReason("");
+    setStatusImage(null);
     repairsApi
       .findOne(initialRepair.id)
       .then((r) => setDetail(r.data))
@@ -66,8 +69,12 @@ export function RepairDetail({
         initialRepair.id,
         selectedStatus,
         statusReason || undefined,
+        statusImage ?? undefined,
       );
       showToast("success", "وضعیت تعمیر تغییر یافت");
+      setSelectedStatus("");
+      setStatusReason("");
+      setStatusImage(null);
       onRefresh();
     } catch {
       showToast("error", "خطا در تغییر وضعیت");
@@ -253,13 +260,14 @@ export function RepairDetail({
                   ))}
                 </div>
                 {selectedStatus && (
-                  <div className="flex gap-2 pt-1">
-                    <input
-                      type="text"
-                      value={statusReason}
-                      onChange={(e) => setStatusReason(e.target.value)}
-                      placeholder="دلیل (اختیاری)"
-                      className="h-9 flex-1 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 placeholder-gray-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:placeholder-gray-500"
+                  <div className="space-y-3 pt-1">
+                    <RepairStatusDetails
+                      reason={statusReason}
+                      onReasonChange={setStatusReason}
+                      image={statusImage}
+                      onImageChange={setStatusImage}
+                      showToast={showToast}
+                      disabled={changingStatus}
                     />
                     <button
                       type="button"

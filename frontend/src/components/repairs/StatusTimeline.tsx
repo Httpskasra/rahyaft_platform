@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   Plus,
   Eye,
@@ -19,6 +20,7 @@ import {
   User2,
 } from "lucide-react";
 import type { RepairStatus, RepairStatusLog } from "@/lib/api/repairs";
+import { repairsApi } from "@/lib/api/repairs";
 import { cn } from "@/lib/cn";
 
 
@@ -129,6 +131,32 @@ function TimelineItem({
 }) {
   const Icon = STATUS_ICON[log.newStatus] ?? Clock;
   const { dateStr, timeStr } = formatDateTime(log.createdAt) as { dateStr: string; timeStr: string };
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
+
+  useEffect(() => {
+    if (!log.imageMimeType) return;
+
+    let active = true;
+    let objectUrl: string | null = null;
+    repairsApi
+      .getStatusLogImage(log.repairCaseId, log.id)
+      .then(({ data }) => {
+        if (!active) return;
+        objectUrl = URL.createObjectURL(data);
+        setImageUrl(objectUrl);
+      })
+      .catch((error: unknown) => {
+        if (!active) return;
+        console.error("Failed to load repair status image:", error);
+        setImageLoadFailed(true);
+      });
+
+    return () => {
+      active = false;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [log.id, log.imageMimeType, log.repairCaseId]);
 
   return (
     <div className="relative flex gap-4">
@@ -169,10 +197,30 @@ function TimelineItem({
         </div>
 
         {log.reason && (
-          <p className="mt-1.5 text-sm text-gray-700 dark:text-gray-300">{log.reason}</p>
+          <p className="mt-1.5 whitespace-pre-wrap text-sm text-gray-700 dark:text-gray-300">{log.reason}</p>
         )}
 
- <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[11px] text-gray-400 dark:text-gray-500">
+        {imageUrl && (
+          <a
+            href={imageUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 block w-fit">
+            <Image
+              src={imageUrl}
+              width={560}
+              height={560}
+              unoptimized
+              alt={`تصویر مرحله ${STATUS_FA[log.newStatus]}`}
+              className="max-h-56 max-w-full rounded-xl border border-gray-200 object-contain dark:border-gray-700"
+            />
+          </a>
+        )}
+        {imageLoadFailed && (
+          <p className="mt-2 text-xs text-red-500">تصویر این مرحله بارگذاری نشد</p>
+        )}
+
+        <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[11px] text-gray-400 dark:text-gray-500">
           <Clock size={11} />
           <span dir="ltr">{dateStr} - {timeStr}</span>
           <span className="text-gray-300 dark:text-gray-600">•</span>

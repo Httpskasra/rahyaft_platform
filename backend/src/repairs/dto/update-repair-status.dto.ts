@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
 import { RepairStatus } from 'src/generated/prisma/enums';
 
 export class UpdateRepairStatusDto {
@@ -8,5 +8,6 @@ export class UpdateRepairStatusDto {
 
   @IsOptional()
   @IsString()
+  @MaxLength(2000)
   reason?: string;
 }

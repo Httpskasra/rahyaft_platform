@@ -112,6 +112,7 @@ export interface RepairStatusLog {
     name: string;
   };
   reason: string | null;
+  imageMimeType: string | null;
   createdAt: string;
 }
 
@@ -184,6 +185,23 @@ export const repairsApi = {
   create: (body: CreateRepairDto) => apiClient.post<RepairCase>("/repairs", body),
   assignTechnician: (id: string, technicianId: string) =>
     apiClient.patch(`/repairs/${id}/assign`, { technicianId }),
-  changeStatus: (id: string, status: RepairStatus, reason?: string) =>
-    apiClient.patch(`/repairs/${id}/status`, { status, reason }),
+  changeStatus: (
+    id: string,
+    status: RepairStatus,
+    reason?: string,
+    image?: File,
+  ) => {
+    if (image) {
+      const body = new FormData();
+      body.append("status", status);
+      if (reason) body.append("reason", reason);
+      body.append("image", image);
+      return apiClient.patch(`/repairs/${id}/status`, body);
+    }
+    return apiClient.patch(`/repairs/${id}/status`, { status, reason });
+  },
+  getStatusLogImage: (repairId: string, logId: string) =>
+    apiClient.get<Blob>(`/repairs/${repairId}/status-logs/${logId}/image`, {
+      responseType: "blob",
+    }),
 };

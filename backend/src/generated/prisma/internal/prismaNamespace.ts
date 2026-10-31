@@ -426,6 +426,7 @@ export const ModelName = {
   RepairSlaPolicy: 'RepairSlaPolicy',
   NotificationEvent: 'NotificationEvent',
   Customer: 'Customer',
+  CustomerAddress: 'CustomerAddress',
   CustomerContact: 'CustomerContact',
   SalesOpportunity: 'SalesOpportunity',
   CustomerActivity: 'CustomerActivity',
@@ -454,7 +455,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "department" | "departmentRelation" | "user" | "signatureChangeRequest" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "appNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "productionFlow" | "productionFlowStep" | "productionRun" | "productionRunStep" | "productionStepReview" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "repairSlaPolicy" | "notificationEvent" | "customer" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
+    modelProps: "department" | "departmentRelation" | "user" | "signatureChangeRequest" | "thread" | "threadEntityLink" | "threadParticipant" | "threadAssignment" | "threadMessage" | "threadMention" | "threadAttachment" | "communicationNotification" | "appNotification" | "threadActivity" | "attendance" | "role" | "permission" | "userRole" | "rolePermission" | "form" | "formSubmission" | "formStat" | "formAnalysis" | "productionFlow" | "productionFlowStep" | "productionRun" | "productionRunStep" | "productionStepReview" | "approvalPolicy" | "approvalStep" | "approvalInstance" | "approvalAction" | "userInfo" | "relative" | "repairCase" | "repairItem" | "repairVisit" | "repairStatusLog" | "repairSla" | "repairSlaPolicy" | "notificationEvent" | "customer" | "customerAddress" | "customerContact" | "salesOpportunity" | "customerActivity" | "customerAiAnalysis" | "recruitmentFormTemplate" | "recruitmentFormVersion" | "jobOpening" | "recruitmentApplicant" | "recruitmentApplication" | "recruitmentFormSubmission" | "recruitmentAssignment" | "recruitmentTransition" | "technicalInterviewEvaluation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3566,6 +3567,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CustomerAddress: {
+      payload: Prisma.$CustomerAddressPayload<ExtArgs>
+      fields: Prisma.CustomerAddressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerAddressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerAddressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerAddressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerAddressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerAddressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerAddressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerAddressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerAddressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerAddressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        update: {
+          args: Prisma.CustomerAddressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerAddressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerAddressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerAddressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerAddressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerAddressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerAddress>
+        }
+        groupBy: {
+          args: Prisma.CustomerAddressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerAddressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerAddressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerAddressCountAggregateOutputType> | number
+        }
+      }
+    }
     CustomerContact: {
       payload: Prisma.$CustomerContactPayload<ExtArgs>
       fields: Prisma.CustomerContactFieldRefs
@@ -5112,6 +5187,8 @@ export const RepairStatusLogScalarFieldEnum = {
   newStatus: 'newStatus',
   changedById: 'changedById',
   reason: 'reason',
+  imageStorageKey: 'imageStorageKey',
+  imageMimeType: 'imageMimeType',
   createdAt: 'createdAt'
 } as const
 
@@ -5184,6 +5261,22 @@ export const CustomerScalarFieldEnum = {
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const CustomerAddressScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  title: 'title',
+  province: 'province',
+  city: 'city',
+  address: 'address',
+  postalCode: 'postalCode',
+  map: 'map',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerAddressScalarFieldEnum = (typeof CustomerAddressScalarFieldEnum)[keyof typeof CustomerAddressScalarFieldEnum]
 
 
 export const CustomerContactScalarFieldEnum = {
@@ -6138,6 +6231,7 @@ export type GlobalOmitConfig = {
   repairSlaPolicy?: Prisma.RepairSlaPolicyOmit
   notificationEvent?: Prisma.NotificationEventOmit
   customer?: Prisma.CustomerOmit
+  customerAddress?: Prisma.CustomerAddressOmit
   customerContact?: Prisma.CustomerContactOmit
   salesOpportunity?: Prisma.SalesOpportunityOmit
   customerActivity?: Prisma.CustomerActivityOmit

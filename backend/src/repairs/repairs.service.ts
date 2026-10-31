@@ -2,17 +2,26 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
+import { randomUUID } from 'node:crypto';
+import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { CreateRepairDto } from './dto/create-repair.dto';
 import { AssignTechnicianDto } from './dto/assign-technician.dto';
 import { RepairStatusService } from './services/repair-status.service';
 import { RepairCaseNumberService } from './services/repair-case-number.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { RepairStatus, RepairType, ScopeType } from 'src/generated/prisma/enums';
+import {
+  RepairStatus,
+  RepairType,
+  ScopeType,
+} from 'src/generated/prisma/enums';
 import { AuthenticatedUser } from 'src/common/interfaces/auth.interface';
 import { NotificationsService } from '../notifications/notifications.service';
 import { Prisma } from 'src/generated/prisma/client';
+import type { RepairCase as RepairCaseModel } from 'src/generated/prisma/client';
 import { QueryRepairsDto } from './dto/query-repairs.dto';
 
 // شکلی که PermissionGuard روی request.matchedPermission می‌گذارد
@@ -23,19 +32,51 @@ interface MatchedPermission {
   [key: string]: any;
 }
 
+const REPAIR_IMAGE_EXTENSIONS: Record<string, string> = {
+  'image/jpeg': '.jpg',
+  'image/png': '.png',
+  'image/webp': '.webp',
+};
+const MAX_REPAIR_IMAGE_SIZE = 5 * 1024 * 1024;
+
+function hasExpectedImageSignature(mimeType: string, buffer: Buffer) {
+  if (mimeType === 'image/jpeg') {
+    return (
+      buffer.length >= 3 &&
+      buffer[0] === 0xff &&
+      buffer[1] === 0xd8 &&
+      buffer[2] === 0xff
+    );
+  }
+  if (mimeType === 'image/png') {
+    return buffer
+      .subarray(0, 8)
+      .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+  }
+  if (mimeType === 'image/webp') {
+    return (
+      buffer.toString('ascii', 0, 4) === 'RIFF' &&
+      buffer.toString('ascii', 8, 12) === 'WEBP'
+    );
+  }
+  return false;
+}
+
 @Injectable()
 export class RepairsService {
+  private readonly logger = new Logger(RepairsService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly caseNumberService: RepairCaseNumberService,
     private readonly statusService: RepairStatusService,
     private readonly notifications: NotificationsService,
   ) {}
-private readonly completedStatuses: RepairStatus[] = [
-  RepairStatus.CLOSED,
-  RepairStatus.DELIVERED,
-  RepairStatus.NO_REPAIR_REQUIRED,
-];
+  private readonly completedStatuses: RepairStatus[] = [
+    RepairStatus.CLOSED,
+    RepairStatus.DELIVERED,
+    RepairStatus.NO_REPAIR_REQUIRED,
+  ];
   async create(dto: CreateRepairDto) {
     const customer = await this.prisma.customer.findUnique({
       where: {
@@ -95,7 +136,8 @@ private readonly completedStatuses: RepairStatus[] = [
     if (isSelfScoped) conditions.push({ technicianId: user.id });
     if (query.status) conditions.push({ status: query.status });
     if (query.type) conditions.push({ type: query.type });
-    if (query.technicianId) conditions.push({ technicianId: query.technicianId });
+    if (query.technicianId)
+      conditions.push({ technicianId: query.technicianId });
     if (query.customerId) conditions.push({ customerId: query.customerId });
 
     if (query.from || query.to) {
@@ -182,7 +224,11 @@ private readonly completedStatuses: RepairStatus[] = [
     };
   }
 
-  private resolveAnalyticsRange(input: { range?: string; from?: string; to?: string }) {
+  private resolveAnalyticsRange(input: {
+    range?: string;
+    from?: string;
+    to?: string;
+  }) {
     const now = new Date();
     let to = input.to ? new Date(input.to) : now;
     if (Number.isNaN(to.getTime())) to = now;
@@ -198,7 +244,12 @@ private readonly completedStatuses: RepairStatus[] = [
     }
     if (from > to) [from, to] = [to, from];
     const duration = Math.max(1, to.getTime() - from.getTime());
-    return { from, to, previousFrom: new Date(from.getTime() - duration), previousTo: new Date(from.getTime() - 1) };
+    return {
+      from,
+      to,
+      previousFrom: new Date(from.getTime() - duration),
+      previousTo: new Date(from.getTime() - 1),
+    };
   }
 
   private percentChange(current: number, previous: number) {
@@ -211,25 +262,49 @@ private readonly completedStatuses: RepairStatus[] = [
   }
 
   private makeInsight(input: {
-    id: string; category: string; severity: 'info' | 'warning' | 'critical' | 'positive';
-    title: string; message: string; recommendation?: string; evidence?: string[];
-    metric?: string; current?: number | null; previous?: number | null; changePct?: number | null;
-  }) { return input; }
+    id: string;
+    category: string;
+    severity: 'info' | 'warning' | 'critical' | 'positive';
+    title: string;
+    message: string;
+    recommendation?: string;
+    evidence?: string[];
+    metric?: string;
+    current?: number | null;
+    previous?: number | null;
+    changePct?: number | null;
+  }) {
+    return input;
+  }
 
-  private dailyRepairSpikeAnomalies(series: { date: string; created: number; completed: number }[]) {
+  private dailyRepairSpikeAnomalies(
+    series: { date: string; created: number; completed: number }[],
+  ) {
     if (series.length < 7) return [];
     const values = series.map((item) => item.created);
     const mean = values.reduce((a, b) => a + b, 0) / values.length;
     if (mean < 1) return [];
-    const variance = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / values.length;
+    const variance =
+      values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) /
+      values.length;
     const std = Math.sqrt(variance);
     if (std === 0) return [];
-    return series.map((item) => ({ ...item, zScore: (item.created - mean) / std }))
-      .filter((item) => item.zScore >= 2 && item.created >= Math.max(3, mean * 1.5))
-      .sort((a, b) => b.zScore - a.zScore).slice(0, 5)
+    return series
+      .map((item) => ({ ...item, zScore: (item.created - mean) / std }))
+      .filter(
+        (item) => item.zScore >= 2 && item.created >= Math.max(3, mean * 1.5),
+      )
+      .sort((a, b) => b.zScore - a.zScore)
+      .slice(0, 5)
       .map((item) => ({
-        id: `repair-spike-${item.date}`, kind: 'SPIKE', severity: item.zScore >= 3 ? 'critical' : 'warning',
-        date: item.date, metric: 'createdRepairs', actual: item.created, baseline: Number(mean.toFixed(1)), zScore: Number(item.zScore.toFixed(2)),
+        id: `repair-spike-${item.date}`,
+        kind: 'SPIKE',
+        severity: item.zScore >= 3 ? 'critical' : 'warning',
+        date: item.date,
+        metric: 'createdRepairs',
+        actual: item.created,
+        baseline: Number(mean.toFixed(1)),
+        zScore: Number(item.zScore.toFixed(2)),
         message: `تعداد پرونده‌های تعمیر ثبت‌شده در ${item.date} به‌طور غیرعادی بالاتر از الگوی بازه بوده است.`,
       }));
   }
@@ -240,7 +315,10 @@ private readonly completedStatuses: RepairStatus[] = [
     input: { range?: string; from?: string; to?: string },
   ) {
     const range = this.resolveAnalyticsRange(input);
-    const scopeWhere = matchedPermission?.scope === ScopeType.SELF ? { technicianId: user.id } : {};
+    const scopeWhere =
+      matchedPermission?.scope === ScopeType.SELF
+        ? { technicianId: user.id }
+        : {};
     const completedStatuses: RepairStatus[] = [
       RepairStatus.CLOSED,
       RepairStatus.DELIVERED,
@@ -251,7 +329,9 @@ private readonly completedStatuses: RepairStatus[] = [
       RepairStatus.CANCELED,
       RepairStatus.REJECTED,
     ];
-    const openStatuses = Object.values(RepairStatus).filter((status) => !terminalStatuses.includes(status));
+    const openStatuses = Object.values(RepairStatus).filter(
+      (status) => !terminalStatuses.includes(status),
+    );
 
     const [cases, previousCases, openCases, slaPolicies] = await Promise.all([
       this.prisma.repairCase.findMany({
@@ -265,7 +345,10 @@ private readonly completedStatuses: RepairStatus[] = [
         orderBy: { createdAt: 'asc' },
       }),
       this.prisma.repairCase.findMany({
-        where: { ...scopeWhere, createdAt: { gte: range.previousFrom, lte: range.previousTo } },
+        where: {
+          ...scopeWhere,
+          createdAt: { gte: range.previousFrom, lte: range.previousTo },
+        },
         include: {
           statusLogs: { orderBy: { createdAt: 'asc' } },
           visits: { orderBy: { scheduledAt: 'asc' } },
@@ -274,7 +357,11 @@ private readonly completedStatuses: RepairStatus[] = [
         orderBy: { createdAt: 'asc' },
       }),
       this.prisma.repairCase.findMany({
-        where: { ...scopeWhere, status: { in: openStatuses }, createdAt: { lte: range.to } },
+        where: {
+          ...scopeWhere,
+          status: { in: openStatuses },
+          createdAt: { lte: range.to },
+        },
         select: { id: true, status: true, createdAt: true },
       }),
       this.prisma.repairSlaPolicy.findMany({ where: { isActive: true } }),
@@ -282,33 +369,67 @@ private readonly completedStatuses: RepairStatus[] = [
     const previousCount = previousCases.length;
 
     const effectiveStart = (repair: (typeof cases)[number]) =>
-      repair.startedAt ?? repair.statusLogs.find((log) => log.newStatus === RepairStatus.IN_REPAIR)?.createdAt ?? null;
+      repair.startedAt ??
+      repair.statusLogs.find((log) => log.newStatus === RepairStatus.IN_REPAIR)
+        ?.createdAt ??
+      null;
     const effectiveComplete = (repair: (typeof cases)[number]) =>
-      repair.completedAt ?? repair.statusLogs.find((log) => completedStatuses.includes(log.newStatus))?.createdAt ?? null;
+      repair.completedAt ??
+      repair.statusLogs.find((log) => completedStatuses.includes(log.newStatus))
+        ?.createdAt ??
+      null;
 
-    const durations = cases.map((repair) => ({ repair, start: effectiveStart(repair), complete: effectiveComplete(repair) }));
+    const durations = cases.map((repair) => ({
+      repair,
+      start: effectiveStart(repair),
+      complete: effectiveComplete(repair),
+    }));
     const mttr = durations
       .filter((x) => x.start && x.complete && x.complete >= x.start)
       .map((x) => (x.complete!.getTime() - x.start!.getTime()) / 86_400_000);
     const lead = durations
       .filter((x) => x.complete)
-      .map((x) => (x.complete!.getTime() - x.repair.createdAt.getTime()) / 86_400_000);
+      .map(
+        (x) =>
+          (x.complete!.getTime() - x.repair.createdAt.getTime()) / 86_400_000,
+      );
     const timeToStart = durations
       .filter((x) => x.start)
-      .map((x) => (x.start!.getTime() - x.repair.createdAt.getTime()) / 3_600_000);
+      .map(
+        (x) => (x.start!.getTime() - x.repair.createdAt.getTime()) / 3_600_000,
+      );
 
     const average = (values: number[]) =>
-      values.length ? Number((values.reduce((a, b) => a + b, 0) / values.length).toFixed(1)) : null;
+      values.length
+        ? Number((values.reduce((a, b) => a + b, 0) / values.length).toFixed(1))
+        : null;
 
     const previousEffectiveStart = (repair: (typeof previousCases)[number]) =>
-      repair.startedAt ?? repair.statusLogs.find((log) => log.newStatus === RepairStatus.IN_REPAIR)?.createdAt ?? null;
-    const previousEffectiveComplete = (repair: (typeof previousCases)[number]) =>
-      repair.completedAt ?? repair.statusLogs.find((log) => completedStatuses.includes(log.newStatus))?.createdAt ?? null;
-    const previousDurations = previousCases.map((repair) => ({ repair, start: previousEffectiveStart(repair), complete: previousEffectiveComplete(repair) }));
-    const previousMttrValues = previousDurations.filter((x) => x.start && x.complete && x.complete >= x.start)
+      repair.startedAt ??
+      repair.statusLogs.find((log) => log.newStatus === RepairStatus.IN_REPAIR)
+        ?.createdAt ??
+      null;
+    const previousEffectiveComplete = (
+      repair: (typeof previousCases)[number],
+    ) =>
+      repair.completedAt ??
+      repair.statusLogs.find((log) => completedStatuses.includes(log.newStatus))
+        ?.createdAt ??
+      null;
+    const previousDurations = previousCases.map((repair) => ({
+      repair,
+      start: previousEffectiveStart(repair),
+      complete: previousEffectiveComplete(repair),
+    }));
+    const previousMttrValues = previousDurations
+      .filter((x) => x.start && x.complete && x.complete >= x.start)
       .map((x) => (x.complete!.getTime() - x.start!.getTime()) / 86_400_000);
-    const previousLeadValues = previousDurations.filter((x) => x.complete)
-      .map((x) => (x.complete!.getTime() - x.repair.createdAt.getTime()) / 86_400_000);
+    const previousLeadValues = previousDurations
+      .filter((x) => x.complete)
+      .map(
+        (x) =>
+          (x.complete!.getTime() - x.repair.createdAt.getTime()) / 86_400_000,
+      );
     const previousMttr = average(previousMttrValues);
     const previousLead = average(previousLeadValues);
 
@@ -317,13 +438,19 @@ private readonly completedStatuses: RepairStatus[] = [
     const createdMap = new Map<string, number>();
     const completedMap = new Map<string, number>();
     for (const row of durations) {
-      statusMap.set(row.repair.status, (statusMap.get(row.repair.status) ?? 0) + 1);
+      statusMap.set(
+        row.repair.status,
+        (statusMap.get(row.repair.status) ?? 0) + 1,
+      );
       typeMap.set(row.repair.type, (typeMap.get(row.repair.type) ?? 0) + 1);
       const createdKey = this.dateKey(row.repair.createdAt);
       createdMap.set(createdKey, (createdMap.get(createdKey) ?? 0) + 1);
       if (row.complete) {
         const completedKey = this.dateKey(row.complete);
-        completedMap.set(completedKey, (completedMap.get(completedKey) ?? 0) + 1);
+        completedMap.set(
+          completedKey,
+          (completedMap.get(completedKey) ?? 0) + 1,
+        );
       }
     }
 
@@ -334,13 +461,23 @@ private readonly completedStatuses: RepairStatus[] = [
     end.setHours(23, 59, 59, 999);
     while (cursor <= end) {
       const key = this.dateKey(cursor);
-      trend.push({ date: key, created: createdMap.get(key) ?? 0, completed: completedMap.get(key) ?? 0 });
+      trend.push({
+        date: key,
+        created: createdMap.get(key) ?? 0,
+        completed: completedMap.get(key) ?? 0,
+      });
       cursor.setDate(cursor.getDate() + 1);
     }
 
-    const completed = cases.filter((x) => completedStatuses.includes(x.status)).length;
+    const completed = cases.filter((x) =>
+      completedStatuses.includes(x.status),
+    ).length;
     const open = cases.filter((x) => openStatuses.includes(x.status)).length;
-    const canceledOrRejected = cases.filter((x) => x.status === RepairStatus.CANCELED || x.status === RepairStatus.REJECTED).length;
+    const canceledOrRejected = cases.filter(
+      (x) =>
+        x.status === RepairStatus.CANCELED ||
+        x.status === RepairStatus.REJECTED,
+    ).length;
 
     // Phase 2: aging of every currently open repair (not only cases created inside the selected range).
     const aging = [
@@ -351,7 +488,10 @@ private readonly completedStatuses: RepairStatus[] = [
       { key: 'GTE_14', label: '۱۴ روز و بیشتر', count: 0 },
     ];
     for (const repair of openCases) {
-      const days = Math.max(0, (range.to.getTime() - repair.createdAt.getTime()) / 86_400_000);
+      const days = Math.max(
+        0,
+        (range.to.getTime() - repair.createdAt.getTime()) / 86_400_000,
+      );
       if (days < 1) aging[0].count += 1;
       else if (days < 3) aging[1].count += 1;
       else if (days < 7) aging[2].count += 1;
@@ -364,9 +504,12 @@ private readonly completedStatuses: RepairStatus[] = [
     for (const repair of cases) {
       let currentStatus: RepairStatus = RepairStatus.REGISTERED;
       let startedAt = repair.createdAt;
-      const logs = repair.statusLogs.filter((log) => log.createdAt >= repair.createdAt);
+      const logs = repair.statusLogs.filter(
+        (log) => log.createdAt >= repair.createdAt,
+      );
       for (const log of logs) {
-        const hours = (log.createdAt.getTime() - startedAt.getTime()) / 3_600_000;
+        const hours =
+          (log.createdAt.getTime() - startedAt.getTime()) / 3_600_000;
         if (hours >= 0) {
           const list = statusDurations.get(currentStatus) ?? [];
           list.push(hours);
@@ -375,44 +518,87 @@ private readonly completedStatuses: RepairStatus[] = [
         currentStatus = log.newStatus;
         startedAt = log.createdAt;
       }
-      const effectiveEnd = effectiveComplete(repair) ?? (terminalStatuses.includes(repair.status) ? repair.updatedAt : range.to);
+      const effectiveEnd =
+        effectiveComplete(repair) ??
+        (terminalStatuses.includes(repair.status)
+          ? repair.updatedAt
+          : range.to);
       if (effectiveEnd >= startedAt) {
-        const hours = (effectiveEnd.getTime() - startedAt.getTime()) / 3_600_000;
+        const hours =
+          (effectiveEnd.getTime() - startedAt.getTime()) / 3_600_000;
         const list = statusDurations.get(currentStatus) ?? [];
         list.push(hours);
         statusDurations.set(currentStatus, list);
       }
     }
     const statusDuration = [...statusDurations.entries()]
-      .map(([status, values]) => ({ status, averageHours: average(values) ?? 0, samples: values.length }))
+      .map(([status, values]) => ({
+        status,
+        averageHours: average(values) ?? 0,
+        samples: values.length,
+      }))
       .sort((a, b) => b.averageHours - a.averageHours);
 
     // Phase 2: technician workload and operational performance.
-    const technicianMap = new Map<string, {
-      id: string; name: string; assigned: number; open: number; completed: number;
-      mttr: number[]; visits: number; secondVisitCases: number; visitedCases: number; firstVisitFixed: number;
-    }>();
+    const technicianMap = new Map<
+      string,
+      {
+        id: string;
+        name: string;
+        assigned: number;
+        open: number;
+        completed: number;
+        mttr: number[];
+        visits: number;
+        secondVisitCases: number;
+        visitedCases: number;
+        firstVisitFixed: number;
+      }
+    >();
     for (const row of durations) {
       const technician = row.repair.technician;
       if (!technician) continue;
       const item: {
-        id: string; name: string; assigned: number; open: number; completed: number;
-        mttr: number[]; visits: number; secondVisitCases: number; visitedCases: number; firstVisitFixed: number;
+        id: string;
+        name: string;
+        assigned: number;
+        open: number;
+        completed: number;
+        mttr: number[];
+        visits: number;
+        secondVisitCases: number;
+        visitedCases: number;
+        firstVisitFixed: number;
       } = technicianMap.get(technician.id) ?? {
-        id: technician.id, name: technician.name, assigned: 0, open: 0, completed: 0,
-        mttr: [], visits: 0, secondVisitCases: 0, visitedCases: 0, firstVisitFixed: 0,
+        id: technician.id,
+        name: technician.name,
+        assigned: 0,
+        open: 0,
+        completed: 0,
+        mttr: [],
+        visits: 0,
+        secondVisitCases: 0,
+        visitedCases: 0,
+        firstVisitFixed: 0,
       };
       item.assigned += 1;
       if (openStatuses.includes(row.repair.status)) item.open += 1;
       if (completedStatuses.includes(row.repair.status)) item.completed += 1;
       if (row.start && row.complete && row.complete >= row.start) {
-        item.mttr.push((row.complete.getTime() - row.start.getTime()) / 86_400_000);
+        item.mttr.push(
+          (row.complete.getTime() - row.start.getTime()) / 86_400_000,
+        );
       }
       item.visits += row.repair.visits.length;
       if (row.repair.visits.length) {
         item.visitedCases += 1;
-        if (row.repair.visits[0]?.result === 'REPAIRED') item.firstVisitFixed += 1;
-        if (row.repair.visits.length > 1 || row.repair.visits[0]?.result === 'NEED_SECOND_VISIT') item.secondVisitCases += 1;
+        if (row.repair.visits[0]?.result === 'REPAIRED')
+          item.firstVisitFixed += 1;
+        if (
+          row.repair.visits.length > 1 ||
+          row.repair.visits[0]?.result === 'NEED_SECOND_VISIT'
+        )
+          item.secondVisitCases += 1;
       }
       technicianMap.set(technician.id, item);
     }
@@ -425,44 +611,100 @@ private readonly completedStatuses: RepairStatus[] = [
         completed: item.completed,
         mttrDays: average(item.mttr),
         visits: item.visits,
-        firstVisitFixRate: item.visitedCases ? Number(((item.firstVisitFixed / item.visitedCases) * 100).toFixed(1)) : null,
-        secondVisitRate: item.visitedCases ? Number(((item.secondVisitCases / item.visitedCases) * 100).toFixed(1)) : null,
+        firstVisitFixRate: item.visitedCases
+          ? Number(
+              ((item.firstVisitFixed / item.visitedCases) * 100).toFixed(1),
+            )
+          : null,
+        secondVisitRate: item.visitedCases
+          ? Number(
+              ((item.secondVisitCases / item.visitedCases) * 100).toFixed(1),
+            )
+          : null,
       }))
       .sort((a, b) => b.assigned - a.assigned);
 
     // Phase 2: visit outcome analytics.
     const allVisits = cases.flatMap((repair) => repair.visits);
     const visitResultMap = new Map<string, number>();
-    for (const visit of allVisits) visitResultMap.set(visit.result, (visitResultMap.get(visit.result) ?? 0) + 1);
+    for (const visit of allVisits)
+      visitResultMap.set(
+        visit.result,
+        (visitResultMap.get(visit.result) ?? 0) + 1,
+      );
     const casesWithVisits = cases.filter((repair) => repair.visits.length > 0);
-    const firstVisitFixedCases = casesWithVisits.filter((repair) => repair.visits[0]?.result === 'REPAIRED').length;
-    const secondVisitCases = casesWithVisits.filter((repair) => repair.visits.length > 1 || repair.visits[0]?.result === 'NEED_SECOND_VISIT').length;
+    const firstVisitFixedCases = casesWithVisits.filter(
+      (repair) => repair.visits[0]?.result === 'REPAIRED',
+    ).length;
+    const secondVisitCases = casesWithVisits.filter(
+      (repair) =>
+        repair.visits.length > 1 ||
+        repair.visits[0]?.result === 'NEED_SECOND_VISIT',
+    ).length;
 
     // Phase 3: SLA analytics. A case-specific SLA snapshot wins; older cases fall back to the current type policy.
-    const policyMap = new Map(slaPolicies.map((policy) => [policy.type, policy]));
+    const policyMap = new Map(
+      slaPolicies.map((policy) => [policy.type, policy]),
+    );
     const slaRows = durations.flatMap((row) => {
-      if (row.repair.status === RepairStatus.CANCELED || row.repair.status === RepairStatus.REJECTED) return [];
+      if (
+        row.repair.status === RepairStatus.CANCELED ||
+        row.repair.status === RepairStatus.REJECTED
+      )
+        return [];
       const policy = policyMap.get(row.repair.type);
-      const targetHours = row.repair.sla?.targetHours ?? policy?.targetHours ?? null;
+      const targetHours =
+        row.repair.sla?.targetHours ?? policy?.targetHours ?? null;
       if (!targetHours) return [];
-      const dueAt = row.repair.sla?.dueAt ?? new Date(row.repair.createdAt.getTime() + targetHours * 3_600_000);
+      const dueAt =
+        row.repair.sla?.dueAt ??
+        new Date(row.repair.createdAt.getTime() + targetHours * 3_600_000);
       const endAt = row.complete ?? range.to;
-      const overdueHours = Math.max(0, (endAt.getTime() - dueAt.getTime()) / 3_600_000);
+      const overdueHours = Math.max(
+        0,
+        (endAt.getTime() - dueAt.getTime()) / 3_600_000,
+      );
       const breached = overdueHours > 0;
-      const remainingHours = row.complete ? null : (dueAt.getTime() - range.to.getTime()) / 3_600_000;
-      const atRisk = !row.complete && !breached && remainingHours != null && remainingHours <= Math.max(2, targetHours * 0.25);
-      return [{
-        repairId: row.repair.id, caseNumber: row.repair.caseNumber, deviceTitle: row.repair.deviceTitle,
-        type: row.repair.type, status: row.repair.status, technician: row.repair.technician?.name ?? null,
-        targetHours, dueAt, completedAt: row.complete, breached, atRisk,
-        elapsedHours: Number(((endAt.getTime() - row.repair.createdAt.getTime()) / 3_600_000).toFixed(1)),
-        overdueHours: Number(overdueHours.toFixed(1)),
-      }];
+      const remainingHours = row.complete
+        ? null
+        : (dueAt.getTime() - range.to.getTime()) / 3_600_000;
+      const atRisk =
+        !row.complete &&
+        !breached &&
+        remainingHours != null &&
+        remainingHours <= Math.max(2, targetHours * 0.25);
+      return [
+        {
+          repairId: row.repair.id,
+          caseNumber: row.repair.caseNumber,
+          deviceTitle: row.repair.deviceTitle,
+          type: row.repair.type,
+          status: row.repair.status,
+          technician: row.repair.technician?.name ?? null,
+          targetHours,
+          dueAt,
+          completedAt: row.complete,
+          breached,
+          atRisk,
+          elapsedHours: Number(
+            (
+              (endAt.getTime() - row.repair.createdAt.getTime()) /
+              3_600_000
+            ).toFixed(1),
+          ),
+          overdueHours: Number(overdueHours.toFixed(1)),
+        },
+      ];
     });
     const slaBreached = slaRows.filter((row) => row.breached).length;
     const slaCompliant = slaRows.length - slaBreached;
-    const overdueValues = slaRows.filter((row) => row.breached).map((row) => row.overdueHours);
-    const slaTrendMap = new Map<string, { compliant: number; breached: number }>();
+    const overdueValues = slaRows
+      .filter((row) => row.breached)
+      .map((row) => row.overdueHours);
+    const slaTrendMap = new Map<
+      string,
+      { compliant: number; breached: number }
+    >();
     for (const row of slaRows) {
       const repair = cases.find((item) => item.id === row.repairId)!;
       const key = this.dateKey(repair.createdAt);
@@ -470,11 +712,23 @@ private readonly completedStatuses: RepairStatus[] = [
       row.breached ? bucket.breached++ : bucket.compliant++;
       slaTrendMap.set(key, bucket);
     }
-    const slaTrend = trend.map((point) => ({ date: point.date, ...(slaTrendMap.get(point.date) ?? { compliant: 0, breached: 0 }) }));
+    const slaTrend = trend.map((point) => ({
+      date: point.date,
+      ...(slaTrendMap.get(point.date) ?? { compliant: 0, breached: 0 }),
+    }));
     const slaByType = Object.values(RepairType).map((type) => {
       const rows = slaRows.filter((row) => row.type === type);
       const breached = rows.filter((row) => row.breached).length;
-      return { type, targetHours: policyMap.get(type)?.targetHours ?? null, eligible: rows.length, compliant: rows.length - breached, breached, complianceRate: rows.length ? Number((((rows.length - breached) / rows.length) * 100).toFixed(1)) : null };
+      return {
+        type,
+        targetHours: policyMap.get(type)?.targetHours ?? null,
+        eligible: rows.length,
+        compliant: rows.length - breached,
+        breached,
+        complianceRate: rows.length
+          ? Number((((rows.length - breached) / rows.length) * 100).toFixed(1))
+          : null,
+      };
     });
 
     // Phase 4: deterministic insight + anomaly engine (no LLM).
@@ -484,78 +738,230 @@ private readonly completedStatuses: RepairStatus[] = [
     const currentLead = average(lead);
     if (cases.length >= 5 && previousCount >= 5) {
       const volumeChange = this.percentChange(cases.length, previousCount);
-      if (volumeChange != null && Math.abs(volumeChange) >= 30) insights.push(this.makeInsight({
-        id: 'repair-volume-change', category: 'VOLUME', severity: Math.abs(volumeChange) >= 60 ? 'warning' : 'info',
-        title: volumeChange > 0 ? 'افزایش حجم تعمیرات' : 'کاهش حجم تعمیرات',
-        message: `تعداد پرونده‌های جدید نسبت به بازه قبل ${Math.abs(volumeChange)}٪ ${volumeChange > 0 ? 'افزایش' : 'کاهش'} داشته است.`,
-        evidence: [`جاری: ${cases.length} پرونده`, `قبل: ${previousCount} پرونده`], metric: 'repairVolume', current: cases.length, previous: previousCount, changePct: volumeChange,
-      }));
+      if (volumeChange != null && Math.abs(volumeChange) >= 30)
+        insights.push(
+          this.makeInsight({
+            id: 'repair-volume-change',
+            category: 'VOLUME',
+            severity: Math.abs(volumeChange) >= 60 ? 'warning' : 'info',
+            title: volumeChange > 0 ? 'افزایش حجم تعمیرات' : 'کاهش حجم تعمیرات',
+            message: `تعداد پرونده‌های جدید نسبت به بازه قبل ${Math.abs(volumeChange)}٪ ${volumeChange > 0 ? 'افزایش' : 'کاهش'} داشته است.`,
+            evidence: [
+              `جاری: ${cases.length} پرونده`,
+              `قبل: ${previousCount} پرونده`,
+            ],
+            metric: 'repairVolume',
+            current: cases.length,
+            previous: previousCount,
+            changePct: volumeChange,
+          }),
+        );
     }
-    if (currentMttr != null && previousMttr != null && mttr.length >= 3 && previousMttrValues.length >= 3) {
+    if (
+      currentMttr != null &&
+      previousMttr != null &&
+      mttr.length >= 3 &&
+      previousMttrValues.length >= 3
+    ) {
       const mttrChange = this.percentChange(currentMttr, previousMttr);
-      if (mttrChange != null && mttrChange >= 30) insights.push(this.makeInsight({
-        id: 'repair-mttr-rise', category: 'PERFORMANCE', severity: mttrChange >= 70 ? 'critical' : 'warning',
-        title: 'افزایش MTTR', message: `میانگین زمان تعمیر نسبت به بازه قبل ${mttrChange}٪ افزایش یافته است.`,
-        recommendation: 'Status Duration و پرونده‌های دارای انتظار قطعه/تأیید هزینه را بررسی کنید.',
-        evidence: [`جاری: ${currentMttr} روز`, `قبل: ${previousMttr} روز`], metric: 'mttrDays', current: currentMttr, previous: previousMttr, changePct: mttrChange,
-      }));
+      if (mttrChange != null && mttrChange >= 30)
+        insights.push(
+          this.makeInsight({
+            id: 'repair-mttr-rise',
+            category: 'PERFORMANCE',
+            severity: mttrChange >= 70 ? 'critical' : 'warning',
+            title: 'افزایش MTTR',
+            message: `میانگین زمان تعمیر نسبت به بازه قبل ${mttrChange}٪ افزایش یافته است.`,
+            recommendation:
+              'Status Duration و پرونده‌های دارای انتظار قطعه/تأیید هزینه را بررسی کنید.',
+            evidence: [`جاری: ${currentMttr} روز`, `قبل: ${previousMttr} روز`],
+            metric: 'mttrDays',
+            current: currentMttr,
+            previous: previousMttr,
+            changePct: mttrChange,
+          }),
+        );
     }
-    if (slaRows.length >= 5 && slaRows.length && slaCompliant / slaRows.length < 0.9) insights.push(this.makeInsight({
-      id: 'repair-sla-low', category: 'SLA', severity: slaCompliant / slaRows.length < 0.7 ? 'critical' : 'warning',
-      title: 'رعایت SLA پایین است', message: `${Number((slaCompliant / slaRows.length * 100).toFixed(1))}٪ از پرونده‌های ارزیابی‌شده داخل SLA بوده‌اند.`,
-      recommendation: 'نوع تعمیر و Statusهایی که بیشترین زمان را مصرف می‌کنند بررسی کنید و ظرفیت عملیاتی یا SLA را اصلاح کنید.',
-      evidence: [`${slaBreached} نقض از ${slaRows.length} مورد`, `میانگین تأخیر: ${average(overdueValues) ?? 0} ساعت`], metric: 'slaCompliance', current: Number((slaCompliant / slaRows.length * 100).toFixed(1)),
-    }));
+    if (
+      slaRows.length >= 5 &&
+      slaRows.length &&
+      slaCompliant / slaRows.length < 0.9
+    )
+      insights.push(
+        this.makeInsight({
+          id: 'repair-sla-low',
+          category: 'SLA',
+          severity:
+            slaCompliant / slaRows.length < 0.7 ? 'critical' : 'warning',
+          title: 'رعایت SLA پایین است',
+          message: `${Number(((slaCompliant / slaRows.length) * 100).toFixed(1))}٪ از پرونده‌های ارزیابی‌شده داخل SLA بوده‌اند.`,
+          recommendation:
+            'نوع تعمیر و Statusهایی که بیشترین زمان را مصرف می‌کنند بررسی کنید و ظرفیت عملیاتی یا SLA را اصلاح کنید.',
+          evidence: [
+            `${slaBreached} نقض از ${slaRows.length} مورد`,
+            `میانگین تأخیر: ${average(overdueValues) ?? 0} ساعت`,
+          ],
+          metric: 'slaCompliance',
+          current: Number(((slaCompliant / slaRows.length) * 100).toFixed(1)),
+        }),
+      );
     const oldOpen = aging.find((item) => item.key === 'GTE_14')?.count ?? 0;
-    if (openCases.length >= 5 && oldOpen >= Math.max(2, Math.ceil(openCases.length * 0.15))) insights.push(this.makeInsight({
-      id: 'repair-aging-backlog', category: 'BACKLOG', severity: oldOpen / openCases.length >= 0.3 ? 'critical' : 'warning',
-      title: 'انباشت پرونده‌های قدیمی', message: `${oldOpen} پرونده باز بیش از ۱۴ روز سن دارند.`,
-      recommendation: 'این پرونده‌ها را بر اساس علت توقف، قطعه، تأیید هزینه و تکنسین دسته‌بندی و برایشان برنامه رفع backlog تعیین کنید.',
-      evidence: [`${Number((oldOpen / openCases.length * 100).toFixed(1))}٪ از پرونده‌های باز بیش از ۱۴ روزه‌اند`], metric: 'agedOpenRepairs', current: oldOpen,
-    }));
-    const slowestStatus = statusDuration.filter((item) => item.samples >= 3).sort((a, b) => b.averageHours - a.averageHours)[0];
-    if (slowestStatus && slowestStatus.averageHours >= 8) insights.push(this.makeInsight({
-      id: `repair-status-bottleneck-${slowestStatus.status}`, category: 'BOTTLENECK', severity: slowestStatus.averageHours >= 24 ? 'critical' : 'warning',
-      title: 'گلوگاه در چرخه تعمیر', message: `وضعیت ${slowestStatus.status} با میانگین ${slowestStatus.averageHours} ساعت بیشترین زمان ماندگاری را دارد.`,
-      recommendation: 'پرونده‌های این وضعیت را Drill-down کنید و علت‌های پرتکرار توقف را جداگانه اندازه‌گیری کنید.',
-      evidence: [`${slowestStatus.samples} نمونه`, `میانگین ${slowestStatus.averageHours} ساعت`], metric: 'statusDurationHours', current: slowestStatus.averageHours,
-    }));
-    if (casesWithVisits.length >= 5 && secondVisitCases / casesWithVisits.length >= 0.2) insights.push(this.makeInsight({
-      id: 'repair-second-visit-high', category: 'QUALITY', severity: secondVisitCases / casesWithVisits.length >= 0.35 ? 'critical' : 'warning',
-      title: 'نرخ مراجعه دوم بالاست', message: `${Number((secondVisitCases / casesWithVisits.length * 100).toFixed(1))}٪ از پرونده‌های دارای مراجعه، نیاز به مراجعه دوم داشته‌اند.`,
-      recommendation: 'دلایل NEED_PART و NEED_SECOND_VISIT را بررسی و آمادگی قطعه/تشخیص قبل از اعزام را تقویت کنید.',
-      evidence: [`${secondVisitCases} مورد از ${casesWithVisits.length} پرونده دارای مراجعه`], metric: 'secondVisitRate', current: Number((secondVisitCases / casesWithVisits.length * 100).toFixed(1)),
-    }));
+    if (
+      openCases.length >= 5 &&
+      oldOpen >= Math.max(2, Math.ceil(openCases.length * 0.15))
+    )
+      insights.push(
+        this.makeInsight({
+          id: 'repair-aging-backlog',
+          category: 'BACKLOG',
+          severity: oldOpen / openCases.length >= 0.3 ? 'critical' : 'warning',
+          title: 'انباشت پرونده‌های قدیمی',
+          message: `${oldOpen} پرونده باز بیش از ۱۴ روز سن دارند.`,
+          recommendation:
+            'این پرونده‌ها را بر اساس علت توقف، قطعه، تأیید هزینه و تکنسین دسته‌بندی و برایشان برنامه رفع backlog تعیین کنید.',
+          evidence: [
+            `${Number(((oldOpen / openCases.length) * 100).toFixed(1))}٪ از پرونده‌های باز بیش از ۱۴ روزه‌اند`,
+          ],
+          metric: 'agedOpenRepairs',
+          current: oldOpen,
+        }),
+      );
+    const slowestStatus = statusDuration
+      .filter((item) => item.samples >= 3)
+      .sort((a, b) => b.averageHours - a.averageHours)[0];
+    if (slowestStatus && slowestStatus.averageHours >= 8)
+      insights.push(
+        this.makeInsight({
+          id: `repair-status-bottleneck-${slowestStatus.status}`,
+          category: 'BOTTLENECK',
+          severity: slowestStatus.averageHours >= 24 ? 'critical' : 'warning',
+          title: 'گلوگاه در چرخه تعمیر',
+          message: `وضعیت ${slowestStatus.status} با میانگین ${slowestStatus.averageHours} ساعت بیشترین زمان ماندگاری را دارد.`,
+          recommendation:
+            'پرونده‌های این وضعیت را Drill-down کنید و علت‌های پرتکرار توقف را جداگانه اندازه‌گیری کنید.',
+          evidence: [
+            `${slowestStatus.samples} نمونه`,
+            `میانگین ${slowestStatus.averageHours} ساعت`,
+          ],
+          metric: 'statusDurationHours',
+          current: slowestStatus.averageHours,
+        }),
+      );
+    if (
+      casesWithVisits.length >= 5 &&
+      secondVisitCases / casesWithVisits.length >= 0.2
+    )
+      insights.push(
+        this.makeInsight({
+          id: 'repair-second-visit-high',
+          category: 'QUALITY',
+          severity:
+            secondVisitCases / casesWithVisits.length >= 0.35
+              ? 'critical'
+              : 'warning',
+          title: 'نرخ مراجعه دوم بالاست',
+          message: `${Number(((secondVisitCases / casesWithVisits.length) * 100).toFixed(1))}٪ از پرونده‌های دارای مراجعه، نیاز به مراجعه دوم داشته‌اند.`,
+          recommendation:
+            'دلایل NEED_PART و NEED_SECOND_VISIT را بررسی و آمادگی قطعه/تشخیص قبل از اعزام را تقویت کنید.',
+          evidence: [
+            `${secondVisitCases} مورد از ${casesWithVisits.length} پرونده دارای مراجعه`,
+          ],
+          metric: 'secondVisitRate',
+          current: Number(
+            ((secondVisitCases / casesWithVisits.length) * 100).toFixed(1),
+          ),
+        }),
+      );
     const activeTechnicians = technicians.filter((item) => item.assigned >= 2);
     if (activeTechnicians.length >= 2) {
-      const avgOpen = activeTechnicians.reduce((sum, item) => sum + item.open, 0) / activeTechnicians.length;
-      const overloaded = activeTechnicians.filter((item) => avgOpen >= 1 && item.open >= Math.max(3, avgOpen * 1.75)).sort((a, b) => b.open - a.open)[0];
-      if (overloaded) insights.push(this.makeInsight({
-        id: `repair-workload-${overloaded.id}`, category: 'WORKLOAD', severity: overloaded.open >= avgOpen * 2.5 ? 'critical' : 'warning',
-        title: 'عدم توازن بار کاری', message: `${overloaded.name} دارای ${overloaded.open} پرونده باز است؛ میانگین تکنسین‌های فعال ${Number(avgOpen.toFixed(1))} پرونده است.`,
-        recommendation: 'پرونده‌های جدید را با توجه به تخصص و ظرفیت بین تکنسین‌های کم‌بارتر توزیع کنید.',
-        evidence: [`بار باز ${overloaded.name}: ${overloaded.open}`, `میانگین تیم: ${Number(avgOpen.toFixed(1))}`], metric: 'technicianOpenWorkload', current: overloaded.open, previous: Number(avgOpen.toFixed(1)),
-      }));
+      const avgOpen =
+        activeTechnicians.reduce((sum, item) => sum + item.open, 0) /
+        activeTechnicians.length;
+      const overloaded = activeTechnicians
+        .filter(
+          (item) => avgOpen >= 1 && item.open >= Math.max(3, avgOpen * 1.75),
+        )
+        .sort((a, b) => b.open - a.open)[0];
+      if (overloaded)
+        insights.push(
+          this.makeInsight({
+            id: `repair-workload-${overloaded.id}`,
+            category: 'WORKLOAD',
+            severity: overloaded.open >= avgOpen * 2.5 ? 'critical' : 'warning',
+            title: 'عدم توازن بار کاری',
+            message: `${overloaded.name} دارای ${overloaded.open} پرونده باز است؛ میانگین تکنسین‌های فعال ${Number(avgOpen.toFixed(1))} پرونده است.`,
+            recommendation:
+              'پرونده‌های جدید را با توجه به تخصص و ظرفیت بین تکنسین‌های کم‌بارتر توزیع کنید.',
+            evidence: [
+              `بار باز ${overloaded.name}: ${overloaded.open}`,
+              `میانگین تیم: ${Number(avgOpen.toFixed(1))}`,
+            ],
+            metric: 'technicianOpenWorkload',
+            current: overloaded.open,
+            previous: Number(avgOpen.toFixed(1)),
+          }),
+        );
     }
-    if (slaRows.filter((row) => row.atRisk).length >= 2) insights.push(this.makeInsight({
-      id: 'repair-sla-at-risk', category: 'SLA', severity: 'warning', title: 'پرونده‌های نزدیک نقض SLA',
-      message: `${slaRows.filter((row) => row.atRisk).length} پرونده در آستانه نقض SLA هستند.`,
-      recommendation: 'این پرونده‌ها را برای اقدام فوری به مسئول عملیات یا تکنسین مربوطه نمایش دهید.',
-      evidence: slaRows.filter((row) => row.atRisk).slice(0, 5).map((row) => `${row.caseNumber} · ${row.status}`), metric: 'slaAtRisk', current: slaRows.filter((row) => row.atRisk).length,
-    }));
-    if (anomalies.length) insights.push(this.makeInsight({
-      id: 'repair-volume-anomaly', category: 'ANOMALY', severity: anomalies.some((item) => item.severity === 'critical') ? 'critical' : 'warning',
-      title: 'جهش غیرعادی در ورودی تعمیرات', message: `${anomalies.length} روز با حجم ثبت غیرعادی شناسایی شد.`,
-      recommendation: 'این روزها را از نظر خرابی گروهی دستگاه، کمپین خدمات، Import یا ثبت تکراری بررسی کنید.',
-      evidence: anomalies.map((item) => `${item.date}: ${item.actual} پرونده در برابر baseline ${item.baseline}`),
-    }));
-    if (!insights.length && cases.length >= 5) insights.push(this.makeInsight({
-      id: 'repair-stable', category: 'HEALTH', severity: 'positive', title: 'شاخص بحرانی شناسایی نشد',
-      message: 'در Rule Engine این بازه، افزایش معنی‌دار MTTR، backlog قدیمی، افت SLA یا anomaly حجمی مشاهده نشد.',
-      evidence: [`${cases.length} پرونده بررسی شد`, `MTTR: ${currentMttr ?? '—'} روز`],
-    }));
-    const severityOrder = { critical: 0, warning: 1, info: 2, positive: 3 } as const;
-    insights.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
+    if (slaRows.filter((row) => row.atRisk).length >= 2)
+      insights.push(
+        this.makeInsight({
+          id: 'repair-sla-at-risk',
+          category: 'SLA',
+          severity: 'warning',
+          title: 'پرونده‌های نزدیک نقض SLA',
+          message: `${slaRows.filter((row) => row.atRisk).length} پرونده در آستانه نقض SLA هستند.`,
+          recommendation:
+            'این پرونده‌ها را برای اقدام فوری به مسئول عملیات یا تکنسین مربوطه نمایش دهید.',
+          evidence: slaRows
+            .filter((row) => row.atRisk)
+            .slice(0, 5)
+            .map((row) => `${row.caseNumber} · ${row.status}`),
+          metric: 'slaAtRisk',
+          current: slaRows.filter((row) => row.atRisk).length,
+        }),
+      );
+    if (anomalies.length)
+      insights.push(
+        this.makeInsight({
+          id: 'repair-volume-anomaly',
+          category: 'ANOMALY',
+          severity: anomalies.some((item) => item.severity === 'critical')
+            ? 'critical'
+            : 'warning',
+          title: 'جهش غیرعادی در ورودی تعمیرات',
+          message: `${anomalies.length} روز با حجم ثبت غیرعادی شناسایی شد.`,
+          recommendation:
+            'این روزها را از نظر خرابی گروهی دستگاه، کمپین خدمات، Import یا ثبت تکراری بررسی کنید.',
+          evidence: anomalies.map(
+            (item) =>
+              `${item.date}: ${item.actual} پرونده در برابر baseline ${item.baseline}`,
+          ),
+        }),
+      );
+    if (!insights.length && cases.length >= 5)
+      insights.push(
+        this.makeInsight({
+          id: 'repair-stable',
+          category: 'HEALTH',
+          severity: 'positive',
+          title: 'شاخص بحرانی شناسایی نشد',
+          message:
+            'در Rule Engine این بازه، افزایش معنی‌دار MTTR، backlog قدیمی، افت SLA یا anomaly حجمی مشاهده نشد.',
+          evidence: [
+            `${cases.length} پرونده بررسی شد`,
+            `MTTR: ${currentMttr ?? '—'} روز`,
+          ],
+        }),
+      );
+    const severityOrder = {
+      critical: 0,
+      warning: 1,
+      info: 2,
+      positive: 3,
+    } as const;
+    insights.sort(
+      (a, b) => severityOrder[a.severity] - severityOrder[b.severity],
+    );
 
     return {
       range: { from: range.from, to: range.to },
@@ -570,11 +976,23 @@ private readonly completedStatuses: RepairStatus[] = [
         timeToStartHours: average(timeToStart),
       },
       trend,
-      comparison: { previous: { total: previousCount, mttrDays: previousMttr, leadTimeDays: previousLead } },
+      comparison: {
+        previous: {
+          total: previousCount,
+          mttrDays: previousMttr,
+          leadTimeDays: previousLead,
+        },
+      },
       insights,
       anomalies,
-      statusDistribution: [...statusMap.entries()].map(([status, count]) => ({ status, count })),
-      typeDistribution: [...typeMap.entries()].map(([type, count]) => ({ type, count })),
+      statusDistribution: [...statusMap.entries()].map(([status, count]) => ({
+        status,
+        count,
+      })),
+      typeDistribution: [...typeMap.entries()].map(([type, count]) => ({
+        type,
+        count,
+      })),
       aging,
       statusDuration,
       technicians,
@@ -583,18 +1001,35 @@ private readonly completedStatuses: RepairStatus[] = [
         compliant: slaCompliant,
         breached: slaBreached,
         atRisk: slaRows.filter((row) => row.atRisk).length,
-        complianceRate: slaRows.length ? Number(((slaCompliant / slaRows.length) * 100).toFixed(1)) : null,
+        complianceRate: slaRows.length
+          ? Number(((slaCompliant / slaRows.length) * 100).toFixed(1))
+          : null,
         averageOverdueHours: average(overdueValues),
         trend: slaTrend,
         byType: slaByType,
-        breaches: slaRows.filter((row) => row.breached).sort((a, b) => b.overdueHours - a.overdueHours).slice(0, 25),
+        breaches: slaRows
+          .filter((row) => row.breached)
+          .sort((a, b) => b.overdueHours - a.overdueHours)
+          .slice(0, 25),
       },
       visits: {
         total: allVisits.length,
         casesWithVisits: casesWithVisits.length,
-        firstVisitFixRate: casesWithVisits.length ? Number(((firstVisitFixedCases / casesWithVisits.length) * 100).toFixed(1)) : null,
-        secondVisitRate: casesWithVisits.length ? Number(((secondVisitCases / casesWithVisits.length) * 100).toFixed(1)) : null,
-        resultDistribution: [...visitResultMap.entries()].map(([result, count]) => ({ result, count })),
+        firstVisitFixRate: casesWithVisits.length
+          ? Number(
+              ((firstVisitFixedCases / casesWithVisits.length) * 100).toFixed(
+                1,
+              ),
+            )
+          : null,
+        secondVisitRate: casesWithVisits.length
+          ? Number(
+              ((secondVisitCases / casesWithVisits.length) * 100).toFixed(1),
+            )
+          : null,
+        resultDistribution: [...visitResultMap.entries()].map(
+          ([result, count]) => ({ result, count }),
+        ),
       },
     };
   }
@@ -614,7 +1049,15 @@ private readonly completedStatuses: RepairStatus[] = [
         parts: true,
         sla: true,
         statusLogs: {
-          include: {
+          select: {
+            id: true,
+            repairCaseId: true,
+            oldStatus: true,
+            newStatus: true,
+            changedById: true,
+            reason: true,
+            imageMimeType: true,
+            createdAt: true,
             changedBy: {
               select: { id: true, name: true },
             },
@@ -631,6 +1074,36 @@ private readonly completedStatuses: RepairStatus[] = [
     this.assertCanAccessRepair(repair.technicianId, user, matchedPermission);
 
     return repair;
+  }
+
+  async getStatusLogImage(
+    repairId: string,
+    logId: string,
+    user: AuthenticatedUser,
+    matchedPermission?: MatchedPermission,
+  ) {
+    const repair = await this.prisma.repairCase.findUnique({
+      where: { id: repairId },
+      select: { technicianId: true },
+    });
+    if (!repair) {
+      throw new NotFoundException('Repair case not found');
+    }
+
+    this.assertCanAccessRepair(repair.technicianId, user, matchedPermission);
+
+    const log = await this.prisma.repairStatusLog.findFirst({
+      where: { id: logId, repairCaseId: repairId },
+      select: { imageStorageKey: true, imageMimeType: true },
+    });
+    if (!log?.imageStorageKey || !log.imageMimeType) {
+      throw new NotFoundException('Repair status image not found');
+    }
+
+    const buffer = await readFile(
+      join(process.cwd(), 'uploads', 'repairs', log.imageStorageKey),
+    );
+    return { buffer, mimeType: log.imageMimeType };
   }
 
   async assignTechnician(repairId: string, dto: AssignTechnicianDto) {
@@ -655,12 +1128,19 @@ private readonly completedStatuses: RepairStatus[] = [
     }
 
     const updated = await this.prisma.repairCase.update({
-      where: { id: repairId }, data: { technicianId: dto.technicianId }, include: { technician: true },
+      where: { id: repairId },
+      data: { technicianId: dto.technicianId },
+      include: { technician: true },
     });
     await this.notifications.create({
-      userId: dto.technicianId, type: 'REPAIR_ASSIGNED', category: 'REPAIRS', title: 'تعمیر جدید به شما ارجاع شد',
-      body: `${repair.caseNumber} — ${repair.deviceTitle}`, href: `/dashboard/repairs?repairId=${repairId}`,
-      entityType: 'REPAIR', entityId: repairId,
+      userId: dto.technicianId,
+      type: 'REPAIR_ASSIGNED',
+      category: 'REPAIRS',
+      title: 'تعمیر جدید به شما ارجاع شد',
+      body: `${repair.caseNumber} — ${repair.deviceTitle}`,
+      href: `/dashboard/repairs?repairId=${repairId}`,
+      entityType: 'REPAIR',
+      entityId: repairId,
     });
     return updated;
   }
@@ -671,6 +1151,7 @@ private readonly completedStatuses: RepairStatus[] = [
     user: AuthenticatedUser,
     matchedPermission?: MatchedPermission,
     reason?: string,
+    image?: Express.Multer.File,
   ) {
     const repair = await this.prisma.repairCase.findUnique({
       where: { id: repairId },
@@ -685,71 +1166,133 @@ private readonly completedStatuses: RepairStatus[] = [
     // 1. Validate State Machine
     this.statusService.validateTransition(repair.status, newStatus);
 
-    const updatedRepair = await this.prisma.$transaction(async (tx) => {
-      // 2. Update Repair
-      const updated = await tx.repairCase.update({
-        where: { id: repairId },
-        data: {
-          status: newStatus,
-          ...(newStatus === RepairStatus.IN_REPAIR && !repair.startedAt
-            ? { startedAt: new Date() }
-            : {}),
-         ...(this.completedStatuses.includes(newStatus) && !repair.completedAt
-  ? { completedAt: new Date() }
-  : {}),
-        },
+    if (reason && reason.length > 2000) {
+      throw new BadRequestException('Reason must be at most 2000 characters');
+    }
+    if (
+      image &&
+      (!REPAIR_IMAGE_EXTENSIONS[image.mimetype] ||
+        !hasExpectedImageSignature(image.mimetype, image.buffer))
+    ) {
+      throw new BadRequestException('Image must be JPEG, PNG, or WebP');
+    }
+    if (image && image.size > MAX_REPAIR_IMAGE_SIZE) {
+      throw new BadRequestException('Image must be no larger than 5 MB');
+    }
+
+    const imageStorageKey = image
+      ? `${randomUUID()}${REPAIR_IMAGE_EXTENSIONS[image.mimetype]}`
+      : undefined;
+    const imageDirectory = join(process.cwd(), 'uploads', 'repairs');
+    if (image && imageStorageKey) {
+      await mkdir(imageDirectory, { recursive: true });
+      await writeFile(join(imageDirectory, imageStorageKey), image.buffer, {
+        flag: 'wx',
       });
+    }
 
-      // 3. Log
-      await tx.repairStatusLog.create({
-        data: {
-          repairCaseId: repairId,
-          oldStatus: repair.status,
-          newStatus,
-          changedById: user.id,
-          reason,
-        },
-      });
+    let updatedRepair: RepairCaseModel;
+    try {
+      updatedRepair = await this.prisma.$transaction(async (tx) => {
+        // 2. Update Repair
+        const updated = await tx.repairCase.update({
+          where: { id: repairId },
+          data: {
+            status: newStatus,
+            ...(newStatus === RepairStatus.IN_REPAIR && !repair.startedAt
+              ? { startedAt: new Date() }
+              : {}),
+            ...(this.completedStatuses.includes(newStatus) &&
+            !repair.completedAt
+              ? { completedAt: new Date() }
+              : {}),
+          },
+        });
 
-      const completionStatuses: RepairStatus[] = [RepairStatus.CLOSED, RepairStatus.DELIVERED, RepairStatus.NO_REPAIR_REQUIRED];
-      if (completionStatuses.includes(newStatus)) {
-        const sla = await tx.repairSla.findUnique({ where: { repairCaseId: repairId } });
-        if (sla) {
-          const completedAt = updated.completedAt ?? new Date();
-          await tx.repairSla.update({
-            where: { repairCaseId: repairId },
-            data: { completedAt, isBreached: completedAt > sla.dueAt },
-          });
-        }
-      }
-
-      // 4. Notification Event (future integration)
-      await tx.notificationEvent.create({
-        data: {
-          repairCaseId: repairId,
-          status: newStatus,
-          payload: {
+        // 3. Log
+        await tx.repairStatusLog.create({
+          data: {
+            repairCaseId: repairId,
             oldStatus: repair.status,
             newStatus,
-            reason: reason ?? null,
+            changedById: user.id,
+            reason,
+            ...(imageStorageKey && image
+              ? {
+                  imageStorageKey,
+                  imageMimeType: image.mimetype,
+                }
+              : {}),
           },
-        },
-      });
+        });
 
-      return updated;
-    });
+        const completionStatuses: RepairStatus[] = [
+          RepairStatus.CLOSED,
+          RepairStatus.DELIVERED,
+          RepairStatus.NO_REPAIR_REQUIRED,
+        ];
+        if (completionStatuses.includes(newStatus)) {
+          const sla = await tx.repairSla.findUnique({
+            where: { repairCaseId: repairId },
+          });
+          if (sla) {
+            const completedAt = updated.completedAt ?? new Date();
+            await tx.repairSla.update({
+              where: { repairCaseId: repairId },
+              data: { completedAt, isBreached: completedAt > sla.dueAt },
+            });
+          }
+        }
+
+        // 4. Notification Event (future integration)
+        await tx.notificationEvent.create({
+          data: {
+            repairCaseId: repairId,
+            status: newStatus,
+            payload: {
+              oldStatus: repair.status,
+              newStatus,
+              reason: reason ?? null,
+            },
+          },
+        });
+
+        return updated;
+      });
+    } catch (error) {
+      if (imageStorageKey) {
+        try {
+          await unlink(join(imageDirectory, imageStorageKey));
+        } catch (cleanupError) {
+          this.logger.error(
+            `Failed to remove repair status image ${imageStorageKey}`,
+            cleanupError instanceof Error ? cleanupError.stack : undefined,
+          );
+        }
+      }
+      throw error;
+    }
     if (repair.technicianId && repair.technicianId !== user.id) {
       await this.notifications.create({
-        userId: repair.technicianId, type: 'REPAIR_STATUS_CHANGED', category: 'REPAIRS', title: 'وضعیت تعمیر تغییر کرد',
-        body: `${repair.caseNumber}: ${repair.status} ← ${newStatus}`, href: `/dashboard/repairs?repairId=${repairId}`,
-        entityType: 'REPAIR', entityId: repairId, actorId: user.id, metadata: { oldStatus: repair.status, newStatus },
+        userId: repair.technicianId,
+        type: 'REPAIR_STATUS_CHANGED',
+        category: 'REPAIRS',
+        title: 'وضعیت تعمیر تغییر کرد',
+        body: `${repair.caseNumber}: ${repair.status} ← ${newStatus}`,
+        href: `/dashboard/repairs?repairId=${repairId}`,
+        entityType: 'REPAIR',
+        entityId: repairId,
+        actorId: user.id,
+        metadata: { oldStatus: repair.status, newStatus },
       });
     }
     return updatedRepair;
   }
 
   async getSlaPolicies() {
-    const rows = await this.prisma.repairSlaPolicy.findMany({ orderBy: { type: 'asc' } });
+    const rows = await this.prisma.repairSlaPolicy.findMany({
+      orderBy: { type: 'asc' },
+    });
     const map = new Map(rows.map((row) => [row.type, row]));
     return Object.values(RepairType).map((type) => ({
       type,
@@ -758,13 +1301,27 @@ private readonly completedStatuses: RepairStatus[] = [
     }));
   }
 
-  async updateSlaPolicies(items: Array<{ type: RepairType; targetHours: number; isActive?: boolean }>) {
+  async updateSlaPolicies(
+    items: Array<{ type: RepairType; targetHours: number; isActive?: boolean }>,
+  ) {
     for (const item of items) {
-      if (!Object.values(RepairType).includes(item.type) || !Number.isFinite(item.targetHours) || item.targetHours < 1) continue;
+      if (
+        !Object.values(RepairType).includes(item.type) ||
+        !Number.isFinite(item.targetHours) ||
+        item.targetHours < 1
+      )
+        continue;
       await this.prisma.repairSlaPolicy.upsert({
         where: { type: item.type },
-        create: { type: item.type, targetHours: Math.round(item.targetHours), isActive: item.isActive ?? true },
-        update: { targetHours: Math.round(item.targetHours), isActive: item.isActive ?? true },
+        create: {
+          type: item.type,
+          targetHours: Math.round(item.targetHours),
+          isActive: item.isActive ?? true,
+        },
+        update: {
+          targetHours: Math.round(item.targetHours),
+          isActive: item.isActive ?? true,
+        },
       });
     }
     return this.getSlaPolicies();
