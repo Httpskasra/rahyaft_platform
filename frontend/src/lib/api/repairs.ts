@@ -19,9 +19,32 @@ export type RepairType = "IN_HOUSE" | "ON_SITE";
 
 export interface RepairCustomer {
   id: string;
-  fullName: string;
-  phoneNumber: string;
-  companyName: string | null;
+  fullName?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  organizationName?: string | null;
+  phoneNumber?: string | null;
+  mobile?: string | null;
+  phone?: string | null;
+  companyName?: string | null;
+}
+
+export function getRepairCustomerName(customer?: RepairCustomer | null) {
+  const personName = [customer?.firstName, customer?.lastName]
+    .map((part) => part?.trim())
+    .filter(Boolean)
+    .join(" ");
+  return (
+    customer?.fullName?.trim() ||
+    personName ||
+    customer?.companyName?.trim() ||
+    customer?.organizationName?.trim() ||
+    "نامشخص"
+  );
+}
+
+export function getRepairCustomerPhone(customer?: RepairCustomer | null) {
+  return customer?.phoneNumber?.trim() || customer?.mobile?.trim() || customer?.phone?.trim() || "";
 }
 
 export interface RepairTechnician {
@@ -126,6 +149,21 @@ export interface RepairAnalytics {
 
 export interface RepairSlaPolicy { type: RepairType; targetHours: number | null; isActive: boolean; }
 
+export interface RepairListQuery {
+  page?: number;
+  limit?: number;
+  status?: RepairStatus;
+  type?: RepairType;
+  from?: string;
+  to?: string;
+  search?: string;
+}
+
+export interface RepairListResponse {
+  items: RepairCase[];
+  meta: { total: number; page: number; pageSize: number; totalPages: number };
+}
+
 export interface CreateRepairDto {
   customerId: string;
   deviceTitle: string;
@@ -135,7 +173,8 @@ export interface CreateRepairDto {
 }
 
 export const repairsApi = {
-  findAll: () => apiClient.get<RepairCase[]>("/repairs"),
+  findAll: (params: RepairListQuery = {}) =>
+    apiClient.get<RepairListResponse>("/repairs", { params }),
   getAnalytics: (range = "30d") => apiClient.get<RepairAnalytics>(`/repairs/analytics/overview?range=${range}`),
   getAiSummary: (range = "30d") => apiClient.post<AiAnalyticsResult>(`/repairs/analytics/ai-summary?range=${range}`, {}),
   askAnalytics: (question: string, range = "30d") => apiClient.post<AiAnalyticsResult>(`/repairs/analytics/ask?range=${range}`, { question }),

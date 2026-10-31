@@ -11,6 +11,7 @@ import { UpdateRepairStatusDto } from './dto/update-repair-status.dto';
 import { RequirePermission } from 'src/common/decorators/require-permission.decorator';
 import { AnalyticsAiService } from 'src/analytics-ai/analytics-ai.service';
 import { AskAnalyticsDto } from 'src/analytics-ai/dto/ask-analytics.dto';
+import { QueryRepairsDto } from './dto/query-repairs.dto';
 
 @ApiTags('Repairs')
 @ApiBearerAuth('access-token')
@@ -78,8 +79,12 @@ export class RepairsController {
 
   @Get()
   @RequirePermission({ action: 'read', resource: 'repairs' })
-  findAll(@Req() req: any) {
-    return this.repairsService.findAll(req.user, req.matchedPermission);
+  findAll(@Req() req: any, @Query() query: QueryRepairsDto) {
+    return this.repairsService.findAll(
+      req.user,
+      req.matchedPermission,
+      query,
+    );
   }
 
   @Get(':id')

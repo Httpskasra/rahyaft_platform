@@ -1,5 +1,5 @@
 import { ChevronRight, Wrench } from "lucide-react";
-import type { RepairCase } from "@/lib/api/repairs";
+import { getRepairCustomerName, type RepairCase } from "@/lib/api/repairs";
 import { cn } from "@/lib/cn";
 import { STATUS_COLORS, STATUS_FA } from "./repairConfig";
 
@@ -44,7 +44,7 @@ export function RepairCard({
               {repair.deviceTitle || "بدون عنوان"}
             </p>
             <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-              {repair.customer?.fullName || "مشتری نامشخص"}
+              {getRepairCustomerName(repair.customer)}
             </p>
           </div>
         </div>
@@ -75,4 +75,3 @@ export function RepairCard({
 }
 
 // ─── Repair Detail ────────────────────────────────────────────
-

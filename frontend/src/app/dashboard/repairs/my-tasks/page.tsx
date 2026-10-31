@@ -17,7 +17,15 @@ import {
   ArrowRight,
   X,
 } from "lucide-react";
-import { repairsApi, type RepairCase, type RepairCaseDetail, type RepairStatus, type RepairType } from "@/lib/api/repairs";
+import {
+  getRepairCustomerName,
+  getRepairCustomerPhone,
+  repairsApi,
+  type RepairCase,
+  type RepairCaseDetail,
+  type RepairStatus,
+  type RepairType,
+} from "@/lib/api/repairs";
 import { StatusTimeline } from "@/components/repairs/StatusTimeline";
 import { Spinner } from "@/components/ui/Spinner";
 import { cn } from "@/lib/cn";
@@ -137,7 +145,7 @@ function TaskCard({ repair, active, onClick }: { repair: RepairCase; active: boo
           </div>
           <div>
             <p className={cn("text-sm font-semibold", active ? "text-brand-700 dark:text-brand-300" : "text-gray-800 dark:text-white/90")}>{repair.deviceTitle}</p>
-            <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{repair.customer.fullName}</p>
+            <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{getRepairCustomerName(repair.customer)}</p>
           </div>
         </div>
         <ChevronRight size={14} className={cn("mt-1 shrink-0 text-gray-400 transition-transform", active && "rotate-90 text-brand-500")} />
@@ -218,8 +226,8 @@ function TaskDetail({ repair: initialRepair, showToast, onRefresh }: { repair: R
         {activeTab === "info" && (
           <>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <InfoRow icon={<User size={15} className="text-blue-500" />} label="مشتری" value={initialRepair.customer.fullName} />
-              <InfoRow icon={<Phone size={15} className="text-emerald-500" />} label="شماره تماس" value={initialRepair.customer.phoneNumber} ltr />
+              <InfoRow icon={<User size={15} className="text-blue-500" />} label="مشتری" value={getRepairCustomerName(initialRepair.customer)} />
+              <InfoRow icon={<Phone size={15} className="text-emerald-500" />} label="شماره تماس" value={getRepairCustomerPhone(initialRepair.customer)} ltr />
               <InfoRow icon={<Hash size={15} className="text-purple-500" />} label="نوع تعمیر" value={TYPE_FA[initialRepair.type]} />
               <InfoRow icon={<Calendar size={15} className="text-gray-500" />} label="تاریخ ثبت" value={formatDate(initialRepair.createdAt)} />
               {initialRepair.serialNumber && (
@@ -296,7 +304,7 @@ export default function MyTasksPage() {
     }
     const q = search.trim().toLowerCase();
     if (q) {
-      list = list.filter((t) => t.deviceTitle.toLowerCase().includes(q) || t.customer.fullName.toLowerCase().includes(q) || t.caseNumber.includes(q));
+      list = list.filter((t) => t.deviceTitle.toLowerCase().includes(q) || getRepairCustomerName(t.customer).toLowerCase().includes(q) || t.caseNumber.includes(q));
     }
     return list;
   }, [tasks, search, filterActiveOnly]);

@@ -57,6 +57,10 @@ node scripts/import-portal-repairs.mjs --apply
 
 The repair importer also has a dry-run by default, preserves existing records,
 and requires all linked portal customers to exist in the dev database.
+Repairs whose source customer is missing or only has the generated
+`Portal repair customer` label are linked to one shared `نامشخص` customer.
+When applying, the importer also consolidates previously created placeholder
+customers and reassigns their linked records before removing the duplicates.
 
 ## Compile and run the project
 

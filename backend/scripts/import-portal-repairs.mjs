@@ -136,6 +136,22 @@ function validatePayload(payload) {
   }
 }
 
+function isUnknownRepairCustomer(customer) {
+  const nameParts = [
+    customer.target?.firstName,
+    customer.target?.lastName,
+    customer.target?.organizationName,
+  ]
+    .map((value) => value?.trim())
+    .filter(Boolean);
+
+  return (
+    nameParts.length === 0 ||
+    (nameParts.length === 1 &&
+      nameParts[0].toLocaleLowerCase() === 'portal repair customer')
+  );
+}
+
 async function insertRows(client, table, columns, rows, batchSize = 400) {
   let inserted = 0;
   for (let offset = 0; offset < rows.length; offset += batchSize) {
@@ -160,6 +176,17 @@ async function insertRows(client, table, columns, rows, batchSize = 400) {
 
 const payload = JSON.parse(await readFile(inputFile, 'utf8'));
 validatePayload(payload);
+const unknownCustomerSourceKeys = new Set(
+  payload.customers
+    .filter(isUnknownRepairCustomer)
+    .map((customer) => customer.sourceKey),
+);
+const unknownCustomerIdsFromPayload = [...unknownCustomerSourceKeys].map(
+  stableId,
+);
+const unknownCustomerId = stableCustomerId(
+  'portal-repair-customer:unknown',
+);
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
@@ -182,7 +209,9 @@ const customerIds = new Map(
     .concat(
       payload.customers.map((customer) => [
         customer.sourceKey,
-        stableId(customer.sourceKey),
+        unknownCustomerSourceKeys.has(customer.sourceKey)
+          ? unknownCustomerId
+          : stableId(customer.sourceKey),
       ]),
     ),
 );
@@ -206,6 +235,36 @@ try {
   ) {
     throw new Error('Connected database identity differs from expected dev target');
   }
+
+  const existingUnknownCustomers = await client.query(
+    `
+      SELECT id
+      FROM "Customer"
+      WHERE id = ANY($1::text[])
+         OR (
+           lower(btrim(COALESCE("firstName", ''))) = 'portal repair customer'
+           AND btrim(COALESCE("lastName", '')) = ''
+           AND btrim(COALESCE("organizationName", '')) = ''
+         )
+    `,
+    [unknownCustomerIdsFromPayload],
+  );
+  const unknownCustomerIds = [
+    ...new Set([
+      ...unknownCustomerIdsFromPayload,
+      ...existingUnknownCustomers.rows.map((row) => row.id),
+    ]),
+  ].filter((id) => id !== unknownCustomerId);
+  const [repairsToConsolidate, activitiesToConsolidate] = await Promise.all([
+    client.query(
+      'SELECT count(*)::int AS count FROM "RepairCase" WHERE "customerId" = ANY($1::text[])',
+      [unknownCustomerIds],
+    ),
+    client.query(
+      'SELECT count(*)::int AS count FROM "CustomerActivity" WHERE "customerId" = ANY($1::text[])',
+      [unknownCustomerIds],
+    ),
+  ]);
 
   const existingCustomerIds = payload.existingCustomerSourceKeys.map(
     (sourceKey) => customerIds.get(sourceKey),
@@ -248,9 +307,16 @@ try {
     mode: apply ? 'insert-only' : 'dry-run',
     file: inputFile,
     rows: {
-      newCustomers: payload.customers.length,
+      newCustomers: payload.customers.length - unknownCustomerSourceKeys.size,
       repairs: payload.repairs.length,
       repairActivities: payload.activities.length,
+    },
+    unknownCustomerConsolidation: {
+      sourceCustomers: unknownCustomerSourceKeys.size,
+      existingCustomerRecords: unknownCustomerIds.length,
+      repairsToReassign: repairsToConsolidate.rows[0].count,
+      activitiesToReassign: activitiesToConsolidate.rows[0].count,
+      sharedCustomerId: unknownCustomerId,
     },
     existing: Object.fromEntries(before.rows.map((row) => [row.entity, row.count])),
     alreadyImportedRepairIds: repairCollisions.rows[0].existing_ids,
@@ -267,7 +333,9 @@ try {
         'SELECT localtimestamp::text AS "importedAt"',
       );
       const importedAt = importedAtResult.rows[0].importedAt;
-      const customerRows = payload.customers.map((customer) => [
+      const customerRows = payload.customers
+        .filter((customer) => !unknownCustomerSourceKeys.has(customer.sourceKey))
+        .map((customer) => [
         customerIds.get(customer.sourceKey),
         customer.target.type,
         customer.target.status,
@@ -282,7 +350,7 @@ try {
         importedAt,
         importedAt,
         importedAt,
-      ]);
+        ]);
       const importedCustomers = await insertRows(
         client,
         'Customer',
@@ -304,6 +372,77 @@ try {
         ],
         customerRows,
       );
+
+      if (unknownCustomerSourceKeys.size > 0 || unknownCustomerIds.length > 0) {
+        await insertRows(
+          client,
+          'Customer',
+          [
+            'id',
+            'type',
+            'status',
+            'firstName',
+            'lastName',
+            'mobile',
+            'phone',
+            'email',
+            'province',
+            'city',
+            'address',
+            'registeredAt',
+            'createdAt',
+            'updatedAt',
+          ],
+          [[
+            unknownCustomerId,
+            'PERSON',
+            'ACTIVE',
+            'نامشخص',
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            importedAt,
+            importedAt,
+            importedAt,
+          ]],
+        );
+        const sharedCustomer = await client.query(
+          'SELECT "type", "firstName", "lastName", "organizationName" FROM "Customer" WHERE id = $1',
+          [unknownCustomerId],
+        );
+        if (
+          sharedCustomer.rows[0]?.type !== 'PERSON' ||
+          sharedCustomer.rows[0]?.firstName !== 'نامشخص' ||
+          sharedCustomer.rows[0]?.lastName ||
+          sharedCustomer.rows[0]?.organizationName
+        ) {
+          throw new Error(
+            'The deterministic shared unknown customer ID is already used by a different customer',
+          );
+        }
+
+        for (const table of [
+          'RepairCase',
+          'CustomerActivity',
+          'SalesOpportunity',
+          'CustomerContact',
+          'CustomerAddress',
+          'CustomerAiAnalysis',
+        ]) {
+          await client.query(
+            `UPDATE "${table}" SET "customerId" = $1 WHERE "customerId" = ANY($2::text[])`,
+            [unknownCustomerId, unknownCustomerIds],
+          );
+        }
+        await client.query(
+          'DELETE FROM "Customer" WHERE id = ANY($1::text[])',
+          [unknownCustomerIds],
+        );
+      }
 
       const repairRows = payload.repairs.map((repair) => [
         repairIds.get(repair.sourceKey),

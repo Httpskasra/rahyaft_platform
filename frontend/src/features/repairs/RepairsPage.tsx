@@ -2,8 +2,22 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { AlertCircle, BarChart3, Plus, Search, Wrench } from "lucide-react";
-import { repairsApi, type RepairCase } from "@/lib/api/repairs";
+import {
+  AlertCircle,
+  BarChart3,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  Search,
+  SlidersHorizontal,
+  Wrench,
+} from "lucide-react";
+import {
+  repairsApi,
+  type RepairCase,
+  type RepairStatus,
+  type RepairType,
+} from "@/lib/api/repairs";
 import { usersApi, type UserData } from "@/lib/api/users";
 import { Spinner } from "@/components/ui/Spinner";
 import { ToastViewport } from "@/components/ui/ToastViewport";
@@ -15,11 +29,18 @@ import {
   RepairDetail,
 } from "@/features/repairs/components";
 import Link from "next/link";
+import { STATUS_FA, TYPE_FA } from "./components/repairConfig";
 
 export default function RepairsPage() {
   const { toasts, show: showToast } = useToast();
 
   const [repairs, setRepairs] = useState<RepairCase[]>([]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    pageSize: 20,
+    total: 0,
+    totalPages: 0,
+  });
   const [technicians, setTechnicians] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,32 +52,12 @@ export default function RepairsPage() {
   );
 
   const [search, setSearch] = useState("");
-  const filtered = useMemo(() => {
-    const q = search.trim().toLocaleLowerCase("fa-IR");
-    if (!q) return repairs;
-
-    return repairs.filter((repair) => {
-      const deviceTitle = String(repair.deviceTitle ?? "").toLocaleLowerCase(
-        "fa-IR",
-      );
-      const customerName = String(
-        repair.customer?.fullName ?? "",
-      ).toLocaleLowerCase("fa-IR");
-      const caseNumber = String(repair.caseNumber ?? "").toLocaleLowerCase(
-        "fa-IR",
-      );
-      const serialNumber = String(repair.serialNumber ?? "").toLocaleLowerCase(
-        "fa-IR",
-      );
-
-      return (
-        deviceTitle.includes(q) ||
-        customerName.includes(q) ||
-        caseNumber.includes(q) ||
-        serialNumber.includes(q)
-      );
-    });
-  }, [repairs, search]);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<RepairStatus | "">("");
+  const [typeFilter, setTypeFilter] = useState<RepairType | "">("");
+  const [fromFilter, setFromFilter] = useState("");
+  const [toFilter, setToFilter] = useState("");
+  const [page, setPage] = useState(1);
 
   const [createOpen, setCreateOpen] = useState(false);
 
@@ -64,30 +65,68 @@ export default function RepairsPage() {
     setLoading(true);
     setError(null);
     try {
-      const [repairsRes, usersRes] = await Promise.all([
-        repairsApi.findAll(),
-        usersApi.findAll(),
-      ]);
-      setRepairs(repairsRes.data);
-      setTechnicians(usersRes.data);
+      const repairsRes = await repairsApi.findAll({
+        page,
+        limit: 20,
+        search: debouncedSearch.trim() || undefined,
+        status: statusFilter || undefined,
+        type: typeFilter || undefined,
+        from: fromFilter || undefined,
+        to: toFilter || undefined,
+      });
+      const items = repairsRes.data.items;
+      setRepairs(items);
+      setPagination(repairsRes.data.meta);
       const targetId =
         typeof window !== "undefined" ?
           new URLSearchParams(window.location.search).get("repairId")
         : null;
-      if (targetId && repairsRes.data.some((r) => r.id === targetId))
+      if (targetId && items.some((repair) => repair.id === targetId))
         setActiveId(targetId);
-      else if (repairsRes.data.length > 0 && !activeId)
-        setActiveId(repairsRes.data[0].id);
+      else
+        setActiveId((current) =>
+          items.some((repair) => repair.id === current) ?
+            current
+          : (items[0]?.id ?? null),
+        );
     } catch {
       setError("خطا در دریافت اطلاعات");
     } finally {
       setLoading(false);
     }
-  }, [activeId]);
+  }, [debouncedSearch, fromFilter, page, statusFilter, toFilter, typeFilter]);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+      setPage(1);
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    void fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    usersApi
+      .findAll()
+      .then((response) => setTechnicians(response.data))
+      .catch(() => showToast("error", "خطا در دریافت فهرست تکنسین‌ها"));
+  }, [showToast]);
+
+  const clearFilters = () => {
+    setSearch("");
+    setDebouncedSearch("");
+    setStatusFilter("");
+    setTypeFilter("");
+    setFromFilter("");
+    setToFilter("");
+    setPage(1);
+  };
+  const hasFilters = Boolean(
+    search || statusFilter || typeFilter || fromFilter || toFilter,
+  );
 
   return (
     <div dir="rtl" lang="fa" className="min-h-screen">
@@ -121,18 +160,88 @@ export default function RepairsPage() {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[320px_1fr]">
         <aside className="flex flex-col gap-3">
-          <div className="relative">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="جستجو در پرونده‌ها..."
-              className="h-10 w-full rounded-xl border border-gray-200 bg-white pl-4 pr-10 text-sm text-gray-800 placeholder-gray-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder-gray-500"
-            />
-            <Search
-              size={15}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400"
-            />
+          <div className="rounded-2xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-gray-900">
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
+              <SlidersHorizontal size={15} />
+              جستجو و فیلتر پیشرفته
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="نام مشتری، شماره پرونده، دستگاه، سریال..."
+                className="h-10 w-full rounded-xl border border-gray-200 bg-white pl-4 pr-10 text-sm text-gray-800 placeholder-gray-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder-gray-500"
+              />
+              <Search
+                size={15}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+              />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <label className="text-xs text-gray-500 dark:text-gray-400">
+                وضعیت
+                <select
+                  value={statusFilter}
+                  onChange={(event) => {
+                    setStatusFilter(event.target.value as RepairStatus | "");
+                    setPage(1);
+                  }}
+                  className="mt-1 h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+                  <option value="">همه وضعیت‌ها</option>
+                  {Object.entries(STATUS_FA).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="text-xs text-gray-500 dark:text-gray-400">
+                نوع تعمیر
+                <select
+                  value={typeFilter}
+                  onChange={(event) => {
+                    setTypeFilter(event.target.value as RepairType | "");
+                    setPage(1);
+                  }}
+                  className="mt-1 h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+                  <option value="">همه انواع</option>
+                  {Object.entries(TYPE_FA).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="text-xs text-gray-500 dark:text-gray-400">
+                از تاریخ
+                <input
+                  type="date"
+                  value={fromFilter}
+                  onChange={(event) => {
+                    setFromFilter(event.target.value);
+                    setPage(1);
+                  }}
+                  className="mt-1 h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                />
+              </label>
+              <label className="text-xs text-gray-500 dark:text-gray-400">
+                تا تاریخ
+                <input
+                  type="date"
+                  value={toFilter}
+                  onChange={(event) => {
+                    setToFilter(event.target.value);
+                    setPage(1);
+                  }}
+                  className="mt-1 h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                />
+              </label>
+            </div>
+            {hasFilters && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-3 text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">
+                پاک کردن فیلترها
+              </button>
+            )}
           </div>
 
           {loading ?
@@ -158,26 +267,22 @@ export default function RepairsPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-700 dark:text-white/80">
-                  هنوز پرونده‌ای ثبت نشده
+                  {hasFilters ? "پرونده‌ای با این فیلترها پیدا نشد" : "هنوز پرونده‌ای ثبت نشده"}
                 </p>
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {!hasFilters && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                   اولین پرونده تعمیر را ثبت کنید
-                </p>
+                </p>}
               </div>
-              <button
+              {!hasFilters && <button
                 type="button"
                 onClick={() => setCreateOpen(true)}
                 className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600">
                 <Plus size={14} />
                 پرونده جدید
-              </button>
+              </button>}
             </div>
           : <div className="flex flex-col gap-2">
-              {filtered.length === 0 ?
-                <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                  پرونده‌ای پیدا نشد
-                </p>
-              : filtered.map((r) => (
+              {repairs.map((r) => (
                   <RepairCard
                     key={r.id}
                     repair={r}
@@ -186,6 +291,31 @@ export default function RepairsPage() {
                   />
                 ))
               }
+              <div className="mt-2 flex items-center justify-between border-t border-gray-100 pt-3 text-xs text-gray-500 dark:border-gray-800 dark:text-gray-400">
+                <span>
+                  {pagination.total.toLocaleString("fa-IR")} پرونده · صفحه{" "}
+                  {page.toLocaleString("fa-IR")} از{" "}
+                  {Math.max(pagination.totalPages, 1).toLocaleString("fa-IR")}
+                </span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    aria-label="صفحه بعد"
+                    disabled={page >= pagination.totalPages}
+                    onClick={() => setPage((current) => current + 1)}
+                    className="rounded-lg p-2 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-gray-800">
+                    <ChevronRight size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="صفحه قبل"
+                    disabled={page <= 1}
+                    onClick={() => setPage((current) => current - 1)}
+                    className="rounded-lg p-2 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-gray-800">
+                    <ChevronLeft size={16} />
+                  </button>
+                </div>
+              </div>
             </div>
           }
         </aside>

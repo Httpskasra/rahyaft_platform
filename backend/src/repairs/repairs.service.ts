@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -11,6 +12,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { RepairStatus, RepairType, ScopeType } from 'src/generated/prisma/enums';
 import { AuthenticatedUser } from 'src/common/interfaces/auth.interface';
 import { NotificationsService } from '../notifications/notifications.service';
+import { Prisma } from 'src/generated/prisma/client';
+import { QueryRepairsDto } from './dto/query-repairs.dto';
 
 // شکلی که PermissionGuard روی request.matchedPermission می‌گذارد
 // (همان RolePermission منطبق‌شده، شامل scope و relationType)
@@ -82,21 +85,101 @@ private readonly completedStatuses: RepairStatus[] = [
   async findAll(
     user: AuthenticatedUser,
     matchedPermission?: MatchedPermission,
+    query: QueryRepairsDto = {},
   ) {
     const isSelfScoped = matchedPermission?.scope === ScopeType.SELF;
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 20;
+    const conditions: Prisma.RepairCaseWhereInput[] = [];
 
-    return this.prisma.repairCase.findMany({
-      where: isSelfScoped ? { technicianId: user.id } : undefined,
+    if (isSelfScoped) conditions.push({ technicianId: user.id });
+    if (query.status) conditions.push({ status: query.status });
+    if (query.type) conditions.push({ type: query.type });
+    if (query.technicianId) conditions.push({ technicianId: query.technicianId });
+    if (query.customerId) conditions.push({ customerId: query.customerId });
 
-      include: {
-        customer: true,
-        technician: true,
+    if (query.from || query.to) {
+      const createdAt: Prisma.DateTimeFilter = {};
+      if (query.from) {
+        const from = new Date(query.from);
+        if (Number.isNaN(from.getTime())) {
+          throw new BadRequestException('تاریخ شروع معتبر نیست');
+        }
+        createdAt.gte = from;
+      }
+      if (query.to) {
+        const to = new Date(query.to);
+        if (Number.isNaN(to.getTime())) {
+          throw new BadRequestException('تاریخ پایان معتبر نیست');
+        }
+        createdAt.lt = new Date(to.getTime() + 24 * 60 * 60 * 1000);
+      }
+      if (
+        createdAt.gte instanceof Date &&
+        createdAt.lt instanceof Date &&
+        createdAt.gte >= createdAt.lt
+      ) {
+        throw new BadRequestException('بازه تاریخ معتبر نیست');
+      }
+      conditions.push({ createdAt });
+    }
+
+    const searchTerms = query.search?.trim().split(/\s+/).filter(Boolean) ?? [];
+    for (const term of searchTerms) {
+      conditions.push({
+        OR: [
+          { caseNumber: { contains: term, mode: 'insensitive' } },
+          { deviceTitle: { contains: term, mode: 'insensitive' } },
+          { serialNumber: { contains: term, mode: 'insensitive' } },
+          { problemDescription: { contains: term, mode: 'insensitive' } },
+          { description: { contains: term, mode: 'insensitive' } },
+          {
+            customer: {
+              is: {
+                OR: [
+                  { firstName: { contains: term, mode: 'insensitive' } },
+                  { lastName: { contains: term, mode: 'insensitive' } },
+                  { organizationName: { contains: term, mode: 'insensitive' } },
+                  { mobile: { contains: term, mode: 'insensitive' } },
+                  { phone: { contains: term, mode: 'insensitive' } },
+                ],
+              },
+            },
+          },
+          {
+            technician: {
+              is: { name: { contains: term, mode: 'insensitive' } },
+            },
+          },
+        ],
+      });
+    }
+
+    const where: Prisma.RepairCaseWhereInput =
+      conditions.length > 0 ? { AND: conditions } : {};
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.repairCase.findMany({
+        where,
+        include: {
+          customer: true,
+          technician: true,
+        },
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      this.prisma.repairCase.count({ where }),
+    ]);
+
+    return {
+      items,
+      meta: {
+        total,
+        page,
+        pageSize: limit,
+        totalPages: Math.ceil(total / limit),
       },
-
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    };
   }
 
   private resolveAnalyticsRange(input: { range?: string; from?: string; to?: string }) {

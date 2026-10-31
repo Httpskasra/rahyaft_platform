@@ -4,6 +4,8 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Calendar, Check, Hash, Phone, User, Wrench, MessageCircle } from "lucide-react";
 import {
+  getRepairCustomerName,
+  getRepairCustomerPhone,
   repairsApi, type RepairCase, type RepairCaseDetail, type RepairStatus,
 } from "@/lib/api/repairs";
 import type { UserData } from "@/lib/api/users";
@@ -144,12 +146,12 @@ export function RepairDetail({
               <InfoRow
                 icon={<User size={15} className="text-blue-500" />}
                 label="مشتری"
-                value={initialRepair.customer.fullName}
+                value={getRepairCustomerName(initialRepair.customer)}
               />
               <InfoRow
                 icon={<Phone size={15} className="text-emerald-500" />}
                 label="شماره تماس"
-                value={initialRepair.customer.phoneNumber}
+                value={getRepairCustomerPhone(initialRepair.customer)}
                 ltr
               />
               <InfoRow
