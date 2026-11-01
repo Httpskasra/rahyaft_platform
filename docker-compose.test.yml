@@ -79,6 +79,8 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD is required}
       RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
+      DOMAIN_EXCHANGE: ${DOMAIN_EXCHANGE:-domain_events}
+      CRM_QUEUE: ${CRM_QUEUE:-crm_ai_worker}
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-15m}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:?JWT_REFRESH_SECRET is required}
@@ -169,6 +171,8 @@ services:
       AVALAI_BASE_URL: ${AVALAI_BASE_URL:-https://api.avalai.ir/v1}
       AVALAI_API_KEY: ${AVALAI_API_KEY:?AVALAI_API_KEY is required}
       AVALAI_MODEL: ${AVALAI_MODEL:-cf.gpt-oss-120b}
+      AVALAI_API_STYLE: ${AVALAI_API_STYLE:-chat_completions}
+      AVALAI_TIMEOUT_SECONDS: ${AVALAI_TIMEOUT_SECONDS:-120}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     command: ["python", "src/crm_worker.py"]
     networks: [internal, public]

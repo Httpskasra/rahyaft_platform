@@ -34,7 +34,7 @@ $ yarn install
 ## Local portal customer/CRM import
 
 With the dev PostgreSQL container running and
-`../needBackup/portal-customers-crm.normalized.json` available, run from this
+`scripts/portal-customers-crm.normalized.json` available, run from this
 directory:
 
 ```bash
@@ -45,8 +45,9 @@ node scripts/import-portal-customers-crm.mjs --apply
 The first command validates and previews the import. The second inserts into
 the local `enterprise` database in one transaction. It preserves existing
 records, uses deterministic IDs so reruns do not duplicate imported records,
-and imports customer addresses into `CustomerAddress`. The script refuses
-non-local or non-dev database targets.
+and imports customer addresses into `CustomerAddress`. By default the script
+only permits local database targets. Pass `--allow-docker` to also permit the
+Compose hostname `postgres`; database `enterprise` and user `app` are still required.
 
 Portal repair data can be imported after the customer/CRM import:
 
@@ -61,6 +62,16 @@ Repairs whose source customer is missing or only has the generated
 `Portal repair customer` label are linked to one shared `نامشخص` customer.
 When applying, the importer also consolidates previously created placeholder
 customers and reassigns their linked records before removing the duplicates.
+
+For Docker Compose test, run from the repository root with the same env file
+used to start the stack. The scripts and JSON inputs are mounted from the host,
+so updating them does not require rebuilding the image. Run the customer import
+successfully before the repair import. Omit `--apply` to preview each import.
+
+```bash
+docker compose --env-file .env.production -f docker-compose.test.yml run --rm -v "./backend/scripts:/usr/src/app/scripts:ro" migrate node scripts/import-portal-customers-crm.mjs --allow-docker --apply
+docker compose --env-file .env.production -f docker-compose.test.yml run --rm -v "./backend/scripts:/usr/src/app/scripts:ro" migrate node scripts/import-portal-repairs.mjs --allow-docker --apply
+```
 
 ## Compile and run the project
 

@@ -31,6 +31,7 @@ DOMAIN_EXCHANGE = os.getenv("DOMAIN_EXCHANGE", "domain_events")
 CRM_QUEUE = os.getenv("CRM_QUEUE", "crm_ai_worker")
 
 CUSTOMER_AI_EVENTS = {
+    "customer.activity.created",
     "customer.created",
     "customer.updated",
     "customer.contact.created",
@@ -129,8 +130,6 @@ async def main() -> None:
     global pg_pool
 
     log.info("Starting CRM AI worker...")
-    log.info("RabbitMQ URL: %s", RABBITMQ_URL)
-    log.info("Database URL: %s", DATABASE_URL)
     log.info("Domain exchange: %s", DOMAIN_EXCHANGE)
     log.info("CRM queue: %s", CRM_QUEUE)
 

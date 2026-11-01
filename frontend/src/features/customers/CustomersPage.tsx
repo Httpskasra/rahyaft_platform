@@ -97,6 +97,31 @@ export default function CustomersPage() {
     const t = setTimeout(load, 350);
     return () => clearTimeout(t);
   }, [load]);
+  const selectedCustomerId = selected?.id;
+  useEffect(() => {
+    if (!selectedCustomerId) return;
+    let cancelled = false;
+    let running = false;
+    const timer = setInterval(async () => {
+      if (running || document.hidden) return;
+      running = true;
+      try {
+        const response = await customersApi.latestAiAnalysis(selectedCustomerId);
+        if (!cancelled) {
+          setSelected((current) =>
+            current?.id === selectedCustomerId
+              ? { ...current, aiAnalyses: [response.data] }
+              : current,
+          );
+        }
+      } catch {
+        // A customer may not have an analysis yet. Keep the existing result.
+      } finally {
+        running = false;
+      }
+    }, 5000);
+    return () => { cancelled = true; clearInterval(timer); };
+  }, [selectedCustomerId]);
   const refresh = () => selected && open(selected.id);
   const remove = async () => {
     if (!selected || !confirm(`مشتری «${nameOf(selected)}» حذف شود؟`)) return;

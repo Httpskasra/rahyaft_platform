@@ -9,6 +9,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  ServiceUnavailableException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
@@ -219,7 +220,7 @@ export class CustomerService {
 
     const data = this.buildCustomerData(dto);
 
-    return this.prisma.$transaction(async (tx) => {
+    const customer = await this.prisma.$transaction(async (tx) => {
       const customer = await tx.customer.create({
         data: data as Prisma.CustomerUncheckedCreateInput,
       });
@@ -238,10 +239,11 @@ export class CustomerService {
           : 'مشتری جدید در سیستم ثبت شد.',
       });
 
-      this.publishCustomerChanged('customer.created', customer.id);
-
       return customer;
     });
+
+    this.publishCustomerChanged('customer.created', customer.id);
+    return customer;
   }
 
   async findAll(query: QueryCustomerDto) {
@@ -577,7 +579,7 @@ export class CustomerService {
       occupationGroup: mergedData.occupationGroup,
     };
 
-    return this.prisma.$transaction(async (tx) => {
+    const customer = await this.prisma.$transaction(async (tx) => {
       const customer = await tx.customer.update({
         where: { id },
         data,
@@ -590,10 +592,11 @@ export class CustomerService {
         body: 'اطلاعات پایه مشتری بروزرسانی شد.',
       });
 
-      this.publishCustomerChanged('customer.updated', id);
-
       return customer;
     });
+
+    this.publishCustomerChanged('customer.updated', id);
+    return customer;
   }
 
   async remove(id: string) {
@@ -655,7 +658,7 @@ export class CustomerService {
   async createContact(customerId: string, dto: CreateCustomerContactDto) {
     await this.ensureOrganizationCustomer(customerId);
 
-    return this.prisma.$transaction(async (tx) => {
+    const contact = await this.prisma.$transaction(async (tx) => {
       if (dto.isPrimary) {
         await tx.customerContact.updateMany({
           where: { customerId },
@@ -682,12 +685,13 @@ export class CustomerService {
         body: `مخاطب «${contact.fullName}»${contact.role ? ` با نقش «${contact.role}»` : ''} اضافه شد.`,
       });
 
-      this.publishCustomerChanged('customer.contact.created', customerId, {
-        contactId: contact.id,
-      });
-
       return contact;
     });
+
+    this.publishCustomerChanged('customer.contact.created', customerId, {
+      contactId: contact.id,
+    });
+    return contact;
   }
 
   async updateContact(
@@ -708,7 +712,7 @@ export class CustomerService {
       throw new NotFoundException('مخاطب مشتری یافت نشد');
     }
 
-    return this.prisma.$transaction(async (tx) => {
+    const updatedContact = await this.prisma.$transaction(async (tx) => {
       if (dto.isPrimary) {
         await tx.customerContact.updateMany({
           where: {
@@ -738,12 +742,13 @@ export class CustomerService {
         body: `اطلاعات مخاطب «${updatedContact.fullName}» بروزرسانی شد.`,
       });
 
-      this.publishCustomerChanged('customer.contact.updated', customerId, {
-        contactId,
-      });
-
       return updatedContact;
     });
+
+    this.publishCustomerChanged('customer.contact.updated', customerId, {
+      contactId,
+    });
+    return updatedContact;
   }
 
   async removeContact(customerId: string, contactId: string) {
@@ -760,7 +765,7 @@ export class CustomerService {
       throw new NotFoundException('مخاطب مشتری یافت نشد');
     }
 
-    return this.prisma.$transaction(async (tx) => {
+    const deletedContact = await this.prisma.$transaction(async (tx) => {
       const deletedContact = await tx.customerContact.delete({
         where: { id: contactId },
       });
@@ -772,12 +777,13 @@ export class CustomerService {
         body: `مخاطب «${contact.fullName}» حذف شد.`,
       });
 
-      this.publishCustomerChanged('customer.contact.deleted', customerId, {
-        contactId,
-      });
-
       return deletedContact;
     });
+
+    this.publishCustomerChanged('customer.contact.deleted', customerId, {
+      contactId,
+    });
+    return deletedContact;
   }
   // ─────────────────────────────────────────────
   // Sales Opportunities
@@ -814,7 +820,7 @@ export class CustomerService {
       );
     }
 
-    return this.prisma.$transaction(async (tx) => {
+    const opportunity = await this.prisma.$transaction(async (tx) => {
       const opportunity = await tx.salesOpportunity.create({
         data: {
           customerId,
@@ -843,16 +849,17 @@ export class CustomerService {
         dueAt: opportunity.nextFollowUpAt ?? undefined,
       });
 
-      this.publishCustomerChanged(
-        'customer.sales_opportunity.created',
-        customerId,
-        {
-          opportunityId: opportunity.id,
-        },
-      );
-
       return opportunity;
     });
+
+    this.publishCustomerChanged(
+      'customer.sales_opportunity.created',
+      customerId,
+      {
+        opportunityId: opportunity.id,
+      },
+    );
+    return opportunity;
   }
 
   async updateSalesOpportunity(
@@ -882,7 +889,7 @@ export class CustomerService {
       );
     }
 
-    return this.prisma.$transaction(async (tx) => {
+    const updatedOpportunity = await this.prisma.$transaction(async (tx) => {
       const updatedOpportunity = await tx.salesOpportunity.update({
         where: { id: opportunityId },
         data: {
@@ -911,16 +918,17 @@ export class CustomerService {
         dueAt: updatedOpportunity.nextFollowUpAt ?? undefined,
       });
 
-      this.publishCustomerChanged(
-        'customer.sales_opportunity.updated',
-        customerId,
-        {
-          opportunityId,
-        },
-      );
-
       return updatedOpportunity;
     });
+
+    this.publishCustomerChanged(
+      'customer.sales_opportunity.updated',
+      customerId,
+      {
+        opportunityId,
+      },
+    );
+    return updatedOpportunity;
   }
 
   async removeSalesOpportunity(customerId: string, opportunityId: string) {
@@ -937,7 +945,7 @@ export class CustomerService {
       throw new NotFoundException('فرصت فروش یافت نشد');
     }
 
-    return this.prisma.$transaction(async (tx) => {
+    const deletedOpportunity = await this.prisma.$transaction(async (tx) => {
       const deletedOpportunity = await tx.salesOpportunity.delete({
         where: { id: opportunityId },
       });
@@ -950,16 +958,17 @@ export class CustomerService {
         relatedSalesOpportunityId: opportunity.id,
       });
 
-      this.publishCustomerChanged(
-        'customer.sales_opportunity.deleted',
-        customerId,
-        {
-          opportunityId,
-        },
-      );
-
       return deletedOpportunity;
     });
+
+    this.publishCustomerChanged(
+      'customer.sales_opportunity.deleted',
+      customerId,
+      {
+        opportunityId,
+      },
+    );
+    return deletedOpportunity;
   }
   // ─────────────────────────────────────────────
   // Customer Activities / Timeline
@@ -968,7 +977,7 @@ export class CustomerService {
   async createActivity(customerId: string, dto: CreateCustomerActivityDto) {
     await this.ensureCustomerExists(customerId);
 
-    return this.prisma.customerActivity.create({
+    const activity = await this.prisma.customerActivity.create({
       data: {
         customerId,
         type: dto.type,
@@ -980,6 +989,10 @@ export class CustomerService {
         createdById: dto.createdById,
       },
     });
+    this.publishCustomerChanged('customer.activity.created', customerId, {
+      activityId: activity.id,
+    });
+    return activity;
   }
   // ─────────────────────────────────────────────
   // Customer AI Analysis
@@ -1016,6 +1029,18 @@ export class CustomerService {
 
       return analysis;
     });
+  }
+
+  async requestAiAnalysis(customerId: string) {
+    await this.ensureCustomerExists(customerId);
+    try {
+      await this.events.publishCustomerEvent('customer.ai_analysis.requested', {
+        customerId,
+      });
+    } catch {
+      throw new ServiceUnavailableException('ارسال درخواست تحلیل ممکن نشد؛ دوباره تلاش کنید.');
+    }
+    return { status: 'queued' as const };
   }
 
   async getLatestAiAnalysis(customerId: string) {

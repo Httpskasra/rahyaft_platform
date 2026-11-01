@@ -14,6 +14,7 @@ const defaultFile = path.resolve(
 );
 const args = process.argv.slice(2);
 const apply = args.includes('--apply');
+const allowDocker = args.includes('--allow-docker');
 const fileArgumentIndex = args.indexOf('--file');
 const inputFile =
   fileArgumentIndex >= 0
@@ -22,9 +23,10 @@ const inputFile =
 
 if (args.includes('--help')) {
   console.log(
-    'Usage: node scripts/import-portal-customers-crm.mjs [--file <path>] [--apply]',
+    'Usage: node scripts/import-portal-customers-crm.mjs [--file <path>] [--allow-docker] [--apply]',
   );
   console.log('Without --apply, validates the file and reports a dry run.');
+  console.log('--allow-docker also permits host postgres (database enterprise, user app).');
   process.exit(0);
 }
 
@@ -175,11 +177,11 @@ if (!databaseUrl) {
 const connection = new URL(databaseUrl);
 const databaseName = decodeURIComponent(connection.pathname.slice(1));
 if (
-  !['localhost', '127.0.0.1', '::1'].includes(connection.hostname) ||
+  !['localhost', '127.0.0.1', '::1', ...(allowDocker ? ['postgres'] : [])].includes(connection.hostname) ||
   databaseName !== 'enterprise'
 ) {
   throw new Error(
-    `Refusing non-dev database target ${connection.hostname}/${databaseName}; expected localhost/enterprise`,
+    `Refusing database target ${connection.hostname}/${databaseName}; expected localhost/enterprise (or postgres/enterprise with --allow-docker)`,
   );
 }
 

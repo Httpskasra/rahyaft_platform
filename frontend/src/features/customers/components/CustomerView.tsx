@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { usePermission } from "@/hooks/usePermission";
+import { customersApi } from "@/lib/api/customers";
 import {
   Building2, CalendarClock, Edit3, Mail, MapPin, Phone, Plus, RefreshCw,
   Sparkles, Trash2, UserRound, Users, WalletCards, Wrench, MessageCircle,
@@ -26,6 +29,25 @@ export function CustomerView({
   onActivity: () => void;
 }) {
   const ai = customer.aiAnalyses?.[0];
+  const canAnalyze = usePermission("analyze", "customers");
+  const [requesting, setRequesting] = useState(false);
+  const [analysisMessage, setAnalysisMessage] = useState("");
+  useEffect(() => {
+    setRequesting(false);
+    setAnalysisMessage("");
+  }, [customer.id, ai?.id]);
+  const requestAnalysis = async () => {
+    setRequesting(true);
+    setAnalysisMessage("");
+    try {
+      await customersApi.requestAiAnalysis(customer.id);
+      setAnalysisMessage("درخواست ارسال شد؛ نتیجه پس از آماده‌شدن خودکار نمایش داده می‌شود. اگر نتیجه نرسید، وضعیت سرویس تحلیل باید بررسی شود.");
+    } catch {
+      setAnalysisMessage("ارسال درخواست تحلیل ناموفق بود؛ دسترسی و اتصال سرویس را بررسی کنید.");
+    } finally {
+      setRequesting(false);
+    }
+  };
   return (
     <div className="space-y-5">
       <section className={`${card} p-5`}>
@@ -95,8 +117,15 @@ export function CustomerView({
         <div className={`${card} p-5 lg:col-span-2`}>
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-bold">تحلیل هوش مصنوعی مشتری</h3>
-            <Sparkles className="text-violet-500" size={20} />
+            {canAnalyze && (
+              <button onClick={requestAnalysis} disabled={requesting}
+                className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm disabled:opacity-50">
+                <Sparkles className="text-violet-500" size={20} />
+                {requesting ? "در حال ارسال…" : "درخواست تحلیل جدید"}
+              </button>
+            )}
           </div>
+          {analysisMessage && <p role="status" className="mb-4 text-sm text-gray-500">{analysisMessage}</p>}
           {ai ?
             <div className="space-y-4">
               <p className="leading-7 text-gray-700 dark:text-gray-300">
@@ -129,8 +158,7 @@ export function CustomerView({
               </p>
             </div>
           : <div className="rounded-xl border border-dashed p-8 text-center text-sm text-gray-500">
-              هنوز تحلیلی ثبت نشده است. Worker پس از رویدادهای مشتری تحلیل جدید
-              تولید می‌کند.
+              هنوز تحلیلی آماده نشده است. پس از ثبت اطلاعات مشتری، تحلیل در پس‌زمینه انجام می‌شود.
             </div>
           }
         </div>

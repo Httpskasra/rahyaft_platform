@@ -232,6 +232,8 @@ export const customersApi = {
       `/customers/${customerId}/activities`,
       body,
     ),
+  requestAiAnalysis: (customerId: string) =>
+    apiClient.post<{ status: "queued" }>(`/customers/${customerId}/ai-analysis/request`),
   latestAiAnalysis: (customerId: string) =>
     apiClient.get<CustomerAiAnalysis>(
       `/customers/${customerId}/ai-analysis/latest`,

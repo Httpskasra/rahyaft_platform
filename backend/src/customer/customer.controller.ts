@@ -217,6 +217,12 @@ export class CustomerController {
    * GET /customers/:customerId/ai-analysis/latest
    * آخرین تحلیل مشتری
    */
+  @Post(':customerId/ai-analysis/request')
+  @RequirePermission({ action: 'analyze', resource: 'customers' })
+  requestAiAnalysis(@Param('customerId', ParseUUIDPipe) customerId: string) {
+    return this.customerService.requestAiAnalysis(customerId);
+  }
+
   @Get(':customerId/ai-analysis/latest')
   @RequirePermission({ action: 'read', resource: 'customers' })
   getLatestAiAnalysis(@Param('customerId', ParseUUIDPipe) customerId: string) {

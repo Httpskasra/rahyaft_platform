@@ -30,6 +30,7 @@ export class EventsService {
       this.logger.error(
         `Failed to publish customer event ${type}: ${(error as Error).message}`,
       );
+      throw error;
     }
   }
 }

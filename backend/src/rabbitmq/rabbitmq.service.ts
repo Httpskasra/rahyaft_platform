@@ -32,7 +32,9 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   private channel!: ConfirmChannel;
 
   private readonly formExchange = 'form_submissions';
-  private readonly domainExchange = 'domain_events';
+  private get domainExchange() {
+    return this.config.get<string>('DOMAIN_EXCHANGE', 'domain_events');
+  }
 
   private readonly logger = new Logger(RabbitMQService.name);
   private isReady = false;
@@ -85,6 +87,10 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
         autoDelete: false,
       });
 
+      const crmQueue = this.config.get<string>('CRM_QUEUE', 'crm_ai_worker');
+      await this.channel.assertQueue(crmQueue, { durable: true, autoDelete: false });
+      await this.channel.bindQueue(crmQueue, this.domainExchange, 'customer.#');
+
       this.isReady = true;
 
       this.logger.log(`Exchange '${this.formExchange}' ready`);
@@ -114,7 +120,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   ): Promise<void> {
     if (!this.isReady || !this.channel) {
       this.logger.warn(`RabbitMQ not ready — skipping publish to ${exchange}`);
-      return;
+      throw new Error('RabbitMQ is unavailable');
     }
 
     const msg = Buffer.from(JSON.stringify(event));

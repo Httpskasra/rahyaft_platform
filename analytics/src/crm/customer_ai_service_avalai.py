@@ -23,19 +23,29 @@ class CustomerAiService:
         if not api_key:
             raise RuntimeError("AVALAI_API_KEY is not configured")
 
-        self.model_name = os.getenv("AVALAI_MODEL", "gpt-6-luna")
+        self.model_name = os.getenv("AVALAI_MODEL", "cf.gpt-oss-120b")
+        self.api_style = os.getenv("AVALAI_API_STYLE", "chat_completions")
+        if self.api_style not in {"chat_completions", "responses"}:
+            raise ValueError("AVALAI_API_STYLE must be chat_completions or responses")
         self.llm = AsyncOpenAI(
+            timeout=float(os.getenv("AVALAI_TIMEOUT_SECONDS", "120")),
             api_key=api_key,
             base_url=os.getenv("AVALAI_BASE_URL", "https://api.avalai.ir/v1"),
         )
 
     async def _generate_json(self, prompt: str) -> dict[str, Any]:
-        response = await self.llm.responses.create(
-            model=self.model_name,
-            input=prompt,
-        )
-
-        raw = (response.output_text or "").strip()
+        if self.api_style == "responses":
+            response = await self.llm.responses.create(
+                model=self.model_name,
+                input=prompt,
+            )
+            raw = (response.output_text or "").strip()
+        else:
+            response = await self.llm.chat.completions.create(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            raw = (response.choices[0].message.content or "").strip()
 
         if raw.startswith("```"):
             raw = raw.removeprefix("```json").removeprefix("```").strip()

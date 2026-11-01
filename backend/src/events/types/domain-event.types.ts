@@ -1,4 +1,5 @@
 export type CustomerDomainEventType =
+  | 'customer.activity.created'
   | 'customer.created'
   | 'customer.updated'
   | 'customer.contact.created'
