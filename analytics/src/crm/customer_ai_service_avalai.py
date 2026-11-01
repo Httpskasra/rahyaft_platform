@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 from typing import Any
@@ -13,6 +12,7 @@ from crm.customer_repository import (
     insert_customer_ai_analysis,
 )
 from llm.json_parser import ensure_dict, normalize_level, normalize_tags
+from llm.avalai_json import generate_customer_json
 
 log = logging.getLogger("customer_ai_service")
 
@@ -25,6 +25,9 @@ class CustomerAiService:
 
         self.model_name = os.getenv("AVALAI_MODEL", "cf.gpt-oss-120b")
         self.api_style = os.getenv("AVALAI_API_STYLE", "chat_completions")
+        self.max_output_tokens = int(os.getenv("AVALAI_MAX_OUTPUT_TOKENS", "8192"))
+        if self.max_output_tokens <= 0:
+            raise ValueError("AVALAI_MAX_OUTPUT_TOKENS must be positive")
         if self.api_style not in {"chat_completions", "responses"}:
             raise ValueError("AVALAI_API_STYLE must be chat_completions or responses")
         self.llm = AsyncOpenAI(
@@ -34,34 +37,10 @@ class CustomerAiService:
         )
 
     async def _generate_json(self, prompt: str) -> dict[str, Any]:
-        if self.api_style == "responses":
-            response = await self.llm.responses.create(
-                model=self.model_name,
-                input=prompt,
-            )
-            raw = (response.output_text or "").strip()
-        else:
-            response = await self.llm.chat.completions.create(
-                model=self.model_name,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            raw = (response.choices[0].message.content or "").strip()
-
-        if raw.startswith("```"):
-            raw = raw.removeprefix("```json").removeprefix("```").strip()
-            if raw.endswith("```"):
-                raw = raw[:-3].strip()
-
-        try:
-            parsed = json.loads(raw)
-        except json.JSONDecodeError as exc:
-            log.error("AvalAI returned invalid JSON: %s", raw)
-            raise ValueError("AvalAI returned invalid JSON") from exc
-
-        if not isinstance(parsed, dict):
-            raise ValueError("AvalAI response must be a JSON object")
-
-        return parsed
+        return await generate_customer_json(
+            self.llm, model=self.model_name, api_style=self.api_style,
+            prompt=prompt, max_tokens=self.max_output_tokens,
+        )
 
     def _pick_string(
         self,

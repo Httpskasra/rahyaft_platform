@@ -173,6 +173,7 @@ services:
       AVALAI_MODEL: ${AVALAI_MODEL:-cf.gpt-oss-120b}
       AVALAI_API_STYLE: ${AVALAI_API_STYLE:-chat_completions}
       AVALAI_TIMEOUT_SECONDS: ${AVALAI_TIMEOUT_SECONDS:-120}
+      AVALAI_MAX_OUTPUT_TOKENS: ${AVALAI_MAX_OUTPUT_TOKENS:-8192}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     command: ["python", "src/crm_worker.py"]
     networks: [internal, public]
