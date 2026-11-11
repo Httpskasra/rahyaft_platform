@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Calendar, Check, Hash, Phone, User, Wrench, MessageCircle } from "lucide-react";
 import {
   getRepairCustomerName,
@@ -106,9 +107,11 @@ export function RepairDetail({
             <Wrench size={17} />
           </div>
           <div>
-            <h2 className="text-base font-semibold text-gray-900 dark:text-white">
+            <Link
+              href={`/dashboard/repairs/devices?search=${encodeURIComponent(initialRepair.serialNumber || initialRepair.deviceTitle)}`}
+              className="text-base font-semibold text-gray-900 hover:text-brand-600 hover:underline dark:text-white dark:hover:text-brand-400">
               {initialRepair.deviceTitle}
-            </h2>
+            </Link>
             <p className="text-xs text-gray-500 dark:text-gray-400" dir="ltr">
               #{initialRepair.caseNumber}
             </p>
@@ -150,11 +153,15 @@ export function RepairDetail({
         {activeTab === "info" && (
           <>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <InfoRow
-                icon={<User size={15} className="text-blue-500" />}
-                label="مشتری"
-                value={getRepairCustomerName(initialRepair.customer)}
-              />
+              <Link
+                href={`/dashboard/customers?customerId=${initialRepair.customerId}`}
+                className="rounded-2xl outline-none ring-brand-400 transition hover:ring-2 focus-visible:ring-2">
+                <InfoRow
+                  icon={<User size={15} className="text-blue-500" />}
+                  label="مشتری — مشاهده صفحه مشتری"
+                  value={getRepairCustomerName(initialRepair.customer)}
+                />
+              </Link>
               <InfoRow
                 icon={<Phone size={15} className="text-emerald-500" />}
                 label="شماره تماس"

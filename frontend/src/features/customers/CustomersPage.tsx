@@ -87,6 +87,9 @@ export default function CustomersPage() {
     try {
       const r = await customersApi.findOne(id);
       setSelected(r.data);
+      const url = new URL(window.location.href);
+      url.searchParams.set("customerId", id);
+      window.history.replaceState(null, "", url);
     } catch {
       toast("err", "دریافت جزئیات مشتری ناموفق بود");
     } finally {

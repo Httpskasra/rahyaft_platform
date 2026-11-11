@@ -74,13 +74,21 @@ export default function RepairsPage() {
         from: fromFilter || undefined,
         to: toFilter || undefined,
       });
-      const items = repairsRes.data.items;
-      setRepairs(items);
+      let items = repairsRes.data.items;
       setPagination(repairsRes.data.meta);
       const targetId =
         typeof window !== "undefined" ?
           new URLSearchParams(window.location.search).get("repairId")
         : null;
+      if (targetId && !items.some((repair) => repair.id === targetId)) {
+        try {
+          const target = await repairsApi.findOne(targetId);
+          items = [target.data, ...items];
+        } catch {
+          // Keep the paginated list when a stale or inaccessible deep link is used.
+        }
+      }
+      setRepairs(items);
       if (targetId && items.some((repair) => repair.id === targetId))
         setActiveId(targetId);
       else
@@ -127,6 +135,12 @@ export default function RepairsPage() {
   const hasFilters = Boolean(
     search || statusFilter || typeFilter || fromFilter || toFilter,
   );
+  const selectRepair = (id: string) => {
+    setActiveId(id);
+    const url = new URL(window.location.href);
+    url.searchParams.set("repairId", id);
+    window.history.replaceState(null, "", url);
+  };
 
   return (
     <div dir="rtl" lang="fa" className="min-h-screen">
@@ -287,7 +301,7 @@ export default function RepairsPage() {
                     key={r.id}
                     repair={r}
                     active={r.id === activeId}
-                    onClick={() => setActiveId(r.id)}
+                    onClick={() => selectRepair(r.id)}
                   />
                 ))
               }

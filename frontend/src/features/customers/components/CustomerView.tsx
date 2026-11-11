@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { usePermission } from "@/hooks/usePermission";
 import { customersApi } from "@/lib/api/customers";
 import {
@@ -262,6 +263,13 @@ export function CustomerView({
                     {a.body}
                   </p>
                 )}
+                {a.relatedRepairId && (
+                  <Link
+                    href={`/dashboard/repairs?repairId=${a.relatedRepairId}`}
+                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
+                    <Wrench size={12} /> مشاهده پرونده تعمیر
+                  </Link>
+                )}
               </div>
             ))
           : <Empty text="فعالیتی ثبت نشده" />}
@@ -272,13 +280,28 @@ export function CustomerView({
               <div
                 key={r.id}
                 className="rounded-xl border border-gray-100 p-3 dark:border-gray-800">
-                <div className="flex justify-between">
-                  <b>{r.deviceTitle}</b>
-                  <span className="text-xs text-gray-500">{r.caseNumber}</span>
+                <div className="flex justify-between gap-3">
+                  <Link
+                    href={`/dashboard/repairs/devices?search=${encodeURIComponent(r.deviceTitle)}`}
+                    className="font-bold text-gray-900 hover:text-brand-600 hover:underline dark:text-white dark:hover:text-brand-400">
+                    {r.deviceTitle}
+                  </Link>
+                  <Link
+                    href={`/dashboard/repairs?repairId=${r.id}`}
+                    className="text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
+                    {r.caseNumber}
+                  </Link>
                 </div>
                 <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
                   <span>{r.type} • {r.status} • {dateFa(r.createdAt)}</span>
-                  <a href={`/dashboard/communications?entityType=REPAIR&entityId=${r.id}&new=1`} className="mr-auto inline-flex items-center gap-1 text-indigo-600 hover:underline"><MessageCircle size={12}/> گفتگو</a>
+                  <div className="mr-auto flex items-center gap-3">
+                    <Link
+                      href={`/dashboard/repairs?repairId=${r.id}`}
+                      className="inline-flex items-center gap-1 text-brand-600 hover:underline dark:text-brand-400">
+                      <Wrench size={12} /> مشاهده تعمیر
+                    </Link>
+                    <a href={`/dashboard/communications?entityType=REPAIR&entityId=${r.id}&new=1`} className="inline-flex items-center gap-1 text-indigo-600 hover:underline"><MessageCircle size={12}/> گفتگو</a>
+                  </div>
                 </div>
               </div>
             ))

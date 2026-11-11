@@ -25,7 +25,9 @@ if (args.includes('--help')) {
     'Usage: node scripts/import-portal-repairs.mjs [--file <path>] [--allow-docker] [--apply]',
   );
   console.log('Without --apply, validates the file and reports a dry run.');
-  console.log('--allow-docker also permits host postgres (database enterprise, user app).');
+  console.log(
+    '--allow-docker also permits host postgres (database enterprise, user app).',
+  );
   process.exit(0);
 }
 
@@ -81,7 +83,9 @@ function validatePayload(payload) {
   }
   for (const customer of payload.customers) {
     if (!customer.sourceKey || customerKeys.has(customer.sourceKey)) {
-      throw new Error(`Missing or duplicate repair customer: ${customer.sourceKey}`);
+      throw new Error(
+        `Missing or duplicate repair customer: ${customer.sourceKey}`,
+      );
     }
     if (!['PERSON', 'ORGANIZATION'].includes(customer.target?.type)) {
       throw new Error(`Invalid repair customer type: ${customer.sourceKey}`);
@@ -106,7 +110,9 @@ function validatePayload(payload) {
   ]);
   for (const repair of payload.repairs) {
     if (!repair.sourceKey || repairKeys.has(repair.sourceKey)) {
-      throw new Error(`Missing or duplicate repair source key: ${repair.sourceKey}`);
+      throw new Error(
+        `Missing or duplicate repair source key: ${repair.sourceKey}`,
+      );
     }
     if (!customerKeys.has(repair.customerSourceKey)) {
       throw new Error(`Unresolved customer for repair ${repair.sourceKey}`);
@@ -126,13 +132,17 @@ function validatePayload(payload) {
   const activityKeys = new Set();
   for (const activity of payload.activities) {
     if (!activity.sourceKey || activityKeys.has(activity.sourceKey)) {
-      throw new Error(`Missing or duplicate repair activity: ${activity.sourceKey}`);
+      throw new Error(
+        `Missing or duplicate repair activity: ${activity.sourceKey}`,
+      );
     }
     if (
       !customerKeys.has(activity.customerSourceKey) ||
       !repairKeys.has(activity.repairSourceKey)
     ) {
-      throw new Error(`Unresolved repair activity references: ${activity.sourceKey}`);
+      throw new Error(
+        `Unresolved repair activity references: ${activity.sourceKey}`,
+      );
     }
     activityKeys.add(activity.sourceKey);
   }
@@ -154,7 +164,14 @@ function isUnknownRepairCustomer(customer) {
   );
 }
 
-async function insertRows(client, table, columns, rows, batchSize = 400) {
+async function insertRows(
+  client,
+  table,
+  columns,
+  rows,
+  batchSize = 400,
+  conflictClause = 'ON CONFLICT ("id") DO NOTHING',
+) {
   let inserted = 0;
   for (let offset = 0; offset < rows.length; offset += batchSize) {
     const batch = rows.slice(offset, offset + batchSize);
@@ -168,7 +185,7 @@ async function insertRows(client, table, columns, rows, batchSize = 400) {
     });
 
     const result = await client.query(
-      `INSERT INTO "${table}" (${columns.map((column) => `"${column}"`).join(', ')}) VALUES ${placeholders.join(', ')} ON CONFLICT ("id") DO NOTHING`,
+      `INSERT INTO "${table}" (${columns.map((column) => `"${column}"`).join(', ')}) VALUES ${placeholders.join(', ')} ${conflictClause}`,
       values,
     );
     inserted += result.rowCount ?? 0;
@@ -186,9 +203,7 @@ const unknownCustomerSourceKeys = new Set(
 const unknownCustomerIdsFromPayload = [...unknownCustomerSourceKeys].map(
   stableId,
 );
-const unknownCustomerId = stableCustomerId(
-  'portal-repair-customer:unknown',
-);
+const unknownCustomerId = stableCustomerId('portal-repair-customer:unknown');
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
@@ -197,7 +212,12 @@ if (!databaseUrl) {
 const connection = new URL(databaseUrl);
 const databaseName = decodeURIComponent(connection.pathname.slice(1));
 if (
-  !['localhost', '127.0.0.1', '::1', ...(allowDocker ? ['postgres'] : [])].includes(connection.hostname) ||
+  ![
+    'localhost',
+    '127.0.0.1',
+    '::1',
+    ...(allowDocker ? ['postgres'] : []),
+  ].includes(connection.hostname) ||
   databaseName !== 'enterprise'
 ) {
   throw new Error(
@@ -218,8 +238,19 @@ const customerIds = new Map(
     ),
 );
 const repairIds = new Map(
-  payload.repairs.map((repair) => [repair.sourceKey, stableId(repair.sourceKey)]),
+  payload.repairs.map((repair) => [
+    repair.sourceKey,
+    stableId(repair.sourceKey),
+  ]),
 );
+const obsoleteStatusLogIds = [
+  ...payload.repairs.map((repair) =>
+    stableId(`repair-status-log:portal-repair-completion:${repair.sourceKey}`),
+  ),
+  ...payload.activities
+    .filter((activity) => activity.target?.type === 'REPAIR_STATUS_CHANGED')
+    .map((activity) => stableId(`repair-status-log:${activity.sourceKey}`)),
+];
 const plannedRepairIds = [...repairIds.values()];
 const plannedCaseNumbers = payload.repairs.map(
   (repair) => repair.target.caseNumber,
@@ -235,7 +266,9 @@ try {
     target.rows[0].database !== 'enterprise' ||
     target.rows[0].db_user !== 'app'
   ) {
-    throw new Error('Connected database identity differs from expected dev target');
+    throw new Error(
+      'Connected database identity differs from expected dev target',
+    );
   }
 
   const existingUnknownCustomers = await client.query(
@@ -277,7 +310,7 @@ try {
   );
   if (linkedCustomers.rows[0].count !== existingCustomerIds.length) {
     throw new Error(
-      `Expected ${existingCustomerIds.length} previously imported portal customers, found ${linkedCustomers.rows[0].count}`,
+      `Expected ${existingCustomerIds.length} previously imported portal customers, found ${linkedCustomers.rows[0].count}. Run "node scripts/import-portal-customers-crm.mjs --apply" first, then retry this importer.`,
     );
   }
 
@@ -299,19 +332,28 @@ try {
     );
   }
 
+  const obsoleteStatusLogs = await client.query(
+    'SELECT count(*)::int AS count FROM "RepairStatusLog" WHERE id = ANY($1::text[])',
+    [obsoleteStatusLogIds],
+  );
+
   const before = await client.query(`
     SELECT 'customers' AS entity, count(*)::int AS count FROM "Customer"
     UNION ALL SELECT 'repairs', count(*)::int FROM "RepairCase"
     UNION ALL SELECT 'repairActivities', count(*)::int FROM "CustomerActivity"
+    UNION ALL SELECT 'repairStatusLogs', count(*)::int FROM "RepairStatusLog"
   `);
   const plan = {
     database: target.rows[0].database,
-    mode: apply ? 'insert-only' : 'dry-run',
+    mode: apply ? 'resumable-upsert' : 'dry-run',
     file: inputFile,
     rows: {
       newCustomers: payload.customers.length - unknownCustomerSourceKeys.size,
       repairs: payload.repairs.length,
-      repairActivities: payload.activities.length,
+      repairEventsAndNotes: payload.activities.length,
+    },
+    cleanup: {
+      obsoleteSyntheticStatusLogs: obsoleteStatusLogs.rows[0].count,
     },
     unknownCustomerConsolidation: {
       sourceCustomers: unknownCustomerSourceKeys.size,
@@ -320,7 +362,9 @@ try {
       activitiesToReassign: activitiesToConsolidate.rows[0].count,
       sharedCustomerId: unknownCustomerId,
     },
-    existing: Object.fromEntries(before.rows.map((row) => [row.entity, row.count])),
+    existing: Object.fromEntries(
+      before.rows.map((row) => [row.entity, row.count]),
+    ),
     alreadyImportedRepairIds: repairCollisions.rows[0].existing_ids,
     mapping: payload.counts,
   };
@@ -335,23 +379,26 @@ try {
         'SELECT localtimestamp::text AS "importedAt"',
       );
       const importedAt = importedAtResult.rows[0].importedAt;
+
       const customerRows = payload.customers
-        .filter((customer) => !unknownCustomerSourceKeys.has(customer.sourceKey))
+        .filter(
+          (customer) => !unknownCustomerSourceKeys.has(customer.sourceKey),
+        )
         .map((customer) => [
-        customerIds.get(customer.sourceKey),
-        customer.target.type,
-        customer.target.status,
-        customer.target.firstName,
-        customer.target.lastName,
-        customer.target.mobile,
-        customer.target.phone,
-        customer.target.email,
-        customer.target.province,
-        customer.target.city,
-        customer.target.address,
-        importedAt,
-        importedAt,
-        importedAt,
+          customerIds.get(customer.sourceKey),
+          customer.target.type,
+          customer.target.status,
+          customer.target.firstName,
+          customer.target.lastName,
+          customer.target.mobile,
+          customer.target.phone,
+          customer.target.email,
+          customer.target.province,
+          customer.target.city,
+          customer.target.address,
+          importedAt,
+          importedAt,
+          importedAt,
         ]);
       const importedCustomers = await insertRows(
         client,
@@ -395,22 +442,24 @@ try {
             'createdAt',
             'updatedAt',
           ],
-          [[
-            unknownCustomerId,
-            'PERSON',
-            'ACTIVE',
-            'نامشخص',
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            importedAt,
-            importedAt,
-            importedAt,
-          ]],
+          [
+            [
+              unknownCustomerId,
+              'PERSON',
+              'ACTIVE',
+              'نامشخص',
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              importedAt,
+              importedAt,
+              importedAt,
+            ],
+          ],
         );
         const sharedCustomer = await client.query(
           'SELECT "type", "firstName", "lastName", "organizationName" FROM "Customer" WHERE id = $1',
@@ -464,7 +513,7 @@ try {
         repair.target.serialNumber,
         repair.target.problemDescription,
       ]);
-      const importedRepairs = await insertRows(
+      const appliedRepairs = await insertRows(
         client,
         'RepairCase',
         [
@@ -486,6 +535,12 @@ try {
           'problemDescription',
         ],
         repairRows,
+        400,
+        `ON CONFLICT ("id") DO UPDATE SET
+          "status" = EXCLUDED."status",
+          "startedAt" = COALESCE("RepairCase"."startedAt", EXCLUDED."startedAt"),
+          "completedAt" = EXCLUDED."completedAt",
+          "updatedAt" = EXCLUDED."updatedAt"`,
       );
 
       const activityRows = payload.activities.map((activity) => [
@@ -520,6 +575,11 @@ try {
         activityRows,
       );
 
+      const deletedStatusLogs = await client.query(
+        'DELETE FROM "RepairStatusLog" WHERE id = ANY($1::text[])',
+        [obsoleteStatusLogIds],
+      );
+
       await client.query('COMMIT');
       console.log(
         JSON.stringify(
@@ -527,13 +587,22 @@ try {
             ...plan,
             inserted: {
               customers: importedCustomers,
-              repairs: importedRepairs,
-              repairActivities: importedActivities,
+              repairs:
+                repairRows.length - repairCollisions.rows[0].existing_ids,
+              repairEventsAndNotes: importedActivities,
+            },
+            updated: {
+              repairs: repairCollisions.rows[0].existing_ids,
+            },
+            applied: {
+              repairs: appliedRepairs,
             },
             skippedExistingDeterministicIds: {
               customers: customerRows.length - importedCustomers,
-              repairs: repairRows.length - importedRepairs,
-              repairActivities: activityRows.length - importedActivities,
+              repairEventsAndNotes: activityRows.length - importedActivities,
+            },
+            cleanedUp: {
+              obsoleteSyntheticStatusLogs: deletedStatusLogs.rowCount ?? 0,
             },
             transaction: 'committed',
           },

@@ -52,12 +52,17 @@ Compose hostname `postgres`; database `enterprise` and user `app` are still requ
 Portal repair data can be imported after the customer/CRM import:
 
 ```bash
+node scripts/prepare-portal-repairs.mjs
 node scripts/import-portal-repairs.mjs
 node scripts/import-portal-repairs.mjs --apply
 ```
 
-The repair importer also has a dry-run by default, preserves existing records,
-and requires all linked portal customers to exist in the dev database.
+The preparation step is idempotent: it marks every legacy repair `CLOSED`,
+fills historical start/completion dates, and preserves every source repair
+event/note as a `CustomerActivity` linked to its repair through
+`relatedRepairId`. The importer has a dry-run by default, requires all linked
+portal customers to exist in the dev database, and is resumable: existing
+deterministic repair IDs are updated while events/notes are inserted only once.
 Repairs whose source customer is missing or only has the generated
 `Portal repair customer` label are linked to one shared `نامشخص` customer.
 When applying, the importer also consolidates previously created placeholder
