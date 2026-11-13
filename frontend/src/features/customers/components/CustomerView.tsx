@@ -265,7 +265,7 @@ export function CustomerView({
                 )}
                 {a.relatedRepairId && (
                   <Link
-                    href={`/dashboard/repairs?repairId=${a.relatedRepairId}`}
+                    href={`/dashboard/repairs/${a.relatedRepairId}`}
                     className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
                     <Wrench size={12} /> مشاهده پرونده تعمیر
                   </Link>
@@ -287,7 +287,7 @@ export function CustomerView({
                     {r.deviceTitle}
                   </Link>
                   <Link
-                    href={`/dashboard/repairs?repairId=${r.id}`}
+                    href={`/dashboard/repairs/${r.id}`}
                     className="text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
                     {r.caseNumber}
                   </Link>
@@ -296,7 +296,7 @@ export function CustomerView({
                   <span>{r.type} • {r.status} • {dateFa(r.createdAt)}</span>
                   <div className="mr-auto flex items-center gap-3">
                     <Link
-                      href={`/dashboard/repairs?repairId=${r.id}`}
+                      href={`/dashboard/repairs/${r.id}`}
                       className="inline-flex items-center gap-1 text-brand-600 hover:underline dark:text-brand-400">
                       <Wrench size={12} /> مشاهده تعمیر
                     </Link>

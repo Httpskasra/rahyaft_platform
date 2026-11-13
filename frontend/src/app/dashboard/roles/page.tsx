@@ -1,1 +1,1 @@
-export { default } from "@/features/roles/RolesPage";
+export { default } from "@/features/roles/RolesListPage";

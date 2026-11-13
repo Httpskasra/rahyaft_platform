@@ -154,7 +154,7 @@ export function RepairDetail({
           <>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Link
-                href={`/dashboard/customers?customerId=${initialRepair.customerId}`}
+              href={`/dashboard/customers/${initialRepair.customerId}`}
                 className="rounded-2xl outline-none ring-brand-400 transition hover:ring-2 focus-visible:ring-2">
                 <InfoRow
                   icon={<User size={15} className="text-blue-500" />}

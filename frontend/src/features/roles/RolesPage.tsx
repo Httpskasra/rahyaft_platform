@@ -11,6 +11,8 @@ import { Modal } from "@/components/ui/Modal";
 import { ToastViewport } from "@/components/ui/ToastViewport";
 import { useToast } from "@/hooks/useToast";
 import { cn } from "@/lib/cn";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────
 // Types
@@ -27,7 +29,7 @@ import {
 } from "@/features/roles/components";
 import { PERMISSION_MODULES, ROLE_TEMPLATES, permissionsFromTemplate } from "@/features/roles/components/permissionConfig";
 
-export default function RolesPermissionsPage() {
+export default function RolesPermissionsPage({ initialRoleId }: { initialRoleId?: string }) {
   const { toasts, show: showToast } = useToast();
 
   // ── Data ──
@@ -36,7 +38,7 @@ export default function RolesPermissionsPage() {
   const [fetchError, setFetchError] = useState<string | null>(null);
 
   // ── Selection ──
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(initialRoleId ?? null);
   const activeRole = useMemo(
     () => roles.find((r) => r.id === activeId) ?? null,
     [roles, activeId]
@@ -212,6 +214,7 @@ export default function RolesPermissionsPage() {
     <div dir="rtl" lang="fa" className="min-h-screen">
       <ToastViewport toasts={toasts} />
 
+      {initialRoleId && <Link href="/dashboard/roles" className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-brand-600 dark:text-gray-400"><ArrowRight size={16} /> بازگشت به فهرست نقش‌ها</Link>}
       {/* Page header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -237,9 +240,9 @@ export default function RolesPermissionsPage() {
       </div>
 
       {/* Main grid */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[320px_1fr]">
+      <div className={initialRoleId ? "block" : "grid grid-cols-1 gap-4 lg:grid-cols-[320px_1fr]"}>
         {/* Roles list */}
-        <aside className="flex flex-col gap-3">
+        {!initialRoleId && <aside className="flex flex-col gap-3">
           <div className="relative">
             <input
               type="text"
@@ -291,7 +294,7 @@ export default function RolesPermissionsPage() {
               )}
             </div>
           )}
-        </aside>
+        </aside>}
 
         {/* Editor panel */}
         <div className="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">

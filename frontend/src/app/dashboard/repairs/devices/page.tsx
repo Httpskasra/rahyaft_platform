@@ -142,7 +142,7 @@ export default function RepairsDevicesPage() {
 
               <div className="mt-4 flex items-center justify-between gap-3 border-t border-gray-100 pt-4 text-sm dark:border-gray-800">
                 <Link
-                  href={`/dashboard/customers?customerId=${repair.customerId}`}
+                  href={`/dashboard/customers/${repair.customerId}`}
                   className="inline-flex min-w-0 items-center gap-1.5 text-gray-600 hover:text-brand-600 hover:underline dark:text-gray-300 dark:hover:text-brand-400">
                   <UserRound size={14} />
                   <span className="truncate">
@@ -150,7 +150,7 @@ export default function RepairsDevicesPage() {
                   </span>
                 </Link>
                 <Link
-                  href={`/dashboard/repairs?repairId=${repair.id}`}
+                  href={`/dashboard/repairs/${repair.id}`}
                   className="shrink-0 font-medium text-brand-600 hover:underline dark:text-brand-400">
                   مشاهده تعمیر {repair.caseNumber}
                 </Link>
