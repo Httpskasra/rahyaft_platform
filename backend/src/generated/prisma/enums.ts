@@ -369,3 +369,28 @@ export const InterviewRecommendation = {
 } as const
 
 export type InterviewRecommendation = (typeof InterviewRecommendation)[keyof typeof InterviewRecommendation]
+
+
+export const SupplierType = {
+  PERSON: 'PERSON',
+  COMPANY: 'COMPANY'
+} as const
+
+export type SupplierType = (typeof SupplierType)[keyof typeof SupplierType]
+
+
+export const SupplierLabel = {
+  WHITE: 'WHITE',
+  GRAY: 'GRAY',
+  BLACK: 'BLACK'
+} as const
+
+export type SupplierLabel = (typeof SupplierLabel)[keyof typeof SupplierLabel]
+
+
+export const EvaluationKind = {
+  INITIAL: 'INITIAL',
+  PERIODIC: 'PERIODIC'
+} as const
+
+export type EvaluationKind = (typeof EvaluationKind)[keyof typeof EvaluationKind]

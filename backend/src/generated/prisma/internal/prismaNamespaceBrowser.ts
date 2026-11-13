@@ -103,7 +103,18 @@ export const ModelName = {
   RecruitmentFormSubmission: 'RecruitmentFormSubmission',
   RecruitmentAssignment: 'RecruitmentAssignment',
   RecruitmentTransition: 'RecruitmentTransition',
-  TechnicalInterviewEvaluation: 'TechnicalInterviewEvaluation'
+  TechnicalInterviewEvaluation: 'TechnicalInterviewEvaluation',
+  Supplier: 'Supplier',
+  SupplierProduct: 'SupplierProduct',
+  EvaluationTemplate: 'EvaluationTemplate',
+  EvaluationQuestion: 'EvaluationQuestion',
+  SupplierEvaluation: 'SupplierEvaluation',
+  SupplierEvaluationAnswer: 'SupplierEvaluationAnswer',
+  ProductType: 'ProductType',
+  ProductCategory: 'ProductCategory',
+  Product: 'Product',
+  PricingSettings: 'PricingSettings',
+  ProductPrice: 'ProductPrice'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -892,6 +903,176 @@ export const TechnicalInterviewEvaluationScalarFieldEnum = {
 } as const
 
 export type TechnicalInterviewEvaluationScalarFieldEnum = (typeof TechnicalInterviewEvaluationScalarFieldEnum)[keyof typeof TechnicalInterviewEvaluationScalarFieldEnum]
+
+
+export const SupplierScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  companyName: 'companyName',
+  representativeName: 'representativeName',
+  representativePhone: 'representativePhone',
+  accountantName: 'accountantName',
+  accountantPhone: 'accountantPhone',
+  phone: 'phone',
+  address: 'address',
+  isActive: 'isActive',
+  score: 'score',
+  label: 'label',
+  lastEvaluatedAt: 'lastEvaluatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
+
+
+export const SupplierProductScalarFieldEnum = {
+  supplierId: 'supplierId',
+  productId: 'productId',
+  createdAt: 'createdAt'
+} as const
+
+export type SupplierProductScalarFieldEnum = (typeof SupplierProductScalarFieldEnum)[keyof typeof SupplierProductScalarFieldEnum]
+
+
+export const EvaluationTemplateScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  title: 'title',
+  description: 'description',
+  whiteMinScore: 'whiteMinScore',
+  grayMinScore: 'grayMinScore',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EvaluationTemplateScalarFieldEnum = (typeof EvaluationTemplateScalarFieldEnum)[keyof typeof EvaluationTemplateScalarFieldEnum]
+
+
+export const EvaluationQuestionScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  title: 'title',
+  helpText: 'helpText',
+  weight: 'weight',
+  guideScore0: 'guideScore0',
+  guideScore1: 'guideScore1',
+  guideScore2: 'guideScore2',
+  guideScore3: 'guideScore3',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EvaluationQuestionScalarFieldEnum = (typeof EvaluationQuestionScalarFieldEnum)[keyof typeof EvaluationQuestionScalarFieldEnum]
+
+
+export const SupplierEvaluationScalarFieldEnum = {
+  id: 'id',
+  supplierId: 'supplierId',
+  templateId: 'templateId',
+  kind: 'kind',
+  totalScore: 'totalScore',
+  label: 'label',
+  note: 'note',
+  evaluatorId: 'evaluatorId',
+  evaluatedAt: 'evaluatedAt'
+} as const
+
+export type SupplierEvaluationScalarFieldEnum = (typeof SupplierEvaluationScalarFieldEnum)[keyof typeof SupplierEvaluationScalarFieldEnum]
+
+
+export const SupplierEvaluationAnswerScalarFieldEnum = {
+  id: 'id',
+  evaluationId: 'evaluationId',
+  questionId: 'questionId',
+  questionTitle: 'questionTitle',
+  weight: 'weight',
+  score: 'score',
+  note: 'note'
+} as const
+
+export type SupplierEvaluationAnswerScalarFieldEnum = (typeof SupplierEvaluationAnswerScalarFieldEnum)[keyof typeof SupplierEvaluationAnswerScalarFieldEnum]
+
+
+export const ProductTypeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  profitPercent: 'profitPercent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductTypeScalarFieldEnum = (typeof ProductTypeScalarFieldEnum)[keyof typeof ProductTypeScalarFieldEnum]
+
+
+export const ProductCategoryScalarFieldEnum = {
+  id: 'id',
+  typeId: 'typeId',
+  code: 'code',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductCategoryScalarFieldEnum = (typeof ProductCategoryScalarFieldEnum)[keyof typeof ProductCategoryScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  productCode: 'productCode',
+  categoryId: 'categoryId',
+  itemCode: 'itemCode',
+  nameGroup: 'nameGroup',
+  nameType: 'nameType',
+  nameDefinition: 'nameDefinition',
+  brand: 'brand',
+  model: 'model',
+  grade: 'grade',
+  extraCode: 'extraCode',
+  color: 'color',
+  fullName: 'fullName',
+  lotNumber: 'lotNumber',
+  serialNumber: 'serialNumber',
+  manufactureDate: 'manufactureDate',
+  expiryDate: 'expiryDate',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const PricingSettingsScalarFieldEnum = {
+  id: 'id',
+  overheadPercent: 'overheadPercent',
+  profitTaxPercent: 'profitTaxPercent',
+  vatPercent: 'vatPercent',
+  shippingPercent: 'shippingPercent',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PricingSettingsScalarFieldEnum = (typeof PricingSettingsScalarFieldEnum)[keyof typeof PricingSettingsScalarFieldEnum]
+
+
+export const ProductPriceScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  purchasePrice: 'purchasePrice',
+  costPrice: 'costPrice',
+  sellPrice: 'sellPrice',
+  profitLossPercent: 'profitLossPercent',
+  breakdown: 'breakdown',
+  approvedById: 'approvedById',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductPriceScalarFieldEnum = (typeof ProductPriceScalarFieldEnum)[keyof typeof ProductPriceScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -54,6 +54,7 @@ async function main() {
     'communication',
     'production-flows',
     'production-runs',
+    'commerce',
   ];
 
   for (const action of actions) {

@@ -304,3 +304,58 @@ export type RecruitmentTransition = Prisma.RecruitmentTransitionModel
  * 
  */
 export type TechnicalInterviewEvaluation = Prisma.TechnicalInterviewEvaluationModel
+/**
+ * Model Supplier
+ * 
+ */
+export type Supplier = Prisma.SupplierModel
+/**
+ * Model SupplierProduct
+ * 
+ */
+export type SupplierProduct = Prisma.SupplierProductModel
+/**
+ * Model EvaluationTemplate
+ * 
+ */
+export type EvaluationTemplate = Prisma.EvaluationTemplateModel
+/**
+ * Model EvaluationQuestion
+ * 
+ */
+export type EvaluationQuestion = Prisma.EvaluationQuestionModel
+/**
+ * Model SupplierEvaluation
+ * 
+ */
+export type SupplierEvaluation = Prisma.SupplierEvaluationModel
+/**
+ * Model SupplierEvaluationAnswer
+ * 
+ */
+export type SupplierEvaluationAnswer = Prisma.SupplierEvaluationAnswerModel
+/**
+ * Model ProductType
+ * 
+ */
+export type ProductType = Prisma.ProductTypeModel
+/**
+ * Model ProductCategory
+ * 
+ */
+export type ProductCategory = Prisma.ProductCategoryModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model PricingSettings
+ * 
+ */
+export type PricingSettings = Prisma.PricingSettingsModel
+/**
+ * Model ProductPrice
+ * 
+ */
+export type ProductPrice = Prisma.ProductPriceModel

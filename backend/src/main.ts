@@ -10,7 +10,6 @@ import { CommunicationWebSocketServer } from './communication/communication.webs
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // ✅ ADD THIS — must be before helmet()
-
   app.enableCors({
     origin: process.env.FRONTEND_URL ?? 'http://localhost:3001',
     credentials: true, // needed for cookies

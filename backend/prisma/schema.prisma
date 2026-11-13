@@ -1350,3 +1350,255 @@ model TechnicalInterviewEvaluation {
 
   @@index([interviewerId])
 }
+
+// ═════════════════════════════════════════════════════════════
+// بازرگانی (Commerce): تامین‌کنندگان، ارزیابی، محصولات، قیمت‌گذاری
+// ═════════════════════════════════════════════════════════════
+
+enum SupplierType {
+  PERSON
+  COMPANY
+}
+
+// لیبل خودکار تامین‌کننده بر اساس نمره ارزیابی
+enum SupplierLabel {
+  WHITE
+  GRAY
+  BLACK
+}
+
+enum EvaluationKind {
+  INITIAL // چک‌لیست ارزیابی اولیه تامین‌کننده
+  PERIODIC // چک‌لیست ارزیابی دوره‌ای تامین‌کننده
+}
+
+model Supplier {
+  id   String       @id @default(uuid())
+  type SupplierType
+
+  // شخص
+  firstName String?
+  lastName  String?
+
+  // شرکت
+  companyName         String?
+  representativeName  String?
+  representativePhone String?
+  accountantName      String?
+  accountantPhone     String?
+
+  // مشترک
+  phone    String?
+  address  String?
+  isActive Boolean @default(true)
+
+  // آخرین نمره و لیبل (با هر ارزیابی جدید به‌روز می‌شود)
+  score         Float?
+  label         SupplierLabel?
+  lastEvaluatedAt DateTime?
+
+  products    SupplierProduct[]
+  evaluations SupplierEvaluation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([label])
+  @@index([companyName])
+  @@index([firstName, lastName])
+}
+
+model SupplierProduct {
+  supplierId String
+  productId  String
+
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([supplierId, productId])
+  @@index([productId])
+}
+
+// فرم ارزیابی: دقیقاً یک فرم برای هر نوع (اولیه / دوره‌ای)
+model EvaluationTemplate {
+  id          String         @id @default(uuid())
+  kind        EvaluationKind @unique
+  title       String
+  description String?
+
+  // آستانه‌های لیبل: >= whiteMinScore سفید ، >= grayMinScore خاکستری ، کمتر از آن مشکی
+  whiteMinScore Float @default(60)
+  grayMinScore  Float @default(40)
+
+  questions   EvaluationQuestion[]
+  evaluations SupplierEvaluation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EvaluationQuestion {
+  id         String             @id @default(uuid())
+  templateId String
+  template   EvaluationTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  title    String // شرح سوال
+  helpText String? // راهنمای کلی
+  weight   Float   @default(1) // وزن سوال
+
+  // راهنمای هر نمره برای اپراتور
+  guideScore0 String?
+  guideScore1 String?
+  guideScore2 String?
+  guideScore3 String?
+
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+
+  answers SupplierEvaluationAnswer[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([templateId, order])
+}
+
+model SupplierEvaluation {
+  id         String   @id @default(uuid())
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  templateId String?
+  template   EvaluationTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+
+  kind       EvaluationKind
+  totalScore Float // ۰ تا ۱۰۰
+  label      SupplierLabel
+
+  note        String?
+  evaluatorId String?
+  evaluatedAt DateTime @default(now())
+
+  answers SupplierEvaluationAnswer[]
+
+  @@index([supplierId, kind, evaluatedAt])
+}
+
+// پاسخ‌ها snapshot می‌شوند تا تغییر بعدی فرم، ارزیابی‌های قبلی را خراب نکند
+model SupplierEvaluationAnswer {
+  id           String             @id @default(uuid())
+  evaluationId String
+  evaluation   SupplierEvaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+
+  questionId String?
+  question   EvaluationQuestion? @relation(fields: [questionId], references: [id], onDelete: SetNull)
+
+  questionTitle String
+  weight        Float
+  score         Int // 0..3
+  note          String?
+
+  @@index([evaluationId])
+}
+
+// نوع کالا: ۲ رقم اول کد کالا
+model ProductType {
+  id            String            @id @default(uuid())
+  code          String            @unique // 2 رقم
+  name          String
+  profitPercent Float             @default(0) // درصد سود این نوع کالا
+  categories    ProductCategory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// کتگوری: ۳ رقم وسط کد کالا
+model ProductCategory {
+  id     String      @id @default(uuid())
+  typeId String
+  type   ProductType @relation(fields: [typeId], references: [id], onDelete: Restrict)
+
+  code String // 3 رقم
+  name String
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([typeId, code])
+}
+
+model Product {
+  id String @id @default(uuid())
+
+  // کد کالا ۹ رقمی = [نوع ۲ رقم][کتگوری ۳ رقم][شماره کالا ۴ رقم]
+  productCode String @unique
+  categoryId  String
+  category    ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  itemCode    String // 4 رقم
+
+  // اجزای نام (ستون‌های جدول نام‌گذاری؛ همگی اختیاری)
+  nameGroup      String? // گروه‌بندی
+  nameType       String? // نوع
+  nameDefinition String? // پس کد تعریف محصول
+  brand          String? // برند
+  model          String? // مدل
+  grade          String? // گروهی / درجه (اکونومی ...)
+  extraCode      String? // پیش کد اضافه
+  color          String? // رنگ و کد رنگ
+  fullName       String // الحاق ستون‌ها
+
+  lotNumber       String?
+  serialNumber    String?
+  manufactureDate DateTime? @db.Date
+  expiryDate      DateTime? @db.Date
+
+  isActive Boolean @default(true)
+
+  prices    ProductPrice[]
+  suppliers SupplierProduct[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([categoryId, itemCode])
+  @@index([fullName])
+  @@index([lotNumber])
+  @@index([serialNumber])
+}
+
+// تنظیمات سراسری هزینه‌ها (یک رکورد با id=1)
+model PricingSettings {
+  id Int @id @default(1)
+
+  overheadPercent  Float @default(0) // هزینه سربار (حقوق، پورسانت و ...)
+  profitTaxPercent Float @default(0) // مالیات از سود خالص
+  vatPercent       Float @default(0) // مالیات بر ارزش افزوده
+  shippingPercent  Float @default(0) // هزینه حمل
+
+  updatedAt DateTime @updatedAt
+}
+
+// قیمت‌های تاییدشده؛ آخرین رکورد = قیمت فعلی کالا
+model ProductPrice {
+  id        String  @id @default(uuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  purchasePrice Decimal @db.Decimal(18, 2)
+  costPrice     Decimal @db.Decimal(18, 2) // قیمت تمام شده
+  sellPrice     Decimal @db.Decimal(18, 2) // قیمت تاییدشده توسط کاربر
+
+  profitLossPercent Float // سود (+) / زیان (-) نسبت به قیمت تمام شده
+  breakdown         Json // snapshot کامل محاسبه (درصدها و مبالغ)
+
+  approvedById String?
+  createdAt    DateTime @default(now())
+
+  @@index([productId, createdAt])
+}
