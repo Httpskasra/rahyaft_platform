@@ -191,7 +191,13 @@ export type ActivityPayload = Pick<CustomerActivity, "type" | "title"> &
 
 export const customersApi = {
   findAll: (params?: QueryCustomerParams) =>
-    apiClient.get<CustomerListResponse>("/customers", { params }),
+    apiClient.get<CustomerListResponse>("/customers", {
+      params: params
+        ? Object.fromEntries(
+            Object.entries(params).filter(([, value]) => value !== "" && value !== undefined),
+          )
+        : undefined,
+    }),
   findOne: (id: string) => apiClient.get<CustomerDetail>(`/customers/${id}`),
   create: (body: CustomerPayload) =>
     apiClient.post<Customer>("/customers", body),

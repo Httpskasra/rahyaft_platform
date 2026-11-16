@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import type { Submission } from "@/lib/api/forms";
 import { approvalsApi, type ApprovalInstanceStatus } from "@/lib/api/approvals";
 import { exportSubmissionToPDF } from "../exportSubmissionToPdf";
 import type { SchemaField } from "../types";
+import { useInfiniteRows } from "@/hooks/useInfiniteRows";
 
 export function SubmissionsTable({
   submissions,
@@ -23,6 +25,7 @@ export function SubmissionsTable({
   formDescription?: string;
 }) {
   const cols = fields.slice(0, 3);
+  const { visibleRows, hasMore, loadMore, sentinelRef } = useInfiniteRows(submissions, 20);
   const [statusCache, setStatusCache] = useState<
     Record<string, ApprovalInstanceStatus>
   >({});
@@ -44,8 +47,8 @@ export function SubmissionsTable({
   };
 
   useEffect(() => {
-    submissions.forEach((s) => fetchStatus(s.id));
-  }, [submissions]);
+    visibleRows.forEach((s) => fetchStatus(s.id));
+  }, [visibleRows]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -88,7 +91,7 @@ export function SubmissionsTable({
           </tr>
         </thead>
         <tbody>
-          {submissions.slice(0, 20).map((sub) => (
+          {visibleRows.map((sub) => (
             <tr
               key={sub.id}
               className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30">
@@ -144,11 +147,7 @@ export function SubmissionsTable({
           ))}
         </tbody>
       </table>
-      {submissions.length > 20 && (
-        <p className="text-xs text-gray-400 mt-3 text-center">
-          نمایش ۲۰ مورد از {submissions.length} پاسخ
-        </p>
-      )}
+      {submissions.length > 0 && <div ref={sentinelRef} className="mt-3 flex min-h-9 items-center justify-center text-xs text-gray-400">{hasMore ? <button type="button" onClick={loadMore} className="rounded-lg px-3 py-1.5 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-500/10">نمایش پاسخ‌های بیشتر</button> : `${visibleRows.length.toLocaleString("fa-IR")} پاسخ نمایش داده شد`}</div>}
     </div>
   );
 }

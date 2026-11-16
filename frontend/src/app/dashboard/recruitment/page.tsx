@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { recruitmentApi } from "@/lib/api/recruitment";
+import { useInfiniteRows } from "@/hooks/useInfiniteRows";
 const labels: any = {
   INITIAL_REVIEW: "بررسی اولیه",
   INITIAL_INTERVIEW: "مصاحبه اولیه",
@@ -12,6 +13,7 @@ const labels: any = {
 };
 export default function Recruitment() {
   const [items, setItems] = useState<any[]>([]);
+  const { visibleRows, hasMore, loadMore, sentinelRef } = useInfiniteRows(items, 20);
   useEffect(() => {
     recruitmentApi.applications().then(setItems);
   }, []);
@@ -37,7 +39,7 @@ export default function Recruitment() {
             </tr>
           </thead>
           <tbody>
-            {items.map((a) => (
+            {visibleRows.map((a) => (
               <tr key={a.id} className="border-t">
                 <td className="p-4">
                   <b>{a.applicant.fullName}</b>
@@ -59,6 +61,7 @@ export default function Recruitment() {
             ))}
           </tbody>
         </table>
+        {items.length > 0 && <div ref={sentinelRef} className="flex min-h-12 items-center justify-center border-t text-xs text-gray-400">{hasMore ? <button type="button" onClick={loadMore} className="rounded-lg px-3 py-1.5 text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400">نمایش پرونده‌های بیشتر</button> : `${visibleRows.length.toLocaleString("fa-IR")} پرونده نمایش داده شد`}</div>}
         {items.length === 0 && (
           <div className="p-10 text-center text-gray-500">
             هنوز پرونده‌ای ثبت نشده است. ابتدا از بخش مدیریت، فرم و فرصت شغلی

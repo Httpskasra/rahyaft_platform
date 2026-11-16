@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsEnum,
   IsIn,
@@ -29,12 +29,14 @@ export class QueryCustomerDto {
   // ─── فیلتر نوع و وضعیت مشتری ─────────────────────────────
 
   @IsOptional()
+  @Transform(({ value }) => (value === '' ? undefined : value))
   @IsEnum(CustomerType, {
     message: 'نوع مشتری باید PERSON یا ORGANIZATION باشد',
   })
   type?: CustomerType;
 
   @IsOptional()
+  @Transform(({ value }) => (value === '' ? undefined : value))
   @IsEnum(CustomerStatus, { message: 'وضعیت مشتری معتبر نیست' })
   status?: CustomerStatus;
 
