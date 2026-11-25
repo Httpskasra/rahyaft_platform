@@ -388,3 +388,142 @@ export const InterviewRecommendation = {
 } as const
 
 export type InterviewRecommendation = (typeof InterviewRecommendation)[keyof typeof InterviewRecommendation]
+
+
+export const SupplierKind = {
+  GOODS: 'GOODS',
+  TRANSPORT: 'TRANSPORT'
+} as const
+
+export type SupplierKind = (typeof SupplierKind)[keyof typeof SupplierKind]
+
+
+export const SupplierEntityType = {
+  PERSON: 'PERSON',
+  COMPANY: 'COMPANY'
+} as const
+
+export type SupplierEntityType = (typeof SupplierEntityType)[keyof typeof SupplierEntityType]
+
+
+export const SupplierLabel = {
+  WHITE: 'WHITE',
+  GRAY: 'GRAY',
+  BLACK: 'BLACK'
+} as const
+
+export type SupplierLabel = (typeof SupplierLabel)[keyof typeof SupplierLabel]
+
+
+export const EvaluationType = {
+  INITIAL: 'INITIAL',
+  PERIODIC: 'PERIODIC'
+} as const
+
+export type EvaluationType = (typeof EvaluationType)[keyof typeof EvaluationType]
+
+
+export const PurchaseRequestStatus = {
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  ORDERED: 'ORDERED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PurchaseRequestStatus = (typeof PurchaseRequestStatus)[keyof typeof PurchaseRequestStatus]
+
+
+export const PurchaseOrderStatus = {
+  INITIAL: 'INITIAL',
+  FOLLOW_UP: 'FOLLOW_UP',
+  PURCHASED: 'PURCHASED',
+  FINALIZED: 'FINALIZED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PurchaseOrderStatus = (typeof PurchaseOrderStatus)[keyof typeof PurchaseOrderStatus]
+
+
+export const PaymentMethod = {
+  CASH: 'CASH',
+  CREDIT: 'CREDIT'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const DeliveryMode = {
+  SUPPLIER_DELIVERY: 'SUPPLIER_DELIVERY',
+  TRANSPORT_SUPPLIER: 'TRANSPORT_SUPPLIER'
+} as const
+
+export type DeliveryMode = (typeof DeliveryMode)[keyof typeof DeliveryMode]
+
+
+export const WarehouseInvoiceType = {
+  RECEIPT: 'RECEIPT',
+  TRANSFER: 'TRANSFER',
+  ISSUE: 'ISSUE',
+  ADJUSTMENT: 'ADJUSTMENT'
+} as const
+
+export type WarehouseInvoiceType = (typeof WarehouseInvoiceType)[keyof typeof WarehouseInvoiceType]
+
+
+export const StockTransferStatus = {
+  REQUESTED: 'REQUESTED',
+  REJECTED: 'REJECTED',
+  IN_TRANSIT: 'IN_TRANSIT',
+  RECEIVED: 'RECEIVED'
+} as const
+
+export type StockTransferStatus = (typeof StockTransferStatus)[keyof typeof StockTransferStatus]
+
+
+export const OutboundRequestStatus = {
+  PENDING_ALLOCATION: 'PENDING_ALLOCATION',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OutboundRequestStatus = (typeof OutboundRequestStatus)[keyof typeof OutboundRequestStatus]
+
+
+export const OutboundDispatchStatus = {
+  PENDING_KEEPER: 'PENDING_KEEPER',
+  REJECTED: 'REJECTED',
+  PREPARING: 'PREPARING',
+  READY_FOR_DELIVERY: 'READY_FOR_DELIVERY',
+  DELIVERED: 'DELIVERED'
+} as const
+
+export type OutboundDispatchStatus = (typeof OutboundDispatchStatus)[keyof typeof OutboundDispatchStatus]
+
+
+export const DeliveryType = {
+  IN_PERSON: 'IN_PERSON',
+  INTERNAL_TRANSPORT: 'INTERNAL_TRANSPORT',
+  FREIGHT: 'FREIGHT'
+} as const
+
+export type DeliveryType = (typeof DeliveryType)[keyof typeof DeliveryType]
+
+
+export const StocktakeStatus = {
+  COUNTING: 'COUNTING',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type StocktakeStatus = (typeof StocktakeStatus)[keyof typeof StocktakeStatus]
+
+
+export const StocktakeWarehouseStatus = {
+  COUNTING: 'COUNTING',
+  SUBMITTED: 'SUBMITTED',
+  RETURNED: 'RETURNED'
+} as const
+
+export type StocktakeWarehouseStatus = (typeof StocktakeWarehouseStatus)[keyof typeof StocktakeWarehouseStatus]

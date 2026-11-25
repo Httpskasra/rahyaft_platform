@@ -55,14 +55,14 @@ model DepartmentRelation {
 }
 
 model User {
-  id           String  @id @default(uuid())
-  phoneNumber  String  @unique
-  name         String
-  departmentId String
-  managerId    String?
-  refreshToken String?
-  signatureStorageKey String?
-  signatureMimeType   String?
+  id                      String                   @id @default(uuid())
+  phoneNumber             String                   @unique
+  name                    String
+  departmentId            String
+  managerId               String?
+  refreshToken            String?
+  signatureStorageKey     String?
+  signatureMimeType       String?
   signatureChangeRequests SignatureChangeRequest[] @relation("SignatureChangeRequester")
   signatureChangeReviews  SignatureChangeRequest[] @relation("SignatureChangeReviewer")
 
@@ -109,12 +109,16 @@ model User {
   productionStepsSupervised     ProductionRunStep[]         @relation("ProductionRunStepSupervisor")
   productionStepsApproved       ProductionRunStep[]         @relation("ProductionRunStepApprover")
   productionReviews             ProductionStepReview[]      @relation("ProductionStepReviewer")
-  productionFlowsQcOwned         ProductionFlow[]            @relation("ProductionFlowQcAssignee")
-  productionRunsQcAssigned       ProductionRun[]             @relation("ProductionRunQcAssignee")
-  productionRunsQcReviewed       ProductionRun[]             @relation("ProductionRunQcReviewer")
+  productionFlowsQcOwned        ProductionFlow[]            @relation("ProductionFlowQcAssignee")
+  productionRunsQcAssigned      ProductionRun[]             @relation("ProductionRunQcAssignee")
+  productionRunsQcReviewed      ProductionRun[]             @relation("ProductionRunQcReviewer")
+  keptWarehouses                Warehouse[]                 @relation("WarehouseKeeper")
+  purchaseRequests              PurchaseRequest[]           @relation("PurchaseRequester")
+  purchaseOrdersRequested       PurchaseOrder[]             @relation("PurchaseOrderRequester")
+  purchaseOrdersBought          PurchaseOrder[]             @relation("PurchaseOrderBuyer")
+  stockTransfersRequested       StockTransfer[]             @relation("TransferRequester")
+  outboundRequests              OutboundRequest[]           @relation("OutboundRequester")
 }
-
-
 
 enum SignatureChangeRequestStatus {
   PENDING
@@ -123,16 +127,16 @@ enum SignatureChangeRequestStatus {
 }
 
 model SignatureChangeRequest {
-  id                String                       @id @default(uuid())
-  requesterId       String
-  reviewerId        String
-  storageKey        String
-  mimeType          String
-  status            SignatureChangeRequestStatus @default(PENDING)
-  reviewComment     String?
-  reviewedAt        DateTime?
-  createdAt         DateTime                     @default(now())
-  updatedAt         DateTime                     @updatedAt
+  id            String                       @id @default(uuid())
+  requesterId   String
+  reviewerId    String
+  storageKey    String
+  mimeType      String
+  status        SignatureChangeRequestStatus @default(PENDING)
+  reviewComment String?
+  reviewedAt    DateTime?
+  createdAt     DateTime                     @default(now())
+  updatedAt     DateTime                     @updatedAt
 
   requester User @relation("SignatureChangeRequester", fields: [requesterId], references: [id], onDelete: Cascade)
   reviewer  User @relation("SignatureChangeReviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
@@ -349,26 +353,25 @@ model CommunicationNotification {
   @@index([threadId, createdAt])
 }
 
-
 model AppNotification {
-  id         String    @id @default(uuid())
-  userId     String
-  type       String
-  category   String
-  title      String
-  body       String?
-  href       String?
-  entityType String?
-  entityId   String?
-  actorId    String?
-  metadata   Json?
-  readAt     DateTime?
-  createdAt  DateTime  @default(now())
-  baleStatus String    @default("PENDING") // PENDING, SENDING, SENT, SKIPPED, FAILED
-  baleAttempts Int     @default(0)
-  baleNextAttemptAt DateTime @default(now())
-  baleSentAt DateTime?
-  baleLastError String?
+  id                String    @id @default(uuid())
+  userId            String
+  type              String
+  category          String
+  title             String
+  body              String?
+  href              String?
+  entityType        String?
+  entityId          String?
+  actorId           String?
+  metadata          Json?
+  readAt            DateTime?
+  createdAt         DateTime  @default(now())
+  baleStatus        String    @default("PENDING") // PENDING, SENDING, SENT, SKIPPED, FAILED
+  baleAttempts      Int       @default(0)
+  baleNextAttemptAt DateTime  @default(now())
+  baleSentAt        DateTime?
+  baleLastError     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -561,40 +564,40 @@ enum ProductionQcStatus {
 }
 
 model ProductionFlow {
-  id          String   @id @default(uuid())
-  name        String
-  code        String?  @unique
-  description String?
-  isActive    Boolean  @default(true)
-  requiresQc  Boolean  @default(false)
+  id           String   @id @default(uuid())
+  name         String
+  code         String?  @unique
+  description  String?
+  isActive     Boolean  @default(true)
+  requiresQc   Boolean  @default(false)
   qcAssigneeId String?
-  createdById String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdById  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  createdBy User                 @relation("ProductionFlowCreator", fields: [createdById], references: [id])
-  qcAssignee User?               @relation("ProductionFlowQcAssignee", fields: [qcAssigneeId], references: [id])
-  steps     ProductionFlowStep[]
-  runs      ProductionRun[]
+  createdBy  User                 @relation("ProductionFlowCreator", fields: [createdById], references: [id])
+  qcAssignee User?                @relation("ProductionFlowQcAssignee", fields: [qcAssigneeId], references: [id])
+  steps      ProductionFlowStep[]
+  runs       ProductionRun[]
 
   @@index([createdById])
   @@index([isActive])
 }
 
 model ProductionFlowStep {
-  id               String   @id @default(uuid())
-  flowId           String
-  stepOrder        Int
-  name             String
-  description      String?
-  formId           String
-  assigneeUserId   String
-  supervisorUserId String?
-  approverUserId   String?
-  estimatedMinutes Int?
+  id                String   @id @default(uuid())
+  flowId            String
+  stepOrder         Int
+  name              String
+  description       String?
+  formId            String
+  assigneeUserId    String
+  supervisorUserId  String?
+  approverUserId    String?
+  estimatedMinutes  Int?
   checklistTemplate Json?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   flow       ProductionFlow      @relation(fields: [flowId], references: [id], onDelete: Cascade)
   form       Form                @relation(fields: [formId], references: [id])
@@ -634,11 +637,11 @@ model ProductionRun {
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt
 
-  flow      ProductionFlow      @relation(fields: [flowId], references: [id])
-  startedBy User                @relation("ProductionRunStarter", fields: [startedById], references: [id])
-  qcAssignee User?              @relation("ProductionRunQcAssignee", fields: [qcAssigneeId], references: [id])
-  qcReviewer User?              @relation("ProductionRunQcReviewer", fields: [qcReviewerId], references: [id])
-  steps     ProductionRunStep[]
+  flow       ProductionFlow      @relation(fields: [flowId], references: [id])
+  startedBy  User                @relation("ProductionRunStarter", fields: [startedById], references: [id])
+  qcAssignee User?               @relation("ProductionRunQcAssignee", fields: [qcAssigneeId], references: [id])
+  qcReviewer User?               @relation("ProductionRunQcReviewer", fields: [qcReviewerId], references: [id])
+  steps      ProductionRunStep[]
 
   @@index([flowId, status])
   @@index([startedById])
@@ -744,14 +747,14 @@ model ApprovalInstance {
 }
 
 model ApprovalAction {
-  id         String           @id @default(uuid())
-  instanceId String
-  instance   ApprovalInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
-  stepId     String
-  step       ApprovalStep     @relation(fields: [stepId], references: [id])
-  approverId String
-  approver   User             @relation(fields: [approverId], references: [id])
-  action     ApprovalStatus
+  id                  String           @id @default(uuid())
+  instanceId          String
+  instance            ApprovalInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  stepId              String
+  step                ApprovalStep     @relation(fields: [stepId], references: [id])
+  approverId          String
+  approver            User             @relation(fields: [approverId], references: [id])
+  action              ApprovalStatus
   comments            String?
   signatureStorageKey String?
   signatureMimeType   String?
@@ -943,11 +946,11 @@ model RepairStatusLog {
 model RepairSla {
   id String @id @default(uuid())
 
-  repairCaseId String @unique
+  repairCaseId String     @unique
   repairCase   RepairCase @relation(fields: [repairCaseId], references: [id], onDelete: Cascade)
 
   targetHours Int
-  dueAt DateTime
+  dueAt       DateTime
 
   completedAt DateTime?
 
@@ -1105,6 +1108,7 @@ model Customer {
   salesOpportunities SalesOpportunity[]
   activities         CustomerActivity[]
   aiAnalyses         CustomerAiAnalysis[]
+  outboundRequests   OutboundRequest[]
 
   @@index([type])
   @@index([status])
@@ -1464,3 +1468,692 @@ model TechnicalInterviewEvaluation {
 
   @@index([interviewerId])
 }
+// ═══════════════════════════════════════════════════════════════
+// Commerce (بازرگانی) & Warehouse (انبار)
+// ═══════════════════════════════════════════════════════════════
+
+model SequenceCounter {
+  key   String @id
+  value Int    @default(0)
+}
+
+// ─── Suppliers ────────────────────────────────────────────────
+
+enum SupplierKind {
+  GOODS
+  TRANSPORT
+}
+
+enum SupplierEntityType {
+  PERSON
+  COMPANY
+}
+
+enum SupplierLabel {
+  WHITE
+  GRAY
+  BLACK
+}
+
+enum EvaluationType {
+  INITIAL
+  PERIODIC
+}
+
+model Supplier {
+  id         String             @id @default(uuid())
+  kind       SupplierKind
+  entityType SupplierEntityType
+
+  // person
+  firstName String?
+  lastName  String?
+
+  // company
+  companyName         String?
+  representativeName  String?
+  representativePhone String?
+  accountantName      String?
+  accountantPhone     String?
+
+  // shared
+  phone    String?
+  address  String?
+  isActive Boolean @default(true)
+
+  // derived from latest evaluation
+  score           Decimal?       @db.Decimal(5, 2)
+  label           SupplierLabel?
+  lastEvaluatedAt DateTime?
+  lastPurchaseAt  DateTime?
+  periodicDueAt   DateTime?
+  lastReminderAt  DateTime?
+
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products           SupplierProduct[]
+  evaluations        SupplierEvaluation[]
+  goodsOrders        PurchaseOrder[]      @relation("OrderGoodsSupplier")
+  transportOrders    PurchaseOrder[]      @relation("OrderTransportSupplier")
+  outboundDispatches OutboundDispatch[]
+
+  @@index([kind, entityType])
+  @@index([label])
+  @@index([lastName, firstName])
+  @@index([companyName])
+}
+
+// For GOODS suppliers: productId is set. For TRANSPORT suppliers: title (service) + price (shipping cost).
+model SupplierProduct {
+  id         String   @id @default(uuid())
+  supplierId String
+  productId  String?
+  title      String?
+  unitPrice  Decimal? @db.Decimal(18, 2)
+  note       String?
+  createdAt  DateTime @default(now())
+
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  product  Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([supplierId, productId])
+  @@index([productId])
+}
+
+model EvaluationTemplate {
+  id           String         @id @default(uuid())
+  supplierKind SupplierKind
+  type         EvaluationType
+  version      Int
+  isActive     Boolean        @default(true)
+  title        String
+  description  String?
+  createdById  String?
+  createdAt    DateTime       @default(now())
+
+  questions   EvaluationQuestion[]
+  evaluations SupplierEvaluation[]
+
+  @@unique([supplierKind, type, version])
+  @@index([supplierKind, type, isActive])
+}
+
+model EvaluationQuestion {
+  id         String  @id @default(uuid())
+  templateId String
+  order      Int
+  text       String
+  weight     Decimal @db.Decimal(8, 2)
+  // {"0": "...", "1": "...", "2": "...", "3": "..."}
+  guide      Json
+
+  template EvaluationTemplate         @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  answers  SupplierEvaluationAnswer[]
+
+  @@index([templateId, order])
+}
+
+model SupplierEvaluation {
+  id            String         @id @default(uuid())
+  supplierId    String
+  templateId    String
+  type          EvaluationType
+  score         Decimal        @db.Decimal(5, 2)
+  label         SupplierLabel
+  notes         String?
+  evaluatedById String?
+  evaluatedAt   DateTime       @default(now())
+
+  supplier Supplier                   @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  template EvaluationTemplate         @relation(fields: [templateId], references: [id])
+  answers  SupplierEvaluationAnswer[]
+
+  @@index([supplierId, evaluatedAt])
+}
+
+model SupplierEvaluationAnswer {
+  id           String  @id @default(uuid())
+  evaluationId String
+  questionId   String?
+  questionText String
+  weight       Decimal @db.Decimal(8, 2)
+  score        Int
+
+  evaluation SupplierEvaluation  @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  question   EvaluationQuestion? @relation(fields: [questionId], references: [id], onDelete: SetNull)
+
+  @@index([evaluationId])
+}
+
+model SupplierScoreSetting {
+  id          String   @id @default("default")
+  whiteMin    Decimal  @default(60) @db.Decimal(5, 2)
+  grayMin     Decimal  @default(40) @db.Decimal(5, 2)
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Products ─────────────────────────────────────────────────
+
+model ProductType {
+  id            String   @id @default(uuid())
+  code          String   @unique // 2 digits
+  name          String
+  profitPercent Decimal  @default(0) @db.Decimal(7, 2)
+  createdAt     DateTime @default(now())
+
+  categories ProductCategory[]
+  products   Product[]
+}
+
+model ProductCategory {
+  id        String   @id @default(uuid())
+  typeId    String
+  code      String // 3 digits
+  name      String
+  createdAt DateTime @default(now())
+
+  type     ProductType @relation(fields: [typeId], references: [id])
+  products Product[]
+
+  @@unique([typeId, code])
+}
+
+model Product {
+  id         String @id @default(uuid())
+  code       String @unique // 9 digits = type(2) + category(3) + item(4)
+  typeId     String
+  categoryId String
+  itemCode   String // 4 digits, manual
+
+  // name parts (all optional) — fullName = type.name + category.name + parts below
+  definitionSuffix String? // پس کد تعریف محصول
+  brand            String?
+  model            String?
+  grade            String? // اکونومی / درجه ۱
+  extraPrefix      String? // پیش کد اضافه
+  color            String? // رنگ و کد رنگ
+  fullName         String  @unique
+
+  trackSerial Boolean @default(false)
+  isActive    Boolean @default(true)
+
+  lastPurchasePrice Decimal?  @db.Decimal(18, 2)
+  lastPurchaseAt    DateTime?
+  currentPrice      Decimal?  @db.Decimal(18, 2)
+  priceReviewNeeded Boolean   @default(false)
+
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  type     ProductType     @relation(fields: [typeId], references: [id])
+  category ProductCategory @relation(fields: [categoryId], references: [id])
+
+  prices         ProductPrice[]
+  suppliers      SupplierProduct[]
+  requestItems   PurchaseRequestItem[]
+  orderItems     PurchaseOrderItem[]
+  stockItems     StockItem[]
+  transferLines  StockTransferLine[]
+  outboundItems  OutboundRequestItem[]
+  dispatchLines  OutboundDispatchLine[]
+  stocktakeLines StocktakeLine[]
+
+  @@unique([typeId, categoryId, itemCode])
+  @@index([typeId, categoryId])
+  @@index([fullName])
+}
+
+model PricingSetting {
+  id               String   @id @default("default")
+  overheadPercent  Decimal  @default(0) @db.Decimal(7, 2)
+  profitTaxPercent Decimal  @default(0) @db.Decimal(7, 2)
+  vatPercent       Decimal  @default(0) @db.Decimal(7, 2)
+  shippingPercent  Decimal  @default(0) @db.Decimal(7, 2)
+  updatedById      String?
+  updatedAt        DateTime @updatedAt
+}
+
+model ProductPrice {
+  id                String   @id @default(uuid())
+  productId         String
+  purchasePrice     Decimal  @db.Decimal(18, 2)
+  overheadPercent   Decimal  @db.Decimal(7, 2)
+  profitTaxPercent  Decimal  @db.Decimal(7, 2)
+  vatPercent        Decimal  @db.Decimal(7, 2)
+  shippingPercent   Decimal  @db.Decimal(7, 2)
+  typeProfitPercent Decimal  @db.Decimal(7, 2)
+  totalPercent      Decimal  @db.Decimal(8, 2)
+  costPrice         Decimal  @db.Decimal(18, 2) // قیمت تمام شده
+  sellingPrice      Decimal  @db.Decimal(18, 2)
+  differenceAmount  Decimal  @db.Decimal(18, 2) // selling - cost
+  profitLossPercent Decimal  @db.Decimal(9, 2) // vs purchase price
+  isCurrent         Boolean  @default(true)
+  approvedById      String?
+  approvedAt        DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, isCurrent])
+  @@index([productId, approvedAt])
+}
+
+// ─── Purchase requests & orders ───────────────────────────────
+
+enum PurchaseRequestStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  ORDERED
+  CANCELLED
+}
+
+enum PurchaseOrderStatus {
+  INITIAL
+  FOLLOW_UP
+  PURCHASED
+  FINALIZED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  CREDIT
+}
+
+enum DeliveryMode {
+  SUPPLIER_DELIVERY
+  TRANSPORT_SUPPLIER
+}
+
+model PurchaseRequest {
+  id           String                @id @default(uuid())
+  number       String                @unique
+  requesterId  String
+  status       PurchaseRequestStatus @default(PENDING_APPROVAL)
+  neededBy     DateTime?
+  notes        String?
+  reviewedById String?
+  reviewedAt   DateTime?
+  reviewNote   String?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  requester User                  @relation("PurchaseRequester", fields: [requesterId], references: [id])
+  items     PurchaseRequestItem[]
+  orders    PurchaseOrder[]
+
+  @@index([status, createdAt])
+  @@index([requesterId])
+}
+
+model PurchaseRequestItem {
+  id        String  @id @default(uuid())
+  requestId String
+  productId String
+  quantity  Int
+  note      String?
+
+  request    PurchaseRequest     @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  product    Product             @relation(fields: [productId], references: [id])
+  orderItems PurchaseOrderItem[]
+
+  @@index([requestId])
+}
+
+model PurchaseOrder {
+  id                  String              @id @default(uuid())
+  number              String              @unique
+  requestId           String?
+  requesterId         String? // سفارش‌دهنده
+  buyerId             String // مسئول خرید
+  supplierId          String
+  status              PurchaseOrderStatus @default(INITIAL)
+  orderedAt           DateTime            @default(now())
+  expectedDeliveryAt  DateTime?
+  deliveryMode        DeliveryMode        @default(SUPPLIER_DELIVERY)
+  transportSupplierId String?
+  transportCost       Decimal?            @db.Decimal(18, 2)
+  paymentMethod       PaymentMethod
+  warehouseId         String
+  notes               String?
+  purchasedAt         DateTime?
+  finalizedAt         DateTime?
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  request           PurchaseRequest?         @relation(fields: [requestId], references: [id])
+  requester         User?                    @relation("PurchaseOrderRequester", fields: [requesterId], references: [id])
+  buyer             User                     @relation("PurchaseOrderBuyer", fields: [buyerId], references: [id])
+  supplier          Supplier                 @relation("OrderGoodsSupplier", fields: [supplierId], references: [id])
+  transportSupplier Supplier?                @relation("OrderTransportSupplier", fields: [transportSupplierId], references: [id])
+  warehouse         Warehouse                @relation(fields: [warehouseId], references: [id])
+  items             PurchaseOrderItem[]
+  statusLogs        PurchaseOrderStatusLog[]
+
+  @@index([status, createdAt])
+  @@index([supplierId])
+  @@index([warehouseId])
+}
+
+model PurchaseOrderItem {
+  id               String   @id @default(uuid())
+  orderId          String
+  productId        String
+  requestItemId    String?
+  quantity         Int
+  receivedQuantity Int      @default(0)
+  unitPrice        Decimal? @db.Decimal(18, 2)
+
+  order       PurchaseOrder        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product              @relation(fields: [productId], references: [id])
+  requestItem PurchaseRequestItem? @relation(fields: [requestItemId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model PurchaseOrderStatusLog {
+  id         String               @id @default(uuid())
+  orderId    String
+  fromStatus PurchaseOrderStatus?
+  toStatus   PurchaseOrderStatus
+  userId     String?
+  note       String?
+  createdAt  DateTime             @default(now())
+
+  order PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId, createdAt])
+}
+
+// ─── Warehouses ───────────────────────────────────────────────
+
+model Warehouse {
+  id        String   @id @default(uuid())
+  number    String   @unique
+  name      String
+  address   String?
+  parentId  String?
+  keeperId  String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parent   Warehouse?  @relation("WarehouseTree", fields: [parentId], references: [id])
+  children Warehouse[] @relation("WarehouseTree")
+  keeper   User?       @relation("WarehouseKeeper", fields: [keeperId], references: [id])
+
+  stockItems      StockItem[]
+  invoices        WarehouseInvoice[]   @relation("InvoiceWarehouse")
+  counterInvoices WarehouseInvoice[]   @relation("InvoiceCounterWarehouse")
+  purchaseOrders  PurchaseOrder[]
+  transfersFrom   StockTransfer[]      @relation("TransferFrom")
+  transfersTo     StockTransfer[]      @relation("TransferTo")
+  dispatches      OutboundDispatch[]
+  stocktakeSheets StocktakeWarehouse[]
+
+  @@index([keeperId])
+  @@index([parentId])
+}
+
+model StockItem {
+  id              String    @id @default(uuid())
+  productId       String
+  warehouseId     String
+  lotNumber       String
+  serialNumber    String?
+  manufactureDate DateTime?
+  expiryDate      DateTime?
+  quantity        Int
+  invoiceId       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  product   Product   @relation(fields: [productId], references: [id])
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id])
+
+  @@index([warehouseId, productId])
+  @@index([productId, serialNumber])
+  @@index([productId, lotNumber])
+}
+
+enum WarehouseInvoiceType {
+  RECEIPT
+  TRANSFER
+  ISSUE
+  ADJUSTMENT
+}
+
+model WarehouseInvoice {
+  id                 String               @id @default(uuid())
+  number             String               @unique
+  type               WarehouseInvoiceType
+  warehouseId        String
+  counterWarehouseId String?
+  refType            String? // PURCHASE_ORDER | TRANSFER | OUTBOUND_DISPATCH | STOCKTAKE
+  refId              String?
+  lines              Json // snapshot [{productId, code, name, lotNumber, serialNumber, manufactureDate, expiryDate, quantity}]
+  notes              String?
+  issuedById         String?
+  issuedAt           DateTime             @default(now())
+
+  warehouse        Warehouse  @relation("InvoiceWarehouse", fields: [warehouseId], references: [id])
+  counterWarehouse Warehouse? @relation("InvoiceCounterWarehouse", fields: [counterWarehouseId], references: [id])
+
+  @@index([type, issuedAt])
+  @@index([warehouseId, issuedAt])
+  @@index([refType, refId])
+}
+
+// ─── Transfers between warehouses ─────────────────────────────
+
+enum StockTransferStatus {
+  REQUESTED
+  REJECTED
+  IN_TRANSIT
+  RECEIVED
+}
+
+model StockTransfer {
+  id              String              @id @default(uuid())
+  number          String              @unique
+  fromWarehouseId String
+  toWarehouseId   String
+  requestedById   String
+  status          StockTransferStatus @default(REQUESTED)
+  notes           String?
+  decidedById     String?
+  decidedAt       DateTime?
+  rejectReason    String?
+  receivedById    String?
+  receivedAt      DateTime?
+  invoiceId       String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  fromWarehouse Warehouse           @relation("TransferFrom", fields: [fromWarehouseId], references: [id])
+  toWarehouse   Warehouse           @relation("TransferTo", fields: [toWarehouseId], references: [id])
+  requestedBy   User                @relation("TransferRequester", fields: [requestedById], references: [id])
+  lines         StockTransferLine[]
+
+  @@index([status, createdAt])
+  @@index([fromWarehouseId])
+  @@index([toWarehouseId])
+}
+
+model StockTransferLine {
+  id                String @id @default(uuid())
+  transferId        String
+  productId         String
+  requestedQuantity Int
+  // snapshot of picked stock at approval: [{lotNumber, serialNumber, manufactureDate, expiryDate, quantity}]
+  sentItems         Json?
+
+  transfer StockTransfer @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  product  Product       @relation(fields: [productId], references: [id])
+
+  @@index([transferId])
+}
+
+// ─── Outbound (خروج کالا) ─────────────────────────────────────
+
+enum OutboundRequestStatus {
+  PENDING_ALLOCATION
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum OutboundDispatchStatus {
+  PENDING_KEEPER
+  REJECTED
+  PREPARING
+  READY_FOR_DELIVERY
+  DELIVERED
+}
+
+enum DeliveryType {
+  IN_PERSON
+  INTERNAL_TRANSPORT
+  FREIGHT
+}
+
+model OutboundRequest {
+  id              String                @id @default(uuid())
+  number          String                @unique
+  saleOrderNumber String? // from sales module when it exists
+  customerId      String?
+  requestedById   String
+  status          OutboundRequestStatus @default(PENDING_ALLOCATION)
+  notes           String?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  customer    Customer?             @relation(fields: [customerId], references: [id])
+  requestedBy User                  @relation("OutboundRequester", fields: [requestedById], references: [id])
+  items       OutboundRequestItem[]
+  dispatches  OutboundDispatch[]
+
+  @@index([status, createdAt])
+  @@index([customerId])
+}
+
+model OutboundRequestItem {
+  id        String @id @default(uuid())
+  requestId String
+  productId String
+  quantity  Int
+
+  request OutboundRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  product Product         @relation(fields: [productId], references: [id])
+
+  @@index([requestId])
+}
+
+model OutboundDispatch {
+  id                  String                 @id @default(uuid())
+  requestId           String
+  warehouseId         String
+  status              OutboundDispatchStatus @default(PENDING_KEEPER)
+  rejectReason        String?
+  approvedById        String?
+  approvedAt          DateTime?
+  videoStorageKey     String?
+  videoMimeType       String?
+  videoOriginalName   String?
+  preparedAt          DateTime?
+  deliveryType        DeliveryType?
+  receiverName        String?
+  receiverPhone       String?
+  transportSupplierId String?
+  transportNote       String?
+  readyAt             DateTime?
+  deliveredAt         DateTime?
+  deliveredById       String?
+  invoiceId           String?
+  pickedItems         Json?
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+
+  request           OutboundRequest        @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  warehouse         Warehouse              @relation(fields: [warehouseId], references: [id])
+  transportSupplier Supplier?              @relation(fields: [transportSupplierId], references: [id])
+  lines             OutboundDispatchLine[]
+
+  @@index([requestId])
+  @@index([warehouseId, status])
+}
+
+model OutboundDispatchLine {
+  id         String @id @default(uuid())
+  dispatchId String
+  productId  String
+  quantity   Int
+
+  dispatch OutboundDispatch @relation(fields: [dispatchId], references: [id], onDelete: Cascade)
+  product  Product          @relation(fields: [productId], references: [id])
+
+  @@index([dispatchId])
+}
+
+// ─── Stocktake (انبارگردانی) ──────────────────────────────────
+
+enum StocktakeStatus {
+  COUNTING
+  COMPLETED
+  CANCELLED
+}
+
+enum StocktakeWarehouseStatus {
+  COUNTING
+  SUBMITTED
+  RETURNED
+}
+
+model Stocktake {
+  id            String          @id @default(uuid())
+  number        String          @unique
+  status        StocktakeStatus @default(COUNTING)
+  notes         String?
+  startedById   String
+  startedAt     DateTime        @default(now())
+  completedById String?
+  completedAt   DateTime?
+
+  warehouses StocktakeWarehouse[]
+
+  @@index([status])
+}
+
+model StocktakeWarehouse {
+  id          String                   @id @default(uuid())
+  stocktakeId String
+  warehouseId String
+  status      StocktakeWarehouseStatus @default(COUNTING)
+  returnNote  String?
+  submittedAt DateTime?
+
+  stocktake Stocktake       @relation(fields: [stocktakeId], references: [id], onDelete: Cascade)
+  warehouse Warehouse       @relation(fields: [warehouseId], references: [id])
+  lines     StocktakeLine[]
+
+  @@unique([stocktakeId, warehouseId])
+}
+
+model StocktakeLine {
+  id                   String @id @default(uuid())
+  stocktakeWarehouseId String
+  productId            String
+  systemQuantity       Int
+  countedQuantity      Int?
+
+  sheet   StocktakeWarehouse @relation(fields: [stocktakeWarehouseId], references: [id], onDelete: Cascade)
+  product Product            @relation(fields: [productId], references: [id])
+
+  @@unique([stocktakeWarehouseId, productId])
+}
+

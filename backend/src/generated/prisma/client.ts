@@ -319,3 +319,153 @@ export type RecruitmentTransition = Prisma.RecruitmentTransitionModel
  * 
  */
 export type TechnicalInterviewEvaluation = Prisma.TechnicalInterviewEvaluationModel
+/**
+ * Model SequenceCounter
+ * 
+ */
+export type SequenceCounter = Prisma.SequenceCounterModel
+/**
+ * Model Supplier
+ * 
+ */
+export type Supplier = Prisma.SupplierModel
+/**
+ * Model SupplierProduct
+ * 
+ */
+export type SupplierProduct = Prisma.SupplierProductModel
+/**
+ * Model EvaluationTemplate
+ * 
+ */
+export type EvaluationTemplate = Prisma.EvaluationTemplateModel
+/**
+ * Model EvaluationQuestion
+ * 
+ */
+export type EvaluationQuestion = Prisma.EvaluationQuestionModel
+/**
+ * Model SupplierEvaluation
+ * 
+ */
+export type SupplierEvaluation = Prisma.SupplierEvaluationModel
+/**
+ * Model SupplierEvaluationAnswer
+ * 
+ */
+export type SupplierEvaluationAnswer = Prisma.SupplierEvaluationAnswerModel
+/**
+ * Model SupplierScoreSetting
+ * 
+ */
+export type SupplierScoreSetting = Prisma.SupplierScoreSettingModel
+/**
+ * Model ProductType
+ * 
+ */
+export type ProductType = Prisma.ProductTypeModel
+/**
+ * Model ProductCategory
+ * 
+ */
+export type ProductCategory = Prisma.ProductCategoryModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model PricingSetting
+ * 
+ */
+export type PricingSetting = Prisma.PricingSettingModel
+/**
+ * Model ProductPrice
+ * 
+ */
+export type ProductPrice = Prisma.ProductPriceModel
+/**
+ * Model PurchaseRequest
+ * 
+ */
+export type PurchaseRequest = Prisma.PurchaseRequestModel
+/**
+ * Model PurchaseRequestItem
+ * 
+ */
+export type PurchaseRequestItem = Prisma.PurchaseRequestItemModel
+/**
+ * Model PurchaseOrder
+ * 
+ */
+export type PurchaseOrder = Prisma.PurchaseOrderModel
+/**
+ * Model PurchaseOrderItem
+ * 
+ */
+export type PurchaseOrderItem = Prisma.PurchaseOrderItemModel
+/**
+ * Model PurchaseOrderStatusLog
+ * 
+ */
+export type PurchaseOrderStatusLog = Prisma.PurchaseOrderStatusLogModel
+/**
+ * Model Warehouse
+ * 
+ */
+export type Warehouse = Prisma.WarehouseModel
+/**
+ * Model StockItem
+ * 
+ */
+export type StockItem = Prisma.StockItemModel
+/**
+ * Model WarehouseInvoice
+ * 
+ */
+export type WarehouseInvoice = Prisma.WarehouseInvoiceModel
+/**
+ * Model StockTransfer
+ * 
+ */
+export type StockTransfer = Prisma.StockTransferModel
+/**
+ * Model StockTransferLine
+ * 
+ */
+export type StockTransferLine = Prisma.StockTransferLineModel
+/**
+ * Model OutboundRequest
+ * 
+ */
+export type OutboundRequest = Prisma.OutboundRequestModel
+/**
+ * Model OutboundRequestItem
+ * 
+ */
+export type OutboundRequestItem = Prisma.OutboundRequestItemModel
+/**
+ * Model OutboundDispatch
+ * 
+ */
+export type OutboundDispatch = Prisma.OutboundDispatchModel
+/**
+ * Model OutboundDispatchLine
+ * 
+ */
+export type OutboundDispatchLine = Prisma.OutboundDispatchLineModel
+/**
+ * Model Stocktake
+ * 
+ */
+export type Stocktake = Prisma.StocktakeModel
+/**
+ * Model StocktakeWarehouse
+ * 
+ */
+export type StocktakeWarehouse = Prisma.StocktakeWarehouseModel
+/**
+ * Model StocktakeLine
+ * 
+ */
+export type StocktakeLine = Prisma.StocktakeLineModel
