@@ -1,0 +1,1833 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Shaygan Accounting Web Service",
+    "version": "document-revision-27",
+    "description": "Contract transcribed from the 101-page Shaygan document. No endpoint in this file is marked live-verified yet."
+  },
+  "servers": [
+    {
+      "url": "{baseUrl}",
+      "variables": {
+        "baseUrl": {
+          "default": "http://127.0.0.1:4310"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/api/Account/GetStatement": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_GetStatement",
+        "summary": "دریافت AccountStatementHeader",
+        "description": "documented-only; source PDF page 57.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 57,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Account/Get": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Get",
+        "summary": "دریافت Account",
+        "description": "documented-only; source PDF page 57.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 57,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "description": "Documented maximum for this report: 100."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Account/GetAccountDetail": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_GetAccountDetail",
+        "summary": "دریافت AccountByDetail",
+        "description": "documented-only; source PDF page 57.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 57,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Cheque/GetPayableList": {
+      "post": {
+        "tags": [
+          "Cheque"
+        ],
+        "operationId": "Cheque_GetPayableList",
+        "summary": "دریافت PayableChequeRead",
+        "description": "documented-only; source PDF page 57.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 57,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Cheque/GetReceivableList": {
+      "post": {
+        "tags": [
+          "Cheque"
+        ],
+        "operationId": "Cheque_GetReceivableList",
+        "summary": "دریافت ReceivableChequeRead",
+        "description": "documented-only; source PDF page 57.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 57,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Item/GetKardex": {
+      "post": {
+        "tags": [
+          "Item"
+        ],
+        "operationId": "Item_GetKardex",
+        "summary": "دریافت ItemKardexHeader",
+        "description": "documented-only; source PDF page 57.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 57,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Item/Get": {
+      "post": {
+        "tags": [
+          "Item"
+        ],
+        "operationId": "Item_Get",
+        "summary": "دریافت Item",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/ItemGroup/GetList": {
+      "post": {
+        "tags": [
+          "ItemGroup"
+        ],
+        "operationId": "ItemGroup_GetList",
+        "summary": "دریافت ItemGroupGetModel",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Job/Get": {
+      "post": {
+        "tags": [
+          "Job"
+        ],
+        "operationId": "Job_Get",
+        "summary": "دریافت JobRead",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Job/GetJobStatement": {
+      "post": {
+        "tags": [
+          "Job"
+        ],
+        "operationId": "Job_GetJobStatement",
+        "summary": "دریافت JobStatementHeader",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Job/GetJobRemainByAccount": {
+      "post": {
+        "tags": [
+          "Job"
+        ],
+        "operationId": "Job_GetJobRemainByAccount",
+        "summary": "دریافت JobRemainByAccount",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Kol/GetList": {
+      "post": {
+        "tags": [
+          "Kol"
+        ],
+        "operationId": "Kol_GetList",
+        "summary": "دریافت KolRead",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Moin/GetList": {
+      "post": {
+        "tags": [
+          "Moin"
+        ],
+        "operationId": "Moin_GetList",
+        "summary": "دریافت MoinRead",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Sargorooh/GetList": {
+      "post": {
+        "tags": [
+          "Sargorooh"
+        ],
+        "operationId": "Sargorooh_GetList",
+        "summary": "دریافت SargoroohRead",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/StatementDetail/GetClosingBalance": {
+      "post": {
+        "tags": [
+          "StatementDetail"
+        ],
+        "operationId": "StatementDetail_GetClosingBalance",
+        "summary": "دریافت MStatementClosingBalance",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Stock/Get": {
+      "post": {
+        "tags": [
+          "Stock"
+        ],
+        "operationId": "Stock_Get",
+        "summary": "دریافت Stock",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Item/GetRemain": {
+      "post": {
+        "tags": [
+          "Item"
+        ],
+        "operationId": "Item_GetRemain",
+        "summary": "دریافت ItemRemainModel",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Invoice/Get": {
+      "post": {
+        "tags": [
+          "Invoice"
+        ],
+        "operationId": "Invoice_Get",
+        "summary": "دریافت Invoice",
+        "description": "documented-only; source PDF page 58.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "description": "Documented maximum for this report: 20."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/invoicepayment/": {
+      "post": {
+        "tags": [
+          "invoicepayment"
+        ],
+        "operationId": "invoicepayment",
+        "summary": "دریافت InvoicePayment",
+        "description": "documented-only; source PDF page 58. PDF includes api/invoicepayment/ with trailing slash.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 58,
+        "parameters": [
+          {
+            "name": "RowStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "RowCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Maximum not stated in reviewed pages."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Document/Put": {
+      "post": {
+        "tags": [
+          "Document"
+        ],
+        "operationId": "Document_Put",
+        "summary": "ارسال Document",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Account/Put": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Put",
+        "summary": "ارسال Account",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Invoice/Put": {
+      "post": {
+        "tags": [
+          "Invoice"
+        ],
+        "operationId": "Invoice_Put",
+        "summary": "ارسال Invoice",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Item/Put": {
+      "post": {
+        "tags": [
+          "Item"
+        ],
+        "operationId": "Item_Put",
+        "summary": "ارسال Item",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Job/Put": {
+      "post": {
+        "tags": [
+          "Job"
+        ],
+        "operationId": "Job_Put",
+        "summary": "ارسال Job",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Voucher/Put": {
+      "post": {
+        "tags": [
+          "Voucher"
+        ],
+        "operationId": "Voucher_Put",
+        "summary": "ارسال Voucher",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Sargorooh/Put": {
+      "post": {
+        "tags": [
+          "Sargorooh"
+        ],
+        "operationId": "Sargorooh_Put",
+        "summary": "ارسال Sargorooh",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Kol/Put": {
+      "post": {
+        "tags": [
+          "Kol"
+        ],
+        "operationId": "Kol_Put",
+        "summary": "ارسال Kol",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Moin/Put": {
+      "post": {
+        "tags": [
+          "Moin"
+        ],
+        "operationId": "Moin_Put",
+        "summary": "ارسال Moin",
+        "description": "documented-only; source PDF page 59.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    },
+    "/api/Cheque/PutRecievable": {
+      "post": {
+        "tags": [
+          "Cheque"
+        ],
+        "operationId": "Cheque_PutRecievable",
+        "summary": "ارسال Cheque",
+        "description": "documented-only; source PDF page 59. Spelling is copied exactly from the PDF and is not live-verified.",
+        "x-contract-status": "documented-only",
+        "x-source-page": 59,
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documented application response. Live HTTP status behavior is unverified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Transport or application error; exact shape unverified."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Config": {
+        "type": "object",
+        "required": [
+          "Server",
+          "DBUserName",
+          "DBPassword",
+          "DataBaseName"
+        ],
+        "properties": {
+          "Server": {
+            "type": "string",
+            "description": "SQL Server instance; secret-adjacent and redacted in captures."
+          },
+          "DBUserName": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "DBPassword": {
+            "type": "string",
+            "writeOnly": true,
+            "format": "password"
+          },
+          "DataBaseName": {
+            "type": "string",
+            "example": "CY000401"
+          },
+          "AllowRowSecurity": {
+            "type": "boolean"
+          },
+          "Level": {
+            "type": "integer"
+          },
+          "AuthUser": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "writeOnly": true
+          },
+          "AuthPassword": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "writeOnly": true,
+            "format": "password"
+          },
+          "StartVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "EndVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Language": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Seen in examples; behavior unverified."
+          }
+        }
+      },
+      "Range": {
+        "type": "object",
+        "properties": {
+          "From": {},
+          "To": {}
+        },
+        "additionalProperties": false
+      },
+      "ReadRequest": {
+        "type": "object",
+        "required": [
+          "Config",
+          "Domain"
+        ],
+        "properties": {
+          "Config": {
+            "$ref": "#/components/schemas/Config"
+          },
+          "Domain": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Range"
+            }
+          }
+        }
+      },
+      "PutRequest": {
+        "type": "object",
+        "required": [
+          "Put"
+        ],
+        "properties": {
+          "Put": {
+            "type": "object",
+            "required": [
+              "Config",
+              "PutObject"
+            ],
+            "properties": {
+              "Config": {
+                "$ref": "#/components/schemas/Config"
+              },
+              "PutObject": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "UpdateKind"
+                  ],
+                  "properties": {
+                    "GuId": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "uuid"
+                    },
+                    "UpdateKind": {
+                      "type": "integer",
+                      "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "ReadResponse": {
+        "type": "object",
+        "properties": {
+          "CurrentVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ErrorMessage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Result": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PutResponse": {
+        "type": "object",
+        "properties": {
+          "ErrorMessage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "TokenString": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PutResult"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PutResult": {
+        "type": "object",
+        "properties": {
+          "ErrorMessage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "GuId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "AccountNumber": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "AccountName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "GuId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "ItemCode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ItemDesc": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Itembarcode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "GuId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Invoice": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "Body": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "Expense": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "InvTyp": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "InvNo": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "InvDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^\\d{8}$"
+          }
+        }
+      }
+    }
+  }
+}

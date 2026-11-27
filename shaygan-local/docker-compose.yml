@@ -1,0 +1,8 @@
+services:
+  shaygan-local:
+    build: .
+    environment:
+      SHAYGAN_MOCK_MODE: ${SHAYGAN_MOCK_MODE:-synthetic}
+      SHAYGAN_MOCK_PORT: 4310
+    ports:
+      - "127.0.0.1:4310:4310"

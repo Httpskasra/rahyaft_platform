@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.corepack-cache/
+.generated-tools/
+.env.local
+captures/raw/
+captures/runs/
+coverage/
+*.log

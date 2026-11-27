@@ -1,0 +1,1025 @@
+{
+  "info": {
+    "name": "Shaygan Accounting - documented only",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:4310"
+    }
+  ],
+  "item": [
+    {
+      "name": "Account/GetStatement",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Account/GetStatement?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "GetStatement"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 57."
+      }
+    },
+    {
+      "name": "Account/Get",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Account/Get?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "Get"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 57."
+      }
+    },
+    {
+      "name": "Account/GetAccountDetail",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Account/GetAccountDetail?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "GetAccountDetail"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 57."
+      }
+    },
+    {
+      "name": "Cheque/GetPayableList",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Cheque/GetPayableList?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Cheque",
+            "GetPayableList"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 57."
+      }
+    },
+    {
+      "name": "Cheque/GetReceivableList",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Cheque/GetReceivableList?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Cheque",
+            "GetReceivableList"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 57."
+      }
+    },
+    {
+      "name": "Item/GetKardex",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Item/GetKardex?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Item",
+            "GetKardex"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 57."
+      }
+    },
+    {
+      "name": "Item/Get",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Item/Get?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Item",
+            "Get"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "ItemGroup/GetList",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/ItemGroup/GetList?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "ItemGroup",
+            "GetList"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Job/Get",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Job/Get?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Job",
+            "Get"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Job/GetJobStatement",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Job/GetJobStatement?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Job",
+            "GetJobStatement"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Job/GetJobRemainByAccount",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Job/GetJobRemainByAccount?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Job",
+            "GetJobRemainByAccount"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Kol/GetList",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Kol/GetList?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Kol",
+            "GetList"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Moin/GetList",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Moin/GetList?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Moin",
+            "GetList"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Sargorooh/GetList",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Sargorooh/GetList?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Sargorooh",
+            "GetList"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "StatementDetail/GetClosingBalance",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/StatementDetail/GetClosingBalance?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "StatementDetail",
+            "GetClosingBalance"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Stock/Get",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Stock/Get?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Stock",
+            "Get"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Item/GetRemain",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Item/GetRemain?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Item",
+            "GetRemain"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Invoice/Get",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Invoice/Get?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Invoice",
+            "Get"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "invoicepayment/",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/invoicepayment/?RowStart=0&RowCount=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "invoicepayment"
+          ],
+          "query": [
+            {
+              "key": "RowStart",
+              "value": "0"
+            },
+            {
+              "key": "RowCount",
+              "value": "2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Config\": {{config}},\n  \"Domain\": {}\n}"
+        },
+        "description": "Documented-only, PDF page 58."
+      }
+    },
+    {
+      "name": "Document/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Document/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Document",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Account/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Account/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Account",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Invoice/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Invoice/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Invoice",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Item/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Item/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Item",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Job/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Job/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Job",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Voucher/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Voucher/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Voucher",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Sargorooh/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Sargorooh/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Sargorooh",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Kol/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Kol/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Kol",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Moin/Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Moin/Put",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Moin",
+            "Put"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    },
+    {
+      "name": "Cheque/PutRecievable",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/Cheque/PutRecievable",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Cheque",
+            "PutRecievable"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Put\": {\n    \"Config\": {{config}},\n    \"PutObject\": []\n  }\n}"
+        },
+        "description": "DO NOT RUN AGAINST PRODUCTION. Documented-only, PDF page 59."
+      }
+    }
+  ]
+}

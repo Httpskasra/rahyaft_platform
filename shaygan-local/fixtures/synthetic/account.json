@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "verified": false,
+    "sanitized": true,
+    "synthetic": true,
+    "provenance": "PDF pages 75-80; generated locally",
+    "sha256": null
+  },
+  "response": {
+    "Result": [
+      {
+        "AccountNumber": "SYN-ACCOUNT-001",
+        "AccountName": "نمونه غیرواقعی",
+        "GuId": "00000000-0000-4000-8000-000000000001"
+      }
+    ],
+    "ErrorMessage": null,
+    "CurrentVersion": "synthetic-1"
+  }
+}
