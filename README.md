@@ -119,3 +119,7 @@ Visit **http://localhost:15672** (user: `user`, pass: `pass`) to:
 4. Worker runs: field stats → NLP → risk scoring → anomaly detection → categorization
 5. Results upserted into `FormStat` and `FormAnalysis`
 6. Frontend `/dashboard/forms/:id` shows live results (refresh button)
+
+## Production CI/CD (GHCR + pnpm)
+
+See [DEPLOYMENT.fa.md](DEPLOYMENT.fa.md). The production workflow uses `docker-compose.test.yml`.

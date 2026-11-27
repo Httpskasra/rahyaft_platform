@@ -39,12 +39,22 @@ logs/
 Thumbs.db
 
 # Docker
-.dockerignore
 *.zip
 uploads/
-*.md
 # Deployment secrets / TLS
 .env.production
 .env.test
 certbot/conf/
 certbot/www/
+
+.release.env
+.release.previous.env
+certs/*
+!certs/PUT_CERTIFICATES_HERE.txt
+!backend/package-lock.json
+
+.release.pending.env
+.incoming/
+.deploy.lock
+
+.previous/

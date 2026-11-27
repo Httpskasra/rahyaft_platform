@@ -1,0 +1,46 @@
+{
+  "runId": "20261122-191606",
+  "baseUrl": "http://192.168.1.185",
+  "databaseName": "CY000401",
+  "writeTests": "SKIPPED",
+  "totals": {
+    "attempted": 1,
+    "verified": 0,
+    "failed": 1
+  },
+  "records": [
+    {
+      "endpoint": "Account/GetStatement",
+      "method": "POST",
+      "url": "http://192.168.1.185/api/Account/GetStatement?RowStart=0&RowCount=2",
+      "requestId": "f26703b7-298c-41a8-9614-2a82d2ce2f03",
+      "request": {
+        "Config": {
+          "Server": "192.168.1.185\\shaygun2014",
+          "DBUserName": "[REDACTED]",
+          "DBPassword": "[REDACTED]",
+          "DataBaseName": "CY000401",
+          "AllowRowSecurity": false,
+          "Level": 0,
+          "AuthUser": "[REDACTED]",
+          "AuthPassword": "[REDACTED]",
+          "StartVersion": null,
+          "EndVersion": null
+        },
+        "Domain": {}
+      },
+      "status": 404,
+      "responseHeaders": {
+        "content-length": "0",
+        "date": "Sun, 22 Nov 2026 15:46:04 GMT",
+        "server": "Microsoft-IIS/10.0"
+      },
+      "response": null,
+      "rawBodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "durationMs": 41,
+      "capturedAt": "2026-11-22T15:46:06.450Z",
+      "verified": false,
+      "sourcePage": 57
+    }
+  ]
+}

@@ -45,5 +45,21 @@
     "stylelint-config-standard": "^39.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "packageManager": "pnpm@10.15.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "bcrypt",
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "sharp",
+      "@swc/core",
+      "@tailwindcss/oxide",
+      "puppeteer",
+      "unrs-resolver",
+      "msgpackr-extract"
+    ]
   }
 }

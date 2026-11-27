@@ -2,7 +2,7 @@ name: enterprise-test
 
 services:
   postgres:
-    image: postgres:16-alpine
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-postgres:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
@@ -18,7 +18,7 @@ services:
       retries: 20
 
   redis:
-    image: redis:7-alpine
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-redis:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?REDIS_PASSWORD is required}"]
     volumes:
@@ -31,7 +31,7 @@ services:
       retries: 10
 
   rabbitmq:
-    image: rabbitmq:3.13-management-alpine
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-rabbitmq:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:?RABBITMQ_USER is required}
@@ -47,22 +47,18 @@ services:
       start_period: 30s
 
   migrate:
-    build:
-      context: ./backend
-      target: build
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-migrate:${IMAGE_TAG:?IMAGE_TAG required}
     restart: "no"
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    command: npx prisma migrate deploy
+    command: pnpm exec prisma migrate deploy
     networks: [internal]
 
   backend:
-    build:
-      context: ./backend
-      target: prod
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-backend:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     depends_on:
       migrate:
@@ -108,11 +104,7 @@ services:
       - no-new-privileges:true
 
   frontend:
-    build:
-      context: ./frontend
-      target: prod
-      args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-/api/v1}
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-frontend:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     depends_on:
       backend:
@@ -129,7 +121,7 @@ services:
       - no-new-privileges:true
 
   nginx:
-    image: nginx:1.27-alpine
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-nginx:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     depends_on:
       frontend:
@@ -145,7 +137,7 @@ services:
       - ./certs:/etc/nginx/certs:ro
     networks: [public]
     healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/api/v1/health || exit 1"]
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 10
@@ -154,9 +146,7 @@ services:
       - no-new-privileges:true
 
   crm-ai-worker:
-    build:
-      context: ./analytics
-      target: prod
+    image: ${GHCR_PREFIX:?GHCR_PREFIX required}-crm-ai-worker:${IMAGE_TAG:?IMAGE_TAG required}
     restart: unless-stopped
     depends_on:
       migrate:

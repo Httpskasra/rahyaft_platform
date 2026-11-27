@@ -1,35 +1,38 @@
 # syntax=docker/dockerfile:1.7
 
-FROM node:22-alpine AS dependencies
+FROM node:22-alpine AS base
+RUN apk add --no-cache openssl && corepack enable && corepack prepare pnpm@10.15.1 --activate
+
+FROM base AS dependencies
 WORKDIR /usr/src/app
 ENV PUPPETEER_SKIP_DOWNLOAD=true
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json pnpm-lock.yaml .npmrc ./
+RUN pnpm install --frozen-lockfile
 
 FROM dependencies AS dev
 ENV NODE_ENV=development
 COPY . .
-RUN npx prisma generate
+RUN pnpm exec prisma generate
 EXPOSE 3000
-CMD ["npm", "run", "start:dev"]
+CMD ["pnpm", "run", "start:dev"]
 
 FROM dependencies AS build
 ENV NODE_ENV=production
 COPY . .
-RUN npx prisma generate && npm run build
+RUN pnpm exec prisma generate && pnpm run build
 
-FROM node:22-alpine AS prod-dependencies
+FROM base AS prod-dependencies
 WORKDIR /usr/src/app
 ENV NODE_ENV=production \
     PUPPETEER_SKIP_DOWNLOAD=true
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY package.json pnpm-lock.yaml .npmrc ./
+RUN pnpm install --prod --frozen-lockfile
 
 FROM node:22-alpine AS prod
 WORKDIR /usr/src/app
 ENV NODE_ENV=production \
     PORT=3000
-RUN apk add --no-cache dumb-init \
+RUN apk add --no-cache dumb-init openssl \
     && mkdir -p /usr/src/app/uploads/communication /usr/src/app/uploads/signatures \
     && chown -R node:node /usr/src/app/uploads
 COPY --from=prod-dependencies /usr/src/app/node_modules ./node_modules

@@ -115,7 +115,7 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    command: npx prisma migrate deploy
+    command: pnpm exec prisma migrate deploy
     networks: [internal]
 
   backend:

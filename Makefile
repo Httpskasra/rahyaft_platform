@@ -1,37 +1,17 @@
-COMPOSE_DEV=docker compose --env-file .env.development -f docker-compose.dev.yml
-COMPOSE_PROD=docker compose --env-file .env.production -f docker-compose.prod.yml
-
-.PHONY: dev dev-build prod prod-build down down-prod logs ps migrate seed pull-model
-
+COMPOSE_DEV=docker compose --env-file .env -f docker-compose.dev.yml
+COMPOSE_PROD=docker compose --env-file .env.test --env-file .release.env -f docker-compose.test.yml
+.PHONY: dev prod pull logs ps migrate seed
 dev:
 	$(COMPOSE_DEV) up -d
-
-dev-build:
-	$(COMPOSE_DEV) up -d --build
-
 prod:
-	$(COMPOSE_PROD) up -d
-
-prod-build:
-	$(COMPOSE_PROD) up -d --build
-
-down:
-	$(COMPOSE_DEV) down
-
-down-prod:
-	$(COMPOSE_PROD) down
-
+	$(COMPOSE_PROD) up -d --no-build --wait
+pull:
+	$(COMPOSE_PROD) pull
 logs:
-	$(COMPOSE_DEV) logs -f
-
+	$(COMPOSE_PROD) logs -f
 ps:
-	$(COMPOSE_DEV) ps
-
+	$(COMPOSE_PROD) ps -a
 migrate:
-	$(COMPOSE_DEV) exec backend npx prisma migrate deploy
-
+	$(COMPOSE_PROD) run --rm migrate
 seed:
-	$(COMPOSE_DEV) exec backend npx tsx prisma/seed.ts
-
-pull-model:
-	$(COMPOSE_DEV) run --rm ollama-init
+	$(COMPOSE_PROD) run --rm migrate pnpm exec prisma db seed
