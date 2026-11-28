@@ -271,6 +271,12 @@ export type UserWhereInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowListRelationFilter
   productionRunsQcAssigned?: Prisma.ProductionRunListRelationFilter
   productionRunsQcReviewed?: Prisma.ProductionRunListRelationFilter
+  keptWarehouses?: Prisma.WarehouseListRelationFilter
+  purchaseRequests?: Prisma.PurchaseRequestListRelationFilter
+  purchaseOrdersRequested?: Prisma.PurchaseOrderListRelationFilter
+  purchaseOrdersBought?: Prisma.PurchaseOrderListRelationFilter
+  stockTransfersRequested?: Prisma.StockTransferListRelationFilter
+  outboundRequests?: Prisma.OutboundRequestListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -326,6 +332,12 @@ export type UserOrderByWithRelationInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowOrderByRelationAggregateInput
   productionRunsQcAssigned?: Prisma.ProductionRunOrderByRelationAggregateInput
   productionRunsQcReviewed?: Prisma.ProductionRunOrderByRelationAggregateInput
+  keptWarehouses?: Prisma.WarehouseOrderByRelationAggregateInput
+  purchaseRequests?: Prisma.PurchaseRequestOrderByRelationAggregateInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderOrderByRelationAggregateInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderOrderByRelationAggregateInput
+  stockTransfersRequested?: Prisma.StockTransferOrderByRelationAggregateInput
+  outboundRequests?: Prisma.OutboundRequestOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -384,6 +396,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   productionFlowsQcOwned?: Prisma.ProductionFlowListRelationFilter
   productionRunsQcAssigned?: Prisma.ProductionRunListRelationFilter
   productionRunsQcReviewed?: Prisma.ProductionRunListRelationFilter
+  keptWarehouses?: Prisma.WarehouseListRelationFilter
+  purchaseRequests?: Prisma.PurchaseRequestListRelationFilter
+  purchaseOrdersRequested?: Prisma.PurchaseOrderListRelationFilter
+  purchaseOrdersBought?: Prisma.PurchaseOrderListRelationFilter
+  stockTransfersRequested?: Prisma.StockTransferListRelationFilter
+  outboundRequests?: Prisma.OutboundRequestListRelationFilter
 }, "id" | "phoneNumber" | "employeeCode">
 
 export type UserOrderByWithAggregationInput = {
@@ -471,6 +489,12 @@ export type UserCreateInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -524,6 +548,12 @@ export type UserUncheckedCreateInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUpdateInput = {
@@ -577,6 +607,12 @@ export type UserUpdateInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -630,6 +666,12 @@ export type UserUncheckedUpdateInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1394,6 +1436,94 @@ export type UserUpdateOneWithoutRecruitmentTransitionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecruitmentTransitionsInput, Prisma.UserUpdateWithoutRecruitmentTransitionsInput>, Prisma.UserUncheckedUpdateWithoutRecruitmentTransitionsInput>
 }
 
+export type UserCreateNestedOneWithoutPurchaseRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPurchaseRequestsInput, Prisma.UserUncheckedCreateWithoutPurchaseRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPurchaseRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPurchaseRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPurchaseRequestsInput, Prisma.UserUncheckedCreateWithoutPurchaseRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPurchaseRequestsInput
+  upsert?: Prisma.UserUpsertWithoutPurchaseRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPurchaseRequestsInput, Prisma.UserUpdateWithoutPurchaseRequestsInput>, Prisma.UserUncheckedUpdateWithoutPurchaseRequestsInput>
+}
+
+export type UserCreateNestedOneWithoutPurchaseOrdersRequestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersRequestedInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPurchaseOrdersRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutPurchaseOrdersBoughtInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersBoughtInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersBoughtInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPurchaseOrdersBoughtInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPurchaseOrdersRequestedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersRequestedInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPurchaseOrdersRequestedInput
+  upsert?: Prisma.UserUpsertWithoutPurchaseOrdersRequestedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPurchaseOrdersRequestedInput, Prisma.UserUpdateWithoutPurchaseOrdersRequestedInput>, Prisma.UserUncheckedUpdateWithoutPurchaseOrdersRequestedInput>
+}
+
+export type UserUpdateOneRequiredWithoutPurchaseOrdersBoughtNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersBoughtInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersBoughtInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPurchaseOrdersBoughtInput
+  upsert?: Prisma.UserUpsertWithoutPurchaseOrdersBoughtInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPurchaseOrdersBoughtInput, Prisma.UserUpdateWithoutPurchaseOrdersBoughtInput>, Prisma.UserUncheckedUpdateWithoutPurchaseOrdersBoughtInput>
+}
+
+export type UserCreateNestedOneWithoutKeptWarehousesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKeptWarehousesInput, Prisma.UserUncheckedCreateWithoutKeptWarehousesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKeptWarehousesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutKeptWarehousesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKeptWarehousesInput, Prisma.UserUncheckedCreateWithoutKeptWarehousesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKeptWarehousesInput
+  upsert?: Prisma.UserUpsertWithoutKeptWarehousesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutKeptWarehousesInput, Prisma.UserUpdateWithoutKeptWarehousesInput>, Prisma.UserUncheckedUpdateWithoutKeptWarehousesInput>
+}
+
+export type UserCreateNestedOneWithoutStockTransfersRequestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStockTransfersRequestedInput, Prisma.UserUncheckedCreateWithoutStockTransfersRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStockTransfersRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStockTransfersRequestedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStockTransfersRequestedInput, Prisma.UserUncheckedCreateWithoutStockTransfersRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStockTransfersRequestedInput
+  upsert?: Prisma.UserUpsertWithoutStockTransfersRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStockTransfersRequestedInput, Prisma.UserUpdateWithoutStockTransfersRequestedInput>, Prisma.UserUncheckedUpdateWithoutStockTransfersRequestedInput>
+}
+
+export type UserCreateNestedOneWithoutOutboundRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOutboundRequestsInput, Prisma.UserUncheckedCreateWithoutOutboundRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOutboundRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOutboundRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOutboundRequestsInput, Prisma.UserUncheckedCreateWithoutOutboundRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOutboundRequestsInput
+  upsert?: Prisma.UserUpsertWithoutOutboundRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOutboundRequestsInput, Prisma.UserUpdateWithoutOutboundRequestsInput>, Prisma.UserUncheckedUpdateWithoutOutboundRequestsInput>
+}
+
 export type UserCreateWithoutDepartmentInput = {
   id?: string
   phoneNumber: string
@@ -1444,6 +1574,12 @@ export type UserCreateWithoutDepartmentInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -1496,6 +1632,12 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -1591,6 +1733,12 @@ export type UserCreateWithoutSubordinatesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutSubordinatesInput = {
@@ -1643,6 +1791,12 @@ export type UserUncheckedCreateWithoutSubordinatesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutSubordinatesInput = {
@@ -1700,6 +1854,12 @@ export type UserCreateWithoutManagerInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutManagerInput = {
@@ -1752,6 +1912,12 @@ export type UserUncheckedCreateWithoutManagerInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutManagerInput = {
@@ -1825,6 +1991,12 @@ export type UserUpdateWithoutSubordinatesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubordinatesInput = {
@@ -1877,6 +2049,12 @@ export type UserUncheckedUpdateWithoutSubordinatesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutManagerInput = {
@@ -1945,6 +2123,12 @@ export type UserCreateWithoutSignatureChangeRequestsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutSignatureChangeRequestsInput = {
@@ -1997,6 +2181,12 @@ export type UserUncheckedCreateWithoutSignatureChangeRequestsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutSignatureChangeRequestsInput = {
@@ -2054,6 +2244,12 @@ export type UserCreateWithoutSignatureChangeReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutSignatureChangeReviewsInput = {
@@ -2106,6 +2302,12 @@ export type UserUncheckedCreateWithoutSignatureChangeReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutSignatureChangeReviewsInput = {
@@ -2174,6 +2376,12 @@ export type UserUpdateWithoutSignatureChangeRequestsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSignatureChangeRequestsInput = {
@@ -2226,6 +2434,12 @@ export type UserUncheckedUpdateWithoutSignatureChangeRequestsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutSignatureChangeReviewsInput = {
@@ -2289,6 +2503,12 @@ export type UserUpdateWithoutSignatureChangeReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSignatureChangeReviewsInput = {
@@ -2341,6 +2561,12 @@ export type UserUncheckedUpdateWithoutSignatureChangeReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutCreatedThreadsInput = {
@@ -2393,6 +2619,12 @@ export type UserCreateWithoutCreatedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedThreadsInput = {
@@ -2445,6 +2677,12 @@ export type UserUncheckedCreateWithoutCreatedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedThreadsInput = {
@@ -2513,6 +2751,12 @@ export type UserUpdateWithoutCreatedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
@@ -2565,6 +2809,12 @@ export type UserUncheckedUpdateWithoutCreatedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadEntityLinksInput = {
@@ -2617,6 +2867,12 @@ export type UserCreateWithoutThreadEntityLinksInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
@@ -2669,6 +2925,12 @@ export type UserUncheckedCreateWithoutThreadEntityLinksInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadEntityLinksInput = {
@@ -2737,6 +2999,12 @@ export type UserUpdateWithoutThreadEntityLinksInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
@@ -2789,6 +3057,12 @@ export type UserUncheckedUpdateWithoutThreadEntityLinksInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadParticipantsInput = {
@@ -2841,6 +3115,12 @@ export type UserCreateWithoutThreadParticipantsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadParticipantsInput = {
@@ -2893,6 +3173,12 @@ export type UserUncheckedCreateWithoutThreadParticipantsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadParticipantsInput = {
@@ -2961,6 +3247,12 @@ export type UserUpdateWithoutThreadParticipantsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
@@ -3013,6 +3305,12 @@ export type UserUncheckedUpdateWithoutThreadParticipantsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadAssignmentsInput = {
@@ -3065,6 +3363,12 @@ export type UserCreateWithoutThreadAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
@@ -3117,6 +3421,12 @@ export type UserUncheckedCreateWithoutThreadAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadAssignmentsInput = {
@@ -3174,6 +3484,12 @@ export type UserCreateWithoutAssignedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedThreadsInput = {
@@ -3226,6 +3542,12 @@ export type UserUncheckedCreateWithoutAssignedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedThreadsInput = {
@@ -3294,6 +3616,12 @@ export type UserUpdateWithoutThreadAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
@@ -3346,6 +3674,12 @@ export type UserUncheckedUpdateWithoutThreadAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedThreadsInput = {
@@ -3409,6 +3743,12 @@ export type UserUpdateWithoutAssignedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
@@ -3461,6 +3801,12 @@ export type UserUncheckedUpdateWithoutAssignedThreadsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutSentThreadMessagesInput = {
@@ -3513,6 +3859,12 @@ export type UserCreateWithoutSentThreadMessagesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
@@ -3565,6 +3917,12 @@ export type UserUncheckedCreateWithoutSentThreadMessagesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutSentThreadMessagesInput = {
@@ -3633,6 +3991,12 @@ export type UserUpdateWithoutSentThreadMessagesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
@@ -3685,6 +4049,12 @@ export type UserUncheckedUpdateWithoutSentThreadMessagesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadMentionsInput = {
@@ -3737,6 +4107,12 @@ export type UserCreateWithoutThreadMentionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadMentionsInput = {
@@ -3789,6 +4165,12 @@ export type UserUncheckedCreateWithoutThreadMentionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadMentionsInput = {
@@ -3857,6 +4239,12 @@ export type UserUpdateWithoutThreadMentionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadMentionsInput = {
@@ -3909,6 +4297,12 @@ export type UserUncheckedUpdateWithoutThreadMentionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadAttachmentsInput = {
@@ -3961,6 +4355,12 @@ export type UserCreateWithoutThreadAttachmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
@@ -4013,6 +4413,12 @@ export type UserUncheckedCreateWithoutThreadAttachmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadAttachmentsInput = {
@@ -4081,6 +4487,12 @@ export type UserUpdateWithoutThreadAttachmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
@@ -4133,6 +4545,12 @@ export type UserUncheckedUpdateWithoutThreadAttachmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadNotificationsInput = {
@@ -4185,6 +4603,12 @@ export type UserCreateWithoutThreadNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadNotificationsInput = {
@@ -4237,6 +4661,12 @@ export type UserUncheckedCreateWithoutThreadNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadNotificationsInput = {
@@ -4305,6 +4735,12 @@ export type UserUpdateWithoutThreadNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
@@ -4357,6 +4793,12 @@ export type UserUncheckedUpdateWithoutThreadNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -4409,6 +4851,12 @@ export type UserCreateWithoutNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -4461,6 +4909,12 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -4529,6 +4983,12 @@ export type UserUpdateWithoutNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -4581,6 +5041,12 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutThreadActivitiesInput = {
@@ -4633,6 +5099,12 @@ export type UserCreateWithoutThreadActivitiesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutThreadActivitiesInput = {
@@ -4685,6 +5157,12 @@ export type UserUncheckedCreateWithoutThreadActivitiesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutThreadActivitiesInput = {
@@ -4753,6 +5231,12 @@ export type UserUpdateWithoutThreadActivitiesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
@@ -4805,6 +5289,12 @@ export type UserUncheckedUpdateWithoutThreadActivitiesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutAttendancesInput = {
@@ -4857,6 +5347,12 @@ export type UserCreateWithoutAttendancesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -4909,6 +5405,12 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -4977,6 +5479,12 @@ export type UserUpdateWithoutAttendancesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
@@ -5029,6 +5537,12 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -5081,6 +5595,12 @@ export type UserCreateWithoutRolesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -5133,6 +5653,12 @@ export type UserUncheckedCreateWithoutRolesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -5201,6 +5727,12 @@ export type UserUpdateWithoutRolesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -5253,6 +5785,12 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutSubmissionsInput = {
@@ -5305,6 +5843,12 @@ export type UserCreateWithoutSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -5357,6 +5901,12 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -5425,6 +5975,12 @@ export type UserUpdateWithoutSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -5477,6 +6033,12 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutProductionFlowsCreatedInput = {
@@ -5529,6 +6091,12 @@ export type UserCreateWithoutProductionFlowsCreatedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
@@ -5581,6 +6149,12 @@ export type UserUncheckedCreateWithoutProductionFlowsCreatedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowsCreatedInput = {
@@ -5638,6 +6212,12 @@ export type UserCreateWithoutProductionFlowsQcOwnedInput = {
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowsQcOwnedInput = {
@@ -5690,6 +6270,12 @@ export type UserUncheckedCreateWithoutProductionFlowsQcOwnedInput = {
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowsQcOwnedInput = {
@@ -5758,6 +6344,12 @@ export type UserUpdateWithoutProductionFlowsCreatedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
@@ -5810,6 +6402,12 @@ export type UserUncheckedUpdateWithoutProductionFlowsCreatedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionFlowsQcOwnedInput = {
@@ -5873,6 +6471,12 @@ export type UserUpdateWithoutProductionFlowsQcOwnedInput = {
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput = {
@@ -5925,6 +6529,12 @@ export type UserUncheckedUpdateWithoutProductionFlowsQcOwnedInput = {
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutProductionFlowStepsAssignedInput = {
@@ -5977,6 +6587,12 @@ export type UserCreateWithoutProductionFlowStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
@@ -6029,6 +6645,12 @@ export type UserUncheckedCreateWithoutProductionFlowStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowStepsAssignedInput = {
@@ -6086,6 +6708,12 @@ export type UserCreateWithoutProductionFlowStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
@@ -6138,6 +6766,12 @@ export type UserUncheckedCreateWithoutProductionFlowStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowStepsSupervisedInput = {
@@ -6195,6 +6829,12 @@ export type UserCreateWithoutProductionFlowStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
@@ -6247,6 +6887,12 @@ export type UserUncheckedCreateWithoutProductionFlowStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionFlowStepsApprovedInput = {
@@ -6315,6 +6961,12 @@ export type UserUpdateWithoutProductionFlowStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
@@ -6367,6 +7019,12 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionFlowStepsSupervisedInput = {
@@ -6430,6 +7088,12 @@ export type UserUpdateWithoutProductionFlowStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
@@ -6482,6 +7146,12 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionFlowStepsApprovedInput = {
@@ -6545,6 +7215,12 @@ export type UserUpdateWithoutProductionFlowStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
@@ -6597,6 +7273,12 @@ export type UserUncheckedUpdateWithoutProductionFlowStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutProductionRunsStartedInput = {
@@ -6649,6 +7331,12 @@ export type UserCreateWithoutProductionRunsStartedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
@@ -6701,6 +7389,12 @@ export type UserUncheckedCreateWithoutProductionRunsStartedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionRunsStartedInput = {
@@ -6758,6 +7452,12 @@ export type UserCreateWithoutProductionRunsQcAssignedInput = {
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionRunsQcAssignedInput = {
@@ -6810,6 +7510,12 @@ export type UserUncheckedCreateWithoutProductionRunsQcAssignedInput = {
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionRunsQcAssignedInput = {
@@ -6867,6 +7573,12 @@ export type UserCreateWithoutProductionRunsQcReviewedInput = {
   productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionRunsQcReviewedInput = {
@@ -6919,6 +7631,12 @@ export type UserUncheckedCreateWithoutProductionRunsQcReviewedInput = {
   productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionRunsQcReviewedInput = {
@@ -6987,6 +7705,12 @@ export type UserUpdateWithoutProductionRunsStartedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
@@ -7039,6 +7763,12 @@ export type UserUncheckedUpdateWithoutProductionRunsStartedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionRunsQcAssignedInput = {
@@ -7102,6 +7832,12 @@ export type UserUpdateWithoutProductionRunsQcAssignedInput = {
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionRunsQcAssignedInput = {
@@ -7154,6 +7890,12 @@ export type UserUncheckedUpdateWithoutProductionRunsQcAssignedInput = {
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionRunsQcReviewedInput = {
@@ -7217,6 +7959,12 @@ export type UserUpdateWithoutProductionRunsQcReviewedInput = {
   productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionRunsQcReviewedInput = {
@@ -7269,6 +8017,12 @@ export type UserUncheckedUpdateWithoutProductionRunsQcReviewedInput = {
   productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutProductionStepsAssignedInput = {
@@ -7321,6 +8075,12 @@ export type UserCreateWithoutProductionStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
@@ -7373,6 +8133,12 @@ export type UserUncheckedCreateWithoutProductionStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionStepsAssignedInput = {
@@ -7430,6 +8196,12 @@ export type UserCreateWithoutProductionStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
@@ -7482,6 +8254,12 @@ export type UserUncheckedCreateWithoutProductionStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionStepsSupervisedInput = {
@@ -7539,6 +8317,12 @@ export type UserCreateWithoutProductionStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
@@ -7591,6 +8375,12 @@ export type UserUncheckedCreateWithoutProductionStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionStepsApprovedInput = {
@@ -7659,6 +8449,12 @@ export type UserUpdateWithoutProductionStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
@@ -7711,6 +8507,12 @@ export type UserUncheckedUpdateWithoutProductionStepsAssignedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionStepsSupervisedInput = {
@@ -7774,6 +8576,12 @@ export type UserUpdateWithoutProductionStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
@@ -7826,6 +8634,12 @@ export type UserUncheckedUpdateWithoutProductionStepsSupervisedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutProductionStepsApprovedInput = {
@@ -7889,6 +8703,12 @@ export type UserUpdateWithoutProductionStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
@@ -7941,6 +8761,12 @@ export type UserUncheckedUpdateWithoutProductionStepsApprovedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutProductionReviewsInput = {
@@ -7993,6 +8819,12 @@ export type UserCreateWithoutProductionReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutProductionReviewsInput = {
@@ -8045,6 +8877,12 @@ export type UserUncheckedCreateWithoutProductionReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutProductionReviewsInput = {
@@ -8113,6 +8951,12 @@ export type UserUpdateWithoutProductionReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProductionReviewsInput = {
@@ -8165,6 +9009,12 @@ export type UserUncheckedUpdateWithoutProductionReviewsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutApprovalActionsInput = {
@@ -8217,6 +9067,12 @@ export type UserCreateWithoutApprovalActionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovalActionsInput = {
@@ -8269,6 +9125,12 @@ export type UserUncheckedCreateWithoutApprovalActionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovalActionsInput = {
@@ -8337,6 +9199,12 @@ export type UserUpdateWithoutApprovalActionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovalActionsInput = {
@@ -8389,6 +9257,12 @@ export type UserUncheckedUpdateWithoutApprovalActionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutUserInfoInput = {
@@ -8441,6 +9315,12 @@ export type UserCreateWithoutUserInfoInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutUserInfoInput = {
@@ -8493,6 +9373,12 @@ export type UserUncheckedCreateWithoutUserInfoInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutUserInfoInput = {
@@ -8561,6 +9447,12 @@ export type UserUpdateWithoutUserInfoInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserInfoInput = {
@@ -8613,6 +9505,12 @@ export type UserUncheckedUpdateWithoutUserInfoInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutAssignedRepairsInput = {
@@ -8665,6 +9563,12 @@ export type UserCreateWithoutAssignedRepairsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedRepairsInput = {
@@ -8717,6 +9621,12 @@ export type UserUncheckedCreateWithoutAssignedRepairsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedRepairsInput = {
@@ -8785,6 +9695,12 @@ export type UserUpdateWithoutAssignedRepairsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
@@ -8837,6 +9753,12 @@ export type UserUncheckedUpdateWithoutAssignedRepairsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutRepairVisitsInput = {
@@ -8889,6 +9811,12 @@ export type UserCreateWithoutRepairVisitsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRepairVisitsInput = {
@@ -8941,6 +9869,12 @@ export type UserUncheckedCreateWithoutRepairVisitsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRepairVisitsInput = {
@@ -9009,6 +9943,12 @@ export type UserUpdateWithoutRepairVisitsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepairVisitsInput = {
@@ -9061,6 +10001,12 @@ export type UserUncheckedUpdateWithoutRepairVisitsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutStatusLogsInput = {
@@ -9113,6 +10059,12 @@ export type UserCreateWithoutStatusLogsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutStatusLogsInput = {
@@ -9165,6 +10117,12 @@ export type UserUncheckedCreateWithoutStatusLogsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutStatusLogsInput = {
@@ -9233,6 +10191,12 @@ export type UserUpdateWithoutStatusLogsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatusLogsInput = {
@@ -9285,6 +10249,12 @@ export type UserUncheckedUpdateWithoutStatusLogsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutRecruitmentFinalizedInput = {
@@ -9337,6 +10307,12 @@ export type UserCreateWithoutRecruitmentFinalizedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
@@ -9389,6 +10365,12 @@ export type UserUncheckedCreateWithoutRecruitmentFinalizedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentFinalizedInput = {
@@ -9457,6 +10439,12 @@ export type UserUpdateWithoutRecruitmentFinalizedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
@@ -9509,6 +10497,12 @@ export type UserUncheckedUpdateWithoutRecruitmentFinalizedInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutRecruitmentSubmissionsInput = {
@@ -9561,6 +10555,12 @@ export type UserCreateWithoutRecruitmentSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
@@ -9613,6 +10613,12 @@ export type UserUncheckedCreateWithoutRecruitmentSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentSubmissionsInput = {
@@ -9681,6 +10687,12 @@ export type UserUpdateWithoutRecruitmentSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
@@ -9733,6 +10745,12 @@ export type UserUncheckedUpdateWithoutRecruitmentSubmissionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutRecruitmentAssignmentsInput = {
@@ -9785,6 +10803,12 @@ export type UserCreateWithoutRecruitmentAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
@@ -9837,6 +10861,12 @@ export type UserUncheckedCreateWithoutRecruitmentAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentAssignmentsInput = {
@@ -9894,6 +10924,12 @@ export type UserCreateWithoutRecruitmentAssignedByInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
@@ -9946,6 +10982,12 @@ export type UserUncheckedCreateWithoutRecruitmentAssignedByInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentAssignedByInput = {
@@ -10014,6 +11056,12 @@ export type UserUpdateWithoutRecruitmentAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
@@ -10066,6 +11114,12 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignmentsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUpsertWithoutRecruitmentAssignedByInput = {
@@ -10129,6 +11183,12 @@ export type UserUpdateWithoutRecruitmentAssignedByInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
@@ -10181,6 +11241,12 @@ export type UserUncheckedUpdateWithoutRecruitmentAssignedByInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateWithoutRecruitmentTransitionsInput = {
@@ -10233,6 +11299,12 @@ export type UserCreateWithoutRecruitmentTransitionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
@@ -10285,6 +11357,12 @@ export type UserUncheckedCreateWithoutRecruitmentTransitionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
 
 export type UserCreateOrConnectWithoutRecruitmentTransitionsInput = {
@@ -10353,6 +11431,12 @@ export type UserUpdateWithoutRecruitmentTransitionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
@@ -10405,6 +11489,1500 @@ export type UserUncheckedUpdateWithoutRecruitmentTransitionsInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserCreateWithoutPurchaseRequestsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutPurchaseRequestsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutPurchaseRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPurchaseRequestsInput, Prisma.UserUncheckedCreateWithoutPurchaseRequestsInput>
+}
+
+export type UserUpsertWithoutPurchaseRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPurchaseRequestsInput, Prisma.UserUncheckedUpdateWithoutPurchaseRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPurchaseRequestsInput, Prisma.UserUncheckedCreateWithoutPurchaseRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPurchaseRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPurchaseRequestsInput, Prisma.UserUncheckedUpdateWithoutPurchaseRequestsInput>
+}
+
+export type UserUpdateWithoutPurchaseRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPurchaseRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserCreateWithoutPurchaseOrdersRequestedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutPurchaseOrdersRequestedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutPurchaseOrdersRequestedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersRequestedInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersRequestedInput>
+}
+
+export type UserCreateWithoutPurchaseOrdersBoughtInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutPurchaseOrdersBoughtInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutPurchaseOrdersBoughtInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersBoughtInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersBoughtInput>
+}
+
+export type UserUpsertWithoutPurchaseOrdersRequestedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPurchaseOrdersRequestedInput, Prisma.UserUncheckedUpdateWithoutPurchaseOrdersRequestedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersRequestedInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersRequestedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPurchaseOrdersRequestedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPurchaseOrdersRequestedInput, Prisma.UserUncheckedUpdateWithoutPurchaseOrdersRequestedInput>
+}
+
+export type UserUpdateWithoutPurchaseOrdersRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPurchaseOrdersRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUpsertWithoutPurchaseOrdersBoughtInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPurchaseOrdersBoughtInput, Prisma.UserUncheckedUpdateWithoutPurchaseOrdersBoughtInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPurchaseOrdersBoughtInput, Prisma.UserUncheckedCreateWithoutPurchaseOrdersBoughtInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPurchaseOrdersBoughtInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPurchaseOrdersBoughtInput, Prisma.UserUncheckedUpdateWithoutPurchaseOrdersBoughtInput>
+}
+
+export type UserUpdateWithoutPurchaseOrdersBoughtInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPurchaseOrdersBoughtInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserCreateWithoutKeptWarehousesInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutKeptWarehousesInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutKeptWarehousesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutKeptWarehousesInput, Prisma.UserUncheckedCreateWithoutKeptWarehousesInput>
+}
+
+export type UserUpsertWithoutKeptWarehousesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutKeptWarehousesInput, Prisma.UserUncheckedUpdateWithoutKeptWarehousesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutKeptWarehousesInput, Prisma.UserUncheckedCreateWithoutKeptWarehousesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutKeptWarehousesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutKeptWarehousesInput, Prisma.UserUncheckedUpdateWithoutKeptWarehousesInput>
+}
+
+export type UserUpdateWithoutKeptWarehousesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutKeptWarehousesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserCreateWithoutStockTransfersRequestedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  outboundRequests?: Prisma.OutboundRequestCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutStockTransfersRequestedInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutStockTransfersRequestedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStockTransfersRequestedInput, Prisma.UserUncheckedCreateWithoutStockTransfersRequestedInput>
+}
+
+export type UserUpsertWithoutStockTransfersRequestedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStockTransfersRequestedInput, Prisma.UserUncheckedUpdateWithoutStockTransfersRequestedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStockTransfersRequestedInput, Prisma.UserUncheckedCreateWithoutStockTransfersRequestedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStockTransfersRequestedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStockTransfersRequestedInput, Prisma.UserUncheckedUpdateWithoutStockTransfersRequestedInput>
+}
+
+export type UserUpdateWithoutStockTransfersRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStockTransfersRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserCreateWithoutOutboundRequestsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestCreateNestedManyWithoutReviewerInput
+  department: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  manager?: Prisma.UserCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.UserCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserUncheckedCreateWithoutOutboundRequestsInput = {
+  id?: string
+  phoneNumber: string
+  name: string
+  departmentId: string
+  managerId?: string | null
+  refreshToken?: string | null
+  signatureStorageKey?: string | null
+  signatureMimeType?: string | null
+  baleChatId?: string | null
+  createdAt?: Date | string
+  employeeCode?: string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutRequesterInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedCreateNestedManyWithoutReviewerInput
+  subordinates?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutUserInput
+  userInfo?: Prisma.UserInfoUncheckedCreateNestedOneWithoutUserInput
+  approvalActions?: Prisma.ApprovalActionUncheckedCreateNestedManyWithoutApproverInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedCreateNestedManyWithoutTechnicianInput
+  repairVisits?: Prisma.RepairVisitUncheckedCreateNestedManyWithoutTechnicianInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedCreateNestedManyWithoutChangedByInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedCreateNestedManyWithoutActorUserInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedCreateNestedManyWithoutSubmittedByUserInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedCreateNestedManyWithoutFinalUserInput
+  createdThreads?: Prisma.ThreadUncheckedCreateNestedManyWithoutCreatorInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedCreateNestedManyWithoutSenderInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+  threadActivities?: Prisma.ThreadActivityUncheckedCreateNestedManyWithoutActorInput
+  threadMentions?: Prisma.ThreadMentionUncheckedCreateNestedManyWithoutUserInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutCreatedByInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutStartedByInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedCreateNestedManyWithoutApproverInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutAssigneeInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutSupervisorInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedCreateNestedManyWithoutApproverInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedCreateNestedManyWithoutReviewerInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcAssigneeInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedCreateNestedManyWithoutQcReviewerInput
+  keptWarehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutKeeperInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutRequesterInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutBuyerInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedCreateNestedManyWithoutRequestedByInput
+}
+
+export type UserCreateOrConnectWithoutOutboundRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOutboundRequestsInput, Prisma.UserUncheckedCreateWithoutOutboundRequestsInput>
+}
+
+export type UserUpsertWithoutOutboundRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOutboundRequestsInput, Prisma.UserUncheckedUpdateWithoutOutboundRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOutboundRequestsInput, Prisma.UserUncheckedCreateWithoutOutboundRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOutboundRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOutboundRequestsInput, Prisma.UserUncheckedUpdateWithoutOutboundRequestsInput>
+}
+
+export type UserUpdateWithoutOutboundRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUpdateManyWithoutReviewerNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutUsersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOutboundRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baleChatId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employeeCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureChangeRequests?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  signatureChangeReviews?: Prisma.SignatureChangeRequestUncheckedUpdateManyWithoutReviewerNestedInput
+  subordinates?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  userInfo?: Prisma.UserInfoUncheckedUpdateOneWithoutUserNestedInput
+  approvalActions?: Prisma.ApprovalActionUncheckedUpdateManyWithoutApproverNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+  assignedRepairs?: Prisma.RepairCaseUncheckedUpdateManyWithoutTechnicianNestedInput
+  repairVisits?: Prisma.RepairVisitUncheckedUpdateManyWithoutTechnicianNestedInput
+  statusLogs?: Prisma.RepairStatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+  recruitmentAssignments?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  recruitmentAssignedBy?: Prisma.RecruitmentAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  recruitmentTransitions?: Prisma.RecruitmentTransitionUncheckedUpdateManyWithoutActorUserNestedInput
+  recruitmentSubmissions?: Prisma.RecruitmentFormSubmissionUncheckedUpdateManyWithoutSubmittedByUserNestedInput
+  recruitmentFinalized?: Prisma.RecruitmentApplicationUncheckedUpdateManyWithoutFinalUserNestedInput
+  createdThreads?: Prisma.ThreadUncheckedUpdateManyWithoutCreatorNestedInput
+  threadParticipants?: Prisma.ThreadParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentThreadMessages?: Prisma.ThreadMessageUncheckedUpdateManyWithoutSenderNestedInput
+  threadAssignments?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedThreads?: Prisma.ThreadAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+  threadActivities?: Prisma.ThreadActivityUncheckedUpdateManyWithoutActorNestedInput
+  threadMentions?: Prisma.ThreadMentionUncheckedUpdateManyWithoutUserNestedInput
+  threadNotifications?: Prisma.CommunicationNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  threadAttachments?: Prisma.ThreadAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  threadEntityLinks?: Prisma.ThreadEntityLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionFlowsCreated?: Prisma.ProductionFlowUncheckedUpdateManyWithoutCreatedByNestedInput
+  productionRunsStarted?: Prisma.ProductionRunUncheckedUpdateManyWithoutStartedByNestedInput
+  productionFlowStepsAssigned?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionFlowStepsSupervised?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionFlowStepsApproved?: Prisma.ProductionFlowStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionStepsAssigned?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutAssigneeNestedInput
+  productionStepsSupervised?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutSupervisorNestedInput
+  productionStepsApproved?: Prisma.ProductionRunStepUncheckedUpdateManyWithoutApproverNestedInput
+  productionReviews?: Prisma.ProductionStepReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
+  productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -10470,6 +13048,12 @@ export type UserUpdateWithoutDepartmentInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -10522,6 +13106,12 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -10600,6 +13190,12 @@ export type UserUpdateWithoutManagerInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagerInput = {
@@ -10652,6 +13248,12 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   productionFlowsQcOwned?: Prisma.ProductionFlowUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcAssigned?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcAssigneeNestedInput
   productionRunsQcReviewed?: Prisma.ProductionRunUncheckedUpdateManyWithoutQcReviewerNestedInput
+  keptWarehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutKeeperNestedInput
+  purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersRequested?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutRequesterNestedInput
+  purchaseOrdersBought?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutBuyerNestedInput
+  stockTransfersRequested?: Prisma.StockTransferUncheckedUpdateManyWithoutRequestedByNestedInput
+  outboundRequests?: Prisma.OutboundRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagerInput = {
@@ -10711,6 +13313,12 @@ export type UserCountOutputType = {
   productionFlowsQcOwned: number
   productionRunsQcAssigned: number
   productionRunsQcReviewed: number
+  keptWarehouses: number
+  purchaseRequests: number
+  purchaseOrdersRequested: number
+  purchaseOrdersBought: number
+  stockTransfersRequested: number
+  outboundRequests: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10752,6 +13360,12 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   productionFlowsQcOwned?: boolean | UserCountOutputTypeCountProductionFlowsQcOwnedArgs
   productionRunsQcAssigned?: boolean | UserCountOutputTypeCountProductionRunsQcAssignedArgs
   productionRunsQcReviewed?: boolean | UserCountOutputTypeCountProductionRunsQcReviewedArgs
+  keptWarehouses?: boolean | UserCountOutputTypeCountKeptWarehousesArgs
+  purchaseRequests?: boolean | UserCountOutputTypeCountPurchaseRequestsArgs
+  purchaseOrdersRequested?: boolean | UserCountOutputTypeCountPurchaseOrdersRequestedArgs
+  purchaseOrdersBought?: boolean | UserCountOutputTypeCountPurchaseOrdersBoughtArgs
+  stockTransfersRequested?: boolean | UserCountOutputTypeCountStockTransfersRequestedArgs
+  outboundRequests?: boolean | UserCountOutputTypeCountOutboundRequestsArgs
 }
 
 /**
@@ -11030,6 +13644,48 @@ export type UserCountOutputTypeCountProductionRunsQcReviewedArgs<ExtArgs extends
   where?: Prisma.ProductionRunWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountKeptWarehousesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WarehouseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPurchaseRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PurchaseRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPurchaseOrdersRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PurchaseOrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPurchaseOrdersBoughtArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PurchaseOrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStockTransfersRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StockTransferWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOutboundRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OutboundRequestWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -11084,6 +13740,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   productionFlowsQcOwned?: boolean | Prisma.User$productionFlowsQcOwnedArgs<ExtArgs>
   productionRunsQcAssigned?: boolean | Prisma.User$productionRunsQcAssignedArgs<ExtArgs>
   productionRunsQcReviewed?: boolean | Prisma.User$productionRunsQcReviewedArgs<ExtArgs>
+  keptWarehouses?: boolean | Prisma.User$keptWarehousesArgs<ExtArgs>
+  purchaseRequests?: boolean | Prisma.User$purchaseRequestsArgs<ExtArgs>
+  purchaseOrdersRequested?: boolean | Prisma.User$purchaseOrdersRequestedArgs<ExtArgs>
+  purchaseOrdersBought?: boolean | Prisma.User$purchaseOrdersBoughtArgs<ExtArgs>
+  stockTransfersRequested?: boolean | Prisma.User$stockTransfersRequestedArgs<ExtArgs>
+  outboundRequests?: boolean | Prisma.User$outboundRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -11176,6 +13838,12 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   productionFlowsQcOwned?: boolean | Prisma.User$productionFlowsQcOwnedArgs<ExtArgs>
   productionRunsQcAssigned?: boolean | Prisma.User$productionRunsQcAssignedArgs<ExtArgs>
   productionRunsQcReviewed?: boolean | Prisma.User$productionRunsQcReviewedArgs<ExtArgs>
+  keptWarehouses?: boolean | Prisma.User$keptWarehousesArgs<ExtArgs>
+  purchaseRequests?: boolean | Prisma.User$purchaseRequestsArgs<ExtArgs>
+  purchaseOrdersRequested?: boolean | Prisma.User$purchaseOrdersRequestedArgs<ExtArgs>
+  purchaseOrdersBought?: boolean | Prisma.User$purchaseOrdersBoughtArgs<ExtArgs>
+  stockTransfersRequested?: boolean | Prisma.User$stockTransfersRequestedArgs<ExtArgs>
+  outboundRequests?: boolean | Prisma.User$outboundRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -11231,6 +13899,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     productionFlowsQcOwned: Prisma.$ProductionFlowPayload<ExtArgs>[]
     productionRunsQcAssigned: Prisma.$ProductionRunPayload<ExtArgs>[]
     productionRunsQcReviewed: Prisma.$ProductionRunPayload<ExtArgs>[]
+    keptWarehouses: Prisma.$WarehousePayload<ExtArgs>[]
+    purchaseRequests: Prisma.$PurchaseRequestPayload<ExtArgs>[]
+    purchaseOrdersRequested: Prisma.$PurchaseOrderPayload<ExtArgs>[]
+    purchaseOrdersBought: Prisma.$PurchaseOrderPayload<ExtArgs>[]
+    stockTransfersRequested: Prisma.$StockTransferPayload<ExtArgs>[]
+    outboundRequests: Prisma.$OutboundRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -11679,6 +14353,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   productionFlowsQcOwned<T extends Prisma.User$productionFlowsQcOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionFlowsQcOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionFlowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productionRunsQcAssigned<T extends Prisma.User$productionRunsQcAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionRunsQcAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productionRunsQcReviewed<T extends Prisma.User$productionRunsQcReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productionRunsQcReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductionRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  keptWarehouses<T extends Prisma.User$keptWarehousesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$keptWarehousesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  purchaseRequests<T extends Prisma.User$purchaseRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchaseRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  purchaseOrdersRequested<T extends Prisma.User$purchaseOrdersRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchaseOrdersRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  purchaseOrdersBought<T extends Prisma.User$purchaseOrdersBoughtArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchaseOrdersBoughtArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stockTransfersRequested<T extends Prisma.User$stockTransfersRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stockTransfersRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockTransferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  outboundRequests<T extends Prisma.User$outboundRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$outboundRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OutboundRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13067,6 +15747,150 @@ export type User$productionRunsQcReviewedArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.ProductionRunScalarFieldEnum | Prisma.ProductionRunScalarFieldEnum[]
+}
+
+/**
+ * User.keptWarehouses
+ */
+export type User$keptWarehousesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Warehouse
+   */
+  select?: Prisma.WarehouseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Warehouse
+   */
+  omit?: Prisma.WarehouseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WarehouseInclude<ExtArgs> | null
+  where?: Prisma.WarehouseWhereInput
+  orderBy?: Prisma.WarehouseOrderByWithRelationInput | Prisma.WarehouseOrderByWithRelationInput[]
+  cursor?: Prisma.WarehouseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WarehouseScalarFieldEnum | Prisma.WarehouseScalarFieldEnum[]
+}
+
+/**
+ * User.purchaseRequests
+ */
+export type User$purchaseRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PurchaseRequest
+   */
+  select?: Prisma.PurchaseRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PurchaseRequest
+   */
+  omit?: Prisma.PurchaseRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PurchaseRequestInclude<ExtArgs> | null
+  where?: Prisma.PurchaseRequestWhereInput
+  orderBy?: Prisma.PurchaseRequestOrderByWithRelationInput | Prisma.PurchaseRequestOrderByWithRelationInput[]
+  cursor?: Prisma.PurchaseRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PurchaseRequestScalarFieldEnum | Prisma.PurchaseRequestScalarFieldEnum[]
+}
+
+/**
+ * User.purchaseOrdersRequested
+ */
+export type User$purchaseOrdersRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PurchaseOrder
+   */
+  select?: Prisma.PurchaseOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PurchaseOrder
+   */
+  omit?: Prisma.PurchaseOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PurchaseOrderInclude<ExtArgs> | null
+  where?: Prisma.PurchaseOrderWhereInput
+  orderBy?: Prisma.PurchaseOrderOrderByWithRelationInput | Prisma.PurchaseOrderOrderByWithRelationInput[]
+  cursor?: Prisma.PurchaseOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PurchaseOrderScalarFieldEnum | Prisma.PurchaseOrderScalarFieldEnum[]
+}
+
+/**
+ * User.purchaseOrdersBought
+ */
+export type User$purchaseOrdersBoughtArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PurchaseOrder
+   */
+  select?: Prisma.PurchaseOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PurchaseOrder
+   */
+  omit?: Prisma.PurchaseOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PurchaseOrderInclude<ExtArgs> | null
+  where?: Prisma.PurchaseOrderWhereInput
+  orderBy?: Prisma.PurchaseOrderOrderByWithRelationInput | Prisma.PurchaseOrderOrderByWithRelationInput[]
+  cursor?: Prisma.PurchaseOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PurchaseOrderScalarFieldEnum | Prisma.PurchaseOrderScalarFieldEnum[]
+}
+
+/**
+ * User.stockTransfersRequested
+ */
+export type User$stockTransfersRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockTransfer
+   */
+  select?: Prisma.StockTransferSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockTransfer
+   */
+  omit?: Prisma.StockTransferOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockTransferInclude<ExtArgs> | null
+  where?: Prisma.StockTransferWhereInput
+  orderBy?: Prisma.StockTransferOrderByWithRelationInput | Prisma.StockTransferOrderByWithRelationInput[]
+  cursor?: Prisma.StockTransferWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StockTransferScalarFieldEnum | Prisma.StockTransferScalarFieldEnum[]
+}
+
+/**
+ * User.outboundRequests
+ */
+export type User$outboundRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OutboundRequest
+   */
+  select?: Prisma.OutboundRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OutboundRequest
+   */
+  omit?: Prisma.OutboundRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OutboundRequestInclude<ExtArgs> | null
+  where?: Prisma.OutboundRequestWhereInput
+  orderBy?: Prisma.OutboundRequestOrderByWithRelationInput | Prisma.OutboundRequestOrderByWithRelationInput[]
+  cursor?: Prisma.OutboundRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OutboundRequestScalarFieldEnum | Prisma.OutboundRequestScalarFieldEnum[]
 }
 
 /**

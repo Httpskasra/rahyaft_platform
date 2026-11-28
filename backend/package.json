@@ -27,12 +27,14 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.0",
     "@nestjs/throttler": "^6.5.0",
     "@prisma/adapter-pg": "^7.4.1",
     "@prisma/client": "^7.4.1",
     "@types/amqplib": "^0.10.5",
     "amqplib": "^0.10.4",
     "bcrypt": "^6.0.0",
+    "bwip-js": "^4.11.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
     "cookie-parser": "^1.4.7",
@@ -41,11 +43,13 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.19.0",
+    "prisma": "^7.4.1",
     "prisma-erd-generator": "^2.4.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "tsx": "^4.21.0",
     "uuid": "^13.0.0",
+    "ws": "^8.21.0",
     "xlsx": "^0.18.5",
     "zod": "^4.3.6",
     "prisma": "^7.4.1",
@@ -115,5 +119,6 @@
       "unrs-resolver",
       "msgpackr-extract"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd"
 }

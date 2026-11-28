@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
-export type NotificationCategory = 'FORMS' | 'APPROVALS' | 'REPAIRS' | 'PRODUCTION' | 'COMMUNICATION' | 'SYSTEM';
-
+export type NotificationCategory = 'FORMS' | 'APPROVALS' | 'REPAIRS' | 'PRODUCTION' | 'COMMUNICATION' | 'COMMERCE' | 'WAREHOUSE' | 'SYSTEM';
 export interface CreateNotificationInput {
   userId: string;
   type: string;

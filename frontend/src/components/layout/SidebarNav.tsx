@@ -22,6 +22,7 @@ import {
   LucideCalendarClock,
   MessageSquare,
   Factory,
+  ShoppingCart,
   Bell,
   // PieChart,
 } from "lucide-react";
@@ -176,6 +177,18 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
             <Link href="/dashboard/notifications" className={["menu-item group", isActive("/dashboard/notifications") ? "menu-item-active" : "menu-item-inactive"].join(" ")}>
               <Bell size={20} />
               <span className={collapsed ? "lg:hidden" : ""}>اعلان‌ها</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/dashboard/commerce/requests"
+              className={[
+                "menu-item group",
+                isActive("/dashboard/commerce") ? "menu-item-active" : "menu-item-inactive",
+              ].join(" ")}
+            >
+              <ShoppingCart size={20} />
+              <span className={collapsed ? "lg:hidden" : ""}>بازرگانی</span>
             </Link>
           </li>
           {canReadProduction && (

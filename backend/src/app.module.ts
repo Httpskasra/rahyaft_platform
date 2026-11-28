@@ -32,6 +32,9 @@ import { CommunicationModule } from './communication/communication.module';
 import { ProductionModule } from './production/production.module';
 import { AnalyticsAiModule } from './analytics-ai/analytics-ai.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { SharedModule } from './common/shared/shared.module';
+import { CommerceModule } from './commerce/commerce.module';
+import { WarehouseModule } from './warehouse/warehouse.module';
 
 @Module({
   imports: [
@@ -59,6 +62,9 @@ import { NotificationsModule } from './notifications/notifications.module';
     ProductionModule,
     AnalyticsAiModule,
     NotificationsModule,
+    SharedModule,
+    CommerceModule,
+    WarehouseModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },
