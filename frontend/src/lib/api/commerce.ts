@@ -9,7 +9,8 @@ export type PurchaseOrderStatus = "INITIAL" | "FOLLOW_UP" | "PURCHASED" | "FINAL
 export type DeliveryMode = "SUPPLIER_DELIVERY" | "TRANSPORT_SUPPLIER";
 export type PaymentMethod = "CASH" | "CREDIT";
 
-export interface PageResult<T> { items: T[]; total: number; page: number; pageSize: number; totalPages?: number }
+export interface PageMeta { total: number; page: number; pageSize: number; totalPages: number }
+export interface PageResult<T> { items: T[]; meta: PageMeta }
 export interface ProductType { id: string; code: string; name: string; profitPercent: number; categories: ProductCategory[] }
 export interface ProductCategory { id: string; typeId: string; code: string; name: string }
 export interface Product {
@@ -42,9 +43,22 @@ export interface PricingCalculation { product:{id:string;code:string;fullName:st
 
 const query = (params: Record<string, unknown> = {}) => ({ params: Object.fromEntries(Object.entries(params).filter(([,v]) => v !== "" && v !== undefined && v !== null)) });
 
+/** Fetches every backend page while respecting PageQueryDto's hard limit of 100. */
+async function collectAll<T>(url:string,params:Record<string,unknown>={}):Promise<T[]> {
+  const first=await apiClient.get<PageResult<T>>(url,query({...params,page:1,limit:100}));
+  if(first.data.meta.totalPages<=1)return first.data.items;
+  const rest=await Promise.all(
+    Array.from({length:first.data.meta.totalPages-1},(_,index)=>
+      apiClient.get<PageResult<T>>(url,query({...params,page:index+2,limit:100})),
+    ),
+  );
+  return [first.data.items,...rest.map(response=>response.data.items)].flat();
+}
+
 export const commerceApi = {
   products: {
     list: (params:Record<string,unknown>={}) => apiClient.get<PageResult<Product>>("/products",query(params)),
+    all: (params:Record<string,unknown>={}) => collectAll<Product>("/products",params),
     get: (id:string) => apiClient.get<Product>(`/products/${id}`),
     types: () => apiClient.get<ProductType[]>("/product-types"),
     check: (data:Record<string,unknown>) => apiClient.post("/products/check",data),
@@ -58,6 +72,7 @@ export const commerceApi = {
   },
   suppliers: {
     list: (params:Record<string,unknown>={}) => apiClient.get<PageResult<Supplier>>("/suppliers",query(params)),
+    all: (params:Record<string,unknown>={}) => collectAll<Supplier>("/suppliers",params),
     get: (id:string) => apiClient.get<Supplier>(`/suppliers/${id}`),
     create: (data:Record<string,unknown>) => apiClient.post<Supplier>("/suppliers",data),
     update: (id:string,data:Record<string,unknown>) => apiClient.patch<Supplier>(`/suppliers/${id}`,data),

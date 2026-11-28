@@ -18,9 +18,9 @@ export default function PurchaseRequestsPage(){
   const {toasts,show}=useToast(); const [rows,setRows]=useState<PurchaseRequest[]>([]); const [products,setProducts]=useState<Product[]>([]);
   const [loading,setLoading]=useState(true); const [q,setQ]=useState(""); const [status,setStatus]=useState<PurchaseRequestStatus|"">("");
   const [createOpen,setCreateOpen]=useState(false); const [selected,setSelected]=useState<PurchaseRequest|null>(null);
-  const load=useCallback(async()=>{setLoading(true);try{const {data}=await commerceApi.requests.list({search:q,status,pageSize:100});setRows(data.items)}catch(e){show("error",errorMessage(e,"دریافت درخواست‌ها ناموفق بود"))}finally{setLoading(false)}},[q,status,show]);
+  const load=useCallback(async()=>{setLoading(true);try{const {data}=await commerceApi.requests.list({search:q,status,limit:100});setRows(data.items)}catch(e){show("error",errorMessage(e,"دریافت درخواست‌ها ناموفق بود"))}finally{setLoading(false)}},[q,status,show]);
   useEffect(()=>{const t=setTimeout(()=>void load(),250);return()=>clearTimeout(t)},[load]);
-  useEffect(()=>{if(canReadProducts) commerceApi.products.list({pageSize:500}).then(r=>setProducts(r.data.items)).catch(()=>{})},[canReadProducts]);
+  useEffect(()=>{if(canReadProducts) commerceApi.products.all().then(setProducts).catch(()=>{})},[canReadProducts]);
   const openDetail=async(id:string)=>{try{setSelected((await commerceApi.requests.get(id)).data)}catch(e){show("error",errorMessage(e))}};
   const act=async(kind:"approve"|"reject"|"cancel",note?:string)=>{if(!selected)return;try{if(kind==="approve")await commerceApi.requests.approve(selected.id,note);if(kind==="reject")await commerceApi.requests.reject(selected.id,note||"");if(kind==="cancel")await commerceApi.requests.cancel(selected.id);show("success","وضعیت درخواست به‌روزرسانی شد");setSelected(null);await load()}catch(e){show("error",errorMessage(e))}};
   return <><SectionHeader title="درخواست‌های خرید" description="هر کاربر درخواست‌های خود را می‌بیند؛ دارندگان دسترسی مشاهده، کل درخواست‌ها را بررسی می‌کنند." action={<button className={buttonPrimary} onClick={()=>setCreateOpen(true)} disabled={!canReadProducts} title={!canReadProducts?"برای انتخاب کالا، دسترسی مشاهده کالا لازم است":undefined}><Plus size={17}/>درخواست جدید</button>}/>
